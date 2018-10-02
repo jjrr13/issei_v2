@@ -56,6 +56,14 @@ include_once('../menu.php');
     padding: 10px;
   }
 
+  /*Solución a los colores pricipales del menu*/
+  .sidebar-dark-primary .nav-sidebar > .nav-item:hover > .nav-link {
+    color: #C2C7D0 !important;
+  }
+  .sidebar-dark-primary .sidebar a{
+    color: #C2C7D0 !important;
+  }
+
 </style>
 
 <script>

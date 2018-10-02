@@ -1,7 +1,7 @@
 <?php 
 	// session_start();
 	// $ip= $ipcasa="192.168.0.105";
-	$ip= $ipcu1="192.168.1.54";
+	$ip= $ipcu1="192.168.0.200";
 	// $ip= $ipsiessa="192.168.1.54";
 	
 	$puerto="8000";

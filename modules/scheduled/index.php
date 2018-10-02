@@ -266,9 +266,7 @@ include_once('../../functions/ruta.php');
     <footer class="main-footer">
       <strong>Copyright &copy; 2018 Computer Services.</strong>
       All rights reserved.
-      <div class="float-center d-none d-sm-inline-block">
-        <b style="text-align: center;">Desing By:</b> srJJ
-      </div><div class="float-right d-none d-sm-inline-block">
+      <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.2.0
       </div>
     </footer>
