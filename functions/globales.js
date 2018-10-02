@@ -63,7 +63,7 @@
                  action: function () {
               
                     localStorage.setItem('cita', null);
-                    window.location.replace('http://192.168.0.200/issei/cx/destroy_session.php');
+                    window.location.replace('http://192.168.1.54/issei/cx/destroy_session.php');
                 }
             },
             specialKey: {
