@@ -233,7 +233,15 @@ $tipo_area = $_SESSION['id_area'];
                 Radicacion
               </p>
             </a>
-          </li>   
+          </li>  
+          <li class="nav-item">
+            <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-danger"></i>
+              <p>
+                Liquidacion
+              </p>
+            </a>
+          </li>    
           <?php } ?>       
         </ul>
       </nav>
