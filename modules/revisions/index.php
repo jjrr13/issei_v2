@@ -110,7 +110,7 @@ include_once('../menu.php');
   </script>
 <div class="content-wrapper">
   <div class="content-header">  
-    <div class="container col-lg-10">
+    <div class="container col-lg-11">
       <!-- Nav pills -->
       <ul class="nav nav-pills" role="tablist">
         <li class="nav-item">
@@ -125,30 +125,38 @@ include_once('../menu.php');
         <li class="nav-item">
           <a class="nav-link" data-toggle="pill" href="#menu3">REVISIÓN ESTRUCTURAL</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" href="#menu4">ACTA OBSERVACIONES</a>
+        </li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <!-- Panel de Tipo de Licencia -->
+        <!-- Panel de Revisión Arquitectonica -->
         <div id="home" class="container tab-pane active"><br>
           <?php include_once('revision_arquitectonica.php'); ?>
         </div>
-        <!-- // Panel de Tipo de Licencia -->
-        <!-- Panel de Informacion del Predio -->
+        <!-- // Panel de Revisión Arquitectonica -->
+        <!-- Panel de Revisión Juridica -->
         <div id="menu1" class="container tab-pane fade"><br>
           <?php include_once('revision_juridica.php'); ?>
         </div>
-        <!-- // Panel de Informacion del Predio -->
-        <!-- Panel de Vecinos -->
+        <!-- // Panel de Revisión Juridica -->
+        <!-- Panel de Revisión Curador -->
         <div id="menu2" class="container tab-pane fade"><br>
           <?php include_once('revision_curador.php'); ?>
         </div>
-        <!-- // Panel de Vecinos -->
-        <!-- Panel de Titulares -->
+        <!-- // Panel de Revisión Curador -->
+        <!-- Panel de Revisión Estructural -->
         <div id="menu3" class="container tab-pane fade"><br>
           <?php include_once('revision_estructural.php'); ?>
         </div>
-        <!-- // Panel de Titulares -->
+        <!-- // Panel de Revisión Estructural -->
+        <!-- Panel de Acta de Observaciones -->
+        <div id="menu4" class="container tab-pane fade"><br>
+          <?php include_once('acta_observaciones.php'); ?>
+        </div>
+        <!-- // Panel de Acta de Observaciones -->
       </div>
     </div>
   </div>

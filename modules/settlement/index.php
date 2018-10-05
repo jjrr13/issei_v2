@@ -1728,14 +1728,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_4" type="text" id="vivienda_cant_4" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_4']; ?>" > 
+                        <input name="vivienda_cant_4" type="text" id="vivienda_cant_4" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_4']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="mitad_vivienda_4" type="checkbox" id="mitad_vivienda_4" value="1"  onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_4" type="text" id="vivienda_4" value="<?php $_POST['vivienda_4']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_4';" readonly  >
+                        <input name="vivienda_4" type="text" id="vivienda_4" value="<?php $_POST['vivienda_4']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_4';" readonly  >
                         <input name="cero_vivienda_4" type="checkbox" id="cero_vivienda_4" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_4" type="hidden" id="vivienda_total_4" value="<?php $_POST['vivienda_total_4']; ?>" >                      
                       </div>
@@ -1747,14 +1747,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_4" type="text" id="comercio_cant_4" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_4'];?>" size="15" >
+                        <input name="comercio_cant_4" type="text" id="comercio_cant_4" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_4'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="mitad_comercio_4" type="checkbox" id="mitad_comercio_4" value="1"  onclick="xajax_liquidacion(xajax.getFormValues('form1'))">
                       </div>
                       <div class="col-lg-2">
-                        <input name="comercio_4" type="text" id="comercio_4" value="<?php $_POST['comercio_4']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_4';" readonly >
+                        <input name="comercio_4" type="text" id="comercio_4" value="<?php $_POST['comercio_4']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_4';" readonly >
                         <input name="cero_comercio_4" type="checkbox" id="cero_comercio_4" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_4" type="hidden" id="comercio_total_4" value="<?php $_POST['comercio_total_4']; ?>" >                    
                       </div>
@@ -1766,14 +1766,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_4" type="text" id="industria_cant_4" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_4'];?>" size="15" />    
+                        <input name="industria_cant_4" type="text" id="industria_cant_4" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_4'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="mitad_industria_4" type="checkbox" id="mitad_industria_4" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                       </div>
                       <div class="col-lg-2">
-                        <input name="industria_4" type="text" id="industria_4" value="<?php $_POST['industria_4']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_4';" readonly >
+                        <input name="industria_4" type="text" id="industria_4" value="<?php $_POST['industria_4']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_4';" readonly >
                         <input name="cero_industria_4" type="checkbox" id="cero_industria_4" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_4" type="hidden" id="industria_total_4" value="<?php $_POST['industria_total_4']; ?>" >                 
                       </div>
@@ -1785,14 +1785,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_4" type="text" id="institucional_cant_4" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_4']; ?>" size="15" > 
+                        <input name="institucional_cant_4" type="text" id="institucional_cant_4" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_4']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="mitad_institucional_4" type="checkbox" id="mitad_institucional_4" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))">
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_4" type="text" id="institucional_4" value="<?php $_POST['institucional_4']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_4';" readonly >
+                        <input name="institucional_4" type="text" id="institucional_4" value="<?php $_POST['institucional_4']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_4';" readonly >
                         <input name="cero_institucional_4" type="checkbox" id="cero_institucional_4" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_4" type="hidden" id="institucional_total_4" value="<?php $_POST['institucional_total_4']; ?>" >                   
                       </div>
@@ -1834,14 +1834,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_1" type="text" id="vivienda_cant_1" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_1']; ?>" > 
+                        <input name="vivienda_cant_1" type="text" id="vivienda_cant_1" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_1']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="vivienda_VISD_1" type="checkbox" id="vivienda_VISD_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['vivienda_VISD_1']) echo "checked"; ?> > V.I.S
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_1" type="text" id="vivienda_1" value="<?php $_POST['vivienda_1']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_1';" readonly="readonly"  >
+                        <input name="vivienda_1" type="text" id="vivienda_1" value="<?php $_POST['vivienda_1']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_1';" readonly="readonly"  >
                         <input name="cero_vivienda_1" type="checkbox" id="cero_vivienda_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_1" type="hidden" id="vivienda_total_1" value="<?php $_POST['vivienda_total_1']; ?>" >                      
                       </div>
@@ -1853,12 +1853,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda VIS</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_vis_cant_1" type="text" id="vivienda_vis_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_vis_cant_1']; ?>" size="15" >
+                        <input name="vivienda_vis_cant_1" type="text" id="vivienda_vis_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_vis_cant_1']; ?>" size="10" >
                         <label>U/d</label>                      
                       </div>
                       <div class="col-lg-2  input-group"></div>
                       <div class="col-lg-2 form-check">
-                        <input name="vivienda_vis_1" type="text" id="vivienda_vis_1" value="<?php $_POST['vivienda_vis_1']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_vis_2';" readonly="readonly" >
+                        <input name="vivienda_vis_1" type="text" id="vivienda_vis_1" value="<?php $_POST['vivienda_vis_1']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_vis_2';" readonly="readonly" >
                         <input name="cero_vivienda_vis_1" type="checkbox" id="cero_vivienda_vis_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_vis_total_1" type="hidden" id="vivienda_vis_total_1" value="<?php $_POST['vivienda_vis_total_1']; ?>" >                  
                       </div>
@@ -1870,12 +1870,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_1" type="text" id="comercio_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_1'];?>" size="15" >
+                        <input name="comercio_cant_1" type="text" id="comercio_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_1'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2  input-group"></div>
                       <div class="col-lg-2 form-check">
-                        <input name="comercio_1" type="text" id="comercio_1" value="<?php $_POST['comercio_1']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_1';" readonly >
+                        <input name="comercio_1" type="text" id="comercio_1" value="<?php $_POST['comercio_1']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_1';" readonly >
                         <input name="cero_comercio_1" type="checkbox" id="cero_comercio_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_1" type="hidden" id="comercio_total_1" value="<?php $_POST['comercio_total_1']; ?>" >                    
                       </div>
@@ -1887,12 +1887,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_1" type="text" id="industria_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_1'];?>" size="15" />    
+                        <input name="industria_cant_1" type="text" id="industria_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_1'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2 input-group"></div>
                       <div class="col-lg-2 form-check">
-                        <input name="industria_1" type="text" id="industria_1" value="<?php $_POST['industria_1']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_1';" readonly >
+                        <input name="industria_1" type="text" id="industria_1" value="<?php $_POST['industria_1']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_1';" readonly >
                         <input name="cero_industria_1" type="checkbox" id="cero_industria_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_1" type="hidden" id="industria_total_1" value="<?php $_POST['industria_total_1']; ?>" >                 
                       </div>
@@ -1904,14 +1904,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_1" type="text" id="institucional_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_1']; ?>" size="15" > 
+                        <input name="institucional_cant_1" type="text" id="institucional_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_1']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="institucional_dot_1" type="checkbox" id="institucional_dot_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_1']) echo "checked"; ?> >DOT                
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_1" type="text" id="institucional_1" value="<?php $_POST['institucional_1']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_1';" readonly >
+                        <input name="institucional_1" type="text" id="institucional_1" value="<?php $_POST['institucional_1']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_1';" readonly >
                         <input name="cero_institucional_1" type="checkbox" id="cero_institucional_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_1" type="hidden" id="institucional_total_1" value="<?php $_POST['institucional_total_1']; ?>" >                   
                       </div>
@@ -1952,12 +1952,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_6" type="text" id="vivienda_cant_6" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_6']; ?>" > 
+                        <input name="vivienda_cant_6" type="text" id="vivienda_cant_6" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_6']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="vivienda_6" type="text" id="vivienda_6" value="<?php $_POST['vivienda_6']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_6';" readonly  >
+                        <input name="vivienda_6" type="text" id="vivienda_6" value="<?php $_POST['vivienda_6']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_6';" readonly  >
                         <input name="cero_vivienda_6" type="checkbox" id="cero_vivienda_6" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_6" type="hidden" id="vivienda_total_6" value="<?php $_POST['vivienda_total_6']; ?>" >                      
                       </div>
@@ -1969,12 +1969,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_6" type="text" id="comercio_cant_6" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_6'];?>" size="15" >
+                        <input name="comercio_cant_6" type="text" id="comercio_cant_6" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_6'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="comercio_6" type="text" id="comercio_6" value="<?php $_POST['comercio_6']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_6';" readonly >
+                        <input name="comercio_6" type="text" id="comercio_6" value="<?php $_POST['comercio_6']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_6';" readonly >
                         <input name="cero_comercio_6" type="checkbox" id="cero_comercio_6" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_6" type="hidden" id="comercio_total_6" value="<?php $_POST['comercio_total_6']; ?>" >                    
                       </div>
@@ -1986,12 +1986,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_6" type="text" id="industria_cant_6" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_6'];?>" size="15" />    
+                        <input name="industria_cant_6" type="text" id="industria_cant_6" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_6'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="industria_6" type="text" id="industria_6" value="<?php $_POST['industria_6']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_6';" readonly >
+                        <input name="industria_6" type="text" id="industria_6" value="<?php $_POST['industria_6']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_6';" readonly >
                         <input name="cero_industria_6" type="checkbox" id="cero_industria_6" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_6" type="hidden" id="industria_total_6" value="<?php $_POST['industria_total_6']; ?>" >                 
                       </div>
@@ -2003,14 +2003,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_6" type="text" id="institucional_cant_6" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_6']; ?>" size="15" > 
+                        <input name="institucional_cant_6" type="text" id="institucional_cant_6" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_6']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="institucional_dot_6" type="checkbox" id="institucional_dot_6" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_6']) echo "checked"; ?> >DOT                
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_6" type="text" id="institucional_6" value="<?php $_POST['institucional_6']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_6';" readonly >
+                        <input name="institucional_6" type="text" id="institucional_6" value="<?php $_POST['institucional_6']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_6';" readonly >
                         <input name="cero_institucional_6" type="checkbox" id="cero_institucional_6" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_6" type="hidden" id="institucional_total_6" value="<?php $_POST['institucional_total_6']; ?>" >                   
                       </div>
@@ -2052,14 +2052,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_2" type="text" id="vivienda_cant_2" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_2']; ?>" > 
+                        <input name="vivienda_cant_2" type="text" id="vivienda_cant_2" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_2']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="vivienda_VISD_2" type="checkbox" id="vivienda_VISD_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['vivienda_VISD_2']) echo "checked"; ?> > V.I.S
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_2" type="text" id="vivienda_2" value="<?php $_POST['vivienda_2']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_2';" readonly  >
+                        <input name="vivienda_2" type="text" id="vivienda_2" value="<?php $_POST['vivienda_2']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_2';" readonly  >
                         <input name="cero_vivienda_2" type="checkbox" id="cero_vivienda_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_2" type="hidden" id="vivienda_total_2" value="<?php $_POST['vivienda_total_2']; ?>" >                      
                       </div>
@@ -2071,12 +2071,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda VIS</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_vis_cant_2" type="text" id="vivienda_vis_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_vis_cant_2']; ?>" size="15" >
+                        <input name="vivienda_vis_cant_2" type="text" id="vivienda_vis_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_vis_cant_2']; ?>" size="10" >
                         <label>U/d</label>                      
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="vivienda_vis_2" type="text" id="vivienda_vis_2" value="<?php $_POST['vivienda_vis_2']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_vis_2';" readonly="readonly" >
+                        <input name="vivienda_vis_2" type="text" id="vivienda_vis_2" value="<?php $_POST['vivienda_vis_2']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_vis_2';" readonly="readonly" >
                         <input name="cero_vivienda_vis_2" type="checkbox" id="cero_vivienda_vis_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_vis_total_2" type="hidden" id="vivienda_vis_total_2" value="<?php $_POST['vivienda_vis_total_2']; ?>" >                  
                       </div>
@@ -2088,12 +2088,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_2" type="text" id="comercio_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_2'];?>" size="15" >
+                        <input name="comercio_cant_2" type="text" id="comercio_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_2'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="comercio_2" type="text" id="comercio_2" value="<?php $_POST['comercio_2']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_2';" readonly >
+                        <input name="comercio_2" type="text" id="comercio_2" value="<?php $_POST['comercio_2']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_2';" readonly >
                         <input name="cero_comercio_2" type="checkbox" id="cero_comercio_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_2" type="hidden" id="comercio_total_2" value="<?php $_POST['comercio_total_2']; ?>" >                    
                       </div>
@@ -2105,12 +2105,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_2" type="text" id="industria_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_2'];?>" size="15" />    
+                        <input name="industria_cant_2" type="text" id="industria_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_2'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="industria_2" type="text" id="industria_2" value="<?php $_POST['industria_2']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_2';" readonly >
+                        <input name="industria_2" type="text" id="industria_2" value="<?php $_POST['industria_2']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_2';" readonly >
                         <input name="cero_industria_2" type="checkbox" id="cero_industria_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_2" type="hidden" id="industria_total_2" value="<?php $_POST['industria_total_2']; ?>" >                 
                       </div>
@@ -2122,14 +2122,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_2" type="text" id="institucional_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_2']; ?>" size="15" > 
+                        <input name="institucional_cant_2" type="text" id="institucional_cant_2" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_2']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="institucional_dot_2" type="checkbox" id="institucional_dot_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_2']) echo "checked"; ?> >DOT                
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_2" type="text" id="institucional_2" value="<?php $_POST['institucional_2']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_2';" readonly >
+                        <input name="institucional_2" type="text" id="institucional_2" value="<?php $_POST['institucional_2']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_2';" readonly >
                         <input name="cero_institucional_2" type="checkbox" id="cero_institucional_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_2" type="hidden" id="institucional_total_2" value="<?php $_POST['institucional_total_2']; ?>" >                   
                       </div>
@@ -2171,14 +2171,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_3" type="text" id="vivienda_cant_3" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_3']; ?>" > 
+                        <input name="vivienda_cant_3" type="text" id="vivienda_cant_3" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_3']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="vivienda_VISD_3" type="checkbox" id="vivienda_VISD_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['vivienda_VISD_3']) echo "checked"; ?> > V.I.S
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_3" type="text" id="vivienda_3" value="<?php $_POST['vivienda_3']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_3';" readonly  >
+                        <input name="vivienda_3" type="text" id="vivienda_3" value="<?php $_POST['vivienda_3']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_3';" readonly  >
                         <input name="cero_vivienda_3" type="checkbox" id="cero_vivienda_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_3" type="hidden" id="vivienda_total_3" value="<?php $_POST['vivienda_total_3']; ?>" >                      
                       </div>
@@ -2190,12 +2190,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda VIS</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_vis_cant_3" type="text" id="vivienda_vis_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_vis_cant_3']; ?>" size="15" >
+                        <input name="vivienda_vis_cant_3" type="text" id="vivienda_vis_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_vis_cant_3']; ?>" size="10" >
                         <label>U/d</label>                      
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="vivienda_vis_3" type="text" id="vivienda_vis_3" value="<?php $_POST['vivienda_vis_3']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_vis_3';" readonly="readonly" >
+                        <input name="vivienda_vis_3" type="text" id="vivienda_vis_3" value="<?php $_POST['vivienda_vis_3']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_vis_3';" readonly="readonly" >
                         <input name="cero_vivienda_vis_3" type="checkbox" id="cero_vivienda_vis_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_vis_total_3" type="hidden" id="vivienda_vis_total_3" value="<?php $_POST['vivienda_vis_total_3']; ?>" >                  
                       </div>
@@ -2207,12 +2207,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_3" type="text" id="comercio_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_3'];?>" size="15" >
+                        <input name="comercio_cant_3" type="text" id="comercio_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_3'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="comercio_3" type="text" id="comercio_3" value="<?php $_POST['comercio_3']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_3';" readonly >
+                        <input name="comercio_3" type="text" id="comercio_3" value="<?php $_POST['comercio_3']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_3';" readonly >
                         <input name="cero_comercio_3" type="checkbox" id="cero_comercio_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_3" type="hidden" id="comercio_total_3" value="<?php $_POST['comercio_total_3']; ?>" >                    
                       </div>
@@ -2224,12 +2224,12 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_3" type="text" id="industria_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_3'];?>" size="15" />    
+                        <input name="industria_cant_3" type="text" id="industria_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_3'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="industria_3" type="text" id="industria_3" value="<?php $_POST['industria_3']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_3';" readonly >
+                        <input name="industria_3" type="text" id="industria_3" value="<?php $_POST['industria_3']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_3';" readonly >
                         <input name="cero_industria_3" type="checkbox" id="cero_industria_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_3" type="hidden" id="industria_total_3" value="<?php $_POST['industria_total_3']; ?>" >                 
                       </div>
@@ -2241,14 +2241,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_3" type="text" id="institucional_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_3']; ?>" size="15" > 
+                        <input name="institucional_cant_3" type="text" id="institucional_cant_3" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_3']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2 form-check">
                         <input name="institucional_dot_3" type="checkbox" id="institucional_dot_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_3']) echo "checked"; ?> >DOT                
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_3" type="text" id="institucional_3" value="<?php $_POST['institucional_3']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_3';" readonly >
+                        <input name="institucional_3" type="text" id="institucional_3" value="<?php $_POST['institucional_3']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_3';" readonly >
                         <input name="cero_institucional_3" type="checkbox" id="cero_institucional_3" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_3" type="hidden" id="institucional_total_3" value="<?php $_POST['institucional_total_3']; ?>" >                   
                       </div>
@@ -2294,18 +2294,18 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="vivienda_cant_10" type="text" id="vivienda_cant_10" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_10']; ?>" > 
+                        <input name="vivienda_cant_10" type="text" id="vivienda_cant_10" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_10']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="vivienda_metros_10" type="text" id="vivienda_metros_10" value="<?= $_POST['vivienda_metros_10']; ?>" size="13" readonly >
+                        <input name="vivienda_metros_10" type="text" id="vivienda_metros_10" value="<?= $_POST['vivienda_metros_10']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-1 form-check">
                         <input name="vivienda_VISD_10" type="checkbox" id="vivienda_VISD_10" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['vivienda_VISD_10']) echo "checked"; ?> > V.I.S
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_10" type="text" id="vivienda_10" value="<?php $_POST['vivienda_10']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_10';" readonly  >
+                        <input name="vivienda_10" type="text" id="vivienda_10" value="<?php $_POST['vivienda_10']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_10';" readonly  >
                         <input name="cero_vivienda_10" type="checkbox" id="cero_vivienda_10" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_10" type="hidden" id="vivienda_total_10" value="<?php $_POST['vivienda_total_10']; ?>" >                      
                       </div>
@@ -2317,16 +2317,16 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="comercio_cant_10" type="text" id="comercio_cant_10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_10'];?>" size="15" >
+                        <input name="comercio_cant_10" type="text" id="comercio_cant_10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_10'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2  input-group">
-                        <input name="comercio_metros_10" type="text" id="comercio_metros_10" value="<?= $_POST['comercio_metros_10']; ?>" size="13" readonly >
+                        <input name="comercio_metros_10" type="text" id="comercio_metros_10" value="<?= $_POST['comercio_metros_10']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>         
                       </div>
                       <div class="col-lg-1 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="comercio_10" type="text" id="comercio_10" value="<?php $_POST['comercio_10']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_10';" readonly >
+                        <input name="comercio_10" type="text" id="comercio_10" value="<?php $_POST['comercio_10']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_10';" readonly >
                         <input name="cero_comercio_10" type="checkbox" id="cero_comercio_10" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_10" type="hidden" id="comercio_total_10" value="<?php $_POST['comercio_total_10']; ?>" >                    
                       </div>
@@ -2338,16 +2338,16 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="industria_cant_10" type="text" id="industria_cant_10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_10'];?>" size="15">    
+                        <input name="industria_cant_10" type="text" id="industria_cant_10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_10'];?>" size="10">    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="industria_metros_10" type="text" id="industria_metros_10" value="<?= $_POST['industria_metros_10']; ?>" size="13"  readonly>
+                        <input name="industria_metros_10" type="text" id="industria_metros_10" value="<?= $_POST['industria_metros_10']; ?>" size="10"  readonly>
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-1 form-check"></div>
                       <div class="col-lg-2">
-                        <input name="industria_10" type="text" id="industria_10" value="<?php $_POST['industria_10']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_10';" readonly >
+                        <input name="industria_10" type="text" id="industria_10" value="<?php $_POST['industria_10']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_10';" readonly >
                         <input name="cero_industria_10" type="checkbox" id="cero_industria_10" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_10" type="hidden" id="industria_total_10" value="<?php $_POST['industria_total_10']; ?>" >                 
                       </div>
@@ -2359,18 +2359,18 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="institucional_cant_10" type="text" id="institucional_cant_10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_10']; ?>" size="15" > 
+                        <input name="institucional_cant_10" type="text" id="institucional_cant_10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_10']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2 input-group">
-                        <input name="institucional_metros_10" type="text" id="institucional_metros_10" value="<?= $_POST['institucional_metros_10']; ?>" size="13" readonly >
+                        <input name="institucional_metros_10" type="text" id="institucional_metros_10" value="<?= $_POST['institucional_metros_10']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-1 form-check">
                         <input name="institucional_dot_10" type="checkbox" id="institucional_dot_10" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_10']) echo "checked"; ?> >DOT                
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_10" type="text" id="institucional_10" value="<?php $_POST['institucional_10']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_10';" readonly >
+                        <input name="institucional_10" type="text" id="institucional_10" value="<?php $_POST['institucional_10']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_10';" readonly >
                         <input name="cero_institucional_10" type="checkbox" id="cero_institucional_10" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_10" type="hidden" id="institucional_total_10" value="<?php $_POST['institucional_total_10']; ?>" >                   
                       </div>
@@ -2416,15 +2416,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_7" type="text" id="vivienda_cant_7" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_7']; ?>" > 
+                        <input name="vivienda_cant_7" type="text" id="vivienda_cant_7" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_7']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_metros_7" type="text" id="vivienda_metros_7" value="<?= $_POST['vivienda_metros_7']; ?>" size="13" readonly >
+                        <input name="vivienda_metros_7" type="text" id="vivienda_metros_7" value="<?= $_POST['vivienda_metros_7']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_7" type="text" id="vivienda_7" value="<?php $_POST['vivienda_7']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_7';" readonly  >
+                        <input name="vivienda_7" type="text" id="vivienda_7" value="<?php $_POST['vivienda_7']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_7';" readonly  >
                         <input name="cero_vivienda_7" type="checkbox" id="cero_vivienda_7" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_7" type="hidden" id="vivienda_total_7" value="<?php $_POST['vivienda_total_7']; ?>" >                      
                       </div>
@@ -2436,15 +2436,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_7" type="text" id="comercio_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_7'];?>" size="15" >
+                        <input name="comercio_cant_7" type="text" id="comercio_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_7'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_metros_7" type="text" id="comercio_metros_7" value="<?= $_POST['comercio_metros_7']; ?>" size="13" readonly />
+                        <input name="comercio_metros_7" type="text" id="comercio_metros_7" value="<?= $_POST['comercio_metros_7']; ?>" size="10" readonly />
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2">
-                        <input name="comercio_7" type="text" id="comercio_7" value="<?php $_POST['comercio_7']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_7';" readonly >
+                        <input name="comercio_7" type="text" id="comercio_7" value="<?php $_POST['comercio_7']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_7';" readonly >
                         <input name="cero_comercio_7" type="checkbox" id="cero_comercio_7" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_7" type="hidden" id="comercio_total_7" value="<?php $_POST['comercio_total_7']; ?>" >                    
                       </div>
@@ -2456,15 +2456,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_7" type="text" id="industria_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_7'];?>" size="15" />    
+                        <input name="industria_cant_7" type="text" id="industria_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_7'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_metros_7" type="text" id="industria_metros_7" value="<?= $_POST['industria_metros_7']; ?>" size="13" readonly />
+                        <input name="industria_metros_7" type="text" id="industria_metros_7" value="<?= $_POST['industria_metros_7']; ?>" size="10" readonly />
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2">
-                        <input name="industria_7" type="text" id="industria_7" value="<?php $_POST['industria_7']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_7';" readonly >
+                        <input name="industria_7" type="text" id="industria_7" value="<?php $_POST['industria_7']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_7';" readonly >
                         <input name="cero_industria_7" type="checkbox" id="cero_industria_7" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_7" type="hidden" id="industria_total_7" value="<?php $_POST['industria_total_7']; ?>" >                 
                       </div>
@@ -2476,15 +2476,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_7" type="text" id="institucional_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_7']; ?>" size="15" > 
+                        <input name="institucional_cant_7" type="text" id="institucional_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_7']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_metros_7" type="text" id="institucional_metros_7" value="<?= $_POST['institucional_metros_7']; ?>" size="13" readonly >
+                        <input name="institucional_metros_7" type="text" id="institucional_metros_7" value="<?= $_POST['institucional_metros_7']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_7" type="text" id="institucional_7" value="<?php $_POST['institucional_7']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_7';" readonly >
+                        <input name="institucional_7" type="text" id="institucional_7" value="<?php $_POST['institucional_7']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_7';" readonly >
                         <input name="cero_institucional_7" type="checkbox" id="cero_institucional_7" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_7" type="hidden" id="institucional_total_7" value="<?php $_POST['institucional_total_7']; ?>" >                   
                       </div>
@@ -2530,15 +2530,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_5" type="text" id="vivienda_cant_5" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_5']; ?>" > 
+                        <input name="vivienda_cant_5" type="text" id="vivienda_cant_5" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_5']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_metros_5" type="text" id="vivienda_metros_5" value="<?= $_POST['vivienda_metros_5']; ?>" size="13" readonly>
+                        <input name="vivienda_metros_5" type="text" id="vivienda_metros_5" value="<?= $_POST['vivienda_metros_5']; ?>" size="10" readonly>
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_5" type="text" id="vivienda_5" value="<?php $_POST['vivienda_5']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_5';" readonly  >
+                        <input name="vivienda_5" type="text" id="vivienda_5" value="<?php $_POST['vivienda_5']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_5';" readonly  >
                         <input name="cero_vivienda_5" type="checkbox" id="cero_vivienda_5" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_5" type="hidden" id="vivienda_total_5" value="<?php $_POST['vivienda_total_5']; ?>" >                      
                       </div>
@@ -2550,15 +2550,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_5" type="text" id="comercio_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_5'];?>" size="15" >
+                        <input name="comercio_cant_5" type="text" id="comercio_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_5'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_metros_5" type="text" id="comercio_metros_5" value="<?= $_POST['comercio_metros_5']; ?>" size="13" readonly >
+                        <input name="comercio_metros_5" type="text" id="comercio_metros_5" value="<?= $_POST['comercio_metros_5']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2">
-                        <input name="comercio_5" type="text" id="comercio_5" value="<?php $_POST['comercio_5']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_5';" readonly >
+                        <input name="comercio_5" type="text" id="comercio_5" value="<?php $_POST['comercio_5']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_5';" readonly >
                         <input name="cero_comercio_5" type="checkbox" id="cero_comercio_5" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_5" type="hidden" id="comercio_total_5" value="<?php $_POST['comercio_total_5']; ?>" >                    
                       </div>
@@ -2570,15 +2570,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_5" type="text" id="industria_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_5'];?>" size="15">    
+                        <input name="industria_cant_5" type="text" id="industria_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_5'];?>" size="10">    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_metros_5" type="text" id="industria_metros_5" value="<?= $_POST['industria_metros_5']; ?>" size="13" readonly >
+                        <input name="industria_metros_5" type="text" id="industria_metros_5" value="<?= $_POST['industria_metros_5']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2">
-                        <input name="industria_5" type="text" id="industria_5" value="<?php $_POST['industria_5']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_5';" readonly >
+                        <input name="industria_5" type="text" id="industria_5" value="<?php $_POST['industria_5']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_5';" readonly >
                         <input name="cero_industria_5" type="checkbox" id="cero_industria_5" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_5" type="hidden" id="industria_total_5" value="<?php $_POST['industria_total_5']; ?>" >                 
                       </div>
@@ -2590,15 +2590,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_5" type="text" id="institucional_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_5']; ?>" size="15" > 
+                        <input name="institucional_cant_5" type="text" id="institucional_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_5']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_metros_5" type="text" id="institucional_metros_5" value="<?= $_POST['institucional_metros_5']; ?>" size="13" readonly >
+                        <input name="institucional_metros_5" type="text" id="institucional_metros_5" value="<?= $_POST['institucional_metros_5']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_5" type="text" id="institucional_5" value="<?php $_POST['institucional_5']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_5';" readonly >
+                        <input name="institucional_5" type="text" id="institucional_5" value="<?php $_POST['institucional_5']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_5';" readonly >
                         <input name="cero_institucional_5" type="checkbox" id="cero_institucional_5" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_5" type="hidden" id="institucional_total_5" value="<?php $_POST['institucional_total_5']; ?>" >                   
                       </div>
@@ -2643,15 +2643,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_9" type="text" id="vivienda_cant_9" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_9']; ?>" > 
+                        <input name="vivienda_cant_9" type="text" id="vivienda_cant_9" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_9']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_metros_9" type="text" id="vivienda_metros_9" value="<?= $_POST['vivienda_metros_9']; ?>" size="13" readonly>
+                        <input name="vivienda_metros_9" type="text" id="vivienda_metros_9" value="<?= $_POST['vivienda_metros_9']; ?>" size="10" readonly>
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_9" type="text" id="vivienda_9" value="<?php $_POST['vivienda_9']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_9';" readonly  >
+                        <input name="vivienda_9" type="text" id="vivienda_9" value="<?php $_POST['vivienda_9']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_9';" readonly  >
                         <input name="cero_vivienda_9" type="checkbox" id="cero_vivienda_9" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_9" type="hidden" id="vivienda_total_9" value="<?php $_POST['vivienda_total_9']; ?>" >                      
                       </div>
@@ -2663,15 +2663,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_9" type="text" id="comercio_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_9'];?>" size="15" >
+                        <input name="comercio_cant_9" type="text" id="comercio_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_9'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_metros_9" type="text" id="comercio_metros_9" value="<?= $_POST['comercio_metros_9']; ?>" size="13" readonly />
+                        <input name="comercio_metros_9" type="text" id="comercio_metros_9" value="<?= $_POST['comercio_metros_9']; ?>" size="10" readonly />
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2">
-                        <input name="comercio_9" type="text" id="comercio_9" value="<?php $_POST['comercio_9']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_9';" readonly >
+                        <input name="comercio_9" type="text" id="comercio_9" value="<?php $_POST['comercio_9']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_9';" readonly >
                         <input name="cero_comercio_9" type="checkbox" id="cero_comercio_9" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_9" type="hidden" id="comercio_total_9" value="<?php $_POST['comercio_total_9']; ?>" >                    
                       </div>
@@ -2683,15 +2683,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_9" type="text" id="industria_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_9'];?>" size="15" />    
+                        <input name="industria_cant_9" type="text" id="industria_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_9'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_metros_9" type="text" id="industria_metros_9" value="<?= $_POST['industria_metros_9']; ?>" size="13" readonly >
+                        <input name="industria_metros_9" type="text" id="industria_metros_9" value="<?= $_POST['industria_metros_9']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2">
-                        <input name="industria_9" type="text" id="industria_9" value="<?php $_POST['industria_9']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_9';" readonly >
+                        <input name="industria_9" type="text" id="industria_9" value="<?php $_POST['industria_9']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_9';" readonly >
                         <input name="cero_industria_9" type="checkbox" id="cero_industria_9" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_9" type="hidden" id="industria_total_9" value="<?php $_POST['industria_total_9']; ?>" >                 
                       </div>
@@ -2703,15 +2703,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_9" type="text" id="institucional_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_9']; ?>" size="15" > 
+                        <input name="institucional_cant_9" type="text" id="institucional_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_9']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_metros_9" type="text" id="institucional_metros_9" value="<?= $_POST['institucional_metros_9']; ?>" size="13" readonly>          
+                        <input name="institucional_metros_9" type="text" id="institucional_metros_9" value="<?= $_POST['institucional_metros_9']; ?>" size="10" readonly>          
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_9" type="text" id="institucional_9" value="<?php $_POST['institucional_9']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_9';" readonly >
+                        <input name="institucional_9" type="text" id="institucional_9" value="<?php $_POST['institucional_9']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_9';" readonly >
                         <input name="cero_institucional_9" type="checkbox" id="cero_institucional_9" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_9" type="hidden" id="institucional_total_9" value="<?php $_POST['institucional_total_9']; ?>" >                   
                       </div>
@@ -2765,15 +2765,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_8" type="text" id="vivienda_cant_8" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_8']; ?>" > 
+                        <input name="vivienda_cant_8" type="text" id="vivienda_cant_8" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_8']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_metros_8" type="text" id="vivienda_metros_8" value="<?= $_POST['vivienda_metros_8']; ?>" size="13" readonly >
+                        <input name="vivienda_metros_8" type="text" id="vivienda_metros_8" value="<?= $_POST['vivienda_metros_8']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2">
-                        <input name="vivienda_8" type="text" id="vivienda_8" value="<?php $_POST['vivienda_8']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_8';" readonly  >
+                        <input name="vivienda_8" type="text" id="vivienda_8" value="<?php $_POST['vivienda_8']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_8';" readonly  >
                         <input name="cero_vivienda_8" type="checkbox" id="cero_vivienda_8" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_8" type="hidden" id="vivienda_total_8" value="<?php $_POST['vivienda_total_8']; ?>" >                      
                       </div>
@@ -2785,15 +2785,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_8" type="text" id="comercio_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_8'];?>" size="15" >
+                        <input name="comercio_cant_8" type="text" id="comercio_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_8'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-3  input-group">
-                        <input name="comercio_metros_8" type="text" id="comercio_metros_8" value="<?= $_POST['comercio_metros_8']; ?>" size="13" readonly >
+                        <input name="comercio_metros_8" type="text" id="comercio_metros_8" value="<?= $_POST['comercio_metros_8']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2">
-                        <input name="comercio_8" type="text" id="comercio_8" value="<?php $_POST['comercio_8']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_8';" readonly >
+                        <input name="comercio_8" type="text" id="comercio_8" value="<?php $_POST['comercio_8']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_8';" readonly >
                         <input name="cero_comercio_8" type="checkbox" id="cero_comercio_8" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_8" type="hidden" id="comercio_total_8" value="<?php $_POST['comercio_total_8']; ?>" >                    
                       </div>
@@ -2805,15 +2805,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_8" type="text" id="industria_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_8'];?>" size="15" />    
+                        <input name="industria_cant_8" type="text" id="industria_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_8'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_metros_8" type="text" id="industria_metros_8" value="<?= $_POST['industria_metros_8']; ?>" size="13" readonly >
+                        <input name="industria_metros_8" type="text" id="industria_metros_8" value="<?= $_POST['industria_metros_8']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2">
-                        <input name="industria_8" type="text" id="industria_8" value="<?php $_POST['industria_8']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_8';" readonly >
+                        <input name="industria_8" type="text" id="industria_8" value="<?php $_POST['industria_8']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_8';" readonly >
                         <input name="cero_industria_8" type="checkbox" id="cero_industria_8" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_8" type="hidden" id="industria_total_8" value="<?php $_POST['industria_total_8']; ?>" >                 
                       </div>
@@ -2825,15 +2825,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_8" type="text" id="institucional_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_8']; ?>" size="15" > 
+                        <input name="institucional_cant_8" type="text" id="institucional_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_8']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-3">
-                        <input name="institucional_metros_8" type="text" id="institucional_metros_8" value="<?= $_POST['institucional_metros_8']; ?>" size="13" readonly >
+                        <input name="institucional_metros_8" type="text" id="institucional_metros_8" value="<?= $_POST['institucional_metros_8']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_8" type="text" id="institucional_8" value="<?php $_POST['institucional_8']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_8';" readonly >
+                        <input name="institucional_8" type="text" id="institucional_8" value="<?php $_POST['institucional_8']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_8';" readonly >
                         <input name="cero_institucional_8" type="checkbox" id="cero_institucional_8" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_8" type="hidden" id="institucional_total_8" value="<?php $_POST['institucional_total_8']; ?>" >                   
                       </div>
@@ -2879,15 +2879,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Vivienda</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_cant_11" type="text" id="vivienda_cant_11" size="15" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_11']; ?>" > 
+                        <input name="vivienda_cant_11" type="text" id="vivienda_cant_11" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_11']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="vivienda_metros_11" type="text" id="vivienda_metros_11" value="<?= $_POST['vivienda_metros_11']; ?>" size="13" readonly />
+                        <input name="vivienda_metros_11" type="text" id="vivienda_metros_11" value="<?= $_POST['vivienda_metros_11']; ?>" size="10" readonly />
                         <label for="">M<sup>2</sup></label>
                       </div>
                       <div class="col-lg-2 ">
-                        <input name="vivienda_11" type="text" id="vivienda_11" value="<?php $_POST['vivienda_11']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_11';" readonly  >
+                        <input name="vivienda_11" type="text" id="vivienda_11" value="<?php $_POST['vivienda_11']; ?>" size="10" onkeypress="document.form1.modificado.value='vivienda_11';" readonly  >
                         <input name="cero_vivienda_11" type="checkbox" id="cero_vivienda_11" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="vivienda_total_11" type="hidden" id="vivienda_total_11" value="<?php $_POST['vivienda_total_11']; ?>" >                      
                       </div>
@@ -2899,15 +2899,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Comercio</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_cant_11" type="text" id="comercio_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_11'];?>" size="15" >
+                        <input name="comercio_cant_11" type="text" id="comercio_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_11'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="comercio_metros_11" type="text" id="comercio_metros_11" value="<?= $_POST['comercio_metros_11']; ?>" size="13" readonly >
+                        <input name="comercio_metros_11" type="text" id="comercio_metros_11" value="<?= $_POST['comercio_metros_11']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>               
                       </div>
                       <div class="col-lg-2">
-                        <input name="comercio_11" type="text" id="comercio_11" value="<?php $_POST['comercio_11']; ?>" size="13" onkeypress="document.form1.modificado.value='comercio_11';" readonly >
+                        <input name="comercio_11" type="text" id="comercio_11" value="<?php $_POST['comercio_11']; ?>" size="10" onkeypress="document.form1.modificado.value='comercio_11';" readonly >
                         <input name="cero_comercio_11" type="checkbox" id="cero_comercio_11" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="comercio_total_11" type="hidden" id="comercio_total_11" value="<?php $_POST['comercio_total_11']; ?>" >                    
                       </div>
@@ -2919,15 +2919,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Industria</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_cant_11" type="text" id="industria_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_11'];?>" size="15" />    
+                        <input name="industria_cant_11" type="text" id="industria_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_11'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="industria_metros_11" type="text" id="industria_metros_11" value="<?= $_POST['industria_metros_11']; ?>" size="13" readonly >
+                        <input name="industria_metros_11" type="text" id="industria_metros_11" value="<?= $_POST['industria_metros_11']; ?>" size="10" readonly >
                         <label for="">M<sup>2</sup></label>                  
                       </div>
                       <div class="col-lg-2">
-                        <input name="industria_11" type="text" id="industria_11" value="<?php $_POST['industria_11']; ?>" size="13" onkeypress="document.form1.modificado.value='industria_11';" readonly >
+                        <input name="industria_11" type="text" id="industria_11" value="<?php $_POST['industria_11']; ?>" size="10" onkeypress="document.form1.modificado.value='industria_11';" readonly >
                         <input name="cero_industria_11" type="checkbox" id="cero_industria_11" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="industria_total_11" type="hidden" id="industria_total_11" value="<?php $_POST['industria_total_11']; ?>" >                 
                       </div>
@@ -2939,15 +2939,15 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Institucional </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_cant_11" type="text" id="institucional_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_11']; ?>" size="15" > 
+                        <input name="institucional_cant_11" type="text" id="institucional_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_11']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="institucional_metros_11" type="text" id="institucional_metros_11" value="<?= $_POST['institucional_metros_11']; ?>" size="13" readonly>
+                        <input name="institucional_metros_11" type="text" id="institucional_metros_11" value="<?= $_POST['institucional_metros_11']; ?>" size="10" readonly>
                         <label for="">M<sup>2</sup></label>                    
                       </div>
                       <div class="col-lg-2">
-                        <input name="institucional_11" type="text" id="institucional_11" value="<?php $_POST['institucional_11']; ?>" size="13" onkeypress="document.form1.modificado.value='institucional_11';" readonly >
+                        <input name="institucional_11" type="text" id="institucional_11" value="<?php $_POST['institucional_11']; ?>" size="10" onkeypress="document.form1.modificado.value='institucional_11';" readonly >
                         <input name="cero_institucional_11" type="checkbox" id="cero_institucional_11" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
                         <input name="institucional_total_11" type="hidden" id="institucional_total_11" value="<?php $_POST['institucional_total_11']; ?>" >                   
                       </div>
@@ -3022,7 +3022,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Aprobación Proyecto Urbano</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="apro" type="text" id="apro" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['apro']; ?>" size="15"/>
+                        <input name="apro" type="text" id="apro" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['apro']; ?>" size="10"/>
                         <label for="">M<sup>2</sup></label>
                         <input name="apro_total" type="hidden" id="apro_total" value="<?= $_POST['apro_total']; ?>" />
                       </div>
@@ -3042,7 +3042,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Movimiento Tierras/Piscinas </h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="movimiento_tierras" type="text" id="movimiento_tierras" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['movimiento_tierras']; ?>" size="15" />
+                        <input name="movimiento_tierras" type="text" id="movimiento_tierras" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['movimiento_tierras']; ?>" size="10" />
                         <label for="">M<sup>2</sup></label>
                         <input name="movimiento_tierras_total" type="hidden" id="movimiento_tierras_total" value="<?= $_POST['movimiento_tierras_total']; ?>" />
                       </div>
@@ -3062,7 +3062,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Propiedad horizontal</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="propiedad_horizontal" type="text" id="propiedad_horizontal" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['propiedad_horizontal']; ?>" size="15" >
+                        <input name="propiedad_horizontal" type="text" id="propiedad_horizontal" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['propiedad_horizontal']; ?>" size="10" >
                         <label for="">M<sup>2</sup></label>
                         <input name="propiedad_horizontal_total" type="hidden" id="propiedad_horizontal_total" value="<?= $_POST['propiedad_horizontal_total']; ?>">
                       </div>
@@ -3085,7 +3085,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Reloteos</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="reloteos" type="text" id="reloteos" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['reloteos']; ?>" size="15" />
+                        <input name="reloteos" type="text" id="reloteos" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['reloteos']; ?>" size="10" />
                         <label for="">M<sup>2</sup></label>
                         <input name="reloteos_total" type="hidden" id="reloteos_total" value="<?= $_POST['reloteos_total']; ?>" />
                       </div>
@@ -3108,7 +3108,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                         <h6>Sello de Planos</h6>
                       </div>
                       <div class="col-lg-3 input-group">
-                        <input name="copia_planos" type="text" id="copia_planos" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['copia_planos']; ?>" size="15" >
+                        <input name="copia_planos" type="text" id="copia_planos" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['copia_planos']; ?>" size="10" >
                         <label for="">U/d</label>
                         <input name="copia_planos_total" type="hidden" id="copia_planos_total" value="<?= $_POST['copia_planos_total']; ?>" >
                       </div>
