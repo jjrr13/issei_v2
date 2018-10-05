@@ -241,7 +241,15 @@ $tipo_area = $_SESSION['id_area'];
                 Liquidacion
               </p>
             </a>
-          </li>    
+          </li>   
+          <li class="nav-item">
+            <a href="<?php echo "$ruta"; ?>revisions/" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-danger"></i>
+              <p>
+                Revision Proyecto
+              </p>
+            </a>
+          </li>   
           <?php } ?>       
         </ul>
       </nav>
