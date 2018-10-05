@@ -120,10 +120,10 @@ include_once('../menu.php');
           <a class="nav-link" data-toggle="pill" href="#menu1">REVISIÓN JURIDICA</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" href="#menu2">REVISIÓN ESTRUCTURAL</a>
+          <a class="nav-link" data-toggle="pill" href="#menu2">REVISIÓN CURADOR</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" href="#menu3">REVISIÓN CURADOR</a>
+          <a class="nav-link" data-toggle="pill" href="#menu3">REVISIÓN ESTRUCTURAL</a>
         </li>
       </ul>
 
@@ -141,12 +141,12 @@ include_once('../menu.php');
         <!-- // Panel de Informacion del Predio -->
         <!-- Panel de Vecinos -->
         <div id="menu2" class="container tab-pane fade"><br>
-          <?php include_once('revision_estructural.php'); ?>
+          <?php include_once('revision_curador.php'); ?>
         </div>
         <!-- // Panel de Vecinos -->
         <!-- Panel de Titulares -->
         <div id="menu3" class="container tab-pane fade"><br>
-          <?php include_once('revision_curador.php'); ?>
+          <?php include_once('revision_estructural.php'); ?>
         </div>
         <!-- // Panel de Titulares -->
       </div>
