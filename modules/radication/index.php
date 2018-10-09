@@ -8,20 +8,21 @@ include_once('../menu.php');
   <meta charset="utf-8">
 
 <style>
+
   .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   color: #fff;
-  background-color: #dc3545!important;
+  background-color: #dc3545 !important;
   }
 
   a {
-  color: black!important;
+  color: black !important;
   text-decoration: none;
   background-color: transparent;
   background: #f4f6f9;
   -webkit-text-decoration-skip: objects;
   }
   a:hover.active{
-    color: #f4f6f9!important;
+    color: #f4f6f9 !important;
   }
     
   input[id^="spoiler"] + label {
