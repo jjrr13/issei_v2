@@ -1,2 +1,2 @@
-# isse
-software curaduria
+# issei_v2
+Ramificacion para David

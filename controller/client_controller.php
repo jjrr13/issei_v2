@@ -59,7 +59,8 @@ $dv_bd = calcularDV($_POST['nit']);
 		!empty($_SESSION['id_usuario'])
 
 	){
-	 echo "<script>alert('". $_POST['nit'] ." / ". $_POST['tdocumento']." / ". $_POST['nombre']." / ". $_POST['apellido']." / ". $_POST['ciudad']." / ". $_POST['direccion']." / ".$_POST['barrio']." / ".$_POST['otro']." / ".$_POST['estrato']." / ".$_SESSION['id_usuario']." / $fecha_registro ')</script>";
+
+		// echo "<script>alert('". $_POST['nit'] ." / ". $_POST['tdocumento']." / ". $_POST['nombre']." / ". $_POST['apellido']." / ". $_POST['ciudad']." / ". $_POST['direccion']." / ".$_POST['barrio']." / ".$_POST['otro']." / ".$_POST['estrato']." / ".$_SESSION['id_usuario']." / $fecha_registro ')</script>";
 
 /////////////////////////// consulta si existe el cliente ///////////////////////////////////////
 		$nit = $_POST['nit'];

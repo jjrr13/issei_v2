@@ -27,12 +27,15 @@ include ('../menu.php');
   <title>ISSEI</title>
   <!-- Requeridos -->
   <style type="text/css">
-  
-  .requerido{
-    color: #dc3545;
-    display: inline;
-  }
 
+    .requerido{
+      color: #dc3545;
+      display: inline;
+    }
+    /*Soluciona Problema de barra inferior del div principal*/
+    .card-footer {
+      padding: .75rem .1rem !important;
+    }
   </style>
 
  <!-- Closing session by inactivity function -->

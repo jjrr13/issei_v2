@@ -10,6 +10,7 @@
 		 	 (isset($_POST['obs']) && !empty($_POST['obs']) ) ) {
 	
 			$obs = $_POST['obs'];
+
 			$hora = date('H:i:s');
 			$estado = $_POST['estado'];
 			$id_agendamiento = $_POST['cita'];

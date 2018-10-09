@@ -5,6 +5,7 @@ if(file_exists("../cx/cx.php")){
   $dir="../";
   $ruta="";
 }elseif(file_exists("../../cx/cx.php")){
+
   $dir="../../";
   $ruta="../";
 }
@@ -234,13 +235,13 @@ $tipo_area = $_SESSION['id_area'];
                 Radicacion
               </p>
             </a>
-
           </li>  
 
           <?php } 
 
           if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
           ?>
+
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
@@ -258,12 +259,19 @@ $tipo_area = $_SESSION['id_area'];
             <a href="<?php echo "$ruta"; ?>tracing/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Hola de Ruta
+                Hoja de Ruta
               </p>
             </a>
-
           </li>   
-          <?php } ?>      
+          <li class="nav-item">
+            <a href="<?php echo "$ruta"; ?>revisions/" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-danger"></i>
+              <p>
+                Revision Proyecto
+              </p>
+            </a>
+          </li>   
+          <?php } ?>       
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -283,7 +291,6 @@ $tipo_area = $_SESSION['id_area'];
 
 <!-- Bootstrap 4 -->
 <script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
-
   
 </body>
 </html>

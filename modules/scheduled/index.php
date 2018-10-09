@@ -15,6 +15,7 @@ include_once('../../functions/ruta.php');
   $_SESSION['id_tipo_usuario']; 
   $_SESSION['id_area'];
 
+
   //If the variable does not exist, destroy the session
   if (empty($_SESSION['id_usuario'])) {
        header("location: ../../cx/destroy_session.php");
@@ -35,7 +36,6 @@ include_once('../../functions/ruta.php');
               END)
           ELSE a.nro_radicado
         END as numero, a.hora, ae.estado, t.nit
-                                          
         FROM agendamiento a, terceros t, agendamiento_estado ae, consultas c 
         WHERE a.nit = t.nit AND a.id_estado = ae.id_estado AND a.id_consulta = c.id_consulta AND ae.id_estado = 1 AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
         
@@ -65,7 +65,6 @@ include_once('../../functions/ruta.php');
   <script src='../../functions/jquery-1.7.2.min.js'></script>
   <script src="../../functions/fancywebsocket.js"></script>
   <script src="../../plugins/colorbox/jquery.colorbox.js"></script>
-
 
   <link rel='stylesheet' href='../../cx/demo/demo.css'>
   <link rel='stylesheet' type='text/css' href='../../cx/jquery-confirm.css'>
@@ -233,6 +232,7 @@ include_once('../../functions/ruta.php');
                 do { ?>
                   <tr>
                     <td style="display: none;"><?php print_r($result2['nit']); ?></td>
+
                     <td width="35%"><?php print_r($result2['cliente']); ?></td>
                     <td width="25%"><?php print_r($result2['consulta']); ?></td>
                     <td width="15%"><?php print_r($result2['numero']); ?></td>
@@ -270,7 +270,8 @@ include_once('../../functions/ruta.php');
       <div class="float-center d-none d-sm-inline-block">
         <b style="text-align: center;">Desing By:</b> srJJ
       </div><div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.2.0
+
+        <b>Version</b> 1.2.3
       </div>
     </footer>
 

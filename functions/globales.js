@@ -6,7 +6,7 @@
     time = setTimeout(function() { 
         $(document).ready(function(e) {
         alert("Sesion Caducada");
-        document.location.href='../cx/destroy_session.php';  
+        document.location.href='../../cx/destroy_session.php';  
       });
     },5400000);//fin timeout 20 minutes
   }//fin inicio
@@ -43,7 +43,6 @@
   }
 
 
-  
     $('#cerrar').on('click', function(){
       // alert('entro al eventro');
       $.confirm({
@@ -103,4 +102,5 @@
           }
       });
     }
+
 </script>
