@@ -1,0 +1,208 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: maiandra gd;
+	font-size: 15px;
+}
+
+h1{
+	font: bold;
+	font-size: 70px;
+	text-align: center;
+	color: #ffffff;
+}
+
+a:active{
+	color: #ffffff;
+}
+
+a:link{
+	color: #ffffff;
+	
+}
+
+a:visited{
+	color: #ffffff;
+}
+
+.enlace-slinea:link{
+	text-decoration:none;
+}
+
+.encabezado{
+	align-self: center;
+	align-content: center;
+	background-color: #215a9a;
+	width: 100%;
+	height: 110px;
+}
+
+table#a{
+	border: 1px;
+	border-top-color: #000000;
+}
+table#b{
+	border: 1px;
+	border-top-color: #000000;
+	
+}
+
+.centrar{
+	margin-left: 45%;
+	margin-right: 45%;
+}
+
+.centrar-contenido{
+	margin-left: 22%;
+}
+
+.centrar-cont-md{
+	margin-left: 33%;
+}
+
+.right{
+	margin-left: 90%;
+}
+
+.alto{
+	height: 80px;
+	
+}
+
+.alto-medio{
+	height: 40px;
+}
+
+.alto-bajo{
+	height: 20px;
+}
+
+.alto-sm{
+	height: 10px;
+}
+
+header{
+	color: #ffffff;
+	background: #2c3e50;
+	height: 90px;
+}
+
+.main{
+	background: #f2f2f2;
+}
+
+
+.color1{
+	color: #ffffff;
+	background: #34495e;
+}
+
+aside{
+	color: #ffffff;
+	background: #c0392b;
+}
+
+footer{
+	color: #ffffff;
+	background: #16a085;
+}
+
+.fondo{
+	background: #215A9A;
+	border-radius: 30px;
+}
+
+.text{
+	text-align: center;
+}
+
+.text-blanco{
+	color: #ffffff;
+}
+
+.text-blanco-center{
+	color: #ffffff;
+	text-align: center; 
+}
+
+.xs{
+	width: 30%;
+	min-width: 300px;
+	max-width: 30%;
+	height: 60%;
+	min-height: 300px;
+	max-height: 60%;
+	margin-top: 2%;
+}
+
+.xm{
+	width:55%;
+	min-width: 300px;
+	max-width: 55%;
+	height: 60%;
+	min-height: 300px;
+	max-height: 60%;
+	margin-top: 2%;
+}
+
+.xl{
+	width:60%;
+	min-width: 300px;
+	max-width: 60%;
+	height: 60%;
+	min-height: 300px;
+	max-height: 60%;
+	margin-top: 2%;
+}
+
+.espacio-md{
+	
+}
+
+.search{
+	width:15px;
+	height:15px;
+	color: #FDFDFD;
+	background-image: url(../icons/icons2/lib/svg/search.svg);
+	float:left;
+}
+
+.input{
+	height: 30px;
+
+}
+
+
+
+
+/*css nuevo, pricipalmente desarrollado para el nuevo login*/
+
+.body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: rgb(235, 235, 235);
+}
+
+body {
+  background-color: rgb(235, 235, 235);
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
