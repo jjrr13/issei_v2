@@ -1,10 +1,11 @@
 <?php 
 $dir="../..";
 $ruta="../";
-if (file_exists("../cx/cx.php")){
+if(file_exists("../cx/cx.php")){
   $dir="../";
   $ruta="";
-} elseif (file_exists("../../cx/cx.php")){
+}elseif(file_exists("../../cx/cx.php")){
+
   $dir="../../";
   $ruta="../";
 }
@@ -18,7 +19,7 @@ if (file_exists("../cx/cx.php")){
 
   //If the variable does not exist, destroy the session
   if (empty($_SESSION['id_usuario'])) {
-      header("location: ".$ruta."cx/destroy_session.php");
+      header("location: ".$dir."cx/destroy_session.php");
     }
 
 
@@ -222,6 +223,7 @@ $tipo_area = $_SESSION['id_area'];
               </p>
             </a>
           </li>
+
          <?php }
 
          if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
@@ -234,11 +236,30 @@ $tipo_area = $_SESSION['id_area'];
               </p>
             </a>
           </li>  
+
+          <?php } 
+
+          if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
+          ?>
+
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Liquidacion
+                Pre-Liquidacion
+              </p>
+            </a>
+
+          </li>   
+          <?php } 
+
+          if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
+          ?>
+          <li class="nav-item">
+            <a href="<?php echo "$ruta"; ?>tracing/" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-danger"></i>
+              <p>
+                Hoja de Ruta
               </p>
             </a>
           </li>   
@@ -261,17 +282,15 @@ $tipo_area = $_SESSION['id_area'];
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="<?php echo $dir; ?>plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
-
 <!-- funciones de tiempo y de cierre de session -->
   <?php include_once ($dir.'functions/globales.js'); ?>
+<!-- jQuery UI 1.11.4 -->
+
+<!-- <script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script> -->
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Bootstrap 4 -->
+<script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
   
 </body>
 </html>

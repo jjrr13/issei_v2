@@ -35,50 +35,6 @@ include ('../menu.php');
 
   </style>
 
- <!-- Closing session by inactivity function -->
- <script type="text/javascript">
-  var time;
-  function inicio() { 
-    console.log("Paso por Inicio");
-    time = setTimeout(function() { 
-        $(document).ready(function(e) {
-        alert("Sesion Caducada");
-        document.location.href='../../cx/destroy_session.php';  
-      });
-    },5400000);//fin timeout 20 minutes
-  }//fin inicio
-   
-  function reset() {
-    console.log("Esta por Reset");
-    clearTimeout(time);//limpia el timeout para resetear el tiempo desde cero 
-    time = setTimeout(function() { 
-      $(document).ready(function(e) {
-        alert("Sesion Caducada");
-        document.location.href='../../cx/destroy_session.php';  
-      });
-    },5400000);//fin timeout 20 minutes
-  }//fin reset
-
-  //Funcion que cambia todo lo ingresado a mayuscula
-  function letras(campo){
-    campo.value=campo.value.toUpperCase();
-  }
-
-  //Funcion que validad el ingreso de solo numeros
-  function ValidNum(e){
-    tecla = (document.all) ? e.keyCode : e.which;
-
-    //Tecla de retroceso para borrar, siempre la permite
-    if (tecla==8){
-        return true;
-    }
-        
-    // Patron de entrada, en este caso solo acepta numeros
-    patron =/[0-9]/;
-    tecla_final = String.fromCharCode(tecla);
-    return patron.test(tecla_final);
-  }
-  </script> 
 </head>
 <body class="hold-transition sidebar-mini" onload="inicio()" onkeypress="reset()" onclick="reset()" onmousemove="reset()" >
   <!-- Content Wrapper. Contains page content -->

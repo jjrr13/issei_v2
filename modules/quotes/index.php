@@ -26,6 +26,7 @@ include_once ("../../cx/cx.php");
   <script src="../../functions/fancywebsocket.js"></script>
 
   <style>
+
     table {
       border: 1px solid #000;
       border-collapse: collapse;
@@ -81,6 +82,7 @@ include_once ("../../cx/cx.php");
         default:
           $('#LISTA').attr('style','color: red');
       }
+
     }
 
     function CambiarColor(){
@@ -465,7 +467,7 @@ include_once ("../../cx/cx.php");
     <strong>Copyright &copy; 2018 Computer Services.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.2.0
+      <b>Version</b> 1.2.3
     </div>
   </footer>
   <!-- /.control-sidebar -->

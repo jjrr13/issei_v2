@@ -38,6 +38,7 @@ function estados($estado)
 <!DOCTYPE html>
 <html>
 <head>
+
  <title>ISSEI</title>
  <script src='../../functions/jquery-1.7.2.min.js'></script>
 

@@ -14,7 +14,6 @@ include_once $dir."cx/cx.php";
 
 <script>
 $(document).ready(function() {
-  $('.js-example-basic-single').select2({ dropdownParent: $('.js-example-basic-single').parent()} );
 
    $(".inline").colorbox({
         inline:true, width:"80%",  overlayClose:false,  speed:1000,

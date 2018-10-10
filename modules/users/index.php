@@ -27,7 +27,7 @@ include ('../menu.php');
   <title>ISSEI</title>
   <!-- Requeridos -->
   <style type="text/css">
-  
+
     .requerido{
       color: #dc3545;
       display: inline;

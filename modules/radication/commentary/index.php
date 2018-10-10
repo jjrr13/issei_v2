@@ -3,45 +3,32 @@ if(file_exists("../../cx/cx.php")){
   $dir="../../";
   $ruta="../";
 }
-include_once $dir."cx/cx.php";
- 
-$_SESSION['fechaactual'];
-$_SESSION['id_usuario']; // id de usuario.
-$_SESSION['id_tipo_usuario']; 
-$_SESSION['id_area'];
-
-include ('../menu.php');
+// include_once $dir."cx/cx.php";
+// include_once $dir."functions/globales.js";
 ?>
-<!DOCTYPE html>
-<html>
+ <script language="javascript">
+    //var opciones = document.getElementsByName("barrio"),
+    $("#barrio").on('change', function(){
+      var estado = ($("#barrio").val() == "487") ? true : false;
+      if (estado) {
+       $('#selectestado').removeAttr("hidden").focus();
+      }
+      else{
+       $('#selectestado').attr("hidden", "hidden");
+      }
+      
+    });
+    
+  </script>
 
-<head>
- 
-  <title>CLIENTE</title>
 
-  <style type="text/css">
 
-    .requerido{
-      color: #dc3545;
-      display: inline;
-    }
-
-    /*Soluciona Problema de barra inferior del div principal*/
-    .card-footer {
-      padding: .75rem .1rem !important;
-    }
-  </style>
-
-  <noscript>
-    <meta http-equiv="Refresh" content="0;URL=http://localhost/issei/cx/destroy_session.php">
-  </noscript>
 <script type="text/javascript">
   $(document).ready(function() {
       $('.js-example-basic-single').select2();
   });
 </script>
-</head>
-<body class="hold-transition sidebar-mini">
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -59,6 +46,7 @@ include ('../menu.php');
                   <div class="col-lg-6  input-group">
                     <label for="tdocumento" class="col-form-label col-lg-4 ">Tipo <p class="requerido">*</p></label>
                     <select class="form-control col-lg-8" id="tdocumento" name="tdocumento" >
+                      <option value="">TIPO DOCUMENTO</option>
                       <?php 
                       $query = $mysqli -> query ("SELECT * FROM tipo_doc ORDER BY tipo_documento ASC");
                             while ($valores = mysqli_fetch_array($query)) {
@@ -122,6 +110,7 @@ include ('../menu.php');
                   <div class="col-lg-5  input-group">
                     <label for="estrato" class="col-form-label col-lg-4 ">Estrato <p class="requerido">*</p></label>
                     <select class="form-control" id="estrato" name="estrato" >
+                              <option value="">SELECCIONAR</option>
                               <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
@@ -183,57 +172,13 @@ include ('../menu.php');
       <strong>Copyright &copy; 2018 Computer Services.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.2.1
+        <b>Version</b> 1.2.0
       </div>
     </footer>
-  <!-- /.control-sidebar -->
-
-  <script language="javascript">
-    //var opciones = document.getElementsByName("barrio"),
-    $("#barrio").on('change', function(){
-      var estado = $("#barrio").val() == "487" ? true : false;
-      if (estado) {
-       $('#selectestado').removeAttr("hidden").focus();
-      }
-      else{
-       $('#selectestado').attr("hidden", "hidden");
-      }
-    });
-  </script>
-
-  <script language="javascript">
-    function CambiarFormulario(){
-        switch(document.forms[0].LISTA.selectedIndex){
-            case 0: 
-                document.getElementById('Texto1').style.display='none';
-                document.getElementById('Texto2').style.display='none';
-                break;
-            case 1: 
-                document.getElementById('Texto1').style.display='block';
-                document.getElementById('Texto2').style.display='none';
-                break;
-            case 2: 
-                document.getElementById('Texto1').style.display='none';
-                document.getElementById('Texto2').style.display='none';
-                break;
-            case 3: 
-                document.getElementById('Texto1').style.display='block';
-                document.getElementById('Texto2').style.display='none';
-                break;
-            case 4: 
-                document.getElementById('Texto1').style.display='none';
-                document.getElementById('Texto2').style.display='block';
-                break;
-        }
-    }
-    </script>
-
-<link href="../../plugins/select2/select2.min.css" rel="stylesheet" />
-<script src="../../plugins/select2/select2.min.js"></script>
-</body>
-</html>
-
-
+    
+  <!-- jQuery -->
+  <!-- <script src="../../plugins/jquery/jquery.min.js"></script> -->
+ 
 
 
  

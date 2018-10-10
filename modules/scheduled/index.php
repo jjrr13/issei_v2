@@ -5,12 +5,16 @@ if(file_exists("../../cx/cx.php")){
 }
   include_once ("../../cx/cx.php");
 
+include('../menu.php');
+include_once('../../functions/globales.js');
+include_once('../../functions/ruta.php');
    // scripts($dir);
 
   $_SESSION['fechaactual'];
-	$_SESSION['id_usuario']; // id de usuario.
-	$_SESSION['id_tipo_usuario']; 
-	$_SESSION['id_area'];
+  $_SESSION['id_usuario']; // id de usuario.
+  $_SESSION['id_tipo_usuario']; 
+  $_SESSION['id_area'];
+
 
   //If the variable does not exist, destroy the session
   if (empty($_SESSION['id_usuario'])) {
@@ -31,8 +35,7 @@ if(file_exists("../../cx/cx.php")){
                 ELSE a.nro_solicitud 
               END)
           ELSE a.nro_radicado
-        END as numero, a.hora, ae.estado
-                                          
+        END as numero, a.hora, ae.estado, t.nit
         FROM agendamiento a, terceros t, agendamiento_estado ae, consultas c 
         WHERE a.nit = t.nit AND a.id_estado = ae.id_estado AND a.id_consulta = c.id_consulta AND ae.id_estado = 1 AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
         
@@ -44,9 +47,6 @@ if(file_exists("../../cx/cx.php")){
     $rows = $result->num_rows;
   
   }
-include('../menu.php');
-include_once('../../functions/globales.js');
-include_once('../../functions/ruta.php');
 
 ?>
 
@@ -174,7 +174,7 @@ include_once('../../functions/ruta.php');
             });
             // alert(valores[0]);
 
-            $('#cita').val(valores[0]);
+            $('#nit').val(valores[0]);
             $('#nombre').val(valores[1]);
             $('#mconsulta').val(valores[2]);
             $('#nroradicado').val(valores[3]);
@@ -217,7 +217,7 @@ include_once('../../functions/ruta.php');
           <table  id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
-                <th style="display: none; padding: ">Agendamiento</th>
+                <th style="display: none; ">Nit Agendado</th>
                 <th>Cliente</th>
                 <th>Motivo Consulta</th>
                 <th>Numero</th>
@@ -231,7 +231,8 @@ include_once('../../functions/ruta.php');
                 $primera=0;
                 do { ?>
                   <tr>
-                    <td style="display: none; padding: "><?php print_r($result2['id_agendamiento']); ?></td>
+                    <td style="display: none;"><?php print_r($result2['nit']); ?></td>
+
                     <td width="35%"><?php print_r($result2['cliente']); ?></td>
                     <td width="25%"><?php print_r($result2['consulta']); ?></td>
                     <td width="15%"><?php print_r($result2['numero']); ?></td>
@@ -266,8 +267,11 @@ include_once('../../functions/ruta.php');
     <footer class="main-footer">
       <strong>Copyright &copy; 2018 Computer Services.</strong>
       All rights reserved.
-      <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.2.0
+      <div class="float-center d-none d-sm-inline-block">
+        <b style="text-align: center;">Desing By:</b> srJJ
+      </div><div class="float-right d-none d-sm-inline-block">
+
+        <b>Version</b> 1.2.3
       </div>
     </footer>
 
