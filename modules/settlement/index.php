@@ -484,7 +484,6 @@ if (!$_SESSION['SALARIO_MIN']) {
         $objResponse->addAssign("movimiento_tierras_total", "value", $base * $result['valor']);
       } 
       
-      
       //aprobacion
       if(!empty($formulario['apro'])){
         $a = 10;
@@ -534,28 +533,33 @@ if (!$_SESSION['SALARIO_MIN']) {
         $subtotal += $_SESSION['SALARIO_MIN'];
         $objResponse->addAssign("subdivision_total", "value", $_SESSION['SALARIO_MIN']);
       }
+
       //suma el valor de la prorroga (si aplica)
       if($formulario['prorroga'] == 1){
         $subtotal += $_SESSION['SALARIO_MIN'];
         $objResponse->addAssign("prorroga_total", "value", $_SESSION['SALARIO_MIN']);
       }
+
       //suma el valor de la prorroga vis (si aplica)
       if($formulario['prorroga_vis'] == 1){
         $prorroga_vis = $_SESSION['SALARIO_MIN_DIA'] * 2;
         $subtotal += $prorroga_vis;
         $objResponse->addAssign("prorroga_vis_total", "value", $prorroga_vis);
       }
+
       //suma el valor de la revalidacion (si aplica)
       if($formulario['revalidacion'] == 1){
         $subtotal += $_SESSION['SALARIO_MIN'];
         $objResponse->addAssign("revalidacion_total", "value", $_SESSION['SALARIO_MIN']);
       }
+
       //suma el valor de la revalidacion V.I.S (si aplica)
       if($formulario['revalidacion_vis'] == 1){
         $revalida_vis = $_SESSION['SALARIO_MIN_DIA'] * 2;
         $subtotal += $revalida_vis;
         $objResponse->addAssign("revalidacion_vis_total", "value", $revalida_vis);
       }
+
       //suma el valor de la modificacion de los planos urbanisticos
       if($formulario['mod'] == 1){
         $subtotal += $_SESSION['SALARIO_MIN'];
@@ -1152,8 +1156,6 @@ if (!$_SESSION['SALARIO_MIN']) {
     $labels[0]['PROYECTO']            = strtoupper($_POST['proyecto']); 
     $labels[0]['DESCRIPCION']         = strtoupper($_POST['descripcion']);
     
-    
-     
   //   $cont_c = 1;
 
     $tipob = array('vivienda', 'vivienda_vis', 'comercio', 'industria', 'institucional'); 
@@ -1228,6 +1230,7 @@ if (!$_SESSION['SALARIO_MIN']) {
       $expensas += $_POST['propiedad_horizontal_total'];
       $cont_c++;
     }
+
     //reloteos
     if(trim($_POST['reloteos']) != ''){
       $labels[0]['C'.$cont_c] = "Proyecto de Reloteo";
@@ -1237,6 +1240,7 @@ if (!$_SESSION['SALARIO_MIN']) {
       $expensas += $_POST['reloteos_total'];
       $cont_c++;
     }
+
     //movimiento de tierras
     if(trim($_POST['movimiento_tierras']) != ''){
       $labels[0]['C'.$cont_c] = "Movimiento de Tierras";
@@ -1247,7 +1251,7 @@ if (!$_SESSION['SALARIO_MIN']) {
       $cont_c++;
     }
     
-        //aprobacion
+    //aprobacion
     if(trim($_POST['apro']) != ''){
       $labels[0]['C'.$cont_c] = "Aprobación Proyecto Urbanístico";
       $labels[0]['CF'.$cont_c] = "$ 0";
@@ -1266,6 +1270,7 @@ if (!$_SESSION['SALARIO_MIN']) {
       $expensas += $_POST['copia_planos_total'];
       $cont_c++;
     }
+
     //concepto
     if(isset($_POST['concepto'])){
       $labels[0]['C'.$cont_c] = "Concepto Escrito";
@@ -1306,7 +1311,7 @@ if (!$_SESSION['SALARIO_MIN']) {
       $cont_c++;
     } 
     
-      //revalidacion V.I.S
+    //revalidacion V.I.S
     if(isset($_POST['revalidacion_vis'])){
       $labels[0]['C'.$cont_c] = "Revalidacion V.I.S.";
       $labels[0]['CF'.$cont_c] = "$ 0";
@@ -1334,7 +1339,8 @@ if (!$_SESSION['SALARIO_MIN']) {
       $labels[0]['VA'.$cont_c] = "$ ".number_format($_POST['subdivision_total'], 2, ',', '.');
       $expensas += $_POST['subdivision_total'];
       $cont_c++;
-    } 
+    }
+
     //ajuste_cotas
     if($_POST['ajuste_cotas'] != '0'){
       $labels[0]['C'.$cont_c] = "Ajuste de Cotas";
@@ -1373,9 +1379,7 @@ if (!$_SESSION['SALARIO_MIN']) {
     $labels[0]['TELTRAMIT']    = ($_POST['nombre_tramitador'] != '') ? $_POST['tel_tramitador'] : '';
     $labels[0]['DIRTRAMIT']    = ($_POST['nombre_tramitador'] != '') ? $_POST['dir_tramitador'] : '';
     
-    
     //categorizaciones
-    
       if(!empty($_POST['buscaradicado'])){
         $nro_radicado = $_SESSION['conse'].$_POST['buscaradicado'];
         $_SESSION['radicado'] = $nro_radicado;
@@ -1391,25 +1395,23 @@ if (!$_SESSION['SALARIO_MIN']) {
       $row_radicado = mysqli_fetch_assoc($Result1Radicado);
     }
     
-    
     if($row_radicado['categoria'] == "categoria 1"){
-    $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
-    $labels[0]['ORACION']   = strtoupper("Categoria 1. Tiempo de tramite Veinte (20) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
+      $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
+      $labels[0]['ORACION']   = strtoupper("Categoria 1. Tiempo de tramite Veinte (20) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
     }elseif($row_radicado['categoria'] == "categoria 2"){
-    $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
-    $labels[0]['ORACION']   = strtoupper("Categoria 2. Tiempo de tramite Veinticinco (25) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
+      $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
+      $labels[0]['ORACION']   = strtoupper("Categoria 2. Tiempo de tramite Veinticinco (25) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
     }elseif($row_radicado['categoria'] == "categoria 3"){
-    $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
-    $labels[0]['ORACION']   = strtoupper("Categoria 3. Tiempo de tramite Treinta y cinco (35) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
+      $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
+      $labels[0]['ORACION']   = strtoupper("Categoria 3. Tiempo de tramite Treinta y cinco (35) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
     }elseif($row_radicado['categoria'] == "categoria 4"){
-    $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
-    $labels[0]['ORACION']   = strtoupper("Categoria 4. Tiempo de tramite Cuarenta y cinco (45) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
+      $labels[0]['CAT']   = strtoupper(", ".$row_radicado['categoria']);
+      $labels[0]['ORACION']   = strtoupper("Categoria 4. Tiempo de tramite Cuarenta y cinco (45) días contados a partir de la fecha de radicación de la solicitud en legal y debida forma (decreto 1469 de 30 de abril de 2010 art. 35).");
     }elseif($row_radicado['categoria'] == "ninguna"){
-    $labels[0]['CAT']   = "";
-    $labels[0]['ORACION']   = "";
+      $labels[0]['CAT']   = "";
+      $labels[0]['ORACION']   = "";
     }
       
-    
       //requisitos
       //Initialize a MySQL object
       $mysqli = mysqli_init();
@@ -1449,32 +1451,31 @@ if (!$_SESSION['SALARIO_MIN']) {
       
       
       while($result_requisitos = mysqli_fetch_assoc($temp_result)){
-      $labels[0]['REQUISITOS'] .= $result_requisitos['nombre_documento'].", ";
-      $labels[0]['ENTREGAR'] = '•  Documentación Faltante: ';
+        $labels[0]['REQUISITOS'] .= $result_requisitos['nombre_documento'].", ";
+        $labels[0]['ENTREGAR'] = '•  Documentación Faltante: ';
       }
-       if(($num_result > 0) &&  (!empty($row_radicado['tipo_lic'])) && ($row_radicado['tipo_lic'] =! 'ph' || $row_radicado['tipo_lic'] =! 'otras actuaciones' || $row_radicado['tipo_lic'] =! 'prorroga de licencia' || $row_radicado['tipo_lic'] =! 'revalidacion')){
-     $labels[0]['PLAZO']   =  '•  DEBE COMPLETAR LA DOCUMENTACIÓN REQUERIDA OBLIGATORIAMENTE EN UN PLAZO MÁXIMO DE 30 DÍAS HÁBILES (ART. 16 DECRETO NACIONAL 1469 DE 2010), PARA CONSIDERARSE EL PROYECTO EN LEGAL Y DEBIDA FORMA, SO PENA DE ENTENDERSE POR DESISTIDA LA SOLICITUD.'; 
+       if( ($num_result > 0) && (!empty($row_radicado['tipo_lic'])) && ($row_radicado['tipo_lic'] =! 'ph' || 
+            $row_radicado['tipo_lic'] =! 'otras actuaciones' || $row_radicado['tipo_lic'] =! 'prorroga de licencia' || $row_radicado['tipo_lic'] =! 'revalidacion')){
+               $labels[0]['PLAZO']   =  '•  DEBE COMPLETAR LA DOCUMENTACIÓN REQUERIDA OBLIGATORIAMENTE EN UN PLAZO MÁXIMO DE 30 DÍAS HÁBILES (ART. 16 DECRETO NACIONAL 1469 DE 2010), PARA CONSIDERARSE EL PROYECTO EN LEGAL Y DEBIDA FORMA, SO PENA DE ENTENDERSE POR DESISTIDA LA SOLICITUD.'; 
        }else{
-       $labels[0]['PLAZO']   =  ''; 
-       
-      // $labels[0]['PLAZO']   =  ''; 
+        $labels[0]['PLAZO']   =  ''; 
        }
        
        if($num_result == 0){
-       $labels[0]['ENTREGAR'] = '';
+        $labels[0]['ENTREGAR'] = '';
        }
        
        while($requisitos_liq = mysqli_fetch_assoc($temp_liq)){
-       $labels[0]['REQUISITOS_L'] .=   $requisitos_liq['nombre_documento'].", ";
+        $labels[0]['REQUISITOS_L'] .=   $requisitos_liq['nombre_documento'].", ";
        }
        if($num_liq > 0){
-       $labels[0]['PLAZO_L']   =  'Documentación a Entregar: '; 
+        $labels[0]['PLAZO_L']   =  'Documentación a Entregar: '; 
        }else{
-       $labels[0]['PLAZO_L']   =  ''; 
+        $labels[0]['PLAZO_L']   =  ''; 
        }
        
-      if(trim($labels[0]['REQUISITOS_L']) == '' || !isset($labels[0]['REQUISITOS_L'])){
-      $labels[0]['REQUISITOS_L'] = '';
+    if(trim($labels[0]['REQUISITOS_L']) == '' || !isset($labels[0]['REQUISITOS_L'])){
+        $labels[0]['REQUISITOS_L'] = '';
     } 
     
     if(trim($labels[0]['REQUISITOS']) == '' || !isset($labels[0]['REQUISITOS'])){
@@ -2275,15 +2276,14 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Cantidad</strong>
                         </h5>                      
                       </div>
-                      <div class="col-lg-2 input-group">
+                      <div class="col-lg-3 input-group">
                         <h5>
                           <strong>Cantidad (30%)</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-1 form-check"></div>
                       <div class="col-lg-2 ">
                         <h5>
-                          <strong>Valor</strong>
+                          <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Valor</strong>
                         </h5>                      
                       </div>
                     </div>
@@ -2393,7 +2393,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Usos</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <h5>
                           <strong>Cantidad</strong>
                         </h5>                      
@@ -2415,7 +2415,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Vivienda</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="vivienda_cant_7" type="text" id="vivienda_cant_7" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_7']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
@@ -2435,7 +2435,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Comercio</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="comercio_cant_7" type="text" id="comercio_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_7'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
@@ -2455,7 +2455,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Industria</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="industria_cant_7" type="text" id="industria_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_7'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
@@ -2475,7 +2475,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Institucional </h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="institucional_cant_7" type="text" id="institucional_cant_7" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_7']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
@@ -2507,7 +2507,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Usos</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <h5>
                           <strong>Cantidad</strong>
                         </h5>                      
@@ -2529,7 +2529,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Vivienda</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="vivienda_cant_5" type="text" id="vivienda_cant_5" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_5']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
@@ -2549,7 +2549,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Comercio</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="comercio_cant_5" type="text" id="comercio_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_5'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
@@ -2569,7 +2569,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Industria</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="industria_cant_5" type="text" id="industria_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_5'];?>" size="10">    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
@@ -2589,7 +2589,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Institucional </h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="institucional_cant_5" type="text" id="institucional_cant_5" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_5']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
@@ -2620,7 +2620,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Usos</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <h5>
                           <strong>Cantidad</strong>
                         </h5>                      
@@ -2642,7 +2642,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Vivienda</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="vivienda_cant_9" type="text" id="vivienda_cant_9" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_9']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
@@ -2662,7 +2662,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Comercio</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="comercio_cant_9" type="text" id="comercio_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_9'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
@@ -2682,7 +2682,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Industria</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="industria_cant_9" type="text" id="industria_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_9'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
@@ -2702,7 +2702,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Institucional </h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="institucional_cant_9" type="text" id="institucional_cant_9" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_9']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
@@ -2742,7 +2742,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Usos</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <h5>
                           <strong>Cantidad</strong>
                         </h5>                      
@@ -2764,7 +2764,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Vivienda</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="vivienda_cant_8" type="text" id="vivienda_cant_8" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_8']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
@@ -2784,7 +2784,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Comercio</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="comercio_cant_8" type="text" id="comercio_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_8'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
@@ -2804,7 +2804,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Industria</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="industria_cant_8" type="text" id="industria_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_8'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
@@ -2824,7 +2824,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Institucional </h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="institucional_cant_8" type="text" id="institucional_cant_8" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_8']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
@@ -2856,7 +2856,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Usos</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <h5>
                           <strong>Cantidad</strong>
                         </h5>                      
@@ -2878,7 +2878,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Vivienda</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="vivienda_cant_11" type="text" id="vivienda_cant_11" size="10" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['vivienda_cant_11']; ?>" > 
                         <label for="">M<sup>2</sup></label>
                       </div>
@@ -2898,7 +2898,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Comercio</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="comercio_cant_11" type="text" id="comercio_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['comercio_cant_11'];?>" size="10" >
                         <label for="">M<sup>2</sup></label>               
                       </div>
@@ -2918,7 +2918,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2  input-group">
                         <h6>Industria</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="industria_cant_11" type="text" id="industria_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['industria_cant_11'];?>" size="10" />    
                         <label for="">M<sup>2</sup></label>                  
                       </div>
@@ -2938,7 +2938,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-2 input-group">
                         <h6>Institucional </h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="institucional_cant_11" type="text" id="institucional_cant_11" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?php $_POST['institucional_cant_11']; ?>" size="10" > 
                         <label for="">M<sup>2</sup></label>                    
                       </div>
@@ -3007,7 +3007,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                           <strong>Usos</strong>
                         </h5>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <h5>
                           <strong>Cantidad</strong>
                         </h5>                      
@@ -3021,7 +3021,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-3 input-group">
                         <h6>Aprobación Proyecto Urbano</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="apro" type="text" id="apro" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['apro']; ?>" size="10"/>
                         <label for="">M<sup>2</sup></label>
                         <input name="apro_total" type="hidden" id="apro_total" value="<?= $_POST['apro_total']; ?>" />
@@ -3041,7 +3041,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-3 input-group">
                         <h6>Movimiento Tierras/Piscinas </h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="movimiento_tierras" type="text" id="movimiento_tierras" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['movimiento_tierras']; ?>" size="10" />
                         <label for="">M<sup>2</sup></label>
                         <input name="movimiento_tierras_total" type="hidden" id="movimiento_tierras_total" value="<?= $_POST['movimiento_tierras_total']; ?>" />
@@ -3061,7 +3061,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-3 input-group">
                         <h6>Propiedad horizontal</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="propiedad_horizontal" type="text" id="propiedad_horizontal" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['propiedad_horizontal']; ?>" size="10" >
                         <label for="">M<sup>2</sup></label>
                         <input name="propiedad_horizontal_total" type="hidden" id="propiedad_horizontal_total" value="<?= $_POST['propiedad_horizontal_total']; ?>">
@@ -3084,7 +3084,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-3 input-group">
                         <h6>Reloteos</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="reloteos" type="text" id="reloteos" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['reloteos']; ?>" size="10" />
                         <label for="">M<sup>2</sup></label>
                         <input name="reloteos_total" type="hidden" id="reloteos_total" value="<?= $_POST['reloteos_total']; ?>" />
@@ -3107,7 +3107,7 @@ if (!$_SESSION['SALARIO_MIN']) {
                       <div class="col-lg-3 input-group">
                         <h6>Sello de Planos</h6>
                       </div>
-                      <div class="col-lg-3 input-group">
+                      <div class="col-lg-2 input-group">
                         <input name="copia_planos" type="text" id="copia_planos" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['copia_planos']; ?>" size="10" >
                         <label for="">U/d</label>
                         <input name="copia_planos_total" type="hidden" id="copia_planos_total" value="<?= $_POST['copia_planos_total']; ?>" >
@@ -3122,54 +3122,54 @@ if (!$_SESSION['SALARIO_MIN']) {
                   <div class="form-group col-lg-12 "></div>
                   <div class="form-group col-lg-12 "></div>
                   <div class="col-lg-12 input-group">
-                    <div class="col-lg-3 input-group"></div>
-                    <div class="col-lg-3 input-group">
-                      <h5 class="col-lg-10">Subtotal</h5>
+                    <div class="col-lg-6 input-group"></div>
+                    <div class="col-lg-2 input-group">
+                      <h5 class="col-lg-12">Subtotal</h5>
                     </div>
-                    <div class="col-lg-5  input-group">
-                      <input name="subtotal" type="text" id="subtotal" value="<?= $_POST['subtotal']; ?>" size="17" readonly="readonly" >
+                    <div class="col-lg-3 input-group">
+                      <input name="subtotal" type="text" id="subtotal" value="<?= $_POST['subtotal']; ?>" size="10" readonly="readonly" >
                       <input name="cargo_fijo_total" type="hidden" id="cargo_fijo_total" value="<?= $_POST['cargo_fijo_total']; ?>" >
                     </div>
                   </div>
                   <div class="form-group col-lg-12 "></div>
-                  <div class="col-lg-12  input-group">
-                    <div class="col-lg-3  input-group"></div>
-                    <div class="col-lg-3  input-group">
-                      <h5 class="col-lg-10">Iva 19%</h5>
+                  <div class="col-lg-12 input-group">
+                    <div class="col-lg-6 input-group"></div>
+                    <div class="col-lg-2 input-group">
+                      <h5 class="col-lg-12">Iva 19%</h5>
                     </div>
-                    <div class="col-lg-5  input-group">
-                      <input name="iva" type="text" id="iva" value="<?= $_POST['iva']; ?>" size="17" readonly="readonly" >
+                    <div class="col-lg-3 input-group">
+                      <input name="iva" type="text" id="iva" value="<?= $_POST['iva']; ?>" size="10" readonly="readonly" >
                       <input name="cargo_variable_total" type="hidden" id="cargo_variable_total" value="<?= $_POST['cargo_variable_total']; ?>" >
                     </div>
                   </div>
                   <div class="form-group col-lg-12 "></div>
-                  <div class="col-lg-12  input-group">
-                    <div class="col-lg-3  input-group"></div>
-                    <div class="col-lg-3  input-group">
-                      <h5 class="col-lg-10">Total</h5>
+                  <div class="col-lg-12 input-group">
+                    <div class="col-lg-6 input-group"></div>
+                    <div class="col-lg-2 input-group">
+                      <h5 class="col-lg-12">Total</h5>
                     </div>
-                    <div class="col-lg-5  input-group">
-                      <input name="total" type="text" id="total" value="<?= $_POST['total']; ?>" size="17" readonly="readonly" >
-                    </div>
-                  </div>
-                  <div class="form-group col-lg-12 "></div>
-                  <div class="col-lg-12  input-group">
-                    <div class="col-lg-3  input-group"></div>
-                    <div class="col-lg-3  input-group">
-                      <h5 class="col-lg-10">Estampillas</h5>
-                    </div>
-                    <div class="col-lg-5  input-group">
-                      <input name="estampillas" type="text" id="estampillas" value="<?php if (empty($_POST['estampillas'])) echo '5600'; else echo $_POST['estampillas']; ?>" size="17" onchange="xajax_liquidacion(xajax.getFormValues('form1'))" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                    <div class="col-lg-3 input-group">
+                      <input name="total" type="text" id="total" value="<?= $_POST['total']; ?>" size="10" readonly="readonly" >
                     </div>
                   </div>
                   <div class="form-group col-lg-12 "></div>
-                  <div class="col-lg-12  input-group">
-                    <div class="col-lg-3  input-group"></div>
-                    <div class="col-lg-3  input-group">
-                      <h5 class="col-lg-10">Expensas</h5>
+                  <div class="col-lg-12 input-group">
+                    <div class="col-lg-6 input-group"></div>
+                    <div class="col-lg-2 input-group">
+                      <h5 class="col-lg-12">Estampillas</h5>
                     </div>
-                    <div class="col-lg-5 input-group">
-                      <input name="expensas" type="text" id="expensas" value="<?= $_POST['expensas']; ?>" size="17" readonly="readonly" >
+                    <div class="col-lg-3 input-group">
+                      <input name="estampillas" type="text" id="estampillas" value="<?php if (empty($_POST['estampillas'])) echo '5600'; else echo $_POST['estampillas']; ?>" size="10" onchange="xajax_liquidacion(xajax.getFormValues('form1'))" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                    </div>
+                  </div>
+                  <div class="form-group col-lg-12 "></div>
+                  <div class="col-lg-12 input-group">
+                    <div class="col-lg-6 input-group"></div>
+                    <div class="col-lg-2 input-group">
+                      <h5 class="col-lg-12">Expensas</h5>
+                    </div>
+                    <div class="col-lg-3 input-group">
+                      <input name="expensas" type="text" id="expensas" value="<?= $_POST['expensas']; ?>" size="10" readonly="readonly" >
                     </div>
                   </div>
                 </div>
@@ -3182,12 +3182,11 @@ if (!$_SESSION['SALARIO_MIN']) {
                   <!-- /.card-body -->
               <div class="card-footer input-group">
                 <div class="form-group col-lg-12 "></div>
-                <div class="col-lg-4 offset-3">
-                  <button class="btn btn-danger" type="submit" name="submit" id="submit" >Crear</button>
-                </div>
-                <div class="col-lg-2">
-                  <input type="hidden" name="cancelar">
-                  <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">cancelar</button>
+                <div class="col-lg-12  input-group">
+                  <div class="col-lg-3"></div>  
+                  <button class="btn btn-danger col-lg-2" type="submit" name="submit" id="submit" >Generar</button>
+                  <div class="col-lg-1"></div>              
+                  <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
                 </div>
                 <div class="form-group col-lg-12 "></div>
               </div>
