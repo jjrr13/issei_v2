@@ -31,7 +31,7 @@ include_once('../menu.php');
   }
   
   .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-  color: #fff;
+  color: #fff !important;
   background-color: #dc3545!important;
   }
 
@@ -77,6 +77,14 @@ include_once('../menu.php');
     height: auto;
     opacity: 1;
     padding: 10px;
+  }
+
+  /*Solución a los colores pricipales del menu*/
+  .sidebar-dark-primary .nav-sidebar > .nav-item:hover > .nav-link {
+    color: #C2C7D0 !important;
+  }
+  .sidebar-dark-primary .sidebar a{
+    color: #C2C7D0 !important;
   }
 
 </style>

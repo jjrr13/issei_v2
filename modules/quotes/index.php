@@ -293,11 +293,11 @@ include_once ("../../cx/cx.php");
             <!-- /.card-body -->
             <div class="card-footer input-group">
               <div class="form-group col-lg-12 "></div>
-              <div class="col-lg-4 offset-3">
-                <button class="btn btn-danger" type="submit" value="enviar" onclick="controlar('cita');" >Asignar</button>
-              </div>
-              <div class="col-lg-2">
-                <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="8" onclick="controlar('limpiar');" >Limpiar</button>
+              <div class="col-lg-12  input-group">
+                <div class="col-lg-3"></div>  
+                <button class="btn btn-danger col-lg-2" type="submit" value="enviar" onclick="controlar('cita');" >Asignar</button>
+                <div class="col-lg-1"></div>              
+                <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="8" onclick="controlar('limpiar');" >Limpiar</button>
               </div>
               <div class="form-group col-lg-12 "></div>
             </div>
