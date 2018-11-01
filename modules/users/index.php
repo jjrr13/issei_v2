@@ -178,11 +178,11 @@ include ('../menu.php');
                     <!-- /.card-body -->
                 <div class="card-footer input-group">
                   <div class="form-group col-lg-12 "></div>
-                  <div class="col-lg-4 offset-3">
-                    <button class="btn btn-danger" type="submit" id="submit1" formaction="../../controller/user_controller.php" >Crear</button>
-                  </div>
-                  <div class="col-lg-2">
-                    <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="10" formaction="../../functions/routes.php">cancelar</button>
+                  <div class="col-lg-12  input-group">
+                    <div class="col-lg-3"></div>  
+                    <button class="btn btn-danger col-lg-2" type="submit" id="submit1" formaction="../../controller/user_controller.php" >Crear</button>
+                    <div class="col-lg-1"></div>              
+                    <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="10" formaction="../../functions/routes.php">cancelar</button>
                   </div>
                   <div class="form-group col-lg-12 "></div>
                 </div>
