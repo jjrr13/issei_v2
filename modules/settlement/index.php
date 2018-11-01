@@ -269,7 +269,7 @@ if(file_exists("../../cx/cx.php")){
 
   </script>
   <script type="text/javascript">
-    function getUsos(arrayUsos) {
+    function getUsos(arrayUsos, modLicencia) {
       var elemento='';
       for (var js = 0; js < arrayUsos.length ; js++) {
         console.log(arrayUsos[js][js+1]);
@@ -281,7 +281,7 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <h6>Vivienda</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='vivienda_cant_1' type='text' id='vivienda_cant_1' size='10' onkeyup='cargoBasico2(1); return ValidNum(this);' value='<?php ; ?>' > ";
+              elemento+=" <input class='cargoBasico' name='vivienda"+modLicencia+"' type='text' id='vivienda_cant_1' size='10' onkeyup='cargoBasico2(1); return ValidNum(this);' value='<?php ; ?>' > ";
             elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
@@ -303,7 +303,7 @@ if(file_exists("../../cx/cx.php")){
              elemento+=" <h6>Comercio</h6>";
            elemento+=" </div>";
            elemento+=" <div class='col-lg-3 input-group'>";
-             elemento+=" <input class='cargoBasico' name='comercio_cant_1' type='text' id='comercio_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='' size='10' >";
+             elemento+=" <input class='cargoBasico' name='comercio"+modLicencia+"' type='text' id='comercio_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='' size='10' >";
              elemento+=" <label for=''>M<sup>2</sup></label>";
            elemento+=" </div>";
 
@@ -325,7 +325,7 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <h6>Industria</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='industria_cant_1' type='text' id='industria_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+              elemento+=" <input class='cargoBasico' name='industria"+modLicencia+"' type='text' id='industria_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
               elemento+=" <label for=''>M<sup>2</sup></label>                  ";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 input-group'></div>";
@@ -345,7 +345,7 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <h6>Institucional</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='institucional_cant_1' type='text' id='institucional_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+              elemento+=" <input class='cargoBasico' name='institucional"+modLicencia+"' type='text' id='institucional_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
@@ -388,16 +388,16 @@ if(file_exists("../../cx/cx.php")){
              elemento+=" <strong>Cantidad</strong>";
            elemento+=" </h5>                      ";
          elemento+=" </div>";
-         elemento+=" <div class='col-lg-2 form-check'></div>";
+         elemento+=" <div class='col-lg-2 form-check'>";
          // elemento+=" <div class='col-lg-2'>";
-         //   elemento+=" <h5>";
-         //     elemento+=" <strong>Valor</strong>";
-         //   elemento+=" </h5>                      ";
-         // elemento+=" </div>";
+           elemento+=" <h5>";
+             elemento+=" <strong>Subsidio</strong>";
+           elemento+=" </h5>                      ";
+         elemento+=" </div>";
        elemento+=" </div>";
 
        elemento+=" <div class='form-group col-lg-12 '></div>";
-       elemento+= getUsos(arrayUsos);
+       elemento+= getUsos(arrayUsos, modalidad);
        elemento+=" <div class='form-group col-lg-12 '></div>";
        
      elemento+=" </div>";

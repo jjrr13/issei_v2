@@ -161,7 +161,7 @@ alert(datos);
 
 function verificar(valor){
   var pes=130;
-        alert(valor);
+        // alert(valor);
       //CAPTURA DE POSBLES ERRORES
   if (valor == 031) {
        confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
@@ -271,7 +271,7 @@ function buscarNit(boton) {
   var opcion = $(boton).val();
   // alert(opcion);
   var nit = $('#nit'+opcion).val();
-    alert(nit);
+    // alert(nit);
   if (nit.length > 5 && nit.length <= 11) {
     $.ajax({
       type: "POST",

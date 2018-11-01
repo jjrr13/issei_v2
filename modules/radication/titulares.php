@@ -1,21 +1,5 @@
 <script type="text/javascript">
-// $(document).ready(function(){
 
-//   $('#email9').keyup(function(){
-//     // var _this = $('#email9');
-//     var _email = $('#email9').val();
-
-//     var re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-//     // alert('aprimio');
-//     var valid = re.test(_email);
-
-//     if(valid){
-//       $('#email9').attr('style', 'background:white ');
-//     } else {
-//       $('#email9').attr('style', 'border-color:#f00707');
-//     }
-//   });
-// });
 function validaCorreo(valor){
     var permitidos = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     // alert('aprimio');

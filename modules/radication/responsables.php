@@ -1,6 +1,33 @@
   <button href="#inline_content"  type="button" hidden="" name="modal" value="10" id="modal" class="inline btn btn-success">Abrir Modal</button>
 <form name="frProfesionales" id="frProfesionales" method="POST">
   <div class="col-lg-12 form-group"></div>
+    <div class="col-lg-12 form-group "></div>
+  <div class="col-lg-12 form-group borde">
+  <h5>RADICADOR</h5>
+
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-5 input-group">
+        <label for="nit0" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="16603516" type="text" name="nit0" id="nit0" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <button  type="button" name="burcar0" value="0" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+      </div>
+      <div class="col-lg-5 input-group opcion1" id="opcion" hidden="">
+        <label for="nombre1" class="col-form-label col-lg-3">NOMBRE</label>
+        <input type="text" name="nombre1" id="nombre1" class="form-control col-lg-9" placeholder="NOMBRE">
+      </div>
+    </div>
+    <div class="col-lg-12 form-group"></div>
+    <div class="col-lg-12 input-group opcion1" id="opcion1" hidden="">
+      <div class="col-lg-5 input-group">
+        <label for="celular1" class="col-form-label col-lg-3">CELULAR</label>
+        <input type="text" name="celular1" id="celular1" class="form-control col-lg-9" placeholder="CELULAR">
+      </div>
+      <div class="col-lg-5 input-group">
+        <label for="email1" class="col-form-label col-lg-3">EMAIL</label>
+        <input type="email" name="email1" id="email1" class="form-control col-lg-9" placeholder="EMAIL">
+      </div>
+    </div>
+  </div>
   <div class="col-lg-12 form-group "></div>
   <div class="col-lg-12 form-group borde">
   <h5>CONTRUCTOR</h5>

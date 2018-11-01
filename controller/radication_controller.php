@@ -1,29 +1,7 @@
 <?php 
 
-// $_POST['btn_predio'] = 'el boton del predio';
-// $_POST['dirActual']  = 'direccion actual';
-// $_POST['BarrioActual'] = ' el barrio actual';
-// $_POST['dirAnterior'] = 'direccion anterior';
-// $_POST['BarrioAnterior'] = 'barrio anterior';
-// $_POST['matricula'] = 'la matricula';
-// $_POST['catastral'] = 'La catastral';
-// $_POST['clasificacionsuelo'] = 'La clasificacionsuelo';
-// $_POST['planimetria'] = 'La planimetria';
-// if (!empty($_POST['nit'])) {
-// $_SESSION['nit'] = $_POST['nit'];
-// }
 
 include_once "../cx/cx.php";
-// if (!empty($_POST['documentos_generales'])) {
-// 	var_dump($_POST['documentos_generales']);
-// 	var_dump($_POST['documentos_especificos']);
-// 	var_dump($_POST['documentos_adicionales']);
-
-// 	$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
-// 	$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
-// 	$_SESSION['documentos_adicionales'] = $_POST['documentos_adicionales'];
-// }
-
 
 
 // $consecutivo = NuevoRadicado();
@@ -228,29 +206,32 @@ else if (!empty($_POST['btn_Profesionales'])) {
 	$responsables = array();
 	$respuesta;
 
-	if (!empty($_POST['nit1']) ) {
-		array_push($responsables, array(  "1"  => $_POST['nit1'],  "2" => "1" ));
+	if (!empty($_POST['nit0']) ) {
+		array_push($responsables, array(  "1"  => $_POST['nit0'],  "2" => "24" ));
 
+		if (!empty($_POST['nit1']) ) {
+			array_push($responsables, array(  "1"  => $_POST['nit1'],  "2" => "5" ));
+		}
 		if (!empty($_POST['nit2']) ) {
-			array_push($responsables, array(  "1"  => $_POST['nit2'],  "2" => "2" ));
+			array_push($responsables, array(  "1"  => $_POST['nit2'],  "2" => "6" ));
 		}
 		if (!empty($_POST['nit3']) ) {
 			array_push($responsables, array(  "1"  => $_POST['nit3'],  "2" => "3" ) );
 		}
 		if (!empty($_POST['nit4']) ) {
-			array_push($responsables, array(  "1"  => $_POST['nit4'],  "2" => "4" ) );
+			array_push($responsables, array(  "1"  => $_POST['nit4'],  "2" => "2" ) );
 		}
 		if (!empty($_POST['nit5']) ) {
-			array_push($responsables, array(  "1"  => $_POST['nit5'],  "2" => "5" ) );
+			array_push($responsables, array(  "1"  => $_POST['nit5'],  "2" => "4" ) );
 		}
 		if (!empty($_POST['nit6']) ) {
-			array_push($responsables, array(  "1"  => $_POST['nit6'],  "2" => "6" ) );
+			array_push($responsables, array(  "1"  => $_POST['nit6'],  "2" => "10" ) );
 		}
 		if (!empty($_POST['nit7']) ) {
-			array_push($responsables, array(  "1"  => $_POST['nit7'],  "2" => "7" ) );
+			array_push($responsables, array(  "1"  => $_POST['nit7'],  "2" => "8" ) );
 		}
 		if (!empty($_POST['nit8']) ) {
-			array_push($responsables, array(  "1"  => $_POST['nit8'],  "2" => "8" ) );
+			array_push($responsables, array(  "1"  => $_POST['nit8'],  "2" => "1" ) );
 		}
 		$_SESSION['responsables'] = $responsables;
 		$_SESSION['radicar'] = 135;
