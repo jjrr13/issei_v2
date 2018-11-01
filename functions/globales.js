@@ -43,8 +43,6 @@
   }
 
 
-  
-  $(document).ready(function() {
     $('#cerrar').on('click', function(){
       // alert('entro al eventro');
       $.confirm({
@@ -73,7 +71,36 @@
                 }
             },
         }
+      });
     });
-    });
-  });
+    function ejecutar(){
+      alert('funciono este methoso');
+    }
+    function confirmar(msj, icon, color, procedimiento){
+      $.confirm({
+          title: '',
+          content: msj,
+          icon: icon,
+          animation: 'scale',
+          closeAnimation: 'scale',
+          theme: 'supervan',
+          type: color,
+          opacity: 0.5,
+          buttons: {
+              'ok': {
+                  text: 'OK',
+                  btnClass: 'btn-blue',
+                  action: function () {
+                      if (procedimiento.indexOf("/") > -1) {
+                        window.location.replace(procedimiento);
+                      }
+                      else if (procedimiento.indexOf("funcion") > -1) {
+                        // 'procedimiento'();
+                      }
+                  }
+              }, 
+          }
+      });
+    }
+
 </script>

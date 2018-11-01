@@ -26,6 +26,7 @@ include_once ("../../cx/cx.php");
   <script src="../../functions/fancywebsocket.js"></script>
 
   <style>
+
     table {
       border: 1px solid #000;
       border-collapse: collapse;
@@ -81,6 +82,7 @@ include_once ("../../cx/cx.php");
         default:
           $('#LISTA').attr('style','color: red');
       }
+
     }
 
     function CambiarColor(){
@@ -291,11 +293,11 @@ include_once ("../../cx/cx.php");
             <!-- /.card-body -->
             <div class="card-footer input-group">
               <div class="form-group col-lg-12 "></div>
-              <div class="col-lg-4 offset-3">
-                <button class="btn btn-danger" type="submit" value="enviar" onclick="controlar('cita');" >Asignar</button>
-              </div>
-              <div class="col-lg-2">
-                <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="8" onclick="controlar('limpiar');" >Limpiar</button>
+              <div class="col-lg-12  input-group">
+                <div class="col-lg-3"></div>  
+                <button class="btn btn-danger col-lg-2" type="submit" value="enviar" onclick="controlar('cita');" >Asignar</button>
+                <div class="col-lg-1"></div>              
+                <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="8" onclick="controlar('limpiar');" >Limpiar</button>
               </div>
               <div class="form-group col-lg-12 "></div>
             </div>
@@ -465,7 +467,7 @@ include_once ("../../cx/cx.php");
     <strong>Copyright &copy; 2018 Computer Services.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.2.0
+      <b>Version</b> 1.2.3
     </div>
   </footer>
   <!-- /.control-sidebar -->

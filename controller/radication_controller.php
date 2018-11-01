@@ -1,10 +1,300 @@
 <?php 
-include_once "../cx/cx.php";
 
-if (!empty($_POST['nit'])) {
+
+include_once "../cx/cx.php";
+// $_POST['btn_predio'] = 'el boton del predio';
+// $_POST['dirActual']  = 'direccion actual';
+// $_POST['BarrioActual'] = ' el barrio actual';
+// $_POST['dirAnterior'] = 'direccion anterior';
+// $_POST['BarrioAnterior'] = 'barrio anterior';
+// $_POST['matricula'] = 'la matricula';
+// $_POST['catastral'] = 'La catastral';
+// $_POST['clasificacionsuelo'] = 'La clasificacionsuelo';
+// $_POST['planimetria'] = 'La planimetria';
+// var_dump($_POST);
+
+if (!empty($_POST['limpia'])) {
+	unset($_SESSION['radicar']);
+	unset( $_SESSION['objetoTramite']);
+	unset( $_SESSION['usos']);
+	unset( $_SESSION['licencias']);
+	unset( $_SESSION['predio']);
+	unset( $_SESSION['vecinos']);
+	unset( $_SESSION['titulares']);
+	unset( $_SESSION['responsables']);
+	header("Location: ../modules/radication");
+}
+else if (isset($_POST['btn_tipo'])) {
+	$cantLicencias = array();
+	$bandera= false;
+	$respuesta;
+	if (isset($_POST['LicUrba']) && !empty($_POST['LicUrba']) && 
+		isset($_POST['urb']) && !empty($_POST['urb'])) {
+		
+		$bandera=true;
+		array_push($cantLicencias, $_POST['urb']);
+	}
+	if (isset($_POST['LicPar']) && !empty($_POST['LicPar']) && 
+		isset($_POST['parc']) && !empty($_POST['parc']) ) {
+		// $cantLicencias = array('id' => '4');
+		$bandera=true;
+		array_push($cantLicencias, $_POST['parc']);
+	}
+	if (isset($_POST['LicSub']) && !empty($_POST['LicSub']) && 
+		isset($_POST['subd']) && !empty($_POST['subd'])) {
+		
+		$bandera=true;
+		array_push($cantLicencias, $_POST['subd']);
+	}
+	if (isset($_POST['LicCons']) && !empty($_POST['LicCons']) && 
+		isset($_POST['LicConsC']) && !empty($_POST['LicConsC'])) {
+		$bandera=true;
+		foreach ($_POST['LicConsC'] as $key => $value) {
+			array_push($cantLicencias, $value);
+		}
+	}
+	if (isset($_POST['LicRec']) && !empty($_POST['LicRec']) ) {
+		$bandera=true;
+		array_push($cantLicencias, $_POST['LicRec']);
+	}
+	if (isset($_POST['LicOtras']) && !empty($_POST['LicOtras']) && 
+		isset($_POST['otrasact']) && !empty($_POST['otrasact'])) {
+		
+		$bandera=true;
+	
+		array_push($cantLicencias, $_POST['otrasact']);
+	}
+
+	if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
+		//asigna varaible de se session de objeto de trabajo
+		$_SESSION['objetoTramite']= $_POST['objetoTramite'];
+		//ararry que almacenara todos los tipo de usos
+		$cantUsos = array();
+		// $valores='';
+		foreach ($_POST['usos'] as $key => $value) {
+			array_push($cantUsos, $value);
+			// $valores.= ' / '. $value;
+		}
+		//asigna todos los tipos de susos a session
+		$_SESSION['usos']= $cantUsos;
+		//se agregan las licencias que se generaron
+		$_SESSION['licencias']= $cantLicencias;
+		//se envia el valor que indica que pase al proximo
+		$respuesta= 131;
+		$_SESSION['radicar'] = 131;
+		// var_dump($_SESSION['licencias']);
+		
+	}
+	else {
+		//valor que indicara que no llego algun dato necesario
+		$respuesta=031;
+	}
+
+	echo $respuesta;
+}
+else if (!empty($_POST['btn_predio'])) {
+	// unset($_SESSION['radicar']);
+	$respuesta;
+	if ( !empty($_POST['dirActual']) && !empty($_POST['BarrioActual']) &&
+		 !empty($_POST['dirAnterior']) && !empty($_POST['BarrioAnterior']) &&
+		 !empty($_POST['matricula']) && !empty($_POST['catastral']) &&
+		 !empty($_POST['clasificacionsuelo']) && !empty($_POST['planimetria']) ) {
+
+		$_SESSION['predio']['dirActual'] = $_POST['dirActual'];
+		$_SESSION['predio']['BarrioActual'] = $_POST['BarrioActual'];
+		$_SESSION['predio']['dirAnterior'] = $_POST['dirAnterior'];
+		$_SESSION['predio']['BarrioAnterior'] = $_POST['BarrioAnterior'];
+		$_SESSION['predio']['matricula'] = $_POST['matricula'];
+		$_SESSION['predio']['catastral'] = $_POST['catastral'];
+		$_SESSION['predio']['clasificacionsuelo'] = $_POST['clasificacionsuelo'];
+		$_SESSION['predio']['planimetria'] = $_POST['planimetria'];
+
+		$respuesta = 132;
+		$_SESSION['radicar'] = 132;
+			
+		// $sql = sprintf("INSERT INTO predios 
+		//        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+		      
+		//        GetSQLValueString($_POST['dirActual'], "text"),
+		//        GetSQLValueString($_POST['BarrioActual'], "text"),
+		//        GetSQLValueString($_POST['dirAnterior'], "text"),
+		//        GetSQLValueString($_POST['BarrioAnterior'], "text"),
+		//        GetSQLValueString($_POST['matricula'], "int"),
+		//        GetSQLValueString($_POST['catastral'], "int"),
+		//        GetSQLValueString($_POST['clasificacionsuelo'], "text"),
+		//        GetSQLValueString($_POST['planimetria'], "int"));
+
+		// $result = $mysqli->query($sql);
+
+		// if ($result) {
+		// 	scripts('../');
+  //       	// $_SESSION['nit']= $_POST['nit'];
+		// 	confirmar('OPERACION EXITOSA! <br> CONTINUEMOS', 'fa fa-check-square', 'green', '../modules/radication');
+	        
+		// 	$_SESSION['radicar'] = 132;
+		// 	echo 132;
+  //       }else{
+
+  //       	// $_SESSION['nit']= $_POST['nit'];
+  //       	/*scripts('../');
+	 //        confirmar('ERROR 300! CONSULTE A SU DPTO DE SISTEMAS', 'fa fa-check-square', 'red', '../modules/radication');*/
+  //       }
+	}
+	else{
+		$respuesta=032;
+	}
+	echo $respuesta;
+}
+else if (!empty($_POST['btn_vecino'])) {
+	$respuesta;
+	if (!empty($_POST['diractual'][0]) ) {
+
+		// $values="";
+		// $cant = count($_POST['diractual'])-1;
+		$cantVecinos=  array();
+		$datosVecino=  array();
+		$prueba='';
+		foreach ($_POST['diractual'] as $key => $value) {
+			array_push($datosVecino, $_POST['nombre'][$key]);
+			array_push($datosVecino, $_POST['diractual'][$key]);
+			array_push($datosVecino, $_POST['dircorres'][$key]);
+
+			array_push($cantVecinos, $datosVecino);
+
+			$datosVecino=  array();
+
+		// if ($cant != $key) {
+		// 	$values.="( '$nombre', '$dirActual', '$dirCorrespondencia' ),";
+		// 	}
+		// 	else{
+		// 		$values.="( '$nombre', '$dirActual', '$dirCorrespondencia' )";
+		// 	}
+		}
+
+		// $sql="INSERT INTO vecinos VALUES ".$values;
+		// echo "$sql";
+
+		$_SESSION['vecinos'] = $cantVecinos;
+
+		$_SESSION['radicar'] = 133;
+		$respuesta = 133; 
+	}
+	else{
+		$respuesta = 033;
+	}
+	echo $respuesta;
+}
+else if (!empty($_POST['btn_titular'])) {
+	$respuesta;
+	if (!empty($_POST['nit'][0]) ) {
+
+		$_SESSION['titulares'] = $_POST['nit'];
+
+		$_SESSION['radicar'] = 134;
+		$respuesta = 134; //$prueba;
+	}
+	else{
+		$respuesta = 134;
+	}
+	echo $respuesta;
+}
+else if (!empty($_POST['btn_Profesionales'])) {
+	$responsables = array();
+	$respuesta;
+
+	if (!empty($_POST['nit1']) ) {
+		array_push($responsables, $_POST['nit1']);
+
+		if (!empty($_POST['nit2']) ) {
+			array_push($responsables, $_POST['nit2']);
+		}
+		if (!empty($_POST['nit3']) ) {
+			array_push($responsables, $_POST['nit3']);
+		}
+		if (!empty($_POST['nit4']) ) {
+			array_push($responsables, $_POST['nit4']);
+		}
+		if (!empty($_POST['nit5']) ) {
+			array_push($responsables, $_POST['nit5']);
+		}
+		if (!empty($_POST['nit6']) ) {
+			array_push($responsables, $_POST['nit6']);
+		}
+		if (!empty($_POST['nit7']) ) {
+			array_push($responsables, $_POST['nit7']);
+		}
+		if (!empty($_POST['nit8']) ) {
+			array_push($responsables, $_POST['nit8']);
+		}
+		$_SESSION['responsables'] = $responsables;
+		$_SESSION['radicar'] = 135;
+		$respuesta = 135;
+	}else{
+		$respuesta = 035;
+	}
+
+	echo $respuesta;
+}
+else if (!empty($_POST['btn_docs'])   ) {
+	// validaciones de documentos previos && !empty($_SESSION['objetoTramite']) && !empty($_SESSION['usos'])
+	// && !empty($_SESSION['licencias']) && !empty($_SESSION['predio']) && !empty($_SESSION['vecinos'])
+	// && !empty($_SESSION['titulares']) && !empty($_SESSION['responsables'])
+// validar esto tambien... && (!empty($_SESSION['radicar']) && $_SESSION['radicar'] ==135)
+	// $_SESSION['objetoTramite']
+	// $_SESSION['usos']
+	// $_SESSION['licencias']
+	// $_SESSION['predio']
+	// $_SESSION['vecinos']
+	// $_SESSION['titulares']
+	// $_SESSION['responsables']
+	$valores ='-----------Genrales------------';
+
+	foreach ($_POST['documentos_generales'] as $key => $value) {
+		$valores.= $_POST['documentos_generales'][$key].'///';
+	}
+	$valores .='-----------Especificos------------';
+
+	foreach ($_POST['documentos_especificos'] as $key => $value) {
+		$valores.= $_POST['documentos_especificos'][$key].'///';
+	}
+
+	$valores .='-----------Adecionales------------';
+
+	foreach ($_POST['documentos_adicionales'] as $key => $value) {
+		$valores.= $_POST['documentos_adicionales'][$key].'///';
+	}
+
+	$_SESSION['radicar'] = 136;
+	echo $valores;
+}
+
+
+else if (!empty($_POST['nit']) && isset($_POST['celular']) && isset($_POST['email']) && isset($_POST['direccion']) && isset($_POST['id_barrio']) ) {
+	
+	$resultado;
+	$nit = $_POST['nit'];
+	$celular = $_POST['celular'];
+	$email = $_POST['email'];
+	$direccion = $_POST['direccion'];
+	$id_barrio = $_POST['id_barrio'];
+
+	$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s  WHERE nit = %s ",
+		GetSQLValueString($celular, "text"),
+		GetSQLValueString($email, "text"),
+		GetSQLValueString($direccion, "text"),
+		GetSQLValueString($id_barrio, "int"),
+		GetSQLValueString($nit, "int")
+	);
+
+		$result =$mysqli->query($sql);
+
+		// echo ($sql)? $sql : 'error'; 
+		echo ($result)? 1 : 1111;
+}
+else if (!empty($_POST['nit'])) {
 	
 	$nit = $_POST['nit'];
-	$sql=sprintf("SELECT nombre, apellido, celular, email FROM terceros WHERE nit = %s ",
+	$sql=sprintf("SELECT nombre, apellido, celular, email, direccion, id_barrio FROM terceros WHERE nit = %s ",
 		GetSQLValueString($nit, "int"));
 
 		$result =$mysqli->query($sql);
@@ -19,20 +309,22 @@ if (!empty($_POST['nit'])) {
 							'nombre'	=> $datos['nombre'],
 							'apellido'  => $datos['apellido'],
 							'celular'   => $datos['celular'],
-							'email'		=> $datos['email']
+							'email'		=> $datos['email'],
+							'direccion'	=> $datos['direccion'],
+							'id_barrio'	=> $datos['id_barrio']
 			);
 
 			echo json_encode($arrayjson);
 		}
 		else{
 			$arrayjson = array();
-			$arrayjson[] = array(
-							'estado'	=> 2 );
+			$arrayjson[] = array('estado'	=> 2 );
 
 			echo json_encode($arrayjson);
 		}
 }
 else{
+	// $_SESSION['radicar'] = 133;
 	$arrayjson = array();
 	$arrayjson[] = array(
 					'estado'	=> 0 );

@@ -8,10 +8,13 @@
 		if ( (isset($_POST['estado']) && !empty($_POST['estado']) ) &&
 			 (isset($_POST['cita']) && !empty($_POST['cita']) ) &&
 		 	 (isset($_POST['obs']) && !empty($_POST['obs']) ) ) {
+	
+			$obs = $_POST['obs'];
 
 			$hora = date('H:i:s');
 			$estado = $_POST['estado'];
 			$id_agendamiento = $_POST['cita'];
+
 
 			$sql = sprintf("UPDATE agendamiento SET hora_fin=%s, id_estado=%s, obervacion_agd=%s WHERE id_agendamiento= %s",
 			      
