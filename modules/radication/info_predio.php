@@ -1,6 +1,13 @@
 <form name="frPredio" id="frPredio" method="post">
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 input-group">
+    <div class="col-lg-12 input-group">
+      <label for="nombrePredio" class="col-form-label col-lg-5">Nombre del Proyecto</label>
+      <input type="text"   id="nombrePredio" name="nombrePredio" class="form-control col-lg-7">
+    </div>
+  </div>
+  <div class="col-lg-12 form-group"></div>
+  <div class="col-lg-12 input-group">
     <div class="col-lg-6 input-group">
       <label for="dirActual" class="col-form-label col-lg-5">Dirección (Actual)</label>
       <input type="text"  value="algo aqui" id="1" name="dirActual" class="form-control col-lg-7">
@@ -80,7 +87,7 @@
   <div class="col-lg-12">
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="URB" checked="">
+        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="1" checked="">
       </div> 
       <div class="col-lg-10 input-group">
         <label for="clasificacionsuelo" class="form-check-label">Urbano</label>
@@ -88,15 +95,15 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="RUR">
+        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="2">
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="clasificacionsuelo" class="form-check-label">Rulal</label>
+        <label for="clasificacionsuelo" class="form-check-label">Rural</label>
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="EXP">
+        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="3">
       </div> 
       <div class="col-lg-10 input-group">
         <label for="clasificacionsuelo" class="form-check-label">De Expansión</label>
@@ -150,11 +157,18 @@
   <div class="col-lg-12 form-group"></div>
   <hr>
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-5"></div>
-    <input type="input" hidden="" name="btn_predio" value="Predio">
-    <button type="button" name="btn_predio" value="Predio" class=" btn btn-danger agregar col-lg-2" >
-      <span class="fa fa-floppy-o"></span> Guardar 
-    </button>
+    <div class="col-lg-6">
+      <input type="input" hidden="" name="btn_predio" value="Predio">
+      <button type="button" name="btn_predio" value="Predio" class=" btn btn-danger agregar col-lg-2" >
+        <span class="fa fa-floppy-o"></span> Guardar 
+      </button>
+    </div>
+    <div class="col-lg-6">
+      <form name="frPredio" id="skdj" method="post">
+
+        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+      </form>
+    </div>
   </div>
 </form>
 <div class="col-lg-12"></div>

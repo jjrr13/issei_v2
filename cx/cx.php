@@ -11,7 +11,8 @@
 		die('Error de conexión (' . mysqli_connect_errno() . ') '
 				. mysqli_connect_error());
 	}
-		
+	
+	$mysqli->set_charset("utf-8");
 	//Log in
 	session_start();
 	//Hide generated errors

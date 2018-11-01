@@ -82,11 +82,18 @@ function addVecinos() {
     </button>
   </div>
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-5"></div>
-    <input type="text" hidden="" name="btn_vecino" value="Vecino">
-    <button type="button" name="btn_vecino" value="Vecino" class=" btn btn-danger agregar col-lg-2" >
-      <span class="fa fa-floppy-o"></span> Guardar 
-    </button>
+    <div class="col-lg-6">
+      <input type="text" hidden="" name="btn_vecino" value="Vecino">
+      <button type="button" name="btn_vecino" value="Vecino" class=" btn btn-danger agregar col-lg-2" >
+        <span class="fa fa-floppy-o"></span> Guardar 
+      </button>
+    </div>
+    <div class="col-lg-6">
+      <form name="frPredio" id="skdj" method="post">
+
+        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+      </form>
+    </div>
   </div>
 </form>
 <div class="col-lg-12"></div>

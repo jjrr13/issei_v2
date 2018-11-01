@@ -12,8 +12,10 @@ include_once('../menu.php');
   <title>Radicación</title>
   <meta charset="utf-8">
 
-
 <style>
+  .izq{
+    padding-left: 15px;
+  }
   .left{
     margin-left: 5px;
   }
@@ -122,8 +124,7 @@ function inciarSelectes2() {
 }
 
 const enviar = (form) => {
-   alert(form);
-  // alert("Entro en la función enviar");
+    // alert(form);
   const datos = $("#fr"+form).serialize();
 alert(datos);
   $.ajax({   
@@ -138,10 +139,11 @@ alert(datos);
     },
     success: function(data)            
     {
-      //console.log(<?php echo (isset($_SESSION['radicar']))? $_SESSION['radicar'] :'130'; ?>);
-      // var valor = <?php //echo (isset($_SESSION['radicar']))? $_SESSION['radicar'] :'130'; ?>;
-      verificar(data);
-      $('#1').val(data);
+      if (form=='Tipo') {
+        window.location.reload();
+      }else{
+        verificar(data);
+      }
       // confirmar('Haciendo pruebas', 'fa fa-check-square', 'blue', 'window');
     }
   });
@@ -151,10 +153,10 @@ alert(datos);
 
 function verificar(valor){
   var pes=130;
-       alert(valor);
+        alert(valor);
       //CAPTURA DE POSBLES ERRORES
   if (valor == 031) {
-       confirmar('EL FORMULARIO DELICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+       confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 032) {
        confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 033) {
@@ -165,6 +167,12 @@ function verificar(valor){
        confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 036) {
        confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+  }else if (valor == 037) {
+       confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
+  }else if (valor == 112) {
+       confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
+  }else if (valor == 111) {
+       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', 'S');
   }
   //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
   else if (valor >= 130){
@@ -196,7 +204,7 @@ function verificar(valor){
     }
   }
   else{
-    alert(valor);
+    // alert(valor);
   }
 }
 
@@ -204,46 +212,49 @@ function verificar(valor){
 
 
 <script>
+  //mostrar y ocultar submenus
     $(function(){
       $('.fantasma').change(function(){
+        var valor = $(this).val();
+        // alert(valor);
         if(!$(this).prop('checked')){
-          $('#dvOcultar').hide();
+          $('#dvOcultar'+valor).hide();
         }else{
-          $('#dvOcultar').show();
+          $('#dvOcultar'+valor).show();
         }
       
       });
     });
-    $(function(){
-      $('.fantasma1').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar1').hide();
-        }else{
-          $('#dvOcultar1').show();
-        }
+    // $(function(){
+    //   $('.fantasma1').change(function(){
+    //     if(!$(this).prop('checked')){
+    //       $('#dvOcultar1').hide();
+    //     }else{
+    //       $('#dvOcultar1').show();
+    //     }
       
-      });
-    });
-    $(function(){
-      $('.fantasma2').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar2').hide();
-        }else{
-          $('#dvOcultar2').show();
-        }
+    //   });
+    // });
+    // $(function(){
+    //   $('.fantasma2').change(function(){
+    //     if(!$(this).prop('checked')){
+    //       $('#dvOcultar2').hide();
+    //     }else{
+    //       $('#dvOcultar2').show();
+    //     }
       
-      });
-    });
-    $(function(){
-      $('.fantasma3').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar3').hide();
-        }else{
-          $('#dvOcultar3').show();
-        }
+    //   });
+    // });
+    // $(function(){
+    //   $('.fantasma3').change(function(){
+    //     if(!$(this).prop('checked')){
+    //       $('#dvOcultar3').hide();
+    //     }else{
+    //       $('#dvOcultar3').show();
+    //     }
       
-      });
-    });
+    //   });
+    // });
   </script>
 
 <script>
@@ -252,7 +263,7 @@ function buscarNit(boton) {
   var opcion = $(boton).val();
   // alert(opcion);
   var nit = $('#nit'+opcion).val();
-   // alert(nit.length);
+    alert(nit);
   if (nit.length > 5 && nit.length <= 11) {
     $.ajax({
       type: "POST",
@@ -353,10 +364,7 @@ function buscarNit(boton) {
           <a  id="135" href="#1355">DOCUMENTOS</a>
         </li>
       </ul>
-<form name="frPredio" id="skdj" method="post">
 
-<button type="submit" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> limpiar</button>
-</form>
 <hr>
       <!-- Tab panes -->
       <div class="tab-content">
