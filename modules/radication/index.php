@@ -106,7 +106,7 @@ include_once('../menu.php');
   inciarSelectes2();
   
 });
-
+ 
 function inciarSelectes2() {
   $('.js-example-basic-single').each(function (i, obj) { 
     if (!$(obj).data("select2")) { 
@@ -124,10 +124,10 @@ function inciarSelectes2() {
 }
 
 const enviar = (form) => {
-   alert(form);
+
+    // alert(form);
   const datos = $("#fr"+form).serialize();
 // alert(datos);
-  alert(datos);
   $.ajax({   
     cache: false,                     
     type: "POST",                 
@@ -154,10 +154,10 @@ const enviar = (form) => {
 
 function verificar(valor){
   var pes=130;
-       alert(valor);
+         alert(valor);
       //CAPTURA DE POSBLES ERRORES
   if (valor == 031) {
-       confirmar('EL FORMULARIO DELICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+       confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 032) {
        confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 033) {
@@ -168,9 +168,15 @@ function verificar(valor){
        confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 036) {
        confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+  }else if (valor == 037) {
+       confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
+  }else if (valor == 112) {
+       confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
+  }else if (valor == 111) {
+       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', 'S');
   }
   //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
-  else if (valor >= 130){
+  else if (valor >= 130 || valor == 111){
     for (var j = 0; j < 6; j++) {
     // alert(pes+''+ j);
       if (valor==pes) {
@@ -199,7 +205,7 @@ function verificar(valor){
     }
   }
   else{
-    alert(valor);
+    // alert(valor);
   }
 }
 
@@ -256,9 +262,9 @@ function verificar(valor){
 
 function buscarNit(boton) {
   var opcion = $(boton).val();
-  // alert(opcion);
+   // alert(opcion);
   var nit = $('#nit'+opcion).val();
-   // alert(nit.length);
+   // alert(nit);
   if (nit.length > 5 && nit.length <= 11) {
     $.ajax({
       type: "POST",
@@ -359,10 +365,7 @@ function buscarNit(boton) {
           <a  id="135" href="#1355">DOCUMENTOS</a>
         </li>
       </ul>
-<form name="frPredio" id="skdj" method="post">
 
-<button type="submit" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> limpiar</button>
-</form>
 <hr>
       <!-- Tab panes -->
       <div class="tab-content">
@@ -405,7 +408,7 @@ function buscarNit(boton) {
   <strong>Copyright &copy; 2018 Computer Services.</strong>
   All rights reserved.
   <div class="float-right d-none d-sm-inline-block">
-    <b>Version</b> 1.2.1
+    <b>Version</b> 1.2.2
   </div>
 </footer>
 <script src="../../plugins/popper/popper.min.js"></script>

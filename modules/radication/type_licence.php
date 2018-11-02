@@ -92,7 +92,7 @@
 
 
   function permitir2(valor){
-    if ($(valor).val()==0) {
+    if ($(valor).val()==1) {
       // alert(valor.checked);
       if (valor.checked) {
         $('#industrial').attr('disabled', 'disabled');
@@ -101,7 +101,7 @@
         $('#industrial').removeAttr('disabled');
       }
     }
-    else if ($(valor).val()==3) {
+    else if ($(valor).val()==4) {
       if (valor.checked) {
         $('#vivienda').attr('disabled', 'disabled');
       }
@@ -332,7 +332,7 @@
             <label for="categoria" class="form-check-label izq">Categoria: </label>
           </div>
           <div class="col-lg-3   input-group">
-            <select style="width: 66%;" class="js-example-basic-single form-control col-md-4" id="categoria" name="categoria" >
+            <select style="width: 66%;" class="form-control col-md-4" id="categoria" name="categoria" >
               <option class="form-check-input clasestado" value="1">1</option>
               <option class="form-check-input clasestado" value="2">2</option>
               <option class="form-check-input clasestado" value="3">3</option>
@@ -447,19 +447,19 @@
 
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-2 input-group">
-        <input type="checkbox" name="usos[]" id="vivienda" class="form-check-input" value="0" onclick="permitir2(this);">
+        <input type="checkbox" name="usos[]" id="vivienda" class="form-check-input" value="1" onclick="permitir2(this);">
         <label for="vivienda" class="form-check-label izq">Vivienda</label>
       </div> 
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-4 offset-2 input-group">
-        <input type="checkbox" name="usos[]" id="comercio" class="form-check-input" value="1">
+        <input type="checkbox" name="usos[]" id="comercio" class="form-check-input" value="2">
         <label for="comercio" class="form-check-label izq">Comercio y/o Servicios</label>
       </div> 
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-2 input-group">
-        <input type="checkbox" name="usos[]" id="institu" class="form-check-input" value="2">
+        <input type="checkbox" name="usos[]" id="institu" class="form-check-input" value="3">
         <label for="institu" class="form-check-label izq">Institucional</label>
       </div> 
       <div class="col-lg-10 input-group">
@@ -467,7 +467,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-2 input-group">
-        <input type="checkbox" name="usos[]" id="industrial" class="form-check-input" value="3" onclick="permitir2(this);">
+        <input type="checkbox" name="usos[]" id="industrial" class="form-check-input" value="4" onclick="permitir2(this);">
         <label for="industrial" class="form-check-label izq">Industrial</label>
       </div> 
       <div class="col-lg-10 input-group">
@@ -479,11 +479,18 @@
   <br>
   <hr>
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-5"></div>
-    <input type="text" hidden="" name="btn_tipo" value="Tipo">
-    <button type="button" name="btn_tipo" id="btn_tipo" value="Tipo" class=" btn btn-danger agregar col-lg-2" >
-      <span class="fa fa-floppy-o"></span> Guardar 
-    </button>
+    <div class="col-lg-6">
+      <input type="text" hidden="" name="btn_tipo" value="Tipo">
+      <button type="button" name="btn_tipo" id="btn_tipo" value="Tipo" class="offset-1 btn btn-danger agregar col-lg-4" >
+        <span class="fa fa-floppy-o"></span> Guardar 
+      </button>
+    </div>
+    <div class="col-lg-6">
+      <form name="frPredio" id="skdj" method="post">
+
+        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+      </form>
+    </div>
   </div>
 </form>
 <div class="col-lg-12"></div>

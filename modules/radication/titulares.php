@@ -1,21 +1,5 @@
 <script type="text/javascript">
-// $(document).ready(function(){
 
-//   $('#email9').keyup(function(){
-//     // var _this = $('#email9');
-//     var _email = $('#email9').val();
-
-//     var re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-//     // alert('aprimio');
-//     var valid = re.test(_email);
-
-//     if(valid){
-//       $('#email9').attr('style', 'background:white ');
-//     } else {
-//       $('#email9').attr('style', 'border-color:#f00707');
-//     }
-//   });
-// });
 function validaCorreo(valor){
     var permitidos = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     // alert('aprimio');
@@ -40,7 +24,7 @@ otroTitular +="<div class='col-lg-12 input-group borde'>";
 otroTitular +="<div class='col-lg-12 input-group'>";
 otroTitular   +="<div class='col-lg-5 input-group'>";
 otroTitular     +="<label for='nit"+cantTitular+"' class='col-form-label col-lg-3'>NIT</label>";
-otroTitular     +="<input type='text' name='nitT[]' id='nit"+cantTitular+"' class='form-control col-lg-8' placeholder='NIT'>";
+otroTitular     +="<input type='text' name='nit[]' id='nit"+cantTitular+"' class='form-control col-lg-8' placeholder='NIT'>";
 otroTitular     +="<button type='button' name='burcar"+cantTitular+"' value='"+cantTitular+"' onclick='buscarNit(this)' class='btn btn-danger left'>Buscar</button>";
 otroTitular   +="</div>";
 otroTitular   +="<div class='col-lg-7 input-group opcion"+cantTitular+"' hidden id='opcion"+cantTitular+"' >";
@@ -161,7 +145,7 @@ otroTitular +="</div>";
       <div class="col-lg-12 input-group ">
         <div class="col-lg-5 input-group">
           <label for="nit9" class="col-form-label col-lg-3">NIT</label>
-          <input type="text" value="1113524482" name="nit9" id="nit9" class="form-control col-lg-8" placeholder="NIT">
+          <input type="text" value="1113524482" name="nit[]" id="nit9" class="form-control col-lg-8" placeholder="NIT">
           <button type="button" name="burcar9" value="9" onclick="buscarNit(this)" class="btn btn-danger left">Buscar</button>
         </div>
         <div class="col-lg-7 input-group opcion9" hidden id="opcion9" >
@@ -219,11 +203,19 @@ otroTitular +="</div>";
   </div>
 
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-5"></div>
-    <input type="text" hidden="" name="btn_titular" value="Titular">
-    <button type="button" name="btn_titular" id="btn_titular" value="Titular" class=" btn btn-danger agregar col-lg-2" >
-      <span class="fa fa-floppy-o"></span> Guardar 
-    </button>
+    <div class="col-lg-6">
+      <input type="text" hidden="" name="btn_titular" value="Titular">
+      <button type="button" name="btn_titular" id="btn_titular" value="Titular" class=" btn btn-danger agregar col-lg-4" >
+        <span class="fa fa-floppy-o"></span> Guardar 
+      </button>
+    </div>
+  
+    <div class="col-lg-6">
+      <form name="frPredio" id="skdj" method="post">
+
+        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+      </form>
+    </div>
   </div>
 </form>
 <div class="col-lg-12"></div>

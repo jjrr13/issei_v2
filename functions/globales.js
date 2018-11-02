@@ -29,6 +29,7 @@
 
   //Funcion que validad el ingreso de solo numeros
   function ValidNum(e){
+    // alert('entro a los numeros ');
     tecla = (document.all) ? e.keyCode : e.which;
     //Tecla de retroceso para borrar, siempre la permite
     if (tecla==8 || tecla==0){
@@ -41,6 +42,7 @@
     tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
   }
+  
 
 
     $('#cerrar').on('click', function(){

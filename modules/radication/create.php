@@ -15,6 +15,8 @@ include_once $dir."cx/cx.php";
 <script>
 $(document).ready(function() {
 
+   // $('.js-example-basic-single').select2({ dropdownParent: $('.js-example-basic-single').parent()});
+
    $(".inline").colorbox({
         inline:true, width:"80%",  overlayClose:false,  speed:1000,
         onComplete:function(){ 
@@ -116,7 +118,7 @@ $(document).ready(function() {
                 <div class="col-lg-12  input-group">
                   <div class="col-lg-6  input-group">
                     <label for="barrio" class="col-form-label col-lg-4 ">Barrio <p class="requerido">*</p></label>
-                    <select style="width: 66%;" class="col-lg-12 js-example-basic-single form-control col-md-4" id="barrio" name="barrio" >
+                    <select style="width: 66%;" class="col-lg-12 form-control col-md-4" id="barrio" name="barrio" >
                       <option class="clasestado">SELECCIONAR</option>
                       <option class="clasestado" value="487">OTRO BARRIO</option>
                       <?php 
@@ -148,7 +150,7 @@ $(document).ready(function() {
               </div>
               <div class="col-lg-2">
                 <input type="hidden" name="cancelar">
-                <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">cancelar</button>
+                <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
               </div>
               <div class="form-group col-lg-12 "></div>
             </div>
@@ -162,7 +164,7 @@ $(document).ready(function() {
       <strong>Copyright &copy; 2018 Computer Services.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.2.0
+        <b>Version</b> 1.2.2
       </div>
     </footer>
 

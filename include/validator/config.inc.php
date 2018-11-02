@@ -3,8 +3,10 @@
 	// ini_set("session.gc_maxlifetime", 12000);
 	// session_start();
 
+
 	$url				  = "http://192.168.0.200/issei_v2";
 	// $url				  = "http://192.168.1.54/issei_v2";
+	// $url				  = "http://192.168.0.103/issei_v2";
 	$separador            = "\\";
 	
 	$path				  = "C:\\xampp\htdocs\\issei_v2";
