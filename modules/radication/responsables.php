@@ -3,12 +3,12 @@
   <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 form-group "></div>
   <div class="col-lg-12 form-group borde">
-  <h5>RADICADOR</h5>
+  <h5>TRAMITADOR</h5>
 
     <div class="col-lg-12 input-group" >
       <div class="col-lg-5 input-group">
         <label for="nit0" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input autofocus="autofocus" value="16603516" type="text" name="nit0" id="nit0" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input autofocus="autofocus" value="1144041539" type="text" name="nit0" id="nit0" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button  type="button" name="burcar0" value="0" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
       <div class="col-lg-5 input-group opcion0" id="opcion" hidden="">
@@ -61,7 +61,7 @@
     <div class="col-lg-12 input-group">
       <div class="col-lg-5 input-group">
         <label for="nit2" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit2" id="nit2" value="16742072" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input type="text" name="nit2" id="nit2" value="" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button type="button" name="burcar2" value="2" onclick="//buscarNit(this)" class=" btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion2" id="opcion2" hidden="">
@@ -89,7 +89,7 @@
       <div class="col-lg-5 input-group">
 
         <label for="nit3" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit3" id="nit3" value="29363821" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input type="text" name="nit3" id="nit3" value="" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button type="button" name="burcar3" value="3" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion3" id="opcion3" hidden="">
@@ -115,7 +115,7 @@
     <div class="col-lg-12 input-group">
       <div class="col-lg-5 input-group">
         <label for="nit4" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit4" id="nit4" value="31408323" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input type="text" name="nit4" id="nit4" value="" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button type="button" name="burcar4" value="4" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion4" id="opcion4" hidden="">
@@ -141,7 +141,7 @@
     <div class="col-lg-12 input-group">
       <div class="col-lg-5 input-group">
         <label for="nit5" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit5" id="nit5" value="31575856" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input type="text" name="nit5" id="nit5" value="" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button type="button" name="burcar5" value="5" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
       <div class="col-lg-5 input-group opcion5" id="opcion5" hidden="">
@@ -167,7 +167,7 @@
     <div class="col-lg-12 input-group">
       <div class="col-lg-5 input-group">
         <label for="nit6" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit6" id="nit6" value="31575856" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input type="text" name="nit6" id="nit6" value="" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button type="button" name="burcar6" value="6" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion6" id="opcion6" hidden="">
@@ -193,7 +193,7 @@
     <div class="col-lg-12 input-group">
       <div class="col-lg-5 input-group">
         <label for="nit7" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit7" id="nit7" value="38644390" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
+        <input type="text" name="nit7" id="nit7" value="" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
         <button type="button" name="burcar7" value="7" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion7" id="opcion7" hidden="">

@@ -273,6 +273,19 @@
         <label for="LicCons" class="form-check-label izq">Licencia de Construcción</label>
       </div>
       <div class="col-lg-12"  id="dvOcultar4" style="display: none;">
+        <div id="categoria" class="col-lg-12 input-group" style="display: none; padding-bottom: 7px; padding-top: 7px;">
+          <div class="col-lg-2 offset-2 input-group">
+            <label for="categoria" class="form-check-label izq">Categoria: </label>
+          </div>
+          <div class="col-lg-3   input-group">
+            <select style="width: 66%;" class="form-control col-md-4" id="categoria" name="categoria" >
+              <option class="form-check-input clasestado" value="1">1</option>
+              <option class="form-check-input clasestado" value="2">2</option>
+              <option class="form-check-input clasestado" value="3">3</option>
+              <option class="form-check-input clasestado" value="4">4</option>
+            </select>
+          </div>
+        </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="checkbox" name="LicConsC[]" id="LicCons10" class="form-check-input" value="10" onclick="permitir(this);">
@@ -306,9 +319,10 @@
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="checkbox" name="LicConsC[]" id="LicCons15" class="form-check-input" value="15" onclick="bloqConstruc(3);">
-            <label for="LicCons15" class="form-check-label izq" >Cerramiento</label>
+            <label for="LicCons15" class="form-check-label izq" >Reforzamiento Estructural</label>
           </div>
         </div>
+        
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="checkbox" name="LicConsC[]" id="LicCons16" class="form-check-input" value="16" onclick="bloqConstruc(3);">
@@ -318,34 +332,27 @@
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="checkbox" name="LicConsC[]" id="LicCons17" class="form-check-input" value="17" onclick="bloqConstruc(3);">
-            <label for="LicCons17" class="form-check-label izq" >Demolición Parcial</label>
+            <label for="LicCons17" class="form-check-label izq" >Cerramiento</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="checkbox" name="LicConsC[]" id="LicCons18" class="form-check-input" value="18" onclick="bloqConstruc(3);">
-            <label for="LicCons18" class="form-check-label izq">Demolición Total</label>
+            <label for="LicCons18" class="form-check-label izq" >Demolición Parcial</label>
           </div>
         </div>
-        <div id="categoria" class="col-lg-12 input-group" style="display: none; padding-bottom: 20px; padding-top: 15px;">
-          <div class="col-lg-2 offset-2 input-group">
-            <label for="categoria" class="form-check-label izq">Categoria: </label>
-          </div>
-          <div class="col-lg-3   input-group">
-            <select style="width: 66%;" class="form-control col-md-4" id="categoria" name="categoria" >
-              <option class="form-check-input clasestado" value="1">1</option>
-              <option class="form-check-input clasestado" value="2">2</option>
-              <option class="form-check-input clasestado" value="3">3</option>
-              <option class="form-check-input clasestado" value="4">4</option>
-            </select>
-            <!-- <input type="checkbox" name="categoria" id="categoria" class="form-check-input" value="16" onclick="bloqConstruc(3);"> -->
+        <div class="col-lg-12 input-group" style="padding-bottom: 15px">
+          <div class="col-lg-6 offset-2 input-group">
+            <input type="checkbox" name="LicConsC[]" id="LicCons19" class="form-check-input" value="19" onclick="bloqConstruc(3);">
+            <label for="LicCons19" class="form-check-label izq">Demolición Total</label>
           </div>
         </div>
+        
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-7 offset-2 input-group">
-        <input type="checkbox" name="LicRec" id="LicRec" class="form-check-input" value="19" onclick="permitir(this);">
+        <input type="checkbox" name="LicRec" id="LicRec" class="form-check-input" value="20" onclick="permitir(this);">
         <label for="LicRec" class="form-check-label izq">Reconocimiento de la Existencia de una Edificación</label>
       </div>
     </div>  
@@ -357,50 +364,50 @@
       <div class="col-lg-12"  id="dvOcultar5" style="display: none;">
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
-            <input type="radio" name="otrasact" id="otrasact20" class="form-check-input" value="20" onclick="uncheckRadio(this);">
-            <label for="otrasact20" class="form-check-label izq">Ajuste de Cotas</label>
-          </div>
-        </div>
-        <div class="col-lg-12 input-group">
-          <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact21" class="form-check-input" value="21" onclick="uncheckRadio(this);">
-            <label for="otrasact21" class="form-check-label izq">Concepto de Norma</label>
+            <label for="otrasact21" class="form-check-label izq">Ajuste de Cotas</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact22" class="form-check-input" value="22" onclick="uncheckRadio(this);">
-            <label for="otrasact22" class="form-check-label izq">Concepto de Uso de Suelos</label>
+            <label for="otrasact22" class="form-check-label izq">Concepto de Norma</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact23" class="form-check-input" value="23" onclick="uncheckRadio(this);">
-            <label for="otrasact23" class="form-check-label izq">Copia Certificada de Planos</label>
+            <label for="otrasact23" class="form-check-label izq">Concepto de Uso de Suelos</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact24" class="form-check-input" value="24" onclick="uncheckRadio(this);">
-            <label for="otrasact24" class="form-check-label izq">Modificacion de Planos</label>
+            <label for="otrasact24" class="form-check-label izq">Copia Certificada de Planos</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact25" class="form-check-input" value="25" onclick="uncheckRadio(this);">
-            <label for="otrasact25" class="form-check-label izq">Propiedad Horizontal</label>
+            <label for="otrasact25" class="form-check-label izq">Modificacion de Planos</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact26" class="form-check-input" value="26" onclick="uncheckRadio(this);">
-            <label for="otrasact26" class="form-check-label izq">Movimiento de Tierras</label>
+            <label for="otrasact26" class="form-check-label izq">Propiedad Horizontal</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact27" class="form-check-input" value="27" onclick="uncheckRadio(this);">
-            <label for="otrasact27" class="form-check-label izq">Aprobacion de Piscina</label>
+            <label for="otrasact27" class="form-check-label izq">Movimiento de Tierras</label>
+          </div>
+        </div>
+        <div class="col-lg-12 input-group">
+          <div class="col-lg-6 offset-2 input-group">
+            <input type="radio" name="otrasact" id="otrasact28" class="form-check-input" value="28" onclick="uncheckRadio(this);">
+            <label for="otrasact28" class="form-check-label izq">Aprobacion de Piscina</label>
           </div>
         </div>
         

@@ -27,9 +27,9 @@ INSERT INTO `profesion` (`id_profesion`, `profesion`) VALUES
  -- insercion de tipos de licencias
 INSERT INTO `tipo_licencias` (`nombre`, `modalidad`) VALUES
 ('Generales', 'Todas'),
-('Urbanizacion', 'Desarrollo.'),
+('Urbanizacion', 'Desarrollo-'),
 ('Urbanizacion', 'Reurbanizacion'),
-('Urbanizacion', 'Saneamiento.'),
+('Urbanizacion', 'Saneamiento/'),
 ('Parcelacion', 'Desarrollo'),
 ('Parcelacion', 'Saneamiento'),
 ('Subdivicion', 'Reloteo'),
@@ -40,11 +40,12 @@ INSERT INTO `tipo_licencias` (`nombre`, `modalidad`) VALUES
 ('Construccion', 'Adecuacion'),
 ('Construccion', 'Modificacion'),
 ('Construccion', 'Restauracion'),
-('Construccion', 'Cerramiento'),
+('Construccion', 'Reforzamiento Estructural'),
 ('Construccion', 'Reconstrucción'),
+('Construccion', 'Cerramiento'),
 ('Construccion', 'Demolicion Parcial'),
 ('Construccion', 'Demolicion Total'),
-('Reconocimiento', 'N/A'),
+('Reconocimiento', 'N-A'),
 ('Otras', 'Ajuste de Cotas'),
 ('Otras', 'Concepto de Norma'),
 ('Otras', 'Concepto de Uso de Suelos'),
@@ -98,7 +99,7 @@ INSERT INTO `radicado_documentos`(`nombre`, `ruta`) VALUES ('Certificado de trad
 ('Peticion ', 'Especifico') 
 
 -- insercion de combinacion unica de licencias y documentos
-INSERT INTO `lic_doc`(`id_doc`, `id_lic`) VALUES 
+INSERT INTO `lic_doc`( `id_lic`, `id_doc`) VALUES 
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
 (2, 8), (2, 9), (2, 10), (2, 11),
 (3, 12), (3, 8), (3, 15), (3, 11),
@@ -113,18 +114,20 @@ INSERT INTO `lic_doc`(`id_doc`, `id_lic`) VALUES
 (12, 23), (12, 24), (12, 25), (12, 26), (12, 27), (12, 28), (12, 29), (12, 30), (12, 31), (12, 10), (12, 32),
 (13, 23), (13, 24), (13, 25), (13, 26), (13, 27), (13, 28), (13, 29), (13, 30), (13, 31), (13, 10), (13, 32), 
 (14, 23), (14, 24), (14, 25), (14, 26), (14, 27), (14, 28), (14, 29), (14, 30), (14, 31), (14, 10), (14, 32), 
-(15, 23), (15, 24), (15, 25), (15, 26), (15, 27), (15, 28), (15, 29), (15, 30), (15, 31), (15, 10), (15, 32), 
+(15, 23), (15, 24), (15, 25), (15, 26), (15, 27), (15, 28), (15, 29), (15, 30), (15, 31), (15, 10), (15, 32), (15, 21),
 (16, 23), (16, 24), (16, 25), (16, 26), (16, 27), (16, 28), (16, 29), (16, 30), (16, 31), (16, 10), (16, 32), 
 (17, 23), (17, 24), (17, 25), (17, 26), (17, 27), (17, 28), (17, 29), (17, 30), (17, 31), (17, 10), (17, 32), 
 (18, 23), (18, 24), (18, 25), (18, 26), (18, 27), (18, 28), (18, 29), (18, 30), (18, 31), (18, 10), (18, 32), 
-(19, 20), (19, 21), (19, 22), (19, 23), (19, 24), (19, 25), (19, 26), (19, 27), (19, 28), (19, 29), (19, 30), (19, 31), (19, 10), 
-(20, 33),
-(21, 40),
+(19, 23), (19, 24), (19, 25), (19, 26), (19, 27), (19, 28), (19, 29), (19, 30), (19, 31), (19, 10), (19, 32), 
+(20, 20), (20, 21), (20, 22), (20, 23), (20, 24), (20, 25), (20, 26), (20, 27), (20, 28), (20, 29), (20, 30), (20, 31), (20, 10), 
+(21, 33),
 (22, 40),
 (23, 40),
-(24, 12), (24, 39),
-(25, 34), (25, 35), (25, 36), (25, 37), (25, 28), 
-(26, 24)
+(24, 40),
+(25, 12), (25, 39),
+(26, 34), (26, 35), (26, 36), (26, 37), (26, 28), 
+(27, 24),
+(28, 38)
 
 -- 
 
