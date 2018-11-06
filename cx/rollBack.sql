@@ -1,3 +1,29 @@
+-- tipos de profesiones
+INSERT INTO `profesion` (`id_profesion`, `profesion`) VALUES
+(1, 'Otros Profesionales'),
+(2, 'Diseñador'),
+(3, 'Ingeniero Civil'),
+(4, 'Ingeniero Geotécnico'),
+(5, 'Ingeniero Constructor'),
+(6, 'Ingeniero Proyectista'),
+(7, 'Arquitecto'),
+(8, 'Revisor Independiente'),
+(10, 'Topógrafo'),
+(11, 'Abogado'),
+(12, 'Contador'),
+(13, 'Administración de Empresas'),
+(14, 'Técnico en Sistemas'),
+(15, 'Técnico en Administración de Empresas'),
+(16, 'Bachiller'),
+(17, 'Trabajador Social'),
+(18, 'Técnico en Gestión Documental'),
+(19, 'Administración Pública'),
+(20, 'Técnico Analista Financiero y Contable'),
+(21, 'Técnico Asistente Administrativo'),
+(22, 'Técnico Auxiliar Contable'),
+(23, 'Tecnólogo en Análisis y Desarrollo de Sistemas de Información'),
+(24, 'Tramitador');
+
  -- insercion de tipos de licencias
 INSERT INTO `tipo_licencias` (`nombre`, `modalidad`) VALUES
 ('Generales', 'Todas'),
@@ -197,15 +223,3 @@ Otras actuaciones - Uso de suelos
 
 Otras actuaciones - Copia Certificada de Planos
   6.6  Peticion 
- -->
-
-SELECT (SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.ing_constructor) as ing_constructor , 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.ing_proyectista) as ing_proyectista, 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.ing_civil) as ing_civil, 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.diseñador) as diseñador, 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.ing_civilGeo) as ing_civilGeo, 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.topografo) as topografo, 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.ing_estructural) as ing_estructural, 
-(SELECT CONCAT(nombre, ' ', apellido) FROM terceros WHERE nit = r.otros) as otros  
-FROM radicacion r
-WHERE r.consecutivo = '909090'  
