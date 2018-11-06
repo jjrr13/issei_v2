@@ -101,18 +101,17 @@
   <br>
   <hr>
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-6">
-      <input type="text" hidden="" name="btn_docs" value="Docs">
-      <button type="button" name="btn_docs" id="btn_docs" value="Docs" class=" btn btn-danger agregar col-lg-4" >
-        <span class="fa fa-floppy-o"></span> Finalizar 
-      </button>
-    </div>
-  
-    <div class="col-lg-6">
+    <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
         <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
       </form>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" hidden="" name="btn_docs" value="Docs">
+      <button type="button" name="btn_docs" id="btn_docs" value="Docs" class=" btn btn-danger agregar col-lg-6" >
+        <span class="fa fa-floppy-o"></span> Finalizar 
+      </button>
     </div>
   </div>
 </form>

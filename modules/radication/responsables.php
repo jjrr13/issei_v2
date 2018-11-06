@@ -1,4 +1,4 @@
-  <button href="#inline_content"  type="button" hidden="" name="modal" value="10" id="modal" class="inline btn btn-success">Abrir Modal</button>
+<button href="#inline_content"  type="button" hidden="" name="modal" value="10" id="modal" class="inline btn btn-success">Abrir Modal</button>
 <form name="frProfesionales" id="frProfesionales" method="POST">
   <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 form-group "></div>
@@ -244,18 +244,17 @@
   <div class="col-lg-12 form-group"></div>
   <hr>
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-6">
-      <input type="text" hidden="" name="btn_Profesionales" value="Profesionales">
-      <button type="button" name="btn_Profesionales" value="Profesionales" class=" btn btn-danger agregar col-lg-4" >
-        <span class="fa fa-floppy-o"></span> Guardar 
-      </button>
-    </div>
-  
-    <div class="col-lg-6">
+    <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
         <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
       </form>
+    </div>
+    <div class="col-lg-4">
+      <input type="text" hidden="" name="btn_Profesionales" value="Profesionales">
+      <button type="button" name="btn_Profesionales" value="Profesionales" class=" btn btn-danger agregar col-lg-6" >
+        <span class="fa fa-floppy-o"></span> Guardar 
+      </button>
     </div>
   </div>
 </form>

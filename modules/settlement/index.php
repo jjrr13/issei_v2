@@ -248,10 +248,6 @@ if(file_exists("../../cx/cx.php")){
             $('#contenedor').append(elem);
           }
 
-          // var tipos_licencias = JSONdata[0].tipos_licencias[0]
-          // alert(JSONdata[0].tipos_licencias);
-          // verificar(data);
-          // confirmar('Haciendo pruebas', 'fa fa-check-square', 'blue', 'window');
         }
       });
     }
@@ -287,9 +283,7 @@ if(file_exists("../../cx/cx.php")){
             elemento+=" <div class='col-lg-2 form-check'>";
               elemento+=" <input name='vivienda_VISD_1' type='checkbox' id='vivienda_VISD_1' value='1' onclick=''  > V.I.S";
             elemento+=" </div>";
-            // elemento+=" <div class='col-lg-2'>";
-            //   elemento+=" <input name='vivienda_1' type='text' id='vivienda_1' value='<?php ; ?>' size='10' onkeypress='document.form1.modificado.value='vivienda_1';' readonly='readonly'  >";
-            //   elemento+=" <input name='cero_vivienda_1' type='checkbox' id='cero_vivienda_1' value='1' onclick='xajax_liquidacion(xajax.getFormValues('form1'))' >";
+
               elemento+=" <input class='variable' name='variableVivienda' type='hidden' id='variableVivienda' value='0' >";
             // elemento+=" </div>";
           elemento+=" </div>";
@@ -309,11 +303,7 @@ if(file_exists("../../cx/cx.php")){
 
            elemento+=" <div class='col-lg-2  input-group'></div>";
 
-           // elemento+=" <div class='col-lg-2 form-check'>";
-           //   elemento+=" <input name='comercio_1' type='text' id='comercio_1' value='<?php ; ?>' size='10' onkeypress='document.form1.modificado.value='comercio_1';' readonly >";
-           //   elemento+=" <input name='cero_comercio_1' type='checkbox' id='cero_comercio_1' value='1' onclick='xajax_liquidacion(xajax.getFormValues('form1'))' >";
-           //   elemento+=" <input name='comercio_total_1' type='hidden' id='comercio_total_1' value='<?php ; ?>' >";
-           // elemento+=" </div>";
+          
          elemento+=" </div>";
 
         }else if (arrayUsos[js][js+1]=='Industrial') {
@@ -329,11 +319,7 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <label for=''>M<sup>2</sup></label>                  ";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 input-group'></div>";
-            // elemento+=" <div class='col-lg-2 form-check'>";
-            //   elemento+=" <input name='industria_1' type='text' id='industria_1' value='<?php ; ?>' size='10' onkeypress='document.form1.modificado.value='industria_1';' readonly >";
-            //   elemento+=" <input name='cero_industria_1' type='checkbox' id='cero_industria_1' value='1' onclick='xajax_liquidacion(xajax.getFormValues('form1'))' >";
-            //   elemento+=" <input name='industria_total_1' type='hidden' id='industria_total_1' value='<?php ; ?>' > ";
-            // elemento+=" </div>";
+          
           elemento+=" </div>";
           
         }else if (arrayUsos[js][js+1]=='Institucional') {
@@ -351,11 +337,7 @@ if(file_exists("../../cx/cx.php")){
             elemento+=" <div class='col-lg-2 form-check'>";
               elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
             elemento+=" </div>";
-            // elemento+=" <div class='col-lg-2'>";
-            //   elemento+=" <input name='institucional_1' type='text' id='institucional_1' value='<?php ; ?>' size='10' onkeypress='document.form1.modificado.value='institucional_1';' readonly >";
-            //   elemento+=" <input name='cero_institucional_1' type='checkbox' id='cero_institucional_1' value='1' onclick='xajax_liquidacion(xajax.getFormValues('form1'))' >";
-            //   elemento+=" <input name='institucional_total_1' type='hidden' id='institucional_total_1' value='<?php ; ?>' >";
-            // elemento+=" </div>";
+         
           elemento+=" </div>";
         }
       }

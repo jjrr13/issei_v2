@@ -3,7 +3,7 @@
   <div class="col-lg-12 input-group">
     <div class="col-lg-12 input-group">
       <label for="nombrePredio" class="col-form-label col-lg-5">Nombre del Proyecto</label>
-      <input type="text"   id="nombrePredio" name="nombrePredio" class="form-control col-lg-7">
+      <input type="text" value="Proyecto JJ"  id="nombrePredio" name="nombrePredio" class="form-control col-lg-7">
     </div>
   </div>
   <div class="col-lg-12 form-group"></div>
@@ -157,17 +157,17 @@
   <div class="col-lg-12 form-group"></div>
   <hr>
   <div class="col-lg-12 input-group" >
-    <div class="col-lg-6">
-      <input type="input" hidden="" name="btn_predio" value="Predio">
-      <button type="button" name="btn_predio" value="Predio" class=" btn btn-danger agregar col-lg-4" >
-        <span class="fa fa-floppy-o"></span> Guardar 
-      </button>
-    </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
         <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
       </form>
+    </div>
+    <div class="col-lg-4">
+      <input type="input" hidden="" name="btn_predio" value="Predio">
+      <button type="button" name="btn_predio" value="Predio" class=" btn btn-danger agregar col-lg-6" >
+        <span class="fa fa-floppy-o"></span> Guardar 
+      </button>
     </div>
   </div>
 </form>

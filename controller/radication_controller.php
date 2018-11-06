@@ -1,78 +1,12 @@
 <?php 
 
-
 include_once "../cx/cx.php";
-// $_POST['btn_predio'] = 'el boton del predio';
-// $_POST['dirActual']  = 'direccion actual';
-// $_POST['BarrioActual'] = ' el barrio actual';
-// $_POST['dirAnterior'] = 'direccion anterior';
-// $_POST['BarrioAnterior'] = 'barrio anterior';
-// $_POST['matricula'] = 'la matricula';
-// $_POST['catastral'] = 'La catastral';
-// $_POST['clasificacionsuelo'] = 'La clasificacionsuelo';
-// $_POST['planimetria'] = 'La planimetria';
-// var_dump($_POST);
-
-// $_SESSION['radicar'] = 130;
-// $consecutivo = 760011180126;
-// $va='<hr>';
-// $va.= insertMuchos($_SESSION['licencias'], 'rad_lic', $consecutivo);
-// $va.='<hr>';
-// $va.= insertMuchos($_SESSION['usos'], 'rad_usos', $consecutivo);
-// $va.='<hr>';
-// $va.= insertVecinos($_SESSION['vecinos'], 'radicado_vecinos', $consecutivo);
-// $va.'<hr>';
-// $va.= insertMuchos($_SESSION['titulares'], 'rad_titulares', $consecutivo);
-// $va.='<hr>';
-// $va.= insertResponsables($_SESSION['responsables'], 'rad_respo', $consecutivo);
-// $va.='<hr>';
-// $va.= insertDocsPendientes($_SESSION['documentos_generales'], 'rad_docs', $consecutivo);
-// $va.='<hr>';
-// $va.= insertDocsPendientes($_SESSION['documentos_especificos'], 'rad_docs', $consecutivo);
-// $va.='<hr>';
-// $va.= insertDocsPendientes($_SESSION['documentos_adicionales'], 'rad_docs', $consecutivo);
-// echo $va.'<hr>';
-
-// echo $consecutivo;
-// $consecutivoNuevo = NuevoRadicado();
-
-	// echo GetSQLValueString($consecutivoNuevo, "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['nombre'], "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['dirActual'], "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['BarrioActual'], "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['dirAnterior'], "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['BarrioAnterior'], "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['estrato'], "int").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['matricula'], "int").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['catastral'], "int").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text").'<br>';
-	// echo GetSQLValueString($_SESSION['predio']['planimetria'], "int").'<br>';
-	// echo GetSQLValueString(1, "int").'<br>';
-	// echo GetSQLValueString(30, "int").'<br>';
-	// echo GetSQLValueString($_SESSION['objetoTramite'], "int").'<br>';
-
-	// echo $_SESSION['radicar'];
-
-// $consecutivoNuevo = '760011180109';
-// // echo insertMuchos($_SESSION['licencias'], 'rad_lic', $consecutivoNuevo);
-// echo insertMuchos($_SESSION['usos'], 'rad_usos', $consecutivoNuevo);
-// echo "<hr>";
-// var_dump($_SESSION['predio']['estrato']);
-// echo insertVecinos($_SESSION['vecinos'], 'radicado_vecinos', $consecutivoNuevo);
-// echo insertMuchos($_SESSION['titulares'], 'rad_titulares', $consecutivoNuevo);
-// echo insertResponsables($_SESSION['responsables'], 'rad_respo', $consecutivoNuevo);
-// echo insertDocsPendientes($_SESSION['documentos_generales'], 'rad_docs', $consecutivoNuevo);
-// echo insertDocsPendientes($_SESSION['documentos_especificos'], 'rad_docs', $consecutivoNuevo);
-// echo insertDocsPendientes($_SESSION['documentos_adicionales'], 'rad_docs', $consecutivoNuevo);
-// var_dump($_SESSION['documentos_generales']);
-// echo '<br>';
-// var_dump($_SESSION['documentos_especificos']);
-// echo '<br>';
-// var_dump($_SESSION['documentos_adicionales']);
-
+// echo $_SESSION['radicar'];
+// limpiar();
 
 if (!empty($_POST['limpia'])) {
 	limpiar();
+	header("Location: ../modules/radication");
 }
 else if (isset($_POST['btn_tipo'])) {
 	$cantLicencias = array();
@@ -310,7 +244,7 @@ else if (!empty($_POST['btn_docs'])   ) {
 								if ($resultado) {
 
 									$respuesta= 111;
-									limpiar();
+									// limpiar();
 									
 								}else{
 									$respuesta= 112;
@@ -340,10 +274,12 @@ else if (!empty($_POST['btn_docs'])   ) {
 		$respuesta= 31;
 	}
 	if ($respuesta >= 31 && $respuesta <= 35 ) {
-		$_SESSION['radicar'] = '1'.$respuesta;
-		$respuesta = '0'.$respuesta;
+		$_SESSION['radicar'] = '1'.$respuesta-1;
+		// $respuesta = '0'.$respuesta;
 	}else if($respuesta == 36 || $respuesta == 37){
-		 $respuesta = '0'.$respuesta;
+		 // $respuesta = '0'.$respuesta;
+	}else if($respuesta == 111){
+		limpiar();
 	}else{
 		 $_SESSION['radicar'] = $respuesta;
 	}
@@ -544,18 +480,4 @@ function limpiar()
 	unset( $_SESSION['titulares']);
 	$_SESSION['radicar']=130;
 	unset( $_SESSION['responsables']);
-	header("Location: ../modules/radication");
 }
-
-// 16603516
-// 16742072
-// 29363821
-// 31408323
-// 31533960
-// 31575856
-// 38644390
-// 66650234
-// 67018637
-// 67031989
-// 94449028
-// 1068586887

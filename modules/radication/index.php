@@ -154,29 +154,32 @@ const enviar = (form) => {
 
 function verificar(valor){
   var pes=130;
-         alert(valor);
+      valor = parseInt(valor);
+          // alert('Esta es la respuesta del controlador '+valor);
       //CAPTURA DE POSBLES ERRORES
-  if (valor == 031) {
+
+  if (valor == 31) {
        confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
-  }else if (valor == 032) {
+  }else if (valor == 32) {
        confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S');
-  }else if (valor == 033) {
+  }else if (valor == 33) {
        confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
-  }else if (valor == 034) {
+  }else if (valor == 34) {
        confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S');
-  }else if (valor == 035) {
-       confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S');
-  }else if (valor == 036) {
+  }else if (valor == 35) {
+       confirmar('EL FORMULARIO PROFESIONALES INCOMPLyETO', 'fa fa-window-close', 'red', 'S');
+  }else if (valor == 36) {
        confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
-  }else if (valor == 037) {
+  }else if (valor == 37) {
        confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
   }else if (valor == 112) {
        confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
   }else if (valor == 111) {
-       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', 'S');
+       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
+
   }
   //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
-  else if (valor >= 130 || valor == 111){
+  if (valor >= 130 || valor == 111){
     for (var j = 0; j < 6; j++) {
     // alert(pes+''+ j);
       if (valor==pes) {
