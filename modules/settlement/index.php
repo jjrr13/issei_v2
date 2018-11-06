@@ -72,130 +72,7 @@ if(file_exists("../../cx/cx.php")){
       });
     });
 
-    var totalVariable=0;
-
-    function cargoBasico2(opcion) {
-        var factor_Q=0;
-        var totalBasico=0;
-        var subtotalExpensas=0;
-        // alert(totalVariable);
-        $(".cargoBasico").each(function(){
-        // alert('entro al ciclo');
-              var dato = $(this).val();
-              // alert(dato);
-              if (dato >= factor_Q) {
-                factor_Q = dato;
-              }
-        });
-        var cargoFijo= 781242 * 0.40;
-        var cargoVariable = 781242 * 0.80;
-        if (opcion==1) {
-          var factor_I_v = factor_I_vivienda($('#estrato').html());
-          // alert(factor_I_v);
-          totalBasico = (cargoFijo * factor_I_v) * 0.938 ;
-          // alert(781242*0.40 * factor_I_vivienda($('#factor_I_v').val()));
-          totalVariable += ((cargoVariable * factor_I_v) * factor_J(factor_Q)) * 0.938 ;
-          subtotalExpensas += totalBasico + totalVariable;
-        }else if (opcion==2) {
-          var factor_I_o = factor_I_otras(factor_Q);
-        // alert(factor_I_o);
-          totalBasico = ((781242*0.40) * factor_I_o) * 0.938 ;
-          // alert(temp3);
-          totalVariable += (((781242*0.80) * factor_I_o) * factor_J(factor_Q, '')) * 0.938 ;
-        // alert(factor_J(factor_Q, ''));
-          subtotalExpensas += totalBasico + totalVariable;
-        }
-        // alert(totalBasico);
-        var iva = subtotalExpensas * 0.19;
-        var total = subtotalExpensas + iva;
-        var estampillas = 5800;
-        var totalExpensas = total + estampillas;
-
-        totalBasico = FormtearNumeros(Math.round(totalBasico));
-        totalVariable = FormtearNumeros(Math.round(totalVariable));
-        subtotalExpensas = FormtearNumeros(Math.round(subtotalExpensas));
-        console.log(subtotalExpensas);
-        iva = FormtearNumeros(Math.round(iva));
-        total = FormtearNumeros(Math.round(total));
-        estampillas = FormtearNumeros(Math.round(estampillas));
-        totalExpensas = FormtearNumeros(Math.round(totalExpensas));
-
-        $('#cargoBasico').val(totalBasico);
-        $('#cargoVariable').val(totalVariable);
-        $('#subExpen').val(subtotalExpensas);
-        $('#iva').val(iva);
-        $('#total').val(total);
-        $('#estampillas').val(estampillas);
-        $('#totalExpensas').val(totalExpensas);
-        totalVariable = parseInt(totalVariable.replace(/\./g,''));
-      }
-
-    function FormtearNumeros(valor) {
-      valor+='';
-      console.log(valor);
-      var num = valor.replace(/\./g,'');
-      if(!isNaN(num)){
-        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-        num = num.split('').reverse().join('').replace(/^[\.]/,'');
-        return num;
-
-      }
-      else if(isNaN(num) || num==0){ 
-        alert('Solo se permiten numeros');
-        // input.value = input.value.replace(/[^\d\.]*/g,'');
-      }
-    }
-
-    function factor_J(factor_q, modalidad='') {
-      var j=0;
-      if (modalidad== 'Urbanizacion' || modalidad== 'Parcelación') {
-        j= 4 / (0.023 + (2000/factor_q));
-      }else{
-        if (factor_q <= 100) { 
-          j= 0.45;
-        }else if (factor_q > 100 && factor_q <= 11000) {
-          j= 3.8 / (0.12 + (800/factor_q));
-        }else if (factor_q > 11000) {
-          j= 2.2 / (0.018 + (800/factor_q));
-        }
-      }
-      return j;
-    }
-
-    function factor_I_otras(factor_Qq) {
-      var jj=0;
-      if (factor_Qq <= 300) { 
-        jj= 2.9;
-      }else if (factor_Qq > 300 && factor_Qq <= 1000) {
-        jj= 3.2 ;
-      }else if (factor_Qq > 1000) {
-        jj= 4 ;
-      }
-      return jj;
-      }
-
-    function factor_I_vivienda(estrato) {
-      var valor=0;
-      switch (estrato) {
-        case '1':
-        case '2':
-          valor = 0.5;
-          break;
-        case '3':
-          valor = 1.0;
-          break;
-        case '4':
-          valor = 1.5;
-          break;
-        case '5':
-          valor = 2.0;
-          break;
-        case '6':
-          valor = 2.5; // verificar este valor ya que aparece en 205
-          break;
-      }
-      return valor;
-    }
+    
 
     function buscarRad(valor) {
       var radicado = '760011' + $('#buscaRadicado').val();
@@ -265,6 +142,199 @@ if(file_exists("../../cx/cx.php")){
 
   </script>
   <script type="text/javascript">
+     function ValidNum2(e){
+      // console.log(e.currentTarget);
+      // console.log(e.data);
+      // console.log(e.target);
+      var target = e.currentTarget;
+      // alert('entro a los numeros ');
+      tecla = (document.all) ? e.keyCode : e.which;
+      //Tecla de retroceso para borrar, siempre la permite
+      if (tecla==8 || tecla==0){
+      //console.log('entro al if, deberia devolver un true');
+          return true;
+      }
+          
+      // Patron de entrada, en este caso solo acepta numeros
+      patron =/[0-9]/;
+      tecla_final = String.fromCharCode(tecla);
+      // if (patron.test(tecla_final)) {
+      //   // $(target).val(tecla_final);
+      //   cargoBasico2(target);
+      // }else{
+
+      return patron.test(tecla_final);
+      
+    }
+
+    function cargoBasico2(opcion) {
+      // console.log(ValidNum(opcion));
+      // if (!evento2(opcion)) {
+      //   alert('Sevento2olo se permiten numeros');
+      // }
+      // alert($(opcion).val()+' valor de llagada');
+       console.log("key pressed ",  String.fromCharCode(event.keyCode));
+
+      var tipo = $(opcion).attr('id');
+
+      if ($(opcion).val().length == 0) {
+        // alert('entro al if');
+        $("#"+tipo+ "_2").val('0');
+      }
+        
+      var tipoUso = tipo.split("_");
+      
+      var cargoFijo= 781242 * 0.40;
+      var cargoVariable = 781242 * 0.80;
+
+      var factor_Q=0;
+      var totalBasico=0;
+      var totalVariable=0;
+      var tempExpesas=0;
+      // alert(totalVariable);
+      $(".cargoBasico").each(function(){
+      // alert('entro al ciclo');
+            var dato = $(this).val();
+            // alert(dato);
+            if (dato >= factor_Q) {
+              factor_Q = dato;
+            }
+      });
+      // alert(factor_Q + ' del factor q');
+
+      if (tipoUso[0]=='vivienda') {
+        var factor_I_v = factor_I_vivienda($('#estrato').html());
+        // alert(factor_I_v);
+        totalBasico = (cargoFijo * factor_I_v) * 0.938 ;
+        // alert(781242*0.40 * factor_I_vivienda($('#factor_I_v').val()));
+        totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q)) * 0.938 ;
+        tempExpesas = totalBasico + totalVariable;
+      }else {
+        var factor_I_o = factor_I_otras(factor_Q);
+      // alert(factor_I_o);
+        totalBasico = ((781242*0.40) * factor_I_o) * 0.938 ;
+        // alert(temp3);
+        totalVariable = (((781242*0.80) * factor_I_o) * factor_J(factor_Q, '')) * 0.938 ;
+      // alert(factor_J(factor_Q, ''));
+        tempExpesas = totalBasico + totalVariable;
+      }
+
+      // alert(tempExpesas+ ' valor de expensas');
+      $("#"+tipo+ "_2").val(tempExpesas);
+      
+      // alert($("#"+tipo+ "_2").val()+ ' despues de asignar valor');
+
+      subtotalExpensas = sumarVariable();
+      // alert(subtotalExpensas);
+
+      var iva = subtotalExpensas * 0.19;
+      var total = subtotalExpensas + iva;
+      var estampillas = 5800;
+      var totalExpensas = total + estampillas;
+
+      totalBasico = FormtearNumeros(Math.round(totalBasico));
+      totalVariable = FormtearNumeros(Math.round(totalVariable));
+      subtotalExpensas = FormtearNumeros(Math.round(subtotalExpensas));
+      console.log(subtotalExpensas);
+      iva = FormtearNumeros(Math.round(iva));
+      total = FormtearNumeros(Math.round(total));
+      estampillas = FormtearNumeros(Math.round(estampillas));
+      totalExpensas = FormtearNumeros(Math.round(totalExpensas));
+
+      $('#cargoBasico').val(totalBasico);
+      $('#cargoVariable').val(totalVariable);
+      $('#subExpen').val(subtotalExpensas);
+      $('#iva').val(iva);
+      $('#total').val(total);
+      $('#estampillas').val(estampillas);
+      $('#totalExpensas').val(totalExpensas);
+      totalVariable = parseInt(totalVariable.replace(/\./g,''));
+    //   }else{
+    //   $("#"+tipo+ "_2").val(0);
+    // }
+    }
+
+    function sumarVariable() {
+      var suma=0;
+      $(".variable").each(function(){
+            var temp = parseInt($(this).val());
+            suma = suma + temp;
+      });
+
+      return suma;
+
+    }
+
+    function FormtearNumeros(valor) {
+      valor+='';
+      console.log(valor);
+      var num = valor.replace(/\./g,'');
+      if(!isNaN(num)){
+        num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+        num = num.split('').reverse().join('').replace(/^[\.]/,'');
+        return num;
+
+      }
+      else if(isNaN(num) || num==0){ 
+        alert('Solo se permiten numeros');
+        // input.value = input.value.replace(/[^\d\.]*/g,'');
+      }
+    }
+
+    function factor_J(factor_q, modalidad='') {
+      var j=0;
+      if (modalidad== 'Urbanizacion' || modalidad== 'Parcelación') {
+        j= 4 / (0.023 + (2000/factor_q));
+      }else{
+        if (factor_q <= 100) { 
+          j= 0.45;
+        }else if (factor_q > 100 && factor_q <= 11000) {
+          j= 3.8 / (0.12 + (800/factor_q));
+        }else if (factor_q > 11000) {
+          j= 2.2 / (0.018 + (800/factor_q));
+        }
+      }
+      return j;
+    }
+
+    function factor_I_otras(factor_Qq) {
+      var jj=0;
+      if (factor_Qq >= 0.1 && factor_Qq <= 300) { 
+        jj= 2.9;
+      }else if (factor_Qq > 300 && factor_Qq <= 1000) {
+        jj= 3.2 ;
+      }else if (factor_Qq > 1000) {
+        jj= 4 ;
+      }else{
+        jj=0;
+      }
+      return jj;
+      }
+
+    function factor_I_vivienda(estrato) {
+      var valor=0;
+      switch (estrato) {
+        case '1':
+        case '2':
+          valor = 0.5;
+          break;
+        case '3':
+          valor = 1.0;
+          break;
+        case '4':
+          valor = 1.5;
+          break;
+        case '5':
+          valor = 2.0;
+          break;
+        case '6':
+          valor = 2.5; // verificar este valor ya que aparece en 205
+          break;
+      }
+      return valor;
+    }
+
+
     function getUsos(arrayUsos, modLicencia) {
       var elemento='';
       for (var js = 0; js < arrayUsos.length ; js++) {
@@ -277,14 +347,16 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <h6>Vivienda</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='vivienda"+modLicencia+"' type='text' id='vivienda_cant_1' size='10' onkeyup='cargoBasico2(1); return ValidNum(this);' value='<?php ; ?>' > ";
+              elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' > ";
             elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='vivienda_VISD_1' type='checkbox' id='vivienda_VISD_1' value='1' onclick=''  > V.I.S";
+              elemento+=" <input name='vivienda"+modLicencia+"vs' type='checkbox' id='vivienda"+modLicencia+"vs' value='1' onclick=''  > V.I.S";
             elemento+=" </div>";
 
-              elemento+=" <input class='variable' name='variableVivienda' type='hidden' id='variableVivienda' value='0' >";
+            // /////////// datos vivienda_ /////////////
+              elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
             // elemento+=" </div>";
           elemento+=" </div>";
         }
@@ -297,13 +369,15 @@ if(file_exists("../../cx/cx.php")){
              elemento+=" <h6>Comercio</h6>";
            elemento+=" </div>";
            elemento+=" <div class='col-lg-3 input-group'>";
-             elemento+=" <input class='cargoBasico' name='comercio"+modLicencia+"' type='text' id='comercio_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='' size='10' >";
+             elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='cargoBasico2(this);' size='10' >";
              elemento+=" <label for=''>M<sup>2</sup></label>";
            elemento+=" </div>";
 
            elemento+=" <div class='col-lg-2  input-group'></div>";
 
-          
+            // /////////// datos comercio_ /////////////
+              elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
          elemento+=" </div>";
 
         }else if (arrayUsos[js][js+1]=='Industrial') {
@@ -315,11 +389,14 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <h6>Industria</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='industria"+modLicencia+"' type='text' id='industria_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+              elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
               elemento+=" <label for=''>M<sup>2</sup></label>                  ";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 input-group'></div>";
-          
+
+            // /////////// datos industria_ /////////////
+               elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
           elemento+=" </div>";
           
         }else if (arrayUsos[js][js+1]=='Institucional') {
@@ -331,13 +408,16 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <h6>Institucional</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='institucional"+modLicencia+"' type='text' id='institucional_cant_1' onkeyup='cargoBasico2(2); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+              elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
               elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
             elemento+=" </div>";
-         
+
+            // /////////// datos institucional_ /////////////
+            elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
+            elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
           elemento+=" </div>";
         }
       }
