@@ -2,18 +2,18 @@
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 input-group">
     <div class="col-lg-12 input-group">
-      <label for="nombrePredio" class="col-form-label col-lg-5">Nombre del Proyecto</label>
-      <input type="text" value="Proyecto JJ"  id="nombrePredio" name="nombrePredio" class="form-control col-lg-7">
+      <label for="nombrePredio" class="col-form-label col-lg-3">Nombre del Proyecto</label>
+      <input type="text" value="Proyecto JJ"  id="nombrePredio" name="nombrePredio" class="form-control col-lg-10">
     </div>
   </div>
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 input-group">
-    <div class="col-lg-6 input-group">
+    <div class="col-lg-7 input-group">
       <label for="dirActual" class="col-form-label col-lg-5">Dirección (Actual)</label>
       <input type="text"  value="algo aqui" id="1" name="dirActual" class="form-control col-lg-7">
     </div>
-    <div class="col-lg-6 input-group">
-      <label for="BarrioActual" class="col-form-label col-lg-4">Barrio Actual</label>
+    <div class="col-lg-5 input-group">
+      <label for="BarrioActual" class="col-form-label col-lg-4">Barrio</label>
       <!-- <input type="text"  value="algo aqui" name="BarrioActual" class="form-control col-lg-7"> -->
       <select style="width: 66%;" class="js-example-basic-single form-control col-md-2" id="BarrioActual" name="BarrioActual" >
         <option class="clasestado">SELECCIONAR</option>
@@ -30,40 +30,36 @@
   </div>
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 input-group">
-    <div class="col-lg-6 input-group">
+    <div class="col-lg-7 input-group">
       <label for="dirAnterior" class="col-form-label col-lg-5">Dirección (Anterior)</label>
       <input type="text"  value="algo aqui" name="dirAnterior" class="form-control col-lg-7">
     </div>
-    <div class="col-lg-6 input-group">
-      <label for="BarrioAnterior" class="col-form-label col-lg-4">Barrio Anterior</label>
-      <!-- <input type="text"  value="algo aqui" name="BarrioAnterior" class="form-control col-lg-7"> -->
-      <select style="width: 66%;" class="js-example-basic-single form-control col-md-2" id="BarrioAnterior" name="BarrioAnterior" >
-        <option class="clasestado">SELECCIONAR</option>
-        <!-- <option class="clasestado" value="487">OTRO BARRIO</option> -->
-        <?php 
-
-        $query = $mysqli-> query ("SELECT * FROM barrio WHERE id_barrio NOT IN (1, 487) ORDER BY barrio ASC");
-        while ($valores = mysqli_fetch_array($query)) {
-
-        echo "<option class='clasestado' value='".$valores['id_barrio']."'>".$valores['barrio']."</option>";
-          } ?>
-      </select>
-    </div>
-  </div>
-  <div class="col-lg-12 form-group"></div>
-  <div class="col-lg-12 input-group">
-    <div class="col-lg-6 input-group">
+    <div class="col-lg-5 input-group">
         <label for="matricula" class="col-form-label col-lg-5">Nro. Matricula</label>
         <input type="text"  value="1234" name="matricula" class="form-control col-lg-7">
     </div>
-    <div class="col-lg-6 input-group">
-        <label for="catastral" class="col-form-label col-lg-4">Nro. Catastral</label>
-        <input type="text"  value="987654" name="catastral" class="form-control col-lg-8">
-    </div>
+   <!--  <div class="col-lg-6 input-group">
+      <label for="BarrioAnterior" class="col-form-label col-lg-4">Barrio Anterior</label>
+      <select style="width: 66%;" class="js-example-basic-single form-control col-md-2" id="BarrioAnterior" name="BarrioAnterior" >
+        <option class="clasestado">SELECCIONAR</option>
+        <option class="clasestado" value="487">OTRO BARRIO</option>
+        <?php 
+
+        // $query = $mysqli-> query ("SELECT * FROM barrio WHERE id_barrio NOT IN (1, 487) ORDER BY barrio ASC");
+        // while ($valores = mysqli_fetch_array($query)) {
+
+        // echo "<option class='clasestado' value='".$valores['id_barrio']."'>".$valores['barrio']."</option>";
+        //   } ?>
+      </select>
+    </div> -->
   </div>
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 input-group">
-    <div class="col-lg-6 offset-6 input-group">
+    <div class="col-lg-7 input-group">
+        <label for="catastral" class="col-form-label col-lg-5">Nro. Catastral</label>
+        <input type="text"  value="987654" name="catastral" class="form-control col-lg-7">
+    </div>
+    <div class="col-lg-5  input-group">
         <label for="estrato" class="col-form-label col-lg-4">Estrato</label>
         <select style="width: 66%;" class=" form-control col-md-2" id="estrato" name="estrato" >
         <option class="clasestado" value="1">1</option>
@@ -74,6 +70,10 @@
         <option class="clasestado" value="6">6</option>
       </select>
     </div>
+  </div>
+  <div class="col-lg-12 form-group"></div>
+  <div class="col-lg-12 input-group">
+    
   </div>
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group"></div>

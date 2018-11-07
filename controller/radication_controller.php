@@ -80,7 +80,7 @@ else if (!empty($_POST['btn_predio'])) {
 	// unset($_SESSION['radicar']);
 	$respuesta;
 	if ( !empty($_POST['dirActual']) && !empty($_POST['BarrioActual']) &&
-		 !empty($_POST['dirAnterior']) && !empty($_POST['BarrioAnterior']) &&
+		 !empty($_POST['dirAnterior']) && 
 		 !empty($_POST['matricula']) && !empty($_POST['catastral']) &&
 		 !empty($_POST['clasificacionsuelo']) && !empty($_POST['planimetria']) ) {
 
@@ -88,7 +88,7 @@ else if (!empty($_POST['btn_predio'])) {
 			$_SESSION['predio']['dirActual'] = $_POST['dirActual'];
 			$_SESSION['predio']['BarrioActual'] = $_POST['BarrioActual'];
 			$_SESSION['predio']['dirAnterior'] = $_POST['dirAnterior'];
-			$_SESSION['predio']['BarrioAnterior'] = $_POST['BarrioAnterior'];
+			// $_SESSION['predio']['BarrioAnterior'] = $_POST['BarrioAnterior'];
 			$_SESSION['predio']['matricula'] = $_POST['matricula'];
 			$_SESSION['predio']['catastral'] = $_POST['catastral'];
 			$_SESSION['predio']['clasificacionsuelo'] = $_POST['clasificacionsuelo'];
@@ -202,15 +202,15 @@ else if (!empty($_POST['btn_docs'])   ) {
 
 							$consecutivoNuevo = NuevoRadicado();
 							
-						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, barrio_ant, estrato, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id) 
+							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
 							       GetSQLValueString($consecutivoNuevo, "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
 							       GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
-							       GetSQLValueString($_SESSION['predio']['BarrioAnterior'], "text"),
+							       // GetSQLValueString($_SESSION['predio']['BarrioAnterior'], "text"),
 							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
 							       GetSQLValueString($_SESSION['predio']['matricula'], "int"),
 							       GetSQLValueString($_SESSION['predio']['catastral'], "int"),

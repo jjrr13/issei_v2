@@ -246,7 +246,7 @@ $tipo_area = $_SESSION['id_area'];
             <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Pre-Liquidacion
+                Liquidacion
               </p>
             </a>
 
@@ -282,15 +282,17 @@ $tipo_area = $_SESSION['id_area'];
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="<?php echo $dir; ?>plugins/jquery/jquery.min.js"></script>
-<!-- funciones de tiempo y de cierre de session -->
-  <?php include_once ($dir.'functions/globales.js'); ?>
 <!-- jQuery UI 1.11.4 -->
 
-<!-- <script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script> -->
+<script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
   
+<!-- funciones de tiempo y de cierre de session -->
+  <?php include_once ($dir.'functions/globales.js'); ?>
 </body>
 </html>
