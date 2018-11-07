@@ -10,9 +10,9 @@ if(file_exists("../../cx/cx.php")){
 
  ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
-  <head>
+  <head> -->
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>Liquidaciones</title>
     
@@ -91,29 +91,34 @@ if(file_exists("../../cx/cx.php")){
         {
           // alert(data);
           console.log(data);
-          var JSONdata    = JSON.parse(data); //parseo la informacion
 
-          $('#estrato').html(JSONdata[0].estrato);
-          $('#radicado').val(JSONdata[0].radicado);
-          $('#fechaRad').val(JSONdata[0].fecha);
-          $('#direccion').val(JSONdata[0].dir_act);
-          $('#arq').val(JSONdata[0].construRespon);
-          $('#propietario').val(JSONdata[0].titulares);
+          if (data == 3) {
+            confirmar('EL RADICADO NO EXISTE! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
+          }else{
+            var JSONdata    = JSON.parse(data); //parseo la informacion
 
-          for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
-            // console.log(JSONdata[0].tipos_usos[r][r+1]);
-          }
+            $('#estrato').html(JSONdata[0].estrato);
+            $('#radicado').val(JSONdata[0].radicado);
+            $('#fechaRad').val(JSONdata[0].fecha);
+            $('#direccion').val(JSONdata[0].dir_act);
+            $('#arq').val(JSONdata[0].construRespon);
+            $('#propietario').val(JSONdata[0].titulares);
 
-          var bandera = true;
+            for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
+              // console.log(JSONdata[0].tipos_usos[r][r+1]);
+            }
 
-          for (var j = 0; j < JSONdata[0].tipos_licencias.length ; j++) {
-            var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
-            var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
-            var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
-           
-            elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
-            // alert(elem);
-            $('#contenedor').append(elem);
+            var bandera = true;
+
+            for (var j = 0; j < JSONdata[0].tipos_licencias.length ; j++) {
+              var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
+              var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
+              var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
+             
+              elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
+              // alert(elem);
+              $('#contenedor').append(elem);
+            }
           }
 
         }
@@ -134,9 +139,6 @@ if(file_exists("../../cx/cx.php")){
   </script>
   <script type="text/javascript">
      function ValidNum2(e){
-      // console.log(e.currentTarget);
-      // console.log(e.data);
-      // console.log(e.target);
       var target = e.currentTarget;
       // alert('entro a los numeros ');
       tecla = (document.all) ? e.keyCode : e.which;
@@ -159,40 +161,37 @@ if(file_exists("../../cx/cx.php")){
     }
 
     function cargoBasico2(opcion) {
-      // console.log(ValidNum(opcion));
-      // if (!evento2(opcion)) {
-      //   alert('Sevento2olo se permiten numeros');
-      // }
-      // alert($(opcion).val()+' valor de llagada');
-       // console.log("key pressed ",  String.fromCharCode(event.keyCode));
 
       var tipo = $(opcion).attr('id');
 
-      if ($(opcion).val().length == 0) {
-        alert('entro al if');
-        $("#"+tipo+ "_2").val('0');
-      }
-        
       var tipoUso = tipo.split("_");
+
+      var cant = tipoUso.length
+
+      var modo;
+      if (cant == 2) {
+        if ($(opcion).val().length == 0) {
+          // alert('entro al if');
+          $("#"+tipo+ "_2").val('0');
+        }
+        modo = $("#"+tipo+ "_3").val();
+      }else if (cant == 3) {
+        modo = $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_3").val();
+
+      }
+
+      // alert(modo);
+      // alert(cant);
       
       var cargoFijo= 781242 * 0.40;
       var cargoVariable = 781242 * 0.80;
 
-      var factor_Q=0;
+      var factor_Q= mayorFactor_Q();
       var totalBasico=0;
       var totalVariable=0;
       var tempExpesas=0;
-      // alert(totalVariable);
-      $(".cargoBasico").each(function(){
-      // alert('entro al ciclo');
-            var dato = $(this).val();
-            // alert(dato);
-            if (dato >= factor_Q) {
-              factor_Q = dato;
-            }
-      });
-      // alert(tipo);
-      var modo = $("#"+tipo+ "_3").val();
+     
+      // alert(factor_Q);
       // alert(modo);
 
       if (tipoUso[0]=='vivienda') {
@@ -200,6 +199,7 @@ if(file_exists("../../cx/cx.php")){
           var factor_I_v = factor_I_vivienda($('#estrato').html());
           totalBasico = (cargoFijo * factor_I_v) * 0.938 ;
           totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q, modo)) * 0.938 ;
+          // alert(totalVariable);
         }
          // alert(factor_I_v);
       }else {
@@ -211,23 +211,39 @@ if(file_exists("../../cx/cx.php")){
         }
       }
 
-      $("#"+tipo+ "_2").val(totalVariable);
-      
-      // alert($("#"+tipo+ "_2").val()+ ' despues de asignar valor');
+      if (cant == 2) {
+        $("#"+tipo+ "_2").val(totalVariable);
+        // alert($("#"+tipo+ "_2").val() + ' este es el valor del campo del variable');
+      }else if (cant == 3) {
+        totalBasico = totalBasico / 2;
+        totalVariable = totalVariable / 2;
+        $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val(totalVariable);
+        // alert($("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val() + ' este es el valor del campo del variable EN EL if');
 
-      subtotalExpensas = sumarVariable() + totalBasico;
+      }
+
+
+      calcular(totalBasico, totalVariable);
+      
+    }
+
+    function calcular(total_Basico, total_Variable) {
+
+      // alert(total_Basico + ' / '+ total_Variable);
+
+      var subtotalExpensas = sumarVariable() + total_Basico;
       // alert(subtotalExpensas);
 
       var iva = subtotalExpensas * 0.19;
       var total = subtotalExpensas + iva;
       var estampillas=0;
-      if (factor_Q >= 0.1) {
+      if (total_Basico >= 0.1) {
          estampillas = 5800;
       }
       var totalExpensas = total + estampillas;
 
-      totalBasico = FormtearNumeros(Math.round(totalBasico));
-      totalVariable = FormtearNumeros(Math.round(totalVariable));
+      total_Basico = FormtearNumeros(Math.round(total_Basico));
+      total_Variable = FormtearNumeros(Math.round(total_Variable));
       subtotalExpensas = FormtearNumeros(Math.round(subtotalExpensas));
       console.log(subtotalExpensas);
       iva = FormtearNumeros(Math.round(iva));
@@ -235,17 +251,36 @@ if(file_exists("../../cx/cx.php")){
       estampillas = FormtearNumeros(Math.round(estampillas));
       totalExpensas = FormtearNumeros(Math.round(totalExpensas));
 
-      $('#cargoBasico').val(totalBasico);
-      $('#cargoVariable').val(totalVariable);
+      $('#cargoBasico').val(total_Basico);
+      $('#cargoVariable').val(total_Variable);
       $('#subExpen').val(subtotalExpensas);
       $('#iva').val(iva);
       $('#total').val(total);
       $('#estampillas').val(estampillas);
       $('#totalExpensas').val(totalExpensas);
-      totalVariable = parseInt(totalVariable.replace(/\./g,''));
-    //   }else{
-    //   $("#"+tipo+ "_2").val(0);
+      // totalVariable = parseInt(totalVariable.replace(/\./g,''));
+    }
+
+    // function subsidio(check) {
+    //   var tipo = $(check).attr('id');
+
+    //   var tipoDato = tipo.split("_");
+
+    //   alert(tipoDato[0]+'_'+tipoDato[1]+'_');
     // }
+
+    function mayorFactor_Q() {
+      var tempFactor_Q=0;
+
+      $(".cargoBasico").each(function(){
+      // alert('entro al ciclo');
+            var dato = $(this).val();
+            // alert(dato);
+            if (dato >= tempFactor_Q) {
+              tempFactor_Q = dato;
+            }
+      });
+      return tempFactor_Q;
     }
 
     function sumarVariable() {
@@ -329,7 +364,13 @@ if(file_exists("../../cx/cx.php")){
     }
 
 
-    function getUsos(arrayUsos, modLicencia, lic) {
+    function getUsos(arrayUsos, modLicencia1, lic) {
+      var modLicencia='';
+      modLicencia1 = modLicencia1.split(' ');
+
+      for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
+        modLicencia+= modLicencia1[jr];
+      }
       var elemento='';
       for (var js = 0; js < arrayUsos.length ; js++) {
         console.log(arrayUsos[js][js+1]);
@@ -345,7 +386,7 @@ if(file_exists("../../cx/cx.php")){
             elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='vivienda"+modLicencia+"vs' type='checkbox' id='vivienda"+modLicencia+"vs' value='1' onclick=''  > V.I.S";
+              elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S";
             elemento+=" </div>";
 
             // /////////// datos vivienda_ /////////////
@@ -411,6 +452,8 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
+              elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='cargoBasico2(this);'  > DOT";
+
               elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
             elemento+=" </div>";
 
@@ -485,8 +528,8 @@ if(file_exists("../../cx/cx.php")){
       padding: .75rem .1rem !important;
     }
   </style>
-  </head>
-  <body class="hold-transition sidebar-mini">
+ <!--  </head>
+  <body class="hold-transition sidebar-mini"> -->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -644,5 +687,12 @@ if(file_exists("../../cx/cx.php")){
         </div>
       </section>
     </div>
-  </body>
+<!--   </body>
 </html>
+ -->
+ <!-- Este SCRIPT ejecuta todos los alerts -->
+<link rel='stylesheet' href='../../cx/demo/demo.css'>
+<link rel='stylesheet' type='text/css' href='../../cx/jquery-confirm.css'>
+<script src='../../cx/demo/libs/bundled.js'></script>
+<script src='../../cx/demo/demo.js'></script>
+<script type='text/javascript' src='../../cx/jquery-confirm.js'></script>
