@@ -1,4 +1,24 @@
 <form name="frDocs" id="frDocs" method="post">
+<script>
+  //mostrar y ocultar submenus
+    $(function(){
+      $('#docCompletos').change(function(){
+        // var valor = $(this).val();
+        // alert(valor);
+        if(!$(this).prop('checked')){
+          $('#contenedor1').show();
+        }else{
+          $('#contenedor1').hide();
+        }
+      
+      });
+    });
+</script>
+
+<div class="col-lg-6  offset-2 input-group">
+  <h5><strong><label for="docCompletos" class="form-check-label izq">Documentacion Completa</label></strong></h5>
+  <input type="checkbox"  name="docCompletos" id="docCompletos" class="form-check-input fantasma" value="1" onchange="">
+</div>
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,8 +37,8 @@
   // $result = mysqli_num_rows($result);
   
  ?>
-<form name="frTipo" id="frTipo" method="post">
-  <div class="container row">
+<!-- <form name="frTipo" id="frTipo" method="post"> -->
+  <div class="container row" id="contenedor1">
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-7 offset-1  input-group">

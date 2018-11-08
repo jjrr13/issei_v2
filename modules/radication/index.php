@@ -140,8 +140,13 @@ const enviar = (form) => {
     },
     success: function(data)            
     {
+      // alert('en el success' + data);
       if (form=='Tipo') {
-        window.location.reload();
+        if (data == 31) {
+          confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', '../radication');
+        }else{
+          window.location.reload();
+        }
       }else{
         verificar(data);
       }
@@ -176,7 +181,9 @@ function verificar(valor){
        confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
   }else if (valor == 111) {
        confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
-
+  }
+  else if (valor == 0) {
+       confirmar('ERROR EN EL MODULO ACTUAL', 'fa fa-window-close', 'red', 'S');
   }
   //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
   if (valor >= 130 || valor == 111){
@@ -229,37 +236,7 @@ function verificar(valor){
       
       });
     });
-    // $(function(){
-    //   $('.fantasma1').change(function(){
-    //     if(!$(this).prop('checked')){
-    //       $('#dvOcultar1').hide();
-    //     }else{
-    //       $('#dvOcultar1').show();
-    //     }
-      
-    //   });
-    // });
-    // $(function(){
-    //   $('.fantasma2').change(function(){
-    //     if(!$(this).prop('checked')){
-    //       $('#dvOcultar2').hide();
-    //     }else{
-    //       $('#dvOcultar2').show();
-    //     }
-      
-    //   });
-    // });
-    // $(function(){
-    //   $('.fantasma3').change(function(){
-    //     if(!$(this).prop('checked')){
-    //       $('#dvOcultar3').hide();
-    //     }else{
-    //       $('#dvOcultar3').show();
-    //     }
-      
-    //   });
-    // });
-  </script>
+</script>
 
 <script>
 

@@ -140,6 +140,7 @@ otroTitular +="</div>";
   }
 </script>
 <form method="POST" id="frTitular" name="frTitular" >
+  
   <div  class="col-lg-12 form-group" id="titulares">
     <div class="col-lg-12 form-group borde">
       <div class="col-lg-12 input-group ">

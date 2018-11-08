@@ -160,6 +160,12 @@ if(file_exists("../../cx/cx.php")){
       
     }
 
+    var salarioMensual= 781242;
+      
+    var cargoFijo= salarioMensual * 0.40;
+    var cargoVariable = salarioMensual * 0.80;
+    var factor_M = 0.938;
+
     function cargoBasico2(opcion) {
 
       var tipo = $(opcion).attr('id');
@@ -182,9 +188,6 @@ if(file_exists("../../cx/cx.php")){
 
       // alert(modo);
       // alert(cant);
-      
-      var cargoFijo= 781242 * 0.40;
-      var cargoVariable = 781242 * 0.80;
 
       var factor_Q= mayorFactor_Q();
       var totalBasico=0;
@@ -197,8 +200,9 @@ if(file_exists("../../cx/cx.php")){
       if (tipoUso[0]=='vivienda') {
         if (factor_Q >= 0.1) {
           var factor_I_v = factor_I_vivienda($('#estrato').html());
-          totalBasico = (cargoFijo * factor_I_v) * 0.938 ;
-          totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q, modo)) * 0.938 ;
+
+          totalBasico = (cargoFijo * factor_I_v) * factor_M ;
+          totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q, modo)) * factor_M ;
           // alert(totalVariable);
         }
          // alert(factor_I_v);
@@ -206,8 +210,8 @@ if(file_exists("../../cx/cx.php")){
         if (factor_Q >= 0.1) {
           var factor_I_o = factor_I_otras(factor_Q);
         // alert(factor_I_o);
-          totalBasico = ((781242*0.40) * factor_I_o) * 0.938 ;
-          totalVariable = (((781242*0.80) * factor_I_o) * factor_J(factor_Q, modo)) * 0.938 ;
+          totalBasico = ( cargoFijo * factor_I_o) * factor_M ;
+          totalVariable = ((cargoVariable * factor_I_o) * factor_J(factor_Q, modo)) * factor_M ;
         }
       }
 
@@ -237,7 +241,7 @@ if(file_exists("../../cx/cx.php")){
       var iva = subtotalExpensas * 0.19;
       var total = subtotalExpensas + iva;
       var estampillas=0;
-      if (total_Basico >= 0.1) {
+      if (subtotalExpensas >= 0.1) {
          estampillas = 5800;
       }
       var totalExpensas = total + estampillas;
@@ -261,17 +265,9 @@ if(file_exists("../../cx/cx.php")){
       // totalVariable = parseInt(totalVariable.replace(/\./g,''));
     }
 
-    // function subsidio(check) {
-    //   var tipo = $(check).attr('id');
-
-    //   var tipoDato = tipo.split("_");
-
-    //   alert(tipoDato[0]+'_'+tipoDato[1]+'_');
-    // }
-
     function mayorFactor_Q() {
       var tempFactor_Q=0;
-
+      //quizas toque determinar si la prioridad a vivienda entre los usos en caso de iguales
       $(".cargoBasico").each(function(){
       // alert('entro al ciclo');
             var dato = $(this).val();
@@ -289,9 +285,7 @@ if(file_exists("../../cx/cx.php")){
             var temp = parseInt($(this).val());
             suma = suma + temp;
       });
-
       return suma;
-
     }
 
     function FormtearNumeros(valor) {
@@ -363,15 +357,58 @@ if(file_exists("../../cx/cx.php")){
       return valor;
     }
 
+    function valor_Reloteo(factor_qq, salario) {
+      var tempValor=0;
+      if (factor_qq >= 0.1 && factor_qq <= 1000) {
+        tempValor = (salario /2 ) * 2 ;
+      }else if (factor_qq >= 1001 && factor_qq <= 5000) {
+        tempValor = salario /2;
+      }else if (factor_qq >= 5001 && factor_qq <= 10000) {
+        tempValor = salario;
+      }else if (factor_qq >= 10001 && factor_qq <= 20000) {
+        tempValor = salario + (salario /2);
+      }else if (factor_qq > 20000) {
+        tempValor = salario * 2;
+      }
+      return tempValor;
+    }
+
 
     function getUsos(arrayUsos, modLicencia1, lic) {
       var modLicencia='';
+      var elemento='';
+
       modLicencia1 = modLicencia1.split(' ');
 
       for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
         modLicencia+= modLicencia1[jr];
       }
-      var elemento='';
+
+      if (modLicencia == 'SubdiviciónUrbana' || modLicencia == 'SubdiviciónRural' ) {
+        elemento+=" <div class='col-lg-12  input-group'>";
+            elemento+=" <div class='col-lg-1  input-group'></div>";
+            elemento+=" <div class='col-lg-2  input-group'>";
+              elemento+=" <h6>Subdivicion</h6>";
+            elemento+=" </div>";
+            elemento+=" <div class='col-lg-3 input-group'>";
+              elemento+=" <input class='cargoBasico' name='sub_"+modLicencia+"' type='text' id='sub_"+modLicencia+"' size='10' return ValidNum(this);' value='781242' readonly > ";
+            elemento+=" <label for=''>M<sup>2</sup></label>";
+            elemento+=" </div>";
+            elemento+=" <div class='col-lg-2 form-check'>";
+              elemento+=" <input name='sub_"+modLicencia+"_vs' type='checkbox' id='sub_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);' > Activar";
+            elemento+=" </div>";
+
+            // /////////// datos sub_ /////////////
+              elemento+=" <input class='modalidad' name='sub_"+modLicencia+"_1' type='hidden' id='sub_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='sub_"+modLicencia+"_2' type='hidden' id='sub_"+modLicencia+"_2' value='0' >";
+              elemento+=" <input class='licencia' name='sub_"+modLicencia+"_3' type='hidden' id='sub_"+modLicencia+"_3' value='"+lic+"' >";
+            // elemento+=" </div>";
+          elemento+=" </div>";
+
+      }else if (modLicencia == 'Reloteo' ) {
+
+      }
+
       for (var js = 0; js < arrayUsos.length ; js++) {
         console.log(arrayUsos[js][js+1]);
         if (arrayUsos[js][js+1]=='Vivienda') {

@@ -1,79 +1,84 @@
 <?php 
 
 include_once "../cx/cx.php";
-// echo $_SESSION['radicar'];
-// limpiar();
 
 if (!empty($_POST['limpia'])) {
 	limpiar();
 	header("Location: ../modules/radication");
 }
-else if (isset($_POST['btn_tipo'])) {
-	$cantLicencias = array();
-	$bandera= false;
+else if (isset($_POST['btn_tipo']) ){
 	$respuesta;
-	if (isset($_POST['LicUrba']) && !empty($_POST['LicUrba']) && 
-		isset($_POST['urb']) && !empty($_POST['urb'])) {
-		
-		$bandera=true;
-		array_push($cantLicencias, $_POST['urb']);
-	}
-	if (isset($_POST['LicPar']) && !empty($_POST['LicPar']) && 
-		isset($_POST['parc']) && !empty($_POST['parc']) ) {
-		// $cantLicencias = array('id' => '4');
-		$bandera=true;
-		array_push($cantLicencias, $_POST['parc']);
-	}
-	if (isset($_POST['LicSub']) && !empty($_POST['LicSub']) && 
-		isset($_POST['subd']) && !empty($_POST['subd'])) {
-		
-		$bandera=true;
-		array_push($cantLicencias, $_POST['subd']);
-	}
-	if (isset($_POST['LicCons']) && !empty($_POST['LicCons']) && 
-		isset($_POST['LicConsC']) && !empty($_POST['LicConsC'])) {
-		$bandera=true;
-		foreach ($_POST['LicConsC'] as $key => $value) {
-			array_push($cantLicencias, $value);
-		}
-	}
-	if (isset($_POST['LicRec']) && !empty($_POST['LicRec']) ) {
-		$bandera=true;
-		array_push($cantLicencias, $_POST['LicRec']);
-	}
-	if (isset($_POST['LicOtras']) && !empty($_POST['LicOtras']) && 
-		isset($_POST['otrasact']) && !empty($_POST['otrasact'])) {
-		
-		$bandera=true;
 	
-		array_push($cantLicencias, $_POST['otrasact']);
-	}
+	if (isset($_POST['revisorProyecto']) && !empty($_POST['revisorProyecto']) && $_POST['revisorProyecto'] != 'ASIGNE EL ARQUITECTO' ){
 
-	if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
-		//asigna varaible de se session de objeto de trabajo
-		$_SESSION['objetoTramite']= $_POST['objetoTramite'];
-		//ararry que almacenara todos los tipo de usos
-		$cantUsos = array();
-		// $valores='';
-		foreach ($_POST['usos'] as $key => $value) {
-			array_push($cantUsos, $value);
-			// $valores.= ' / '. $value;
+		$_SESSION['revisorProyecto'] = $_POST['revisorProyecto'];
+
+		$cantLicencias = array();
+		$bandera= false;
+		if (isset($_POST['LicUrba']) && !empty($_POST['LicUrba']) && 
+			isset($_POST['urb']) && !empty($_POST['urb'])) {
+			
+			$bandera=true;
+			array_push($cantLicencias, $_POST['urb']);
 		}
-		//asigna todos los tipos de susos a session
-		$_SESSION['usos']= $cantUsos;
-		//se agregan las licencias que se generaron
-		$_SESSION['licencias']= $cantLicencias;
-		//se envia el valor que indica que pase al proximo
-		$respuesta= 131;
-		$_SESSION['radicar'] = 131;
-		// var_dump($_SESSION['licencias']);
+		if (isset($_POST['LicPar']) && !empty($_POST['LicPar']) && 
+			isset($_POST['parc']) && !empty($_POST['parc']) ) {
+			// $cantLicencias = array('id' => '4');
+			$bandera=true;
+			array_push($cantLicencias, $_POST['parc']);
+		}
+		if (isset($_POST['LicSub']) && !empty($_POST['LicSub']) && 
+			isset($_POST['subd']) && !empty($_POST['subd'])) {
+			
+			$bandera=true;
+			array_push($cantLicencias, $_POST['subd']);
+		}
+		if (isset($_POST['LicCons']) && !empty($_POST['LicCons']) && 
+			isset($_POST['LicConsC']) && !empty($_POST['LicConsC'])) {
+			$bandera=true;
+			foreach ($_POST['LicConsC'] as $key => $value) {
+				array_push($cantLicencias, $value);
+			}
+		}
+		if (isset($_POST['LicRec']) && !empty($_POST['LicRec']) ) {
+			$bandera=true;
+			array_push($cantLicencias, $_POST['LicRec']);
+		}
+		if (isset($_POST['LicOtras']) && !empty($_POST['LicOtras']) && 
+			isset($_POST['otrasact']) && !empty($_POST['otrasact'])) {
+			
+			$bandera=true;
 		
-	}
-	else {
-		//valor que indicara que no llego algun dato necesario
-		$respuesta=031;
-	}
+			array_push($cantLicencias, $_POST['otrasact']);
+		}
 
+		if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
+			//asigna varaible de se session de objeto de trabajo
+			$_SESSION['objetoTramite']= $_POST['objetoTramite'];
+			//ararry que almacenara todos los tipo de usos
+			$cantUsos = array();
+			// $valores='';
+			foreach ($_POST['usos'] as $key => $value) {
+				array_push($cantUsos, $value);
+				// $valores.= ' / '. $value;
+			}
+			//asigna todos los tipos de susos a session
+			$_SESSION['usos']= $cantUsos;
+			//se agregan las licencias que se generaron
+			$_SESSION['licencias']= $cantLicencias;
+			//se envia el valor que indica que pase al proximo
+			$respuesta= 131;
+			$_SESSION['radicar'] = 131;
+			// var_dump($_SESSION['licencias']);
+			
+		}
+		else {
+			//valor que indicara que no llego algun dato necesario
+			$respuesta=31;
+		}
+	}else{
+		$respuesta=31;
+	}
 	echo $respuesta;
 }
 else if (!empty($_POST['btn_predio'])) {
@@ -194,16 +199,12 @@ else if (!empty($_POST['btn_docs'])   ) {
 			if (!empty($_SESSION['vecinos'])) {
 				if (!empty($_SESSION['titulares'])) {
 					if (!empty($_SESSION['responsables'])) {
-						if (!empty($_POST['documentos_generales'])) {
-
-							$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
-							$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
-							$_SESSION['documentos_adicionales'] = $_POST['documentos_adicionales'];
+						if ( (!empty($_POST['documentos_generales']) || !empty($_POST['documentos_especificos'])) || !empty($_POST['docCompletos']) ) {
 
 							$consecutivoNuevo = NuevoRadicado();
 							
-						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
+							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
 							       GetSQLValueString($consecutivoNuevo, "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
@@ -218,10 +219,10 @@ else if (!empty($_POST['btn_docs'])   ) {
 							       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
 							       GetSQLValueString(1, "int"),
 							       GetSQLValueString(30, "int"),
-							       GetSQLValueString($_SESSION['objetoTramite'], "int"));
+							       GetSQLValueString($_SESSION['objetoTramite'], "int"),
+							       GetSQLValueString($_SESSION['revisorProyecto'], "text"));
 
 							$result = $mysqli->query($sql);
-							 $_SESSION['RESULTADO']= $result;
 
 							if ($result) {
 								$resultado=false;
@@ -285,8 +286,6 @@ else if (!empty($_POST['btn_docs'])   ) {
 	}
 	echo $respuesta;
 }
-
-
 else if (!empty($_POST['nit']) && isset($_POST['celular']) && isset($_POST['email']) && isset($_POST['direccion']) && isset($_POST['id_barrio']) ) {
 	
 	$resultado;
@@ -343,11 +342,12 @@ else if (!empty($_POST['nit'])) {
 }
 else{
 	// $_SESSION['radicar'] = 133;
-	$arrayjson = array();
-	$arrayjson[] = array(
-					'estado'	=> 0 );
+	// $arrayjson = array();
+	// $arrayjson[] = array(
+	// 				'estado'	=> 0 );
 
-	echo json_encode($arrayjson);
+	// echo json_encode($arrayjson);
+	echo 0;
 }
 
 function NuevoRadicado(){
