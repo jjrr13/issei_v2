@@ -383,8 +383,9 @@ if(file_exists("../../cx/cx.php")){
       for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
         modLicencia+= modLicencia1[jr];
       }
-
-      if (modLicencia == 'SubdiviciónUrbana' || modLicencia == 'SubdiviciónRural' ) {
+      // alert(lic + modLicencia);
+      if (lic + modLicencia == 'SubdivicionUrbana' || lic + modLicencia == 'SubdivicionRural' ) {
+        alert('Entro al if de SUBDIVICION');
         elemento+=" <div class='col-lg-12  input-group'>";
             elemento+=" <div class='col-lg-1  input-group'></div>";
             elemento+=" <div class='col-lg-2  input-group'>";
@@ -407,99 +408,100 @@ if(file_exists("../../cx/cx.php")){
 
       }else if (modLicencia == 'Reloteo' ) {
 
-      }
+      }else{
 
-      for (var js = 0; js < arrayUsos.length ; js++) {
-        console.log(arrayUsos[js][js+1]);
-        if (arrayUsos[js][js+1]=='Vivienda') {
-          
-          elemento+=" <div class='col-lg-12  input-group'>";
-            elemento+=" <div class='col-lg-1  input-group'></div>";
-            elemento+=" <div class='col-lg-2  input-group'>";
-              elemento+=" <h6>Vivienda</h6>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' > ";
-            elemento+=" <label for=''>M<sup>2</sup></label>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S";
-            elemento+=" </div>";
-
-            // /////////// datos vivienda_ /////////////
-              elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='vivienda_"+modLicencia+"_3' type='hidden' id='vivienda_"+modLicencia+"_3' value='"+lic+"' >";
-            // elemento+=" </div>";
-          elemento+=" </div>";
-        }
-        else if (arrayUsos[js][js+1]=='Comercio y/o Servicios') {
-
-           elemento+=" <div class='col-lg-1  form-group'></div>";
-         elemento+=" <div class='col-lg-12  input-group'>";
-           elemento+=" <div class='col-lg-1  input-group'></div>";
-           elemento+=" <div class='col-lg-2  input-group'>";
-             elemento+=" <h6>Comercio</h6>";
-           elemento+=" </div>";
-           elemento+=" <div class='col-lg-3 input-group'>";
-             elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='cargoBasico2(this);' size='10' >";
-             elemento+=" <label for=''>M<sup>2</sup></label>";
-           elemento+=" </div>";
-
-           elemento+=" <div class='col-lg-2  input-group'></div>";
-
-            // /////////// datos comercio_ /////////////
-              elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='comercio_"+modLicencia+"_3' type='hidden' id='comercio_"+modLicencia+"_3' value='"+lic+"' >";
-
-         elemento+=" </div>";
-
-        }else if (arrayUsos[js][js+1]=='Industrial') {
-
-          elemento+=" <div class='form-group col-lg-12 '></div>";
-          elemento+=" <div class='col-lg-12  input-group'>";
-            elemento+=" <div class='col-lg-1  input-group'></div>";
-            elemento+=" <div class='col-lg-2  input-group'>";
-              elemento+=" <h6>Industria</h6>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
-              elemento+=" <label for=''>M<sup>2</sup></label>                  ";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-2 input-group'></div>";
-
-            // /////////// datos industria_ /////////////
-               elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
-
-          elemento+=" </div>";
-          
-        }else if (arrayUsos[js][js+1]=='Institucional') {
-
-          elemento+=" <div class='form-group col-lg-12 '></div>";
-          elemento+=" <div class='col-lg-12 input-group'>";
-            elemento+=" <div class='col-lg-1 input-group'></div>";
-            elemento+=" <div class='col-lg-2 input-group'>";
-              elemento+=" <h6>Institucional</h6>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+        for (var js = 0; js < arrayUsos.length ; js++) {
+          console.log(arrayUsos[js][js+1]);
+          if (arrayUsos[js][js+1]=='Vivienda') {
+            
+            elemento+=" <div class='col-lg-12  input-group'>";
+              elemento+=" <div class='col-lg-1  input-group'></div>";
+              elemento+=" <div class='col-lg-2  input-group'>";
+                elemento+=" <h6>Vivienda</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 form-check'>";
+                elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S";
+              elemento+=" </div>";
+
+              // /////////// datos vivienda_ /////////////
+                elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='vivienda_"+modLicencia+"_3' type='hidden' id='vivienda_"+modLicencia+"_3' value='"+lic+"' >";
+              // elemento+=" </div>";
             elemento+=" </div>";
-            elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='cargoBasico2(this);'  > DOT";
+          }
+          else if (arrayUsos[js][js+1]=='Comercio y/o Servicios') {
 
-              elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+             elemento+=" <div class='col-lg-1  form-group'></div>";
+           elemento+=" <div class='col-lg-12  input-group'>";
+             elemento+=" <div class='col-lg-1  input-group'></div>";
+             elemento+=" <div class='col-lg-2  input-group'>";
+               elemento+=" <h6>Comercio</h6>";
+             elemento+=" </div>";
+             elemento+=" <div class='col-lg-3 input-group'>";
+               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='cargoBasico2(this);' size='10' >";
+               elemento+=" <label for=''>M<sup>2</sup></label>";
+             elemento+=" </div>";
+
+             elemento+=" <div class='col-lg-2  input-group'></div>";
+
+              // /////////// datos comercio_ /////////////
+                elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='comercio_"+modLicencia+"_3' type='hidden' id='comercio_"+modLicencia+"_3' value='"+lic+"' >";
+
+           elemento+=" </div>";
+
+          }else if (arrayUsos[js][js+1]=='Industrial') {
+
+            elemento+=" <div class='form-group col-lg-12 '></div>";
+            elemento+=" <div class='col-lg-12  input-group'>";
+              elemento+=" <div class='col-lg-1  input-group'></div>";
+              elemento+=" <div class='col-lg-2  input-group'>";
+                elemento+=" <h6>Industria</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+                elemento+=" <label for=''>M<sup>2</sup></label>                  ";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 input-group'></div>";
+
+              // /////////// datos industria_ /////////////
+                 elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
+
             elemento+=" </div>";
+            
+          }else if (arrayUsos[js][js+1]=='Institucional') {
 
-            // /////////// datos institucional_ /////////////
-            elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
-            elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
+            elemento+=" <div class='form-group col-lg-12 '></div>";
+            elemento+=" <div class='col-lg-12 input-group'>";
+              elemento+=" <div class='col-lg-1 input-group'></div>";
+              elemento+=" <div class='col-lg-2 input-group'>";
+                elemento+=" <h6>Institucional</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+                elemento+=" <label for=''>M<sup>2</sup></label>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 form-check'>";
+                elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='cargoBasico2(this);'  > DOT";
 
-          elemento+=" </div>";
+                elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+              elemento+=" </div>";
+
+              // /////////// datos institucional_ /////////////
+              elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
+
+            elemento+=" </div>";
+          }
         }
       }
       return elemento;
