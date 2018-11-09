@@ -55,7 +55,7 @@
 
 </script>
 <body>
-<form class="login" method="post" action="functions/validar.php">
+<form class="login" method="post" action="controller/validar_controller.php">
     <h1 class="login-title">ISSEI</h1>
     <input type="text" class="login-input" placeholder="Usuario" onChange="letras(this)" id="usuario" name="usuario" autofocus>
     <input type="password" id="pass" name="pass" class="login-input" placeholder="Password">

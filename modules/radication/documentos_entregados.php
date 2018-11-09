@@ -45,14 +45,21 @@
         <h5><strong><u>Documentos Generales:</u></strong></h5>
       </div>
     </div>
-    <?php while($datos = mysqli_fetch_assoc($result)) { ?>
+    <?php 
+    $arraGenerales = array();
+    while($datos = mysqli_fetch_assoc($result)) { 
+      array_push($arraGenerales, array(  "1"  => $datos['id_documento'],  "2" => $datos['nombre'] ));
+      ?>
       <div class="col-lg-12 input-group">
         <div class="col-lg-10 offset-2 input-group">
           <input type="checkbox"  name="documentos_generales[]" id="doc_<?php echo $datos['id_documento']; ?>" class="form-check-input fantasma" value="<?php echo $datos['id_documento']; ?>" onclick="">
           <label for="doc_<?php echo $datos['id_documento']; ?>" class="form-check-label izq"><?php echo $datos['nombre']; ?></label>
         </div>
       </div>
-    <?php } ?>
+    <?php }
+    $_SESSION['docGenerales'] = $arraGenerales;
+    // var_dump($_SESSION['docGenerales']);
+     ?>
     
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 form-group"></div>  
@@ -87,6 +94,8 @@
           //quitamos los elementos repetidos del array
           $documentos = array_unique($documentos, SORT_REGULAR  );
           // var_dump($documentos);
+      $_SESSION['docEspecificos'] = $documentos;
+      // var_dump($_SESSION['docEspecificos']);
           //recorremos el nuevo arraya
       foreach ($documentos as $key => $value) {
         ?>
@@ -98,6 +107,42 @@
         </div>
       <?php 
       }
+
+$arraFaltantes = array();
+$arraEntregados = array();
+$entregados='';
+$faltantes='';
+
+function documentosFaltantes($array, $array2)
+{
+  $values="";
+  $cant = count($array)-1;
+
+  foreach ($array as $key => $value) {
+
+    $documento = $array[$key];
+
+    if(array_search($documento[2], $array2) !== false){
+      if ($cant != $key) {
+         $values.= "$documento[1]".'; ';
+      }
+      else{
+         $values.= "$documento[1]".'.';
+      }
+    }
+
+  }
+  return $values;
+}
+// $_SESSION['documentos_generales']
+// $_SESSION['documentos_especificos']
+ // $faltantes = documentosFaltantes($_SESSION['docGenerales'], $_SESSION['documentos_generales'], $entregados, $faltantes  );
+ $faltantes.=' '. documentosFaltantes($_SESSION['docEspecificos'], $_SESSION['documentos_especificos'], $entregados, $faltantes  );
+ echo "<hr>";
+ echo $entregados. "<hr>";
+ echo $faltantes. "<hr>";
+ // echo determinarDocumentos($_SESSION['docEspecificos']);
+
 
     } ?>
 

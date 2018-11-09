@@ -87,26 +87,26 @@
   <div class="col-lg-12">
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="1" >
+        <input id="clasificacionsuelo1" type="radio" name="clasificacionsuelo" class="form-check-input" value="1" >
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="clasificacionsuelo" class="form-check-label">Urbano</label>
+        <label for="clasificacionsuelo1" class="form-check-label">Urbano</label>
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="2">
+        <input id="clasificacionsuelo2" type="radio" name="clasificacionsuelo" class="form-check-input" value="2">
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="clasificacionsuelo" class="form-check-label">Rural</label>
+        <label for="clasificacionsuelo2" class="form-check-label">Rural</label>
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="clasificacionsuelo" class="form-check-input" value="3">
+        <input id="clasificacionsuelo3" type="radio" name="clasificacionsuelo" class="form-check-input" value="3">
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="clasificacionsuelo" class="form-check-label">De Expansión</label>
+        <label for="clasificacionsuelo3" class="form-check-label">De Expansión</label>
       </div>
     </div>
   </div>
@@ -120,34 +120,34 @@
   <div class="col-lg-12">
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="planimetria" class="form-check-input" value="1" >
+        <input type="radio" id="planimetria1" name="planimetria" class="form-check-input" value="1" >
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="planimetria" class="form-check-label">Plano del Loteo</label>
+        <label for="planimetria1" class="form-check-label">Plano del Loteo</label>
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="planimetria" class="form-check-input" value="2">
+        <input type="radio" id="planimetria2" name="planimetria" class="form-check-input" value="2">
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="planimetria" class="form-check-label">Plano Topografico</label>
+        <label for="planimetria2" class="form-check-label">Plano Topografico</label>
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="planimetria" class="form-check-input" value="3">
+        <input type="radio" id="planimetria3" name="planimetria" class="form-check-input" value="3">
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="planimetria" class="form-check-label">Levantamiento Arquitectonico</label>
+        <label for="planimetria3" class="form-check-label">Levantamiento Arquitectonico</label>
       </div>
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-1 input-group">
-        <input type="radio" name="planimetria" class="form-check-input" value="4">
+        <input type="radio" id="planimetria4" name="planimetria" class="form-check-input" value="4">
       </div> 
       <div class="col-lg-10 input-group">
-        <label for="planimetria" class="form-check-label">Otro</label>
+        <label for="planimetria4" class="form-check-label">Otro</label>
       </div>
     </div>
   </div>

@@ -180,7 +180,7 @@ function verificar(valor){
   }else if (valor == 112) {
        confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
   }else if (valor == 111) {
-       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
+       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../../app/reportes/constancy_radications.php');
   }
   else if (valor == 0) {
        confirmar('ERROR EN EL MODULO ACTUAL', 'fa fa-window-close', 'red', 'S');
