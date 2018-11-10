@@ -10,11 +10,11 @@ if(file_exists("../../cx/cx.php")){
 
  ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <head> -->
     <title>Liquidaciones</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     
 
     <style type="text/css">
@@ -89,31 +89,37 @@ if(file_exists("../../cx/cx.php")){
         },
         success: function(data)            
         {
-          // alert(data);
           console.log(data);
-          var JSONdata    = JSON.parse(data); //parseo la informacion
 
-          $('#estrato').html(JSONdata[0].estrato);
-          $('#radicado').val(JSONdata[0].radicado);
-          $('#fechaRad').val(JSONdata[0].fecha);
-          $('#direccion').val(JSONdata[0].dir_act);
-          $('#arq').val(JSONdata[0].construRespon);
-          $('#propietario').val(JSONdata[0].titulares);
+          if (data == 3) {
+            confirmar('EL RADICADO NO EXISTE', 'fa fa-window-close', 'red', 'S');
 
-          for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
-            // console.log(JSONdata[0].tipos_usos[r][r+1]);
-          }
+          }else {
+            
+            var JSONdata    = JSON.parse(data); //parseo la informacion
 
-          var bandera = true;
+            $('#estrato').html(JSONdata[0].estrato);
+            $('#radicado').val(JSONdata[0].radicado);
+            $('#fechaRad').val(JSONdata[0].fecha);
+            $('#direccion').val(JSONdata[0].dir_act);
+            $('#arq').val(JSONdata[0].construRespon);
+            $('#propietario').val(JSONdata[0].titulares);
 
-          for (var j = 0; j < JSONdata[0].tipos_licencias.length ; j++) {
-            var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
-            var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
-            var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
-           
-            elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
-            // alert(elem);
-            $('#contenedor').append(elem);
+            for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
+              // console.log(JSONdata[0].tipos_usos[r][r+1]);
+            }
+
+            var bandera = true;
+
+            for (var j = 0; j < JSONdata[0].tipos_licencias.length ; j++) {
+              var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
+              var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
+              var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
+             
+              elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
+              // alert(elem);
+              $('#contenedor').append(elem);
+            }
           }
 
         }
@@ -134,8 +140,6 @@ if(file_exists("../../cx/cx.php")){
   </script>
   <script type="text/javascript">
      function ValidNum2(e){
-      // console.log(e.currentTarget);
-      // console.log(e.data);
       // console.log(e.target);
       var target = e.currentTarget;
       // alert('entro a los numeros ');
@@ -159,12 +163,6 @@ if(file_exists("../../cx/cx.php")){
     }
 
     function cargoBasico2(opcion) {
-      // console.log(ValidNum(opcion));
-      // if (!evento2(opcion)) {
-      //   alert('Sevento2olo se permiten numeros');
-      // }
-      // alert($(opcion).val()+' valor de llagada');
-       // console.log("key pressed ",  String.fromCharCode(event.keyCode));
 
       var tipo = $(opcion).attr('id');
 
@@ -327,7 +325,9 @@ if(file_exists("../../cx/cx.php")){
       }
       return valor;
     }
-
+    function subsidio(argument) {
+      alert('se le asignara el 50% de descuento');
+    }
 
     function getUsos(arrayUsos, modLicencia, lic) {
       var elemento='';
@@ -345,7 +345,7 @@ if(file_exists("../../cx/cx.php")){
             elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='vivienda"+modLicencia+"vs' type='checkbox' id='vivienda"+modLicencia+"vs' value='1' onclick=''  > V.I.S";
+              elemento+=" <input name='vivienda"+modLicencia+"vs' type='checkbox' id='vivienda"+modLicencia+"vs' value='1' onclick='subsidio(this);'  > V.I.S";
             elemento+=" </div>";
 
             // /////////// datos vivienda_ /////////////
@@ -411,7 +411,7 @@ if(file_exists("../../cx/cx.php")){
               elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+              elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='subsidio(this);' >DOT";
             elemento+=" </div>";
 
             // /////////// datos institucional_ /////////////
@@ -485,8 +485,8 @@ if(file_exists("../../cx/cx.php")){
       padding: .75rem .1rem !important;
     }
   </style>
-  </head>
-  <body class="hold-transition sidebar-mini">
+  <!-- </head> -->
+  <!-- <body class="hold-transition sidebar-mini"> -->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -532,7 +532,7 @@ if(file_exists("../../cx/cx.php")){
                     <div class="col-lg-12 form-group"></div>
                       <div class="col-lg-12 input-group">
                         <label for="buscaRadicado" class="col-form-label col-lg-3"><strong>Radicado</strong></label>
-                        <input value="180007" autofocus="autofocus" type="text" name="buscaRadicado" id="buscaRadicado" required title="Minimo 5 Numeros" maxlength="6" class="form-control col-lg-5" placeholder="Digite el No.">
+                        <input value="180124" autofocus="autofocus" type="text" name="buscaRadicado" id="buscaRadicado" required title="Minimo 5 Numeros" maxlength="6" class="form-control col-lg-5" placeholder="Digite el No.">
                         <button  type="button" name="burcar1" value="1" onclick="buscarRad(this)" class="btn btn-danger left col-lg-2">Buscar</button>
                       </div>
                     </div>
@@ -644,5 +644,6 @@ if(file_exists("../../cx/cx.php")){
         </div>
       </section>
     </div>
-  </body>
-</html>
+<!--   </body>
+</html> -->
+

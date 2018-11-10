@@ -246,7 +246,7 @@ $tipo_area = $_SESSION['id_area'];
             <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Pre-Liquidacion
+                Liquidacion
               </p>
             </a>
 
