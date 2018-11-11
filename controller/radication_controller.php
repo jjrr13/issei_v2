@@ -1,86 +1,122 @@
 <?php 
 
 include_once "../cx/cx.php";
-// echo $_SESSION['radicar'];
-// limpiar();
+
+function determinarDocumentos($value='')
+{
+	$values="";
+	$cant = count($array)-1;
+
+	foreach ($array as $key => $value) {
+
+		$titular = $array[$key];
+
+		if ($cant != $key) {
+			$values.="$titular, ";
+		}
+		else{
+			$values.="y $titular ";
+		}
+	}
+	return $values;
+}
+// echo determinarDocumentos($_SESSION['docGenerales']);
+// echo determinarDocumentos($_SESSION['docEspecificos']);
+
+
+
+// var_dump($_SESSION['docEspecificos']);
+
+ // limpiar();
 
 if (!empty($_POST['limpia'])) {
 	limpiar();
 	header("Location: ../modules/radication");
 }
-else if (isset($_POST['btn_tipo'])) {
-	$cantLicencias = array();
-	$bandera= false;
+else if (isset($_POST['btn_tipo']) ){
 	$respuesta;
-	if (isset($_POST['LicUrba']) && !empty($_POST['LicUrba']) && 
-		isset($_POST['urb']) && !empty($_POST['urb'])) {
-		
-		$bandera=true;
-		array_push($cantLicencias, $_POST['urb']);
-	}
-	if (isset($_POST['LicPar']) && !empty($_POST['LicPar']) && 
-		isset($_POST['parc']) && !empty($_POST['parc']) ) {
-		// $cantLicencias = array('id' => '4');
-		$bandera=true;
-		array_push($cantLicencias, $_POST['parc']);
-	}
-	if (isset($_POST['LicSub']) && !empty($_POST['LicSub']) && 
-		isset($_POST['subd']) && !empty($_POST['subd'])) {
-		
-		$bandera=true;
-		array_push($cantLicencias, $_POST['subd']);
-	}
-	if (isset($_POST['LicCons']) && !empty($_POST['LicCons']) && 
-		isset($_POST['LicConsC']) && !empty($_POST['LicConsC'])) {
-		$bandera=true;
-		foreach ($_POST['LicConsC'] as $key => $value) {
-			array_push($cantLicencias, $value);
-		}
-	}
-	if (isset($_POST['LicRec']) && !empty($_POST['LicRec']) ) {
-		$bandera=true;
-		array_push($cantLicencias, $_POST['LicRec']);
-	}
-	if (isset($_POST['LicOtras']) && !empty($_POST['LicOtras']) && 
-		isset($_POST['otrasact']) && !empty($_POST['otrasact'])) {
-		
-		$bandera=true;
 	
-		array_push($cantLicencias, $_POST['otrasact']);
-	}
+	if (isset($_POST['revisorProyecto']) && !empty($_POST['revisorProyecto']) && $_POST['revisorProyecto'] != 'ASIGNE EL ARQUITECTO' ){
 
-	if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
-		//asigna varaible de se session de objeto de trabajo
-		$_SESSION['objetoTramite']= $_POST['objetoTramite'];
-		//ararry que almacenara todos los tipo de usos
-		$cantUsos = array();
-		// $valores='';
-		foreach ($_POST['usos'] as $key => $value) {
-			array_push($cantUsos, $value);
-			// $valores.= ' / '. $value;
+		$_SESSION['revisorProyecto'] = $_POST['revisorProyecto'];
+
+		$cantLicencias = array();
+		$bandera= false;
+		if (isset($_POST['LicUrba']) && !empty($_POST['LicUrba']) && 
+			isset($_POST['urb']) && !empty($_POST['urb'])) {
+			
+			$bandera=true;
+			array_push($cantLicencias, $_POST['urb']);
 		}
-		//asigna todos los tipos de susos a session
-		$_SESSION['usos']= $cantUsos;
-		//se agregan las licencias que se generaron
-		$_SESSION['licencias']= $cantLicencias;
-		//se envia el valor que indica que pase al proximo
-		$respuesta= 131;
-		$_SESSION['radicar'] = 131;
-		// var_dump($_SESSION['licencias']);
-		
-	}
-	else {
-		//valor que indicara que no llego algun dato necesario
-		$respuesta=031;
-	}
+		if (isset($_POST['LicPar']) && !empty($_POST['LicPar']) && 
+			isset($_POST['parc']) && !empty($_POST['parc']) ) {
+			// $cantLicencias = array('id' => '4');
+			$bandera=true;
+			array_push($cantLicencias, $_POST['parc']);
+		}
+		if (isset($_POST['LicSub']) && !empty($_POST['LicSub']) && 
+			isset($_POST['subd']) && !empty($_POST['subd'])) {
+			
+			$bandera=true;
+			array_push($cantLicencias, $_POST['subd']);
+		}
+		if (isset($_POST['LicCons']) && !empty($_POST['LicCons']) && 
+			isset($_POST['LicConsC']) && !empty($_POST['LicConsC'])) {
 
+			$bandera=true;
+			if (isset($_POST['categoria']) && !empty($_POST['categoria'])) {
+				$_SESSION['categoria']= $_POST['categoria'];
+			}
+			foreach ($_POST['LicConsC'] as $key => $value) {
+				array_push($cantLicencias, $value);
+			}
+		}
+		if (isset($_POST['LicRec']) && !empty($_POST['LicRec']) ) {
+			$bandera=true;
+			array_push($cantLicencias, $_POST['LicRec']);
+		}
+		if (isset($_POST['LicOtras']) && !empty($_POST['LicOtras']) && 
+			isset($_POST['otrasact']) && !empty($_POST['otrasact'])) {
+			
+			$bandera=true;
+		
+			array_push($cantLicencias, $_POST['otrasact']);
+		}
+
+		if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
+			//asigna varaible de se session de objeto de trabajo
+			$_SESSION['objetoTramite']= $_POST['objetoTramite'];
+			//ararry que almacenara todos los tipo de usos
+			$cantUsos = array();
+			// $valores='';
+			foreach ($_POST['usos'] as $key => $value) {
+				array_push($cantUsos, $value);
+				// $valores.= ' / '. $value;
+			}
+			//asigna todos los tipos de susos a session
+			$_SESSION['usos']= $cantUsos;
+			//se agregan las licencias que se generaron
+			$_SESSION['licencias']= $cantLicencias;
+			//se envia el valor que indica que pase al proximo
+			$respuesta= 131;
+			$_SESSION['radicar'] = 131;
+			// var_dump($_SESSION['licencias']);
+			
+		}
+		else {
+			//valor que indicara que no llego algun dato necesario
+			$respuesta=31;
+		}
+	}else{
+		$respuesta=31;
+	}
 	echo $respuesta;
 }
 else if (!empty($_POST['btn_predio'])) {
 	// unset($_SESSION['radicar']);
 	$respuesta;
 	if ( !empty($_POST['dirActual']) && !empty($_POST['BarrioActual']) &&
-		 !empty($_POST['dirAnterior']) && !empty($_POST['BarrioAnterior']) &&
+		 !empty($_POST['dirAnterior']) && 
 		 !empty($_POST['matricula']) && !empty($_POST['catastral']) &&
 		 !empty($_POST['clasificacionsuelo']) && !empty($_POST['planimetria']) ) {
 
@@ -88,7 +124,7 @@ else if (!empty($_POST['btn_predio'])) {
 			$_SESSION['predio']['dirActual'] = $_POST['dirActual'];
 			$_SESSION['predio']['BarrioActual'] = $_POST['BarrioActual'];
 			$_SESSION['predio']['dirAnterior'] = $_POST['dirAnterior'];
-			$_SESSION['predio']['BarrioAnterior'] = $_POST['BarrioAnterior'];
+			// $_SESSION['predio']['BarrioAnterior'] = $_POST['BarrioAnterior'];
 			$_SESSION['predio']['matricula'] = $_POST['matricula'];
 			$_SESSION['predio']['catastral'] = $_POST['catastral'];
 			$_SESSION['predio']['clasificacionsuelo'] = $_POST['clasificacionsuelo'];
@@ -137,6 +173,7 @@ else if (!empty($_POST['btn_titular'])) {
 	if (!empty($_POST['nit'][0]) ) {
 
 		$_SESSION['titulares'] = $_POST['nit'];
+		$_SESSION['titulares_nombres'] = $_POST['nombre'];
 
 		$_SESSION['radicar'] = 134;
 		$respuesta = 134; //$prueba;
@@ -151,6 +188,9 @@ else if (!empty($_POST['btn_Profesionales'])) {
 	$respuesta;
 
 	if (!empty($_POST['nit0']) ) {
+
+		$_SESSION['tramitador_nombre'] = $_POST['nombre0'];
+
 		array_push($responsables, array(  "1"  => $_POST['nit0'],  "2" => "24" ));
 
 		if (!empty($_POST['nit1']) ) {
@@ -194,52 +234,50 @@ else if (!empty($_POST['btn_docs'])   ) {
 			if (!empty($_SESSION['vecinos'])) {
 				if (!empty($_SESSION['titulares'])) {
 					if (!empty($_SESSION['responsables'])) {
-						if (!empty($_POST['documentos_generales'])) {
+						if ( (!empty($_POST['documentos_generales']) || !empty($_POST['documentos_especificos'])) || !empty($_POST['docCompletos']) ) {
 
-							$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
-							$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
-							$_SESSION['documentos_adicionales'] = $_POST['documentos_adicionales'];
-
-							$consecutivoNuevo = NuevoRadicado();
+							$_SESSION['consecutivoNuevo'] = NuevoRadicado();
 							
-						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, barrio_ant, estrato, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, categoria, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
+							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
-							       GetSQLValueString($consecutivoNuevo, "text"),
+							       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
 							       GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
-							       GetSQLValueString($_SESSION['predio']['BarrioAnterior'], "text"),
 							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
+							       GetSQLValueString($_SESSION['categoria'], "text"),
 							       GetSQLValueString($_SESSION['predio']['matricula'], "int"),
 							       GetSQLValueString($_SESSION['predio']['catastral'], "int"),
 							       GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
 							       GetSQLValueString(1, "int"),
 							       GetSQLValueString(30, "int"),
-							       GetSQLValueString($_SESSION['objetoTramite'], "int"));
+							       GetSQLValueString($_SESSION['objetoTramite'], "int"),
+							       GetSQLValueString($_SESSION['revisorProyecto'], "text"));
 
 							$result = $mysqli->query($sql);
-							 $_SESSION['RESULTADO']= $result;
 
 							if ($result) {
 								$resultado=false;
 
-								$resultado= insertMuchos($_SESSION['licencias'], 'rad_lic', $consecutivoNuevo);
-								$resultado= insertMuchos($_SESSION['usos'], 'rad_usos', $consecutivoNuevo);
-								$resultado= insertVecinos($_SESSION['vecinos'], 'radicado_vecinos', $consecutivoNuevo);
-								$resultado= insertMuchos($_SESSION['titulares'], 'rad_titulares', $consecutivoNuevo);
-								$resultado= insertResponsables($_SESSION['responsables'], 'rad_respo', $consecutivoNuevo);
+								$resultado= insertMuchos($_SESSION['licencias'], 'rad_lic', $_SESSION['consecutivoNuevo']);
+								$resultado= insertMuchos($_SESSION['usos'], 'rad_usos', $_SESSION['consecutivoNuevo']);
+								$resultado= insertVecinos($_SESSION['vecinos'], 'radicado_vecinos', $_SESSION['consecutivoNuevo']);
+								$resultado= insertMuchos($_SESSION['titulares'], 'rad_titulares', $_SESSION['consecutivoNuevo']);
+								$resultado= insertResponsables($_SESSION['responsables'], 'rad_respo', $_SESSION['consecutivoNuevo']);
 								if (!empty($_POST['documentos_generales'])) {
-									$resultado= insertDocsPendientes($_POST['documentos_generales'], 'rad_docs', $consecutivoNuevo);
+									$resultado= insertDocsPendientes($_POST['documentos_generales'], 'rad_docs', $_SESSION['consecutivoNuevo']);
 								}
 								if (!empty($_POST['documentos_especificos'])) {
-									$resultado= insertDocsPendientes($_POST['documentos_especificos'], 'rad_docs', $consecutivoNuevo);
+									$resultado= insertDocsPendientes($_POST['documentos_especificos'], 'rad_docs', $_SESSION['consecutivoNuevo']);
 								}
 								if (!empty($_POST['documentos_adicionales'])) {
-									$resultado= insertDocsPendientes($_POST['documentos_adicionales'], 'rad_docs', $consecutivoNuevo);
+									$resultado= insertDocsPendientes($_POST['documentos_adicionales'], 'rad_docs', $_SESSION['consecutivoNuevo']);
 								}
+								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
+								$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
 
 								if ($resultado) {
 
@@ -279,14 +317,12 @@ else if (!empty($_POST['btn_docs'])   ) {
 	}else if($respuesta == 36 || $respuesta == 37){
 		 // $respuesta = '0'.$respuesta;
 	}else if($respuesta == 111){
-		limpiar();
+		// limpiar();
 	}else{
 		 $_SESSION['radicar'] = $respuesta;
 	}
 	echo $respuesta;
 }
-
-
 else if (!empty($_POST['nit']) && isset($_POST['celular']) && isset($_POST['email']) && isset($_POST['direccion']) && isset($_POST['id_barrio']) ) {
 	
 	$resultado;
@@ -343,11 +379,12 @@ else if (!empty($_POST['nit'])) {
 }
 else{
 	// $_SESSION['radicar'] = 133;
-	$arrayjson = array();
-	$arrayjson[] = array(
-					'estado'	=> 0 );
+	// $arrayjson = array();
+	// $arrayjson[] = array(
+	// 				'estado'	=> 0 );
 
-	echo json_encode($arrayjson);
+	// echo json_encode($arrayjson);
+	echo 0;
 }
 
 function NuevoRadicado(){
@@ -394,8 +431,8 @@ function insertMuchos($array, $tabla, $consec)
 	}
 
 	$sql="INSERT INTO $tabla VALUES ".$values;
-	return $result = $mysqli->query($sql);
-	// return $sql.'<hr>';
+	// return $result = $mysqli->query($sql);
+	return $sql.'<hr>';
 }
 
 function insertVecinos($array, $tabla, $consec)
@@ -418,8 +455,8 @@ function insertVecinos($array, $tabla, $consec)
 	}
 
 	$sql="INSERT INTO $tabla VALUES ".$values;
-	return $result = $mysqli->query($sql);
-	// return $sql.'<hr>';
+	// return $result = $mysqli->query($sql);
+	return $sql.'<hr>';
 }
 
 function insertResponsables($array, $tabla, $consec)
@@ -442,8 +479,8 @@ function insertResponsables($array, $tabla, $consec)
 	}
 
 	$sql="INSERT INTO $tabla VALUES ".$values;
-	return $result = $mysqli->query($sql);
-	// return $sql.'<hr>';
+	// return $result = $mysqli->query($sql);
+	return $sql.'<hr>';
 }
 
 function insertDocsPendientes($array, $tabla, $consec)
@@ -466,8 +503,8 @@ function insertDocsPendientes($array, $tabla, $consec)
 	}
 
 	$sql="INSERT INTO $tabla VALUES ".$values;
-	return $result = $mysqli->query($sql);
-	// return $sql.'<hr>';
+	// return $result = $mysqli->query($sql);
+	return $sql.'<hr>';
 }
 function limpiar()
 {

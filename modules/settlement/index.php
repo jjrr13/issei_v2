@@ -13,6 +13,7 @@ if(file_exists("../../cx/cx.php")){
 <!-- <!DOCTYPE html>
 <html>
   <head> -->
+
     <title>Liquidaciones</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     
@@ -92,10 +93,8 @@ if(file_exists("../../cx/cx.php")){
           console.log(data);
 
           if (data == 3) {
-            confirmar('EL RADICADO NO EXISTE', 'fa fa-window-close', 'red', 'S');
-
-          }else {
-            
+            confirmar('EL RADICADO NO EXISTE! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
+          }else{
             var JSONdata    = JSON.parse(data); //parseo la informacion
 
             $('#estrato').html(JSONdata[0].estrato);
@@ -162,70 +161,94 @@ if(file_exists("../../cx/cx.php")){
       
     }
 
+    var salarioMensual= 781242;
+      
+    var cargoFijo= salarioMensual * 0.40;
+    var cargoVariable = salarioMensual * 0.80;
+    var factor_M = 0.938;
+
     function cargoBasico2(opcion) {
 
       var tipo = $(opcion).attr('id');
 
-      if ($(opcion).val().length == 0) {
-        alert('entro al if');
-        $("#"+tipo+ "_2").val('0');
-      }
-        
       var tipoUso = tipo.split("_");
-      
-      var cargoFijo= 781242 * 0.40;
-      var cargoVariable = 781242 * 0.80;
 
-      var factor_Q=0;
+      var cant = tipoUso.length
+
+      var modo;
+      if (cant == 2) {
+        if ($(opcion).val().length == 0) {
+          // alert('entro al if');
+          $("#"+tipo+ "_2").val('0');
+        }
+        modo = $("#"+tipo+ "_3").val();
+      }else if (cant == 3) {
+        modo = $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_3").val();
+
+      }
+
+      // alert(modo);
+      // alert(cant);
+
+      var factor_Q= mayorFactor_Q();
       var totalBasico=0;
       var totalVariable=0;
       var tempExpesas=0;
-      // alert(totalVariable);
-      $(".cargoBasico").each(function(){
-      // alert('entro al ciclo');
-            var dato = $(this).val();
-            // alert(dato);
-            if (dato >= factor_Q) {
-              factor_Q = dato;
-            }
-      });
-      // alert(tipo);
-      var modo = $("#"+tipo+ "_3").val();
+     
+      // alert(factor_Q);
       // alert(modo);
 
       if (tipoUso[0]=='vivienda') {
         if (factor_Q >= 0.1) {
           var factor_I_v = factor_I_vivienda($('#estrato').html());
-          totalBasico = (cargoFijo * factor_I_v) * 0.938 ;
-          totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q, modo)) * 0.938 ;
+
+          totalBasico = (cargoFijo * factor_I_v) * factor_M ;
+          totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q, modo)) * factor_M ;
+          // alert(totalVariable);
         }
          // alert(factor_I_v);
       }else {
         if (factor_Q >= 0.1) {
           var factor_I_o = factor_I_otras(factor_Q);
         // alert(factor_I_o);
-          totalBasico = ((781242*0.40) * factor_I_o) * 0.938 ;
-          totalVariable = (((781242*0.80) * factor_I_o) * factor_J(factor_Q, modo)) * 0.938 ;
+          totalBasico = ( cargoFijo * factor_I_o) * factor_M ;
+          totalVariable = ((cargoVariable * factor_I_o) * factor_J(factor_Q, modo)) * factor_M ;
         }
       }
 
-      $("#"+tipo+ "_2").val(totalVariable);
-      
-      // alert($("#"+tipo+ "_2").val()+ ' despues de asignar valor');
+      if (cant == 2) {
+        $("#"+tipo+ "_2").val(totalVariable);
+        // alert($("#"+tipo+ "_2").val() + ' este es el valor del campo del variable');
+      }else if (cant == 3) {
+        totalBasico = totalBasico / 2;
+        totalVariable = totalVariable / 2;
+        $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val(totalVariable);
+        // alert($("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val() + ' este es el valor del campo del variable EN EL if');
 
-      subtotalExpensas = sumarVariable() + totalBasico;
+      }
+
+
+      calcular(totalBasico, totalVariable);
+      
+    }
+
+    function calcular(total_Basico, total_Variable) {
+
+      // alert(total_Basico + ' / '+ total_Variable);
+
+      var subtotalExpensas = sumarVariable() + total_Basico;
       // alert(subtotalExpensas);
 
       var iva = subtotalExpensas * 0.19;
       var total = subtotalExpensas + iva;
       var estampillas=0;
-      if (factor_Q >= 0.1) {
+      if (subtotalExpensas >= 0.1) {
          estampillas = 5800;
       }
       var totalExpensas = total + estampillas;
 
-      totalBasico = FormtearNumeros(Math.round(totalBasico));
-      totalVariable = FormtearNumeros(Math.round(totalVariable));
+      total_Basico = FormtearNumeros(Math.round(total_Basico));
+      total_Variable = FormtearNumeros(Math.round(total_Variable));
       subtotalExpensas = FormtearNumeros(Math.round(subtotalExpensas));
       console.log(subtotalExpensas);
       iva = FormtearNumeros(Math.round(iva));
@@ -233,17 +256,28 @@ if(file_exists("../../cx/cx.php")){
       estampillas = FormtearNumeros(Math.round(estampillas));
       totalExpensas = FormtearNumeros(Math.round(totalExpensas));
 
-      $('#cargoBasico').val(totalBasico);
-      $('#cargoVariable').val(totalVariable);
+      $('#cargoBasico').val(total_Basico);
+      $('#cargoVariable').val(total_Variable);
       $('#subExpen').val(subtotalExpensas);
       $('#iva').val(iva);
       $('#total').val(total);
       $('#estampillas').val(estampillas);
       $('#totalExpensas').val(totalExpensas);
-      totalVariable = parseInt(totalVariable.replace(/\./g,''));
-    //   }else{
-    //   $("#"+tipo+ "_2").val(0);
-    // }
+      // totalVariable = parseInt(totalVariable.replace(/\./g,''));
+    }
+
+    function mayorFactor_Q() {
+      var tempFactor_Q=0;
+      //quizas toque determinar si la prioridad a vivienda entre los usos en caso de iguales
+      $(".cargoBasico").each(function(){
+      // alert('entro al ciclo');
+            var dato = $(this).val();
+            // alert(dato);
+            if (dato >= tempFactor_Q) {
+              tempFactor_Q = dato;
+            }
+      });
+      return tempFactor_Q;
     }
 
     function sumarVariable() {
@@ -252,9 +286,7 @@ if(file_exists("../../cx/cx.php")){
             var temp = parseInt($(this).val());
             suma = suma + temp;
       });
-
       return suma;
-
     }
 
     function FormtearNumeros(valor) {
@@ -325,101 +357,154 @@ if(file_exists("../../cx/cx.php")){
       }
       return valor;
     }
-    function subsidio(argument) {
-      alert('se le asignara el 50% de descuento');
+
+    function valor_Reloteo(factor_qq, salario) {
+      var tempValor=0;
+      if (factor_qq >= 0.1 && factor_qq <= 1000) {
+        tempValor = (salario /2 ) * 2 ;
+      }else if (factor_qq >= 1001 && factor_qq <= 5000) {
+        tempValor = salario /2;
+      }else if (factor_qq >= 5001 && factor_qq <= 10000) {
+        tempValor = salario;
+      }else if (factor_qq >= 10001 && factor_qq <= 20000) {
+        tempValor = salario + (salario /2);
+      }else if (factor_qq > 20000) {
+        tempValor = salario * 2;
+      }
+      return tempValor;
     }
 
-    function getUsos(arrayUsos, modLicencia, lic) {
+
+    function getUsos(arrayUsos, modLicencia1, lic) {
+      var modLicencia='';
       var elemento='';
-      for (var js = 0; js < arrayUsos.length ; js++) {
-        console.log(arrayUsos[js][js+1]);
-        if (arrayUsos[js][js+1]=='Vivienda') {
-          
-          elemento+=" <div class='col-lg-12  input-group'>";
+
+      modLicencia1 = modLicencia1.split(' ');
+
+      for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
+        modLicencia+= modLicencia1[jr];
+      }
+      // alert(lic + modLicencia);
+      if (lic + modLicencia == 'SubdivicionUrbana' || lic + modLicencia == 'SubdivicionRural' ) {
+        alert('Entro al if de SUBDIVICION');
+        elemento+=" <div class='col-lg-12  input-group'>";
             elemento+=" <div class='col-lg-1  input-group'></div>";
             elemento+=" <div class='col-lg-2  input-group'>";
-              elemento+=" <h6>Vivienda</h6>";
+              elemento+=" <h6>Subdivicion</h6>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' > ";
+              elemento+=" <input class='cargoBasico' name='sub_"+modLicencia+"' type='text' id='sub_"+modLicencia+"' size='10' return ValidNum(this);' value='781242' readonly > ";
             elemento+=" <label for=''>M<sup>2</sup></label>";
             elemento+=" </div>";
             elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='vivienda"+modLicencia+"vs' type='checkbox' id='vivienda"+modLicencia+"vs' value='1' onclick='subsidio(this);'  > V.I.S";
+
+              elemento+=" <input name='sub_"+modLicencia+"_vs' type='checkbox' id='sub_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);' > Activar";
             elemento+=" </div>";
 
-            // /////////// datos vivienda_ /////////////
-              elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='vivienda_"+modLicencia+"_3' type='hidden' id='vivienda_"+modLicencia+"_3' value='"+lic+"' >";
+            // /////////// datos sub_ /////////////
+              elemento+=" <input class='modalidad' name='sub_"+modLicencia+"_1' type='hidden' id='sub_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='sub_"+modLicencia+"_2' type='hidden' id='sub_"+modLicencia+"_2' value='0' >";
+              elemento+=" <input class='licencia' name='sub_"+modLicencia+"_3' type='hidden' id='sub_"+modLicencia+"_3' value='"+lic+"' >";
             // elemento+=" </div>";
           elemento+=" </div>";
-        }
-        else if (arrayUsos[js][js+1]=='Comercio y/o Servicios') {
 
-           elemento+=" <div class='col-lg-1  form-group'></div>";
-         elemento+=" <div class='col-lg-12  input-group'>";
-           elemento+=" <div class='col-lg-1  input-group'></div>";
-           elemento+=" <div class='col-lg-2  input-group'>";
-             elemento+=" <h6>Comercio</h6>";
-           elemento+=" </div>";
-           elemento+=" <div class='col-lg-3 input-group'>";
-             elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='cargoBasico2(this);' size='10' >";
-             elemento+=" <label for=''>M<sup>2</sup></label>";
-           elemento+=" </div>";
+      }else if (modLicencia == 'Reloteo' ) {
 
-           elemento+=" <div class='col-lg-2  input-group'></div>";
+      }else{
 
-            // /////////// datos comercio_ /////////////
-              elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='comercio_"+modLicencia+"_3' type='hidden' id='comercio_"+modLicencia+"_3' value='"+lic+"' >";
-
-         elemento+=" </div>";
-
-        }else if (arrayUsos[js][js+1]=='Industrial') {
-
-          elemento+=" <div class='form-group col-lg-12 '></div>";
-          elemento+=" <div class='col-lg-12  input-group'>";
-            elemento+=" <div class='col-lg-1  input-group'></div>";
-            elemento+=" <div class='col-lg-2  input-group'>";
-              elemento+=" <h6>Industria</h6>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
-              elemento+=" <label for=''>M<sup>2</sup></label>                  ";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-2 input-group'></div>";
-
-            // /////////// datos industria_ /////////////
-               elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
-
-          elemento+=" </div>";
-          
-        }else if (arrayUsos[js][js+1]=='Institucional') {
-
-          elemento+=" <div class='form-group col-lg-12 '></div>";
-          elemento+=" <div class='col-lg-12 input-group'>";
-            elemento+=" <div class='col-lg-1 input-group'></div>";
-            elemento+=" <div class='col-lg-2 input-group'>";
-              elemento+=" <h6>Institucional</h6>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+        for (var js = 0; js < arrayUsos.length ; js++) {
+          console.log(arrayUsos[js][js+1]);
+          if (arrayUsos[js][js+1]=='Vivienda') {
+            
+            elemento+=" <div class='col-lg-12  input-group'>";
+              elemento+=" <div class='col-lg-1  input-group'></div>";
+              elemento+=" <div class='col-lg-2  input-group'>";
+                elemento+=" <h6>Vivienda</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='subsidio(this);' >DOT";
-            elemento+=" </div>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 form-check'>";
+                elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S";
+              elemento+=" </div>";
 
-            // /////////// datos institucional_ /////////////
-            elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
-            elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
+              // /////////// datos vivienda_ /////////////
+                elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='vivienda_"+modLicencia+"_3' type='hidden' id='vivienda_"+modLicencia+"_3' value='"+lic+"' >";
+              // elemento+=" </div>";
+            elemento+=" </div>";
+          }
+          else if (arrayUsos[js][js+1]=='Comercio y/o Servicios') {
 
-          elemento+=" </div>";
+             elemento+=" <div class='col-lg-1  form-group'></div>";
+           elemento+=" <div class='col-lg-12  input-group'>";
+             elemento+=" <div class='col-lg-1  input-group'></div>";
+             elemento+=" <div class='col-lg-2  input-group'>";
+               elemento+=" <h6>Comercio</h6>";
+             elemento+=" </div>";
+             elemento+=" <div class='col-lg-3 input-group'>";
+               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='cargoBasico2(this);' size='10' >";
+               elemento+=" <label for=''>M<sup>2</sup></label>";
+             elemento+=" </div>";
+
+             elemento+=" <div class='col-lg-2  input-group'></div>";
+
+              // /////////// datos comercio_ /////////////
+                elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='comercio_"+modLicencia+"_3' type='hidden' id='comercio_"+modLicencia+"_3' value='"+lic+"' >";
+
+           elemento+=" </div>";
+
+          }else if (arrayUsos[js][js+1]=='Industrial') {
+
+            elemento+=" <div class='form-group col-lg-12 '></div>";
+            elemento+=" <div class='col-lg-12  input-group'>";
+              elemento+=" <div class='col-lg-1  input-group'></div>";
+              elemento+=" <div class='col-lg-2  input-group'>";
+                elemento+=" <h6>Industria</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+                elemento+=" <label for=''>M<sup>2</sup></label>                  ";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 input-group'></div>";
+
+              // /////////// datos industria_ /////////////
+                 elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
+
+
+            elemento+=" </div>";
+            
+          }else if (arrayUsos[js][js+1]=='Institucional') {
+
+            elemento+=" <div class='form-group col-lg-12 '></div>";
+            elemento+=" <div class='col-lg-12 input-group'>";
+              elemento+=" <div class='col-lg-1 input-group'></div>";
+              elemento+=" <div class='col-lg-2 input-group'>";
+                elemento+=" <h6>Institucional</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+                elemento+=" <label for=''>M<sup>2</sup></label>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 form-check'>";
+                elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='cargoBasico2(this);'  > DOT";
+
+                elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+              elemento+=" </div>";
+
+              // /////////// datos institucional_ /////////////
+              elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
+
+            elemento+=" </div>";
+          }
         }
       }
       return elemento;
@@ -485,8 +570,9 @@ if(file_exists("../../cx/cx.php")){
       padding: .75rem .1rem !important;
     }
   </style>
-  <!-- </head> -->
-  <!-- <body class="hold-transition sidebar-mini"> -->
+
+ <!--  </head>
+  <body class="hold-transition sidebar-mini"> -->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -647,3 +733,9 @@ if(file_exists("../../cx/cx.php")){
 <!--   </body>
 </html> -->
 
+ <!-- Este SCRIPT ejecuta todos los alerts -->
+<link rel='stylesheet' href='../../cx/demo/demo.css'>
+<link rel='stylesheet' type='text/css' href='../../cx/jquery-confirm.css'>
+<script src='../../cx/demo/libs/bundled.js'></script>
+<script src='../../cx/demo/demo.js'></script>
+<script type='text/javascript' src='../../cx/jquery-confirm.js'></script>

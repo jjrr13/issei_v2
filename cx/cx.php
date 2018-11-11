@@ -88,8 +88,8 @@
                                 text: 'OK',
                                 btnClass: 'btn-blue',
                                 action: function () {
-                                    console.log('tambien por aqui');
-                                    window.location.replace('$destino');
+                                    console.log($msj);
+                                    //window.location.replace('$destino');
                                 }
                             }, 
                         }

@@ -29,7 +29,7 @@ otroTitular     +="<button type='button' name='burcar"+cantTitular+"' value='"+c
 otroTitular   +="</div>";
 otroTitular   +="<div class='col-lg-7 input-group opcion"+cantTitular+"' hidden id='opcion"+cantTitular+"' >";
 otroTitular     +="<label for='nombre"+cantTitular+"' class='col-form-label col-lg-3'>NOMBRE</label>";
-otroTitular      +="<input type='text' id='nombre"+cantTitular+"' name='nombre[]' class='form-control col-lg-9' placeholder='NOMBRE'>";
+otroTitular      +="<input type='text' readonly id='nombre"+cantTitular+"' name='nombre[]' class='form-control col-lg-9' placeholder='NOMBRE'>";
 otroTitular   +="</div>";
 otroTitular +="</div>";
 otroTitular +="<div class='col-lg-12 form-group'></div>";
@@ -140,6 +140,7 @@ otroTitular +="</div>";
   }
 </script>
 <form method="POST" id="frTitular" name="frTitular" >
+  
   <div  class="col-lg-12 form-group" id="titulares">
     <div class="col-lg-12 form-group borde">
       <div class="col-lg-12 input-group ">
@@ -150,7 +151,7 @@ otroTitular +="</div>";
         </div>
         <div class="col-lg-7 input-group opcion9" hidden id="opcion9" >
           <label for="nombre9" class="col-form-label col-lg-3">NOMBRE</label>
-          <input disabled type="text" id="nombre9" name="nombre[]" class="form-control col-lg-9" placeholder="NOMBRE">
+          <input readonly type="text" id="nombre9" name="nombre[]" class="form-control col-lg-9" placeholder="NOMBRE">
         </div>
       </div>
       <div class="col-lg-12 form-group"></div>

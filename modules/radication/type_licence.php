@@ -121,9 +121,6 @@
         $('#LicPar').removeAttr('checked');
         $('#LicSub').removeAttr('checked');
 
-        // $('#LicCons1').attr('disabled', 'disabled');
-        // $('#LicCons1').removeAttr('checked');
-        // bloqConstruc(2);
       }
       else{
         $('#LicPar').removeAttr('disabled');
@@ -137,14 +134,10 @@
         $('#LicSub').attr('disabled', 'disabled');
         $('#LicUrba').removeAttr('checked');
         $('#LicSub').removeAttr('checked');
-        // $('#LicCons1').attr('disabled', 'disabled');
-        // $('#LicCons1').removeAttr('checked');
-        // bloqConstruc(2);
       }
       else{
         $('#LicUrba').removeAttr('disabled');
         $('#LicSub').removeAttr('disabled');
-        // $('#LicCons1').removeAttr('disabled');
       }
     }
     else if (opcion == 3) {
@@ -153,14 +146,10 @@
         $('#LicPar').attr('disabled', 'disabled');
         $('#LicUrba').removeAttr('checked');
         $('#LicPar').removeAttr('checked');
-        // $('#LicCons1').attr('disabled', 'disabled');
-        // $('#LicCons1').removeAttr('checked');
-        // bloqConstruc(2);
       }
       else{
         $('#LicUrba').removeAttr('disabled');
         $('#LicPar').removeAttr('disabled');
-        // $('#LicCons1').removeAttr('disabled');
       }
     }
     else if (opcion == 4) {
@@ -186,6 +175,24 @@
 </script>
 
 <form name="frTipo" id="frTipo" method="post">
+  <div  class="col-lg-12 input-group" id="revisor">
+    <h5><label for="revisorProyecto" class="col-form-label offset-2 col-lg-12">Arquitecto Revisor </label></h5>
+
+    <select  class="form-control offset-1 col-md-4" id="revisorProyecto" name="revisorProyecto" >
+      <option class="clasestado">ASIGNE EL ARQUITECTO</option>
+      <?php 
+
+      $query = $mysqli-> query ("SELECT id_usuario, CONCAT(t.nombre, ' ', t.apellido) AS arquitecto FROM usuarios AS u 
+        INNER JOIN terceros t ON t.nit = u.nit
+        WHERE u.id_cargo = 3");
+      while ($valores = mysqli_fetch_array($query)) {
+
+      echo "<option class='clasestado' value='".$valores['id_usuario']."'>".$valores['arquitecto']."</option>";
+        } ?>
+    </select>
+  </div>
+  <div  class="col-lg-12 form-group" ></div>
+  <div  class="col-lg-12 form-group" ></div>
   <div class="container row">
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group">
