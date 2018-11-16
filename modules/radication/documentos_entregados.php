@@ -1,4 +1,3 @@
-<form name="frDocs" id="frDocs" method="post">
 <script>
   //mostrar y ocultar submenus
     $(function(){
@@ -14,30 +13,31 @@
       });
     });
 </script>
+<form name="frDocs" id="frDocs" method="post">
 
-<div class="col-lg-6  offset-2 input-group">
-  <h5><strong><label for="docCompletos" class="form-check-label izq">Documentacion Completa</label></strong></h5>
-  <input type="checkbox"  name="docCompletos" id="docCompletos" class="form-check-input fantasma" value="1" onchange="">
-</div>
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-<?php 
-  $mysqli->set_charset("utf-8");
-  $sql="SELECT id_documento, nombre FROM radicado_documentos WHERE tipo ='General'";
-
-  $result =$mysqli->query($sql);
-  // $result = mysqli_num_rows($result);
+  <div class="col-lg-6  offset-2 input-group">
+    <h5><strong><label for="docCompletos" class="form-check-label izq">Documentacion Completa</label></strong></h5>
+    <input type="checkbox"  name="docCompletos" id="docCompletos" class="form-check-input fantasma" value="1" onchange="">
+  </div>
 
 
-  $sql3="SELECT id_documento, nombre FROM radicado_documentos WHERE tipo ='Adicional'";
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  $result3 =$mysqli->query($sql3);
-  // $result = mysqli_num_rows($result);
-  
- ?>
-<!-- <form name="frTipo" id="frTipo" method="post"> -->
+  <?php 
+    $mysqli->set_charset("utf-8");
+    $sql="SELECT id_documento, nombre FROM radicado_documentos WHERE tipo ='General'";
+
+    $result =$mysqli->query($sql);
+    // $result = mysqli_num_rows($result);
+
+
+    $sql3="SELECT id_documento, nombre FROM radicado_documentos WHERE tipo ='Adicional'";
+
+    $result3 =$mysqli->query($sql3);
+    // $result = mysqli_num_rows($result);
+    
+   ?>
+  <!-- <form name="frTipo" id="frTipo" method="post"> -->
   <div class="container row" id="contenedor1">
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group">
@@ -108,40 +108,42 @@
       <?php 
       }
 
-$arraFaltantes = array();
-$arraEntregados = array();
-$entregados='';
-$faltantes='';
+      $arraFaltantes = array();
+      $arraEntregados = array();
+      $entregados='';
+      $faltantes='';
+      var_dump($_SESSION['docGenerales']);
+      echo "<hr>";
+      var_dump($_SESSION['docEspecificos']);
+      function documentosFaltantes($array, $array2)
+      {
+        $values="";
+        $cant = count($array)-1;
 
-function documentosFaltantes($array, $array2)
-{
-  $values="";
-  $cant = count($array)-1;
+        foreach ($array as $key => $value) {
 
-  foreach ($array as $key => $value) {
+          $documento = $array[$key];
 
-    $documento = $array[$key];
+          if(array_search($documento, $array2) !== false){
+            if ($cant != $key) {
+               $values.= "$documento".'; ';
+            }
+            else{
+               $values.= "$documento".'.';
+            }
+          }
 
-    if(array_search($documento[2], $array2) !== false){
-      if ($cant != $key) {
-         $values.= "$documento[1]".'; ';
+        }
+        return $values;
       }
-      else{
-         $values.= "$documento[1]".'.';
-      }
-    }
-
-  }
-  return $values;
-}
-// $_SESSION['documentos_generales']
-// $_SESSION['documentos_especificos']
- // $faltantes = documentosFaltantes($_SESSION['docGenerales'], $_SESSION['documentos_generales'], $entregados, $faltantes  );
- $faltantes.=' '. documentosFaltantes($_SESSION['docEspecificos'], $_SESSION['documentos_especificos'], $entregados, $faltantes  );
- echo "<hr>";
- echo $entregados. "<hr>";
- echo $faltantes. "<hr>";
- // echo determinarDocumentos($_SESSION['docEspecificos']);
+      // $_SESSION['documentos_generales']
+      // $_SESSION['documentos_especificos']
+       // $faltantes = documentosFaltantes($_SESSION['docGenerales'], $_SESSION['documentos_generales'], $entregados, $faltantes  );
+       $faltantes.=' '. documentosFaltantes($_SESSION['docEspecificos'], $_SESSION['documentos_especificos'], $entregados, $faltantes  );
+       echo "<hr>";
+       echo $entregados. "<hr>";
+       echo $faltantes. "<hr>";
+       // echo determinarDocumentos($_SESSION['docEspecificos']);
 
 
     } ?>

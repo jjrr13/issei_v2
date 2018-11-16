@@ -2,28 +2,33 @@
 
 include_once "../cx/cx.php";
 
-function determinarDocumentos($value='')
-{
-	$values="";
-	$cant = count($array)-1;
+// function determinarDocumentos($value='')
+// {
+// 	$values="";
+// 	$cant = count($array)-1;
 
-	foreach ($array as $key => $value) {
+// 	foreach ($array as $key => $value) {
 
-		$titular = $array[$key];
+// 		$titular = $array[$key];
 
-		if ($cant != $key) {
-			$values.="$titular, ";
-		}
-		else{
-			$values.="y $titular ";
-		}
-	}
-	return $values;
-}
+// 		if ($cant != $key) {
+// 			$values.="$titular, ";
+// 		}
+// 		else{
+// 			$values.="y $titular ";
+// 		}
+// 	}
+// 	return $values;
+// }
 // echo determinarDocumentos($_SESSION['docGenerales']);
 // echo determinarDocumentos($_SESSION['docEspecificos']);
 
+// var_dump($_SESSION['documentos_generales']);
+// var_dump($_SESSION['documentos_especificos']);
 
+if($_POST){
+	$_SESSION['pos'] = $_POST;
+}
 
 // var_dump($_SESSION['docEspecificos']);
 
@@ -235,29 +240,31 @@ else if (!empty($_POST['btn_docs'])   ) {
 				if (!empty($_SESSION['titulares'])) {
 					if (!empty($_SESSION['responsables'])) {
 						if ( (!empty($_POST['documentos_generales']) || !empty($_POST['documentos_especificos'])) || !empty($_POST['docCompletos']) ) {
+								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
+								$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
 
-							$_SESSION['consecutivoNuevo'] = NuevoRadicado();
+						// 	$_SESSION['consecutivoNuevo'] = NuevoRadicado();
 							
-						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, categoria, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+						// $sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, categoria, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
+						// 	       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
-							       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
-							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
-							       GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
-							       GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
-							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
-							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
-							       GetSQLValueString($_SESSION['categoria'], "text"),
-							       GetSQLValueString($_SESSION['predio']['matricula'], "int"),
-							       GetSQLValueString($_SESSION['predio']['catastral'], "int"),
-							       GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text"),
-							       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
-							       GetSQLValueString(1, "int"),
-							       GetSQLValueString(30, "int"),
-							       GetSQLValueString($_SESSION['objetoTramite'], "int"),
-							       GetSQLValueString($_SESSION['revisorProyecto'], "text"));
+						// 	       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
+						// 	       GetSQLValueString($_SESSION['categoria'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['matricula'], "int"),
+						// 	       GetSQLValueString($_SESSION['predio']['catastral'], "int"),
+						// 	       GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text"),
+						// 	       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
+						// 	       GetSQLValueString(1, "int"),
+						// 	       GetSQLValueString(30, "int"),
+						// 	       GetSQLValueString($_SESSION['objetoTramite'], "int"),
+						// 	       GetSQLValueString($_SESSION['revisorProyecto'], "text"));
 
-							$result = $mysqli->query($sql);
+						// 	$result = $mysqli->query($sql);
 
 							if ($result) {
 								$resultado=false;
@@ -276,8 +283,6 @@ else if (!empty($_POST['btn_docs'])   ) {
 								if (!empty($_POST['documentos_adicionales'])) {
 									$resultado= insertDocsPendientes($_POST['documentos_adicionales'], 'rad_docs', $_SESSION['consecutivoNuevo']);
 								}
-								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
-								$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
 
 								if ($resultado) {
 
