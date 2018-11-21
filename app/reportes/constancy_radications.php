@@ -2,6 +2,11 @@
 	use Mpdf\Mpdf;
 	require_once '../mpdf/vendor/autoload.php';
 	require_once('../../cx/cx.php');
+// $_SESSION['documentos_generales']
+// $_SESSION['documentos_especificos']
+// $faltantes = docFaltantesEspecificos($_SESSION['docGenerales'], $_SESSION['documentos_generales'], $entregados, $faltantes  );
+// echo determinarDocumentos($_SESSION['docEspecificos']);
+// $_SESSION['docEspecificos']
 
 
 	$_SESSION['id_usuario']; // id de usuario.
@@ -25,6 +30,10 @@
 	$fecha_radicacion = strftime("%A %d de %B del %Y");
 
 
+	$entregados='<strong>Se entregaron los siguientes documentos: </strong>';
+	$faltantes='<strong>Quedaron pendientes los siguientes documentos: </strong>';
+	$entregados.=' '. docFaltantesEspecificos($_SESSION['docEspecificos'], $_SESSION['documentos_especificos']);
+	$entregados.=' y en Generales: '. docFaltantesGenerales($_SESSION['docGenerales'], $_SESSION['documentos_generales']);
 	$titulares = ponerTitulares($_SESSION['titulares_nombres']);
 	$nombre_tramitador = $_SESSION['tramitador_nombre'];
 	$radicado = $_SESSION['consecutivoNuevo'];
@@ -140,13 +149,17 @@ $ho = '
 				<div>
 					<strong>
 						<span style="font-size: 12px !important;">DE CONFORMIDAD CON EL ARTICULO 2.2.6.1.2.3.2 DEL DECRETO 1077 DE 2015 SU PROYECTO CORRESPONDE A LA '.$oracion.'</span>
-					</strong> 
+					</strong>
+					<br>
+					<span style="font-size: 12px !important;">'.$entregados.'<br></span>
 				</div>
 			</div>
 			<br>
 			<div style="text-align: justify;">
 				<div>
-					<span style="font-size: 12px !important;">Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos:  </span>
+					<span style="font-size: 12px !important;">Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos:
+					</span>
+					<span style="font-size: 12px !important;"><br>'.$faltantes.'<br></span>
 				</div>
 			</div>
 			<br>
@@ -223,32 +236,72 @@ function ponerTitulares($array)
 	return $values;
 }
 
-function determinarDocumentos($value='')
+
+// var_dump($_SESSION['docGenerales']);
+
+
+
+// var_dump($_SESSION['docGenerales']);
+// echo "<hr>";
+// var_dump($_SESSION['docEspecificos']);
+
+function docFaltantesEspecificos($array, $array2)
 {
+	// console('entro a la funcion');
 	$values="";
 	$cant = count($array)-1;
+	global $faltantes;
 
+	  // console(var_dump($array2));
 	foreach ($array as $key => $value) {
 
-		$titular = $array[$key];
+	  $documento = $array[$key];
+	  // console(var_dump($documento));
+	  // console($documento['id_documento']);
+	  if(array_search($documento['id_documento'], $array2) !== false){
+	    if ($cant != $key) {
+	       $values.= utf8_encode($documento['nombre']).'; ';
+	    }
+	    else{
+	       $values.= utf8_encode($documento['nombre']).'.';
+	    }
+	  }else{
+	    $faltantes.= ' '. utf8_encode($documento['nombre']).'; ';
+	  }
 
-		if ($cant != $key) {
-			$values.="$titular, ";
-		}
-		else{
-			$values.="y $titular ";
-		}
+	}
+	return $values;
+}
+function docFaltantesGenerales($array, $array2)
+{
+	console('entro a la funcion');
+	$values="";
+	$cant = count($array)-1;
+	global $faltantes;
+
+	  // console(var_dump($array));
+	foreach ($array as $key => $value) {
+
+	  $documento = $array[$key];
+	  // console(var_dump($documento));
+	  console($documento[1]);
+	  if(array_search($documento[1], $array2) !== false){
+	    if ($cant != $key) {
+	       $values.= $documento[2].'; ';
+	    }
+	    else{
+	       $values.= $documento[2].'.';
+	    }
+	  }
+	  else{
+	    $faltantes.= ' '. $documento[2].';';
+	  }
+
 	}
 	return $values;
 }
 
-var_dump($_SESSION['docGenerales']);
-// $_SESSION['docEspecificos']
 
-function console($variable)
-{
-	echo "<script>console.log($variable);</script>";
-}
 
 // <table>
 // 				<thead>
@@ -344,3 +397,4 @@ function console($variable)
 // 				  </tr>
 // 				</thead>
 // 			</table>
+
