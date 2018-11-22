@@ -98,9 +98,9 @@
 	}
 
 	function console($variable)
-{
-	echo "<script>console.log('".$variable."');</script>";
-}
+	{
+		echo "<script>console.log('".$variable."');</script>";
+	}
 
 ?>
 

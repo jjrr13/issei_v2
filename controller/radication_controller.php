@@ -1,6 +1,37 @@
 <?php 
 
 include_once "../cx/cx.php";
+echo "<pre>";
+var_dump($_SESSION['objetoTramite']);
+echo "<HR>";
+var_dump($_SESSION['usos']);
+echo "<HR>";
+var_dump($_SESSION['licencias']);
+echo "<HR>";
+var_dump($_SESSION['predio']);
+echo "<HR>";
+var_dump($_SESSION['vecinos']);
+echo "<HR>";
+var_dump($_SESSION['titulares']);
+echo "<HR>";
+var_dump($_SESSION['responsables']);
+echo "<HR>";
+var_dump($_SESSION['documentos_generales']);
+echo "<HR>";
+var_dump($_SESSION['documentos_especificos']);
+echo "<HR>";
+var_dump($_SESSION['consecutivoNuevo']);
+echo "<HR>";
+var_dump($_SESSION['licencias']);
+echo "<HR>";
+var_dump($_SESSION['usos']);
+echo "<HR>";
+var_dump($_SESSION['vecinos']);
+echo "<HR>";
+var_dump($_SESSION['titulares']);
+echo "<HR>";
+var_dump($_SESSION['responsables']);
+echo "</pre>";
 
 
 
@@ -210,7 +241,7 @@ else if (!empty($_POST['btn_Profesionales'])) {
 	echo $respuesta;
 }
 else if (!empty($_POST['btn_docs'])   ) {
-	$respuesta;
+	$respuesta=0;
 
 	if (!empty($_SESSION['objetoTramite']) && !empty($_SESSION['usos']) && !empty($_SESSION['licencias']) ) {
 		if (!empty($_SESSION['predio'])) {
@@ -218,10 +249,11 @@ else if (!empty($_POST['btn_docs'])   ) {
 				if (!empty($_SESSION['titulares'])) {
 					if (!empty($_SESSION['responsables'])) {
 						if ( (!empty($_POST['documentos_generales']) || !empty($_POST['documentos_especificos'])) || !empty($_POST['docCompletos']) ) {
-								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
-								$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
+						
+						$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
+						$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
 
-							$_SESSION['consecutivoNuevo'] = NuevoRadicado();
+						$_SESSION['consecutivoNuevo'] = NuevoRadicado();
 							
 						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, categoria, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
 							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -243,7 +275,7 @@ else if (!empty($_POST['btn_docs'])   ) {
 							       GetSQLValueString($_SESSION['revisorProyecto'], "text"));
 
 							$result = $mysqli->query($sql);
-
+							// $result=false;
 							if ($result) {
 								$resultado=false;
 
@@ -271,10 +303,11 @@ else if (!empty($_POST['btn_docs'])   ) {
 									$respuesta= 112;
 					        	}
 					        }else{
-					        	$respuesta= 37;
-					        	$_SESSION['radicar'] = '1'.$respuesta-2;
+					        	// $respuesta = 111;
+					        	$respuesta = 37;
+					        	
+					        	$_SESSION['radicar'] = '1'.($respuesta-2);
 					        }
-
 						}else{
 							$respuesta= 36;
 							$_SESSION['radicar'] = '1'.$respuesta-1;
@@ -367,7 +400,7 @@ else{
 	// 				'estado'	=> 0 );
 
 	// echo json_encode($arrayjson);
-	echo 0;
+	echo 1;
 }
 
 function NuevoRadicado(){

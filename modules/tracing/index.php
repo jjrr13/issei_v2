@@ -15,7 +15,59 @@ if(file_exists("../../cx/cx.php")){
   if (empty($_SESSION['id_usuario']) || $_SESSION['id_tipo_usuario'] != 1) {
       header("location: ../../cx/destroy_session.php");
     }
+    $nro_rad = '760011180001' ;
+    // $nro_rad = '1806' ;
 
+    $query_busqueda = sprintf("SELECT r.*, re.nombre as nombre_estado, ro.nombre as nombre_objetivo, b.barrio, 
+    								  rc.nombre as clasificacion_suelo, rp.nombre as planimetria_lote
+								FROM radicacion r 
+									INNER JOIN radicado_estados re on re.id_estados = r.estado_id
+								    INNER JOIN radicado_objetivo ro on ro.id_tramite = r.objetivo_id
+								    INNER JOIN barrio b on b.id_barrio = r.barrio_act
+                                    INNER JOIN radicado_suelos rc on rc.id_suelos = r.id_suelos
+                                    INNER JOIN radicado_planimetria rp on rp.id_planimetria = r.id_planimetria
+								WHERE r.consecutivo = '%s'", $nro_rad);
+    $jg_busqueda =$mysqli->query($query_busqueda);
+    $result_busqueda = mysqli_fetch_assoc($jg_busqueda);
+    $totalrows_result_busqueda = mysqli_num_rows($jg_busqueda);
+
+    $query_busqueda2 = sprintf("SELECT r.consecutivo, rus.nombre
+								FROM radicacion r 
+								    INNER JOIN rad_usos ru on ru.id_rad = r.consecutivo
+								    INNER JOIN radicado_usos rus on rus.id_usos = ru.id_usos
+								WHERE r.consecutivo = '%s'", $nro_rad);
+    $jg_busqueda2 =$mysqli->query($query_busqueda2);
+    $result_busqueda2 = mysqli_fetch_assoc($jg_busqueda2);
+    $totalrows_result_busqueda2 = mysqli_num_rows($jg_busqueda2);
+
+    $query_busqueda3 = sprintf("SELECT r.consecutivo, ri.id_terc, CONCAT(t.nombre, ' ', t.apellido) as titular
+								FROM radicacion r 
+								    INNER JOIN rad_titulares ri on ri.id_rad = r.consecutivo
+								    INNER JOIN terceros t on t.nit = ri.id_terc
+								WHERE r.consecutivo = '%s'", $nro_rad);
+    $jg_busqueda3 =$mysqli->query($query_busqueda3);
+    $result_busqueda3 = mysqli_fetch_assoc($jg_busqueda3);
+    $totalrows_result_busqueda3 = mysqli_num_rows($jg_busqueda3);
+
+    $query_busqueda4 = sprintf("SELECT r.consecutivo, tl.nombre, tl.modalidad
+								FROM radicacion r 
+								    INNER JOIN rad_lic rl on rl.id_rad = r.id_radicado
+								    INNER JOIN tipo_licencias tl on tl.id = rl.id_lic
+								WHERE r.consecutivo = '%s'", $nro_rad);
+    $jg_busqueda4 =$mysqli->query($query_busqueda4);
+    $result_busqueda4 = mysqli_fetch_assoc($jg_busqueda4);
+    $totalrows_result_busqueda4 = mysqli_num_rows($jg_busqueda4);
+
+    $query_busqueda5 = sprintf("SELECT r.consecutivo, ri.id_terc, CONCAT(t.nombre, ' ', t.apellido) as profesional, 
+    								   p.profesion
+								FROM radicacion r 
+								    INNER JOIN rad_respo ri on ri.id_rad = r.consecutivo
+								    INNER JOIN terceros t on t.nit = ri.id_terc
+								    INNER JOIN profesion p on p.id_profesion = ri.id_profesion
+								WHERE  r.consecutivo = '%s'", $nro_rad);
+    $jg_busqueda5 =$mysqli->query($query_busqueda5);
+    $result_busqueda5 = mysqli_fetch_assoc($jg_busqueda5);
+    $totalrows_result_busqueda5 = mysqli_num_rows($jg_busqueda5);
 
 include ('../menu.php');
 
@@ -32,7 +84,9 @@ include ('../menu.php');
     color: #dc3545;
     display: inline;
   }
-
+  .sinborde{
+  	border: 0px solid #ced4da;
+  }
   </style>
 
 </head>
@@ -41,7 +95,7 @@ include ('../menu.php');
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container col-lg-10">
+      <div class="container col-lg-11">
           <div class="card card-danger">
               <div class="card-header">
                 <center><h3 class="card-title">HOJA RUTA</h3></center>
@@ -50,194 +104,147 @@ include ('../menu.php');
               <!-- form start -->
               <form class="form-horizontal" id="form1" name="form1" action="" method="post" >
                 <div class="card-body">
-                  <div class="row form-group">
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                      </div>
-                      <div class="col-lg-5  input-group">
-                      	<label for="" class="col-form-label col-lg-4 ">Radicado</label>
-                        <input type="text" min="0"  class="form-control col-lg-7" id="" name="" placeholder="Numero Radicado" onkeypress="return ValidNum(event)" maxlength="6" autofocus>
-                        <button type="submit" class="btn btn-danger btn-sm" id="buscar" formaction="../../controller/user_controller.php">buscar&nbsp;</button>
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Nro Radicado</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Direccion</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Tipo Licencia</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Barrio</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Objeto Tramite</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Estrato</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Tipo Uso</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Matricula</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div> 
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Suelo</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Planimetria</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Titulares</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div> 
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Titulares</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div> 
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Titulares</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div> 
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Constructor</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div> 
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Arquitecto</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div> 
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Ingeniero Civil</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Diseñador NO Estructural</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Ingeniero Civil Geotecnista</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Ingeniero Topografico</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Revisor Independiente Diseño Estructural</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                    <div class="form-group col-lg-12 "></div>
-                    <div class="col-lg-12  input-group">
-                      <div class="col-lg-5  input-group">
-                        <label for="nombre" class="col-form-label col-lg-4">Otro Profesional</label>
-                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                      </div>
-                      <div class="col-lg-5  input-group">
-                        <label for="apellido" class="col-form-label col-lg-4">Nro Documento</label>
-                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                      </div>
-                    </div>
-                  </div>
+	                <div class="row form-group">
+	                    <div class="form-group col-lg-12 "></div>
+	                    <div class="col-lg-12 input-group">
+		                    <div class="col-lg-6 input-group">
+								<div class="col-lg-12 input-group">
+								</div>
+		                    </div>
+		                    <div class="col-lg-5  input-group">
+								<div class="col-lg-12 input-group">
+									<label for="" class="col-form-label col-lg-3">&nbsp;&nbsp;Radicado </label>
+									<input type="text" value="76001-1-" class="form-control col-lg-2" readonly>
+									<input type="text" min="0"  class="form-control col-lg-2" id="" name="" onkeypress="return ValidNum(event)" maxlength="6" autofocus>
+									<button type="submit" class="btn btn-danger btn-sm col-lg-2" id="buscar" formaction="../../controller/user_controller.php">buscar&nbsp;</button>
+								</div>
+							</div>
+	                    </div>
+	                    <div class="form-group col-lg-12 "></div>
+	                    <div class="form-group col-lg-12 "></div>
+	                    <div class="col-lg-12 input-group">
+	                      	<div class="col-lg-6 input-group">
+		                    	<div class="col-lg-12 input-group">
+			                        <label for="nombre" class="col-form-label col-4">Número Radicado</label>
+			                        <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='7600-1-1-".$nro_rad."' readonly "; ?>>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-lg-4">Objecto Tramite</label>
+		                        	<input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['nombre_objetivo']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4">Usos</label>
+			                       <?php if($totalrows_result_busqueda2 > 0){ 
+			                       		 do { ?>
+								    <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$result_busqueda2['nombre']."' readonly "; ?>>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+			                        <?php } while ($result_busqueda2 = mysqli_fetch_assoc($jg_busqueda2));
+								    } else { ?>
+								   <input type="text" class="form-control sinborde"  id="nombre" name="nombre" readonly>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group" style="height: 2px !important;">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+								   <?php } ?>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4">Licencia / Modalidad</label>
+			                       <?php if($totalrows_result_busqueda4 > 0){ ?>
+							       	<?php do { ?>
+								    <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$result_busqueda4['modalidad']."' readonly "; ?>>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+			                        <?php } while ($result_busqueda4 = mysqli_fetch_assoc($jg_busqueda4)); ?>
+								   <?php } else { ?>
+								   <input type="text" class="form-control sinborde"  id="nombre" name="nombre" readonly>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group" style="height: 2px !important;">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+								   <?php } ?>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-4">Direccion Actual</label>
+			                        <input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['dir_act']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-lg-4">Barrio Actual</label>
+		                        	<input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['barrio']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-lg-4">Número Matricula</label>
+		                        	<input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['nor_matricula']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-lg-4">Número Catrasto</label>
+		                        	<input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['nor_car']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-lg-4">Clasificación Suelo</label>
+		                        	<input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['clasificacion_suelo']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                		<label for="apellido" class="col-form-label col-lg-4">Planimetria del Lote</label>
+		                        	<input type="text" class="form-control sinborde"  id="apellido" name="apellido" <?php echo "value='".$result_busqueda['planimetria_lote']."' readonly"; ?> >
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4">Titular (es)</label>
+			                       <?php if($totalrows_result_busqueda3 > 0){ ?>
+							       	<?php do { ?>
+								    <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$result_busqueda3['titular']."' readonly "; ?>>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+			                        <?php } while ($result_busqueda3 = mysqli_fetch_assoc($jg_busqueda3)); ?>
+								   <?php } else { ?>
+								   <input type="text" class="form-control sinborde"  id="nombre" name="nombre" readonly>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group" style="height: 2px !important;">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+								   <?php } ?>
+		                    	</div>
+		                       	<?php if($totalrows_result_busqueda5 > 0){ ?>
+						       	<?php do { ?>
+		                    	<div class="col-lg-12 input-group">
+			                       <label for="nombre" class="col-form-label col-lg-4"><?php echo $result_busqueda5['profesion']; ?></label>
+								    <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$result_busqueda5['profesional']."' readonly "; ?>>
+		                    	</div>
+		                        <?php } while ($result_busqueda5 = mysqli_fetch_assoc($jg_busqueda5)); ?>
+		                    	<div class="col-lg-12 input-group">
+							   	<?php } else { ?>
+			                       <label for="nombre" class="col-form-label col-lg-4">Profesional (es)</label>
+								   <input type="text" class="form-control sinborde"  id="nombre" name="nombre" readonly>
+		                    	</div>
+		                    	<div class="col-lg-12 input-group" style="height: 2px !important;">
+			                       <label for="nombre" class="col-form-label col-lg-4"></label>
+								 <?php } ?>
+		                    	</div>
+	                      	</div>
+	                      	<div class="col-lg-5 input-group">
+		                    	<div class="col-lg-12 input-group">
+			                    	<div class="col-lg-12 input-group">
+				                        <label for="nombre" class="col-form-label col-3">Documentos Faltantes</label>
+				                        <input type="text" class="form-control"  id="nombre" name="nombre" >
+			                    	</div>
+		                    	</div>
+	                      	</div>
+	                    </div>
+	                    <div class="col-lg-12 input-group">
+							<div class="col-lg-12 input-group">
+		                    	<div class="col-lg-12 form-group"></div>
+		                    	<div class="col-lg-12 form-group"></div>
+		                    	<div class="col-lg-12 form-group"></div>
+		                    	<div class="col-lg-12 input-group">
+	                    			<label for="" class="col-form-label col-4">Observaciones</label>
+								</div>
+		                    	<div class="col-lg-11 input-group">
+		                    		<textarea type="text" class="form-control"></textarea>
+		                    	</div>
+
+							</div>
+						</div>
+	                </div>
                 </div>
                 <div class="col-lg-12  input-group">
                   <div class="col-lg-6  input-group">
@@ -247,12 +254,12 @@ include ('../menu.php');
                     <!-- /.card-body -->
                 <div class="card-footer input-group">
                   <div class="form-group col-lg-12 "></div>
-                  <div class="col-lg-4 offset-3">
-                    <button class="btn btn-danger" type="submit" id="submit1" formaction="../../controller/user_controller.php" >Crear</button>
-                  </div>
-                  <div class="col-lg-2">
-                    <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="10" formaction="../../functions/routes.php">cancelar</button>
-                  </div>
+                  <div class="col-lg-12  input-group">
+	                <div class="col-lg-3"></div>  
+	                <button class="btn btn-danger col-lg-2" type="submit" name="submit" id="submit" >Comentar</button>
+	                <div class="col-lg-1"></div>              
+	                <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
+	              </div>
                   <div class="form-group col-lg-12 "></div>
                 </div>
                 <!-- /.card-footer -->
