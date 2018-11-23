@@ -15,7 +15,7 @@ if(file_exists("../../cx/cx.php")){
   if (empty($_SESSION['id_usuario']) || $_SESSION['id_tipo_usuario'] != 1) {
       header("location: ../../cx/destroy_session.php");
     }
-    $nro_rad = '760011180001' ;
+    $nro_rad = '760011180011' ;
     // $nro_rad = '1806' ;
 
     $query_busqueda = sprintf("SELECT r.*, re.nombre as nombre_estado, ro.nombre as nombre_objetivo, b.barrio, 
@@ -51,7 +51,7 @@ if(file_exists("../../cx/cx.php")){
 
     $query_busqueda4 = sprintf("SELECT r.consecutivo, tl.nombre, tl.modalidad
 								FROM radicacion r 
-								    INNER JOIN rad_lic rl on rl.id_rad = r.id_radicado
+								    INNER JOIN rad_lic rl on rl.id_rad = r.consecutivo
 								    INNER JOIN tipo_licencias tl on tl.id = rl.id_lic
 								WHERE r.consecutivo = '%s'", $nro_rad);
     $jg_busqueda4 =$mysqli->query($query_busqueda4);
@@ -126,7 +126,7 @@ include ('../menu.php');
 	                      	<div class="col-lg-6 input-group">
 		                    	<div class="col-lg-12 input-group">
 			                        <label for="nombre" class="col-form-label col-4">Número Radicado</label>
-			                        <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='7600-1-1-".$nro_rad."' readonly "; ?>>
+			                        <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$nro_rad."' readonly "; ?>>
 		                    	</div>
 		                    	<div class="col-lg-12 input-group">
 			                		<label for="apellido" class="col-form-label col-lg-4">Objecto Tramite</label>
@@ -204,15 +204,15 @@ include ('../menu.php');
 			                       <label for="nombre" class="col-form-label col-lg-4"></label>
 								   <?php } ?>
 		                    	</div>
-		                       	<?php if($totalrows_result_busqueda5 > 0){ ?>
-						       	<?php do { ?>
+		                       	<?php if($totalrows_result_busqueda5 > 0){ 
+		                       	 do { ?>
 		                    	<div class="col-lg-12 input-group">
 			                       <label for="nombre" class="col-form-label col-lg-4"><?php echo $result_busqueda5['profesion']; ?></label>
-								    <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$result_busqueda5['profesional']."' readonly "; ?>>
+								   					 <input type="text" class="form-control sinborde"  id="nombre" name="nombre" <?php echo "value='".$result_busqueda5['profesional']."' readonly "; ?>>
 		                    	</div>
 		                        <?php } while ($result_busqueda5 = mysqli_fetch_assoc($jg_busqueda5)); ?>
 		                    	<div class="col-lg-12 input-group">
-							   	<?php } else { ?>
+							   					<?php } else { ?>
 			                       <label for="nombre" class="col-form-label col-lg-4">Profesional (es)</label>
 								   <input type="text" class="form-control sinborde"  id="nombre" name="nombre" readonly>
 		                    	</div>
@@ -224,8 +224,24 @@ include ('../menu.php');
 	                      	<div class="col-lg-5 input-group">
 		                    	<div class="col-lg-12 input-group">
 			                    	<div class="col-lg-12 input-group">
+<?php 
+							  $qsl13 = sprintf("SELECT doc.nombre 
+																	FROM rad_docs rd 
+																	    INNER JOIN lic_doc ld on ld.id_lic_doc = rd.id_lic_doc
+																	    INNER JOIN radicado_documentos doc on doc.id_documento = ld.id_lic_doc
+																	WHERE rd.id_rad = '%s'", $nro_rad);
+						    $result_docs1 =$mysqli->query($qsl13);
+						    // $filas = mysqli_num_rows($result_docs); ?>
+
 				                        <label for="nombre" class="col-form-label col-3">Documentos Faltantes</label>
 				                        <input type="text" class="form-control"  id="nombre" name="nombre" >
+
+				                        <?php 
+				                        	while ( $result_docs = mysqli_fetch_array($result_docs1)) {
+				                        		?>
+
+																<label for="nombre" class="col-form-label col-lg-4"><?php echo $result_docs['nombre']; ?></label>
+				                        		<?php } ?>
 			                    	</div>
 		                    	</div>
 	                      	</div>
