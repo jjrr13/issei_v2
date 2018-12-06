@@ -165,19 +165,19 @@ function verificar(valor){
       //CAPTURA DE POSBLES ERRORES
 
   if (valor == 31) {
-    confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 32) {
-    confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 33) {
-    confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 34) {
-    confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 35) {
-    confirmar('EL FORMULARIO PROFESIONALES INCOMPLyETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 36) {
-    confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 37) {
-    confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
+    confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 112) {
     confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
   }else if (valor == 111) {

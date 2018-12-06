@@ -210,10 +210,10 @@ include_once('../../functions/ruta.php');
       <div class="card-header">
         <center><h3 class="card-title">MI AGENDA</h3></center>
       </div>
-    <!-- /.card-header -->
-    <!-- form start -->
+      <!-- /.card-header -->
+      <!-- form start -->
         <div class="card-body p-0">
-        <?php  ?>
+          <?php  ?>
           <table  id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>

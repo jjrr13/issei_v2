@@ -6,19 +6,19 @@ function addVecinos() {
     var nuevoVecino = "";
     nuevoVecino +="<div class='col-lg-12 input-group borde'>";
     nuevoVecino   +="<div class='col-lg-12 input-group'>";
-    nuevoVecino    +="<label for='diractual' class='col-form-label col-lg-4'>Nombre</label>";
     nuevoVecino    +="<label for='diractual' class='col-form-label col-lg-4'>Dir. Predio</label>";
     nuevoVecino    +="<label for='diractual' class='col-form-label col-lg-4'>Dir. Correspondencia</label>";
+    nuevoVecino    +="<label for='diractual' class='col-form-label col-lg-4'>Nombre</label>";
     nuevoVecino   +="</div>";
     nuevoVecino +="<div class='col-lg-12 input-group'>";
-    nuevoVecino   +="<div class='col-lg-4 input-group'>";
-    nuevoVecino    +="<input type='text' name='nombre[]' class='form-control col-lg-12' placeholder='NOMBRE DE VECINO No. "+(cantidadVecinos+1)+"'>";
-    nuevoVecino   +="</div>";
     nuevoVecino   +="<div class='col-lg-4 input-group'>";
     nuevoVecino    +="<input type='text' name='diractual[]' class='form-control col-lg-12' placeholder='DIRECCIÓN DEL PREDIO'>";
     nuevoVecino   +="</div>";
     nuevoVecino   +="<div class='col-lg-4 input-group'>";
     nuevoVecino    +="<input type='text' name='dircorres[]' class='form-control col-lg-12' placeholder='DIRECCIÓN DE CORRESPONDECIA'>";
+    nuevoVecino   +="</div>";
+    nuevoVecino   +="<div class='col-lg-4 input-group'>";
+    nuevoVecino    +="<input type='text' name='nombre[]' class='form-control col-lg-12' placeholder='NOMBRE DE VECINO No. "+(cantidadVecinos+1)+"'>";
     nuevoVecino   +="</div>";
     nuevoVecino  +="</div>";
     nuevoVecino +="</div>";
@@ -58,19 +58,19 @@ function addVecinos() {
   <div class="col-lg-12 form-group" id="papito">
     <div class="col-lg-12 input-group borde">
       <div class="col-lg-12 input-group">
-        <label for="diractual" class="col-form-label col-lg-4">Nombre</label>
         <label for="diractual" class="col-form-label col-lg-4">Dir. Predio</label>
         <label for="diractual" class="col-form-label col-lg-4">Dir. Correspondencia</label>
+        <label for="diractual" class="col-form-label col-lg-4">Nombre</label>
       </div>
       <div class="col-lg-12 input-group">
-        <div class="col-lg-4 input-group">
-          <input type="text" name="nombre[]" class="form-control col-lg-12" placeholder="NOMBRE DE VECINO No. 1">
-        </div>
         <div class="col-lg-4 input-group">
           <input type="text" name="diractual[]" class="form-control col-lg-12" placeholder="DIRECCIÓN DEL PREDIO">
         </div>
         <div class="col-lg-4 input-group">
           <input type="text" name="dircorres[]" class="form-control col-lg-12" placeholder="DIRECCIÓN DE CORRESPONDECIA">
+        </div>
+        <div class="col-lg-4 input-group">
+          <input type="text" name="nombre[]" class="form-control col-lg-12" placeholder="NOMBRE DE VECINO No. 1">
         </div>
       </div>
     </div>
