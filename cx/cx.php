@@ -88,13 +88,18 @@
                                 text: 'OK',
                                 btnClass: 'btn-blue',
                                 action: function () {
-                                    console.log($msj);
-                                    //window.location.replace('$destino');
+                                    console.log('$msj');
+                                    window.location.replace('$destino');
                                 }
                             }, 
                         }
                     });
                 </script>";
+	}
+
+	function console($variable)
+	{
+		echo "<script>console.log('".$variable."');</script>";
 	}
 
 ?>

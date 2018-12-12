@@ -5,7 +5,7 @@ if(file_exists("../../cx/cx.php")){
 }
   include_once ("../../cx/cx.php");
 
-include_once('../menu.php');
+  include_once('../menu.php');
 // unset($_SESSION['radicar']);
  ?>
 
@@ -159,31 +159,36 @@ const enviar = (form) => {
 
 function verificar(valor){
   var pes=130;
-      valor = parseInt(valor);
-          // alert('Esta es la respuesta del controlador '+valor);
+      // valor = parseInt(valor);
+          alert('Esta es la respuesta del controlador '+ valor);
+          console.log('Esta es la respuesta del controlador '+ valor);
       //CAPTURA DE POSBLES ERRORES
 
   if (valor == 31) {
-       confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 32) {
-       confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 33) {
-       confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 34) {
-       confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 35) {
-       confirmar('EL FORMULARIO PROFESIONALES INCOMPLyETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 36) {
-       confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S');
+    confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 37) {
-       confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
+    confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S'); //../radication
   }else if (valor == 112) {
-       confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
+    confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
   }else if (valor == 111) {
-       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../../app/reportes/constancy_radications.php');
+    // alert('volvio del controlador ');
+    var tamano ='width=' +screen.width + ", height=" + screen.height;
+
+    window.open("http://192.168.0.200/issei_v2/app/reportes/constancy_radications.php", "Constancia", tamano);
+    confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
   }
   else if (valor == 0) {
-       confirmar('ERROR EN EL MODULO ACTUAL', 'fa fa-window-close', 'red', 'S');
+    confirmar('ERROR EN EL MODULO ACTUAL', 'fa fa-window-close', 'red', 'S');
   }
   //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
   if (valor >= 130 || valor == 111){

@@ -135,6 +135,41 @@ $(document).ready(function() {
                     <input type="text" class="form-control col-lg-8"  id="otro" name="otro" placeholder="Otro Barrio">
                   </div>
                 </div>
+                <div class="form-group col-lg-12 "></div>
+                <div class="col-lg-12  input-group">
+                  <div class="col-lg-6 input-group">
+                    <label for="tarjeta" class="col-form-label col-lg-4 " style="padding-right: 0px;">Tarjeta Profesional <p class="requerido">*</p></label>
+                    <input type="text" class="form-control col-lg-8"  id="tarjeta" name="tarjeta" placeholder="Numeros y Letras" onChange="letras(this)" >
+                  </div>
+                  <div class="col-lg-5  input-group">
+                    <label for="profesion" class="col-form-label col-lg-4 ">Profesion <p class="requerido">*</p></label>
+                    <select class="form-control" id="profesion" name="profesion" >
+                      <option value="1">Otros Profesionales</option>
+                      <option value="2">Diseñador</option>
+                      <option value="3">Ingeniero Civil</option>
+                      <option value="4">Ingeniero Geotécnico</option>
+                      <option value="5">Ingeniero Constructor</option>
+                      <option value="6">Ingeniero Proyectista</option>
+                      <option value="7">Arquitecto</option>
+                      <option value="8">Revisor Independiente</option>
+                      <option value="10">Topógrafo</option>
+                      <option value="11">Abogado</option>
+                      <option value="12">Contador</option>
+                      <option value="13">Administración de Empresas</option>
+                      <option value="14">Técnico en Sistemas</option>
+                      <option value="15">Técnico en Administración de Empresas</option>
+                      <option value="16">Bachiller</option>
+                      <option value="17">Trabajador Social</option>
+                      <option value="18">Técnico en Gestión Documental</option>
+                      <option value="19">Administración Pública</option>
+                      <option value="20">Técnico Analista Financiero y Contable</option>
+                      <option value="21">Técnico Asistente Administrativo</option>
+                      <option value="22">Técnico Auxiliar Contable</option>
+                      <option value="23">Tecnólogo en Análisis y Desarrollo de Sistemas de ...</option>
+                      <option value="24">Tramitador</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-lg-12  input-group">

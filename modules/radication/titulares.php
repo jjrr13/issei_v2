@@ -16,64 +16,63 @@ function validaCorreo(valor){
     // alert('entro a la funcion');
     if (nit.length >5 && nombre.length > 2 && celular.length > 7 && validaCorreo(email) ) {
     
-    cantTitular++;
-    var otroTitular = "";
+      cantTitular++;
+      var otroTitular = "";
+
+      otroTitular +="<div class='col-lg-12 input-group borde'>";
+      otroTitular +="<div class='col-lg-12 input-group'>";
+      otroTitular   +="<div class='col-lg-5 input-group'>";
+      otroTitular     +="<label for='nit"+cantTitular+"' class='col-form-label col-lg-3'>NIT</label>";
+      otroTitular     +="<input type='text' name='nit[]' id='nit"+cantTitular+"' class='form-control col-lg-8' placeholder='NIT'>";
+      otroTitular     +="<button type='button' name='burcar"+cantTitular+"' value='"+cantTitular+"' onclick='buscarNit(this)' class='btn btn-danger left'>Buscar</button>";
+      otroTitular   +="</div>";
+      otroTitular   +="<div class='col-lg-7 input-group opcion"+cantTitular+"' hidden id='opcion"+cantTitular+"' >";
+      otroTitular     +="<label for='nombre"+cantTitular+"' class='col-form-label col-lg-3'>NOMBRE</label>";
+      otroTitular      +="<input type='text' readonly id='nombre"+cantTitular+"' name='nombre[]' class='form-control col-lg-9' placeholder='NOMBRE'>";
+      otroTitular   +="</div>";
+      otroTitular +="</div>";
+      otroTitular +="<div class='col-lg-12 form-group'></div>";
+      otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
+      otroTitular   +="<div class='col-lg-5 input-group'>";
+      otroTitular     +="<label for='celular"+cantTitular+"' class='col-form-label col-lg-4'>CELULAR</label>";
+      otroTitular     +="<input type='text' id='celular"+cantTitular+"' name='celular[]' class='form-control col-lg-8' placeholder='CELULAR'>";
+      otroTitular   +="</div>";
+      otroTitular   +="<div class='col-lg-7 input-group'>";
+      otroTitular     +="<label for='email"+cantTitular+"' class='col-form-label col-lg-3'>EMAIL</label>";
+      otroTitular     +="<input type='email' id='email"+cantTitular+"' name='email[]' class='form-control col-lg-9' placeholder='EMAIL'>";
+      otroTitular   +="</div>";
+      otroTitular +="</div>";
+      otroTitular +="<div class='col-lg-12 form-group'></div>";
+      otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
+      otroTitular +="<div class='col-lg-5 input-group'>";
+      otroTitular +="<label for='dirTitular"+cantTitular+"' class='col-form-label col-lg-4'>Dirección </label>";
+      otroTitular +="<input type='text'  placeholder='DIRECCION' id='dirTitular"+cantTitular+"' name='dirTitular[]' class='form-control col-lg-8'>";
+      otroTitular +="</div>";
+      otroTitular +="<div class='col-lg-6 input-group'>";
+      otroTitular +="<label for='barrioTitular"+cantTitular+"' class='col-form-label col-lg-4'>Barrio </label>";
+      otroTitular +="<select style='width: 66%;' class='js-example-basic-single form-control col-md-12' id='barrioTitular"+cantTitular+"' name='barrioTitular"+cantTitular+"' >";
+      otroTitular +="<option class='clasestado'>SELECCIONAR</option>";
+      otroTitular +="<option class='clasestado' value='487'>OTRO BARRIO</option>";
+
+        <?php 
+        $query = $mysqli-> query ('SELECT * FROM barrio WHERE id_barrio NOT IN (487) ORDER BY barrio ASC');
+        while ($valores = mysqli_fetch_array($query)) { ?>
+      otroTitular +="<option class='clasestado' value='<?=$valores['id_barrio']; ?>'><?=$valores['barrio']; ?> </option>";
+                  <?php   } ?>
+      otroTitular +="</select>";
+      otroTitular +="</div>";
+      otroTitular +="</div>";
+      otroTitular +="<div class='col-lg-12 form-group'></div>";
+      otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
+      otroTitular +="<div class='col-lg-11'></div>";
+      otroTitular +="<button type='button' class='col-lg-2  btn btn-primary ' id='actualiza' value='"+cantTitular+"' onclick='actualizarDatos(this)'>Actualiza";
+      otroTitular +="<span class='fa fa-exchange '></span>";
+      otroTitular +="</button>";
+      otroTitular +="</div>";
 
 
-otroTitular +="<div class='col-lg-12 input-group borde'>";
-otroTitular +="<div class='col-lg-12 input-group'>";
-otroTitular   +="<div class='col-lg-5 input-group'>";
-otroTitular     +="<label for='nit"+cantTitular+"' class='col-form-label col-lg-3'>NIT</label>";
-otroTitular     +="<input type='text' name='nit[]' id='nit"+cantTitular+"' class='form-control col-lg-8' placeholder='NIT'>";
-otroTitular     +="<button type='button' name='burcar"+cantTitular+"' value='"+cantTitular+"' onclick='buscarNit(this)' class='btn btn-danger left'>Buscar</button>";
-otroTitular   +="</div>";
-otroTitular   +="<div class='col-lg-7 input-group opcion"+cantTitular+"' hidden id='opcion"+cantTitular+"' >";
-otroTitular     +="<label for='nombre"+cantTitular+"' class='col-form-label col-lg-3'>NOMBRE</label>";
-otroTitular      +="<input type='text' readonly id='nombre"+cantTitular+"' name='nombre[]' class='form-control col-lg-9' placeholder='NOMBRE'>";
-otroTitular   +="</div>";
-otroTitular +="</div>";
-otroTitular +="<div class='col-lg-12 form-group'></div>";
-otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
-otroTitular   +="<div class='col-lg-5 input-group'>";
-otroTitular     +="<label for='celular"+cantTitular+"' class='col-form-label col-lg-4'>CELULAR</label>";
-otroTitular     +="<input type='text' id='celular"+cantTitular+"' name='celular[]' class='form-control col-lg-8' placeholder='CELULAR'>";
-otroTitular   +="</div>";
-otroTitular   +="<div class='col-lg-7 input-group'>";
-otroTitular     +="<label for='email"+cantTitular+"' class='col-form-label col-lg-3'>EMAIL</label>";
-otroTitular     +="<input type='email' id='email"+cantTitular+"' name='email[]' class='form-control col-lg-9' placeholder='EMAIL'>";
-otroTitular   +="</div>";
-otroTitular +="</div>";
-otroTitular +="<div class='col-lg-12 form-group'></div>";
-otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
-otroTitular +="<div class='col-lg-5 input-group'>";
-otroTitular +="<label for='dirTitular"+cantTitular+"' class='col-form-label col-lg-4'>Dirección </label>";
-otroTitular +="<input type='text'  placeholder='DIRECCION' id='dirTitular"+cantTitular+"' name='dirTitular[]' class='form-control col-lg-8'>";
-otroTitular +="</div>";
-otroTitular +="<div class='col-lg-6 input-group'>";
-otroTitular +="<label for='barrioTitular"+cantTitular+"' class='col-form-label col-lg-4'>Barrio </label>";
-otroTitular +="<select style='width: 66%;' class='js-example-basic-single form-control col-md-12' id='barrioTitular"+cantTitular+"' name='barrioTitular"+cantTitular+"' >";
-otroTitular +="<option class='clasestado'>SELECCIONAR</option>";
-otroTitular +="<option class='clasestado' value='487'>OTRO BARRIO</option>";
-
-            <?php 
-            $query = $mysqli-> query ('SELECT * FROM barrio WHERE id_barrio NOT IN (487) ORDER BY barrio ASC');
-            while ($valores = mysqli_fetch_array($query)) { ?>
-otroTitular +="<option class='clasestado' value='<?=$valores['id_barrio']; ?>'><?=$valores['barrio']; ?> </option>";
-            <?php   } ?>
-otroTitular +="</select>";
-otroTitular +="</div>";
-otroTitular +="</div>";
-otroTitular +="<div class='col-lg-12 form-group'></div>";
-otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
-otroTitular +="<div class='col-lg-11'></div>";
-otroTitular +="<button type='button' class='col-lg-2  btn btn-primary ' id='actualiza' value='"+cantTitular+"' onclick='actualizarDatos(this)'>Actualiza";
-otroTitular +="<span class='fa fa-exchange '></span>";
-otroTitular +="</button>";
-otroTitular +="</div>";
-
-
-otroTitular +="</div>";
-  $('#titulares').append(otroTitular);
+      otroTitular +="</div>";
+      $('#titulares').append(otroTitular);
   
     }
     else{
@@ -184,6 +183,39 @@ otroTitular +="</div>";
 
             echo "<option class='clasestado' value='".$valores['id_barrio']."'>".$valores['barrio']."</option>";
               } ?>
+          </select>
+        </div>
+        <div class="form-group col-lg-12 "></div>
+        <div class="col-lg-5 input-group">
+          <label for="tarjeta9" class="col-form-label col-lg-3 " style="padding-right: 0px;">TARJETA</label>
+          <input type="text" class="form-control col-lg-8"  id="tarjeta9" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        </div>
+        <div class="col-lg-5  input-group">
+          <label for="profesion9" class="col-form-label col-lg-4 ">PROFESION</label>
+          <select class="form-control" id="profesion9" name="profesion[]" >
+            <option value="1">Otros Profesionales</option>
+            <option value="2">Diseñador</option>
+            <option value="3">Ingeniero Civil</option>
+            <option value="4">Ingeniero Geotécnico</option>
+            <option value="5">Ingeniero Constructor</option>
+            <option value="6">Ingeniero Proyectista</option>
+            <option value="7">Arquitecto</option>
+            <option value="8">Revisor Independiente</option>
+            <option value="10">Topógrafo</option>
+            <option value="11">Abogado</option>
+            <option value="12">Contador</option>
+            <option value="13">Administración de Empresas</option>
+            <option value="14">Técnico en Sistemas</option>
+            <option value="15">Técnico en Administración de Empresas</option>
+            <option value="16">Bachiller</option>
+            <option value="17">Trabajador Social</option>
+            <option value="18">Técnico en Gestión Documental</option>
+            <option value="19">Administración Pública</option>
+            <option value="20">Técnico Analista Financiero y Contable</option>
+            <option value="21">Técnico Asistente Administrativo</option>
+            <option value="22">Técnico Auxiliar Contable</option>
+            <option value="23">Tecnólogo en Análisis y Desarrollo de Sistemas de ...</option>
+            <option value="24">Tramitador</option>
           </select>
         </div>
       </div>

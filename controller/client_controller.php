@@ -73,9 +73,35 @@ $dv_bd = calcularDV($_POST['nit']);
 
 		if ($result <= 0) {
 
+			$sql;
 
-
-			$sql = sprintf("INSERT INTO terceros 
+			if ((!empty($_POST['tarjeta']) && isset($_POST['tarjeta'])) &&
+				(!empty($_POST['profesion']) && isset($_POST['profesion'])) ) {
+				$sql = sprintf("INSERT INTO terceros 
+	                    (nit, dv, id_tipo_doc, nombre, apellido, lugar_expedicion, id_profesion, tarjeta_profesional, direccion, id_barrio, otro_barrio, estrato, telefono1, telefono2, celular, email, id_creacion, fecha_registro) 
+	                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+	        
+	                    GetSQLValueString($_POST['nit'], "text"),
+	                    GetSQLValueString($dv_bd, "int"),
+	                    GetSQLValueString($_POST['tdocumento'], "int"),
+	                    GetSQLValueString($_POST['nombre'], "text"),
+	                    GetSQLValueString($_POST['apellido'], "text"),
+	                    GetSQLValueString($_POST['ciudad'], "text"),
+	                    GetSQLValueString($_POST['profesion'], "text"),
+	                    GetSQLValueString($_POST['tarjeta'], "text"),
+	                    GetSQLValueString($_POST['direccion'], "text"),
+	                    GetSQLValueString($_POST['barrio'], "int"),
+	                    GetSQLValueString($_POST['otro'], "text"),
+	                    GetSQLValueString($_POST['estrato'], "int"),
+	                    GetSQLValueString($_POST['telefono1'], "text"),
+	                    GetSQLValueString($_POST['telefono2'], "text"),
+	                    GetSQLValueString($_POST['celular'], "text"),
+	                    GetSQLValueString($_POST['email'], "text"),
+	                    GetSQLValueString($_SESSION['id_usuario'], "int"),
+	                    GetSQLValueString($fecha_registro, "datetime")); 
+			}
+			else{
+				$sql = sprintf("INSERT INTO terceros 
 		                    (nit, dv, id_tipo_doc, nombre, apellido, lugar_expedicion, direccion, id_barrio, otro_barrio, estrato, telefono1, telefono2, celular, email, id_creacion, fecha_registro) 
 		                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 		        
@@ -95,6 +121,8 @@ $dv_bd = calcularDV($_POST['nit']);
 		                    GetSQLValueString($_POST['email'], "text"),
 		                    GetSQLValueString($_SESSION['id_usuario'], "int"),
 		                    GetSQLValueString($fecha_registro, "datetime")); 
+			}
+
 
 			$result = $mysqli->query($sql); 
 

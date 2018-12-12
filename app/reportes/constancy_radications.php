@@ -4,6 +4,7 @@
 	require_once('../../cx/cx.php');
 
 
+
 	$_SESSION['id_usuario']; // id de usuario.
 	$_SESSION['id_area'];
 
@@ -25,27 +26,20 @@
 	$fecha_radicacion = strftime("%A %d de %B del %Y");
 
 
+	$entregados='<strong>Se entregaron los siguientes documentos: </strong>';
+	$faltantes='<strong>Quedaron pendientes los siguientes documentos: </strong>';
+	$entregados.=' '. docFaltantesEspecificos($_SESSION['docEspecificos'], $_SESSION['documentos_especificos']);
+	$entregados.=' y en Generales: '. docFaltantesGenerales($_SESSION['docGenerales'], $_SESSION['documentos_generales']);
 	$titulares = ponerTitulares($_SESSION['titulares_nombres']);
 	$nombre_tramitador = $_SESSION['tramitador_nombre'];
 	$radicado = $_SESSION['consecutivoNuevo'];
+	console($radicado);
 	$proyecto = $_SESSION['predio']['nombre'];
 	$direccion = $_SESSION['predio']['dirActual'] . ' ' . $result_barrio['barrio'] ;
 	$categoria = $_SESSION['categoria'];
 	$nombre_usuario = $_SESSION['nombre_usuario'];
 
-// unset($_SESSION['radicar']);
-// unset( $_SESSION['objetoTramite']);
-// unset( $_SESSION['usos']);
-// unset( $_SESSION['licencias']);
-// unset( $_SESSION['predio']);
-// unset( $_SESSION['vecinos']);
-// unset( $_SESSION['titulares']);
-// $_SESSION['radicar']=130;
-// unset( $_SESSION['responsables']);
-// unset( $_SESSION['titulares_nombres']);
-// unset( $_SESSION['tramitador_nombre']);
-// unset( $_SESSION['categoria']);
-// unset( $_SESSION['consecutivoNuevo']);
+
 
 	$oracion = '';
 	switch ($categoria) {
@@ -66,6 +60,12 @@
 			break;
 	}
 
+if (!empty($_SESSION['consecutivoNuevo'])) {
+	$algo=' Deberia de motrar el valor';
+}
+else{
+	$algo=' llego vacia la session';
+}
 
 	$descripcion = "LICENCIA DE CONSTRUCCIÓN MODALIDAD AMPLIACION 2 PISOS Y LICENCIA DE RECONOCIMIENTO DE LA EXISTENCIA DE UNA EDIFICACIÓN 2 PISOS";
 
@@ -140,13 +140,17 @@ $ho = '
 				<div>
 					<strong>
 						<span style="font-size: 12px !important;">DE CONFORMIDAD CON EL ARTICULO 2.2.6.1.2.3.2 DEL DECRETO 1077 DE 2015 SU PROYECTO CORRESPONDE A LA '.$oracion.'</span>
-					</strong> 
+					</strong>
+					<br>
+					<span style="font-size: 12px !important;">'.$entregados.'<br></span>
 				</div>
 			</div>
 			<br>
 			<div style="text-align: justify;">
 				<div>
-					<span style="font-size: 12px !important;">Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos:  </span>
+					<span style="font-size: 12px !important;">Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos:
+					</span>
+					<span style="font-size: 12px !important;"><br>'.$faltantes.'<br></span>
 				</div>
 			</div>
 			<br>
@@ -178,13 +182,12 @@ $ho = '
 						<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firma de quien radica__________________________.</span>
 					</strong>
 					<br>
-					<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nombre_usuario.'</span>
+					<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nombre_usuario.$algo.'</span>
 				</div>
 			</div>
 		</main>
 	</body>
 </html>';
-
 
 					
 // $mpdf = new \Mpdf\Mpdf(['debug' => true]);
@@ -223,124 +226,114 @@ function ponerTitulares($array)
 	return $values;
 }
 
-function determinarDocumentos($value='')
+
+// var_dump($_SESSION['docGenerales']);
+
+
+
+// var_dump($_SESSION['docGenerales']);
+// echo "<hr>";
+// var_dump($_SESSION['docEspecificos']);
+
+function docFaltantesEspecificos($array, $array2)
 {
+	// console('entro a la funcion');
 	$values="";
 	$cant = count($array)-1;
+	global $faltantes;
 
+	  // console(var_dump($array2));
 	foreach ($array as $key => $value) {
 
-		$titular = $array[$key];
+	  $documento = $array[$key];
+	  // console(var_dump($documento));
+	  // console($documento['id_documento']);
+	  if(array_search($documento['id_documento'], $array2) !== false){
+	    if ($cant != $key) {
+	       $values.= utf8_encode($documento['nombre']).'; ';
+	    }
+	    else{
+	       $values.= utf8_encode($documento['nombre']).'.';
+	    }
+	  }else{
+	    $faltantes.= ' '. utf8_encode($documento['nombre']).'; ';
+	  }
 
-		if ($cant != $key) {
-			$values.="$titular, ";
-		}
-		else{
-			$values.="y $titular ";
-		}
+	}
+	return $values;
+}
+function docFaltantesGenerales($array, $array2)
+{
+	console('entro a la funcion');
+	$values="";
+	$cant = count($array)-1;
+	global $faltantes;
+
+	  // console(var_dump($array));
+	foreach ($array as $key => $value) {
+
+	  $documento = $array[$key];
+	  // console(var_dump($documento));
+	  console($documento[1]);
+	  if(array_search($documento[1], $array2) !== false){
+	    if ($cant != $key) {
+	       $values.= $documento[2].'; ';
+	    }
+	    else{
+	       $values.= $documento[2].'.';
+	    }
+	  }
+	  else{
+	    $faltantes.= ' '. $documento[2].';';
+	  }
+
 	}
 	return $values;
 }
 
-var_dump($_SESSION['docGenerales']);
-// $_SESSION['docEspecificos']
+// echo "<pre>";
+// console(var_dump($_SESSION['objetoTramite']));
+// echo "<HR>";
+// console(var_dump($_SESSION['usos']));
+// echo "<HR>";
+// console(var_dump($_SESSION['licencias']));
+// echo "<HR>";
+// console(var_dump($_SESSION['predio']));
+// echo "<HR>";
+// console(var_dump($_SESSION['vecinos']));
+// echo "<HR>";
+// console(var_dump($_SESSION['titulares']));
+// echo "<HR>";
+// console(var_dump($_SESSION['responsables']));
+// echo "<HR>";
+// console(var_dump($_SESSION['documentos_generales']));
+// echo "<HR>";
+// console(var_dump($_SESSION['documentos_especificos']));
+// echo "<HR>";
 
-function console($variable)
-{
-	echo "<script>console.log($variable);</script>";
-}
+// echo "<HR>";
+// console(var_dump($_SESSION['licencias']));
+// echo "<HR>";
+// console(var_dump($_SESSION['usos']));
+// echo "<HR>";
+// console(var_dump($_SESSION['vecinos']));
+// echo "<HR>";
+// console(var_dump($_SESSION['titulares']));
+// echo "<HR>";
+// console(var_dump($_SESSION['responsables']));
+// echo "</pre>";
 
-// <table>
-// 				<thead>
-// 				  <tr>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="220px">
-// 						<strong>
-// 							<span style="font-size: 12px !important; color: #000000;">Nombre de quien radica:</span>
-// 						</strong>	
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="250px">
-// 						<div class="">
-// 							<div>
-// 								<span style="font-size: 12px !important; color: #000000;">DAVID FERNANDO SANDOVAL GOMEZ</span>
-// 							</div>
-// 					  	</div>
-// 					</th>
-// 				  </tr>
-// 				  <tr>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="220px">
-// 						<strong>
-// 							<span style="font-size: 12px !important; color: #000000;">Documento de Identificación:</span>
-// 						</strong>	
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="250px">
-// 						<div class="">
-// 							<div>
-// 								<span style="font-size: 12px !important; color: #000000;">1113524482 DE CANDELARIA</span>
-// 							</div>
-// 					  	</div>
-// 					</th>
-// 				  </tr>
-// 				  <tr>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="220px">
-// 						<strong>
-// 							<span style="font-size: 12px !important; color: #000000;">Correo Electrónico:</span>
-// 						</strong>	
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="250px">
-// 						<div class="">
-// 							<div>
-// 								<span style="font-size: 12px !important; color: #000000;">DAVIDSANDOVAL062@GMAIL.COM</span>
-// 							</div>
-// 					  	</div>
-// 					</th>
-// 				  </tr>
-// 				  <tr>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="220px">
-// 						<strong>
-// 							<span style="font-size: 12px !important; color: #000000;">Telefono:</span>
-// 						</strong>	
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="250px">
-// 						<div class="">
-// 							<div>
-// 								<span style="font-size: 12px !important; color: #000000;">3173107002</span>
-// 							</div>
-// 					  	</div>
-// 					</th>
-// 				  </tr>
-// 				  <tr>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="border-bottom: 0px solid #C1CED9;"width="100px">
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="220px">
-// 						<strong>
-// 							<span style="font-size: 12px !important; color: #000000;">Dirección:</span>
-// 						</strong>	
-// 					</th>
-// 					<th class="" style="text-align: justify; border-bottom: 0px solid #C1CED9;" width="250px">
-// 						<div class="">
-// 							<div>
-// 								<span style="font-size: 12px !important; color: #000000;">C BUSCALA CON K ENCUENTRALA</span>
-// 							</div>
-// 					  	</div>
-// 					</th>
-// 				  </tr>
-// 				</thead>
-// 			</table>
+
+// unset($_SESSION['radicar']);
+// unset( $_SESSION['objetoTramite']);
+// unset( $_SESSION['usos']);
+// unset( $_SESSION['licencias']);
+// unset( $_SESSION['predio']);
+// unset( $_SESSION['vecinos']);
+// unset( $_SESSION['titulares']);
+// $_SESSION['radicar']=130;
+// unset( $_SESSION['responsables']);
+// unset( $_SESSION['titulares_nombres']);
+// unset( $_SESSION['tramitador_nombre']);
+// unset( $_SESSION['categoria']);
+// unset( $_SESSION['consecutivoNuevo']);
