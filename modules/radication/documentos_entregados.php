@@ -130,7 +130,6 @@ function documentosFaltantes($array, $array2)
          $values.= "$documento[1]".'.';
       }
     }
-
   }
   return $values;
 }

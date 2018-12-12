@@ -321,6 +321,7 @@ if(file_exists("../../cx/cx.php")){
       return j;
     }
 
+
     function factor_I_otras(factor_Qq) {
       var jj=0;
       if (factor_Qq >= 0.1 && factor_Qq <= 300) { 
@@ -329,11 +330,9 @@ if(file_exists("../../cx/cx.php")){
         jj= 3.2 ;
       }else if (factor_Qq > 1000) {
         jj= 4 ;
-      }else{
-        jj=0;
       }
       return jj;
-      }
+    }
 
     function factor_I_vivienda(estrato) {
       var valor=0;
