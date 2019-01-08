@@ -97,6 +97,8 @@ if(file_exists("../../cx/cx.php")){
           }else{
             var JSONdata    = JSON.parse(data); //parseo la informacion
 
+            // alert(JSONdata[0].filas);
+
             $('#estrato').html(JSONdata[0].estrato);
             $('#radicado').val(JSONdata[0].radicado);
             $('#fechaRad').val(JSONdata[0].fecha);

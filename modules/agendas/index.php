@@ -184,7 +184,7 @@ function estados($estado)
 							<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
 
 								<?php 
-								$asignado = 10;
+								$asignado = 26;
 
 								$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
 								FROM agendamiento a, terceros t, agendamiento_estado ae
@@ -198,7 +198,7 @@ function estados($estado)
 
 								?>
 								<div class="card-header" >
-									<center><h3 class="card-title">AGENDA ALEX</h3></center>
+									<center><h3 class="card-title">AGENDA ELIZABETH</h3></center>
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body p-0">

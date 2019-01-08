@@ -99,193 +99,188 @@ if(file_exists("../../cx/cx.php")){
         });
     });
 
-  console.log(<?php echo (isset($_SESSION['radicar']))? $_SESSION['radicar'] :'130'; ?>);
-  verificar(<?php echo (isset($_SESSION['radicar']))? $_SESSION['radicar'] :'130'; ?>);
+    console.log(<?php echo (isset($_SESSION['radicar']))? $_SESSION['radicar'] :'130'; ?>);
+    verificar(<?php echo (isset($_SESSION['radicar']))? $_SESSION['radicar'] :'130'; ?>);
 
-  //activas los select2
-  inciarSelectes2();
+    //activas los select2
+    inciarSelectes2();
   
-});
- 
-function inciarSelectes2() {
-  $('.js-example-basic-single').each(function (i, obj) { 
-    if (!$(obj).data("select2")) { 
-      // console.log($(obj).attr('id'));
-      if ($(obj).attr('id')== 'barrio') {
-        // alert('entro al parent');
-        $(obj).select2({ dropdownParent: $('.js-example-basic-single').parent()}); 
-      }
-      else{
-        // alert('entro al otro');
-        $(obj).select2(); 
-      }
-    }
   });
-}
+ 
+  function inciarSelectes2() {
+    $('.js-example-basic-single').each(function (i, obj) { 
+      if (!$(obj).data("select2")) { 
+        // console.log($(obj).attr('id'));
+        if ($(obj).attr('id')== 'barrio') {
+          // alert('entro al parent');
+          $(obj).select2({ dropdownParent: $('.js-example-basic-single').parent()}); 
+        }
+        else{
+          // alert('entro al otro');
+          $(obj).select2(); 
+        }
+      }
+    });
+  }
 
-const enviar = (form) => {
+  const enviar = (form) => {
 
     // alert(form);
-  const datos = $("#fr"+form).serialize();
-// alert(datos);
-  $.ajax({   
-    cache: false,                     
-    type: "POST",                 
-    url: "../../controller/radication_controller.php",                    
-    data: datos,
-    error: function(request, status, error)
-    {
-      console.log(error);
-      alert("ocurrio un error "+request.responseText);
-    },
-    success: function(data)            
-    {
-      // alert('en el success' + data);
-      if (form=='Tipo') {
-        if (data == 31) {
-          confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', '../radication');
+    const datos = $("#fr"+form).serialize();
+    // alert(datos);
+    $.ajax({   
+      cache: false,                     
+      type: "POST",                 
+      url: "../../controller/radication_controller.php",                    
+      data: datos,
+      error: function(request, status, error)
+      {
+        console.log(error);
+        alert("ocurrio un error "+request.responseText);
+      },
+      success: function(data)            
+      {
+        // alert('en el success' + data);
+        if (form=='Tipo') {
+          if (data == 31) {
+            confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', '../radication');
+          }else{
+            window.location.reload();
+          }
         }else{
-          window.location.reload();
+          verificar(data);
         }
-      }else{
-        verificar(data);
+        // confirmar('Haciendo pruebas', 'fa fa-check-square', 'blue', 'window');
       }
-      // confirmar('Haciendo pruebas', 'fa fa-check-square', 'blue', 'window');
-    }
-  });
-
-};
+    });
+  };
 
 
-function verificar(valor){
-  var pes=130;
+  function verificar(valor){
+    var pes=130;
       // valor = parseInt(valor);
-          alert('Esta es la respuesta del controlador '+ valor);
-          console.log('Esta es la respuesta del controlador '+ valor);
-      //CAPTURA DE POSBLES ERRORES
+      // alert('Esta es la respuesta del controlador '+ valor);
+      console.log('Esta es la respuesta del controlador '+ valor);
+    //CAPTURA DE POSBLES ERRORES
+    if (valor == 31) {
+      confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 32) {
+      confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 33) {
+      confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 34) {
+      confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 35) {
+      confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 36) {
+      confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 37) {
+      confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S'); //../radication
+    }else if (valor == 112) {
+      confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
+    }else if (valor == 111) {
+      // alert('volvio del controlador ');
+      var tamano ='width=' +screen.width + ", height=" + screen.height;
 
-  if (valor == 31) {
-    confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 32) {
-    confirmar('EL FORMULARIO PREDIO INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 33) {
-    confirmar('EL FORMULARIO VECINOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 34) {
-    confirmar('EL FORMULARIO TITULARES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 35) {
-    confirmar('EL FORMULARIO PROFESIONALES INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 36) {
-    confirmar('EL FORMULARIO DOCUMENTOS INCOMPLETO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 37) {
-    confirmar('ALGO SALIO MAL! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S'); //../radication
-  }else if (valor == 112) {
-    confirmar('ALGO SALIIO MAL PERO FUE CREADO! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'yellow', 'S');
-  }else if (valor == 111) {
-    // alert('volvio del controlador ');
-    var tamano ='width=' +screen.width + ", height=" + screen.height;
-
-    window.open("http://192.168.0.200/issei_v2/app/reportes/constancy_radications.php", "Constancia", tamano);
-    confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
-  }
-  else if (valor == 0) {
-    confirmar('ERROR EN EL MODULO ACTUAL', 'fa fa-window-close', 'red', 'S');
-  }
-  //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
-  if (valor >= 130 || valor == 111){
-    for (var j = 0; j < 6; j++) {
-    // alert(pes+''+ j);
-      if (valor==pes) {
-        // alert('entro al if');
-        $('#'+pes).addClass('nav-link active show');
-        $('#'+pes).attr('data-toggle', 'pill');
-        $('#'+pes+''+ j).addClass('in active show');
+      window.open("http://192.168.0.200/issei_v2/app/reportes/constancy_radications.php", "Constancia", tamano);
+      confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
+    }
+    else if (valor == 0) {
+      confirmar('ERROR EN EL MODULO ACTUAL', 'fa fa-window-close', 'red', 'S');
+    }
+    //FINALIZA ERRORES Y COMIENZA EVALUCION DE SEGMENTO
+    if (valor >= 130 || valor == 111){
+      for (var j = 0; j < 6; j++) {
+      // alert(pes+''+ j);
+        if (valor==pes) {
+          // alert('entro al if');
+          $('#'+pes).addClass('nav-link active show');
+          $('#'+pes).attr('data-toggle', 'pill');
+          $('#'+pes+''+ j).addClass('in active show');
+        }
+        else if (valor>pes) {
+          // alert('entro al else if');
+          $('#'+pes).removeAttr('data-toggle', 'pill');
+          $('#'+pes).removeClass('active show');
+          $('#'+pes).addClass('nav-link');
+          $('#'+pes+''+ j).removeClass('in active show');
+          $('#'+pes+''+ j).addClass('fade');
+        }
+        else{
+          // alert('entro al else ');
+          $('#'+pes).addClass('nav-link');
+          $('#'+pes).removeClass('active show');
+          $('#'+pes).attr('data-toggle', 'pill');
+          $('#'+pes).removeClass('in active show');
+          $('#'+pes+''+ j).addClass('fade');
+        }
+        pes++;
       }
-      else if (valor>pes) {
-        // alert('entro al else if');
-        $('#'+pes).removeAttr('data-toggle', 'pill');
-        $('#'+pes).removeClass('active show');
-        $('#'+pes).addClass('nav-link');
-        $('#'+pes+''+ j).removeClass('in active show');
-        $('#'+pes+''+ j).addClass('fade');
-      }
-      else{
-        // alert('entro al else ');
-        $('#'+pes).addClass('nav-link');
-        $('#'+pes).removeClass('active show');
-        $('#'+pes).attr('data-toggle', 'pill');
-        $('#'+pes).removeClass('in active show');
-        $('#'+pes+''+ j).addClass('fade');
-      }
-      pes++;
+    }
+    else{
+      // alert(valor);
     }
   }
-  else{
-    // alert(valor);
-  }
-}
-
 </script>
 
 
 <script>
   //mostrar y ocultar submenus
-    $(function(){
-      $('.fantasma').change(function(){
-        var valor = $(this).val();
-        // alert(valor);
-        if(!$(this).prop('checked')){
-          $('#dvOcultar'+valor).hide();
-        }else{
-          $('#dvOcultar'+valor).show();
-        }
-      
-      });
+  $(function(){
+    $('.fantasma').change(function(){
+      var valor = $(this).val();
+      // alert(valor);
+      if(!$(this).prop('checked')){
+        $('#dvOcultar'+valor).hide();
+      }else{
+        $('#dvOcultar'+valor).show();
+      }
     });
+  });
 </script>
 
 <script>
+  function buscarNit(boton) {
+    var opcion = $(boton).val();
+     // alert(opcion);
+    var nit = $('#nit'+opcion).val();
+     // alert(nit);
+    if (nit.length > 5 && nit.length <= 11) {
+      $.ajax({
+        type: "POST",
+        url: "../../controller/radication_controller.php",
+        data: "nit="+ nit,
+        dataType:"html",
+        success: function(data) 
+        {
+             //alert(data);
+          var JSONdata    = JSON.parse(data); //parseo la informacion
+          var estado = JSONdata[0].estado;
+          if (estado==1) {
+            var nombre = JSONdata[0].nombre;
+            var apellido = JSONdata[0].apellido;
+            var celular = JSONdata[0].celular;
+            var email = JSONdata[0].email;
+            var direccion = JSONdata[0].direccion;
+            var id_barrio = JSONdata[0].id_barrio;
 
-function buscarNit(boton) {
-  var opcion = $(boton).val();
-   // alert(opcion);
-  var nit = $('#nit'+opcion).val();
-   // alert(nit);
-  if (nit.length > 5 && nit.length <= 11) {
-    $.ajax({
-      type: "POST",
-      url: "../../controller/radication_controller.php",
-      data: "nit="+ nit,
-      dataType:"html",
-      success: function(data) 
-      {
-           //alert(data);
-        var JSONdata    = JSON.parse(data); //parseo la informacion
-        var estado = JSONdata[0].estado;
-        if (estado==1) {
-          var nombre = JSONdata[0].nombre;
-          var apellido = JSONdata[0].apellido;
-          var celular = JSONdata[0].celular;
-          var email = JSONdata[0].email;
-          var direccion = JSONdata[0].direccion;
-          var id_barrio = JSONdata[0].id_barrio;
+            $('#nombre'+opcion).val(nombre+" "+apellido);
+            $('#celular'+opcion).val(celular);
+            $('#email'+opcion).val(email);
+            $('#dirTitular'+opcion).val(direccion);
+            $('#barrioTitular'+opcion).val(id_barrio).change();
 
-          $('#nombre'+opcion).val(nombre+" "+apellido);
-          $('#celular'+opcion).val(celular);
-          $('#email'+opcion).val(email);
-          $('#dirTitular'+opcion).val(direccion);
-          $('#barrioTitular'+opcion).val(id_barrio).change();
+            $('.opcion'+opcion).each(function() {
+              // alert($(this).val());
+              $(this).removeAttr('hidden');
+            });
 
-          $('.opcion'+opcion).each(function() {
-            // alert($(this).val());
-            $(this).removeAttr('hidden');
-          });
+            // inciarSelectes2();
 
-          // inciarSelectes2();
+          }
+          else if (estado == 2) {
 
-        }
-        else if (estado == 2) {
-
-          $.confirm({
+            $.confirm({
               title: '',
               content: 'EL CLIENTE NO EXISTE!',
               icon: 'fa fa-window-close ',
@@ -306,24 +301,23 @@ function buscarNit(boton) {
                       }
                   },
               }
-          }); 
+            }); 
+          }
+          else{
+            confirmar('ALGO FALLÓ, INTENTA DE NUEVO!', 'fa fa-window-close', 'red', 'ejecutar');
+          }
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
+            console.log(textStatus);
+            alert(textStatus);
         }
-        else{
-          confirmar('ALGO FALLÓ, INTENTA DE NUEVO!', 'fa fa-window-close', 'red', 'ejecutar');
+      });
+    }
+    else{
+      confirmar('LA CANTIDAD DE NUEMEROS ESTA ERRADA', 'fa fa-window-close', 'red', 'ejecutar');
 
-        }
-      },
-      error: function( jqXHR, textStatus, errorThrown ){
-          console.log(textStatus);
-          alert(textStatus);
-      }
-    });
+    }
   }
-  else{
-    confirmar('LA CANTIDAD DE NUEMEROS ESTA ERRADA', 'fa fa-window-close', 'red', 'ejecutar');
-
-  }
-}
 </script>
 <!-- <script src="../../plugins/jquery/jquery.min.js"></script> -->
 <div class="content-wrapper">

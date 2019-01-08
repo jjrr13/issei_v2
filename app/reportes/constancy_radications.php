@@ -82,7 +82,7 @@ $ho = '
 				<span style="font-size: 12px  !important; color: #000000;">'.$radicado.', Santiago de Cali, '.$fecha_radicacion.'</span>
 			</div>
 			<br>
-			<table>
+			<table border="1">
 				<thead>
 				  <tr>
 					<th class="" style="border-bottom: 0px solid #C1CED9;">
