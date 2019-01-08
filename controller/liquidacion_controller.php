@@ -77,17 +77,36 @@
 	else if (isset($_POST['buscaRad']) && !empty($_POST['buscaRad']) ) {
 		$radicado = $_POST['buscaRad'];
 
-		$sql = "SELECT estrato, dir_act, barrio_act, DATE_FORMAT(fecha,'%Y-%m-%d') fecha FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
+		$sql = "SELECT estrato, DATE_FORMAT(fecha,'%Y-%m-%d') fecha FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
+ 
 
 		$result =$mysqli->query($sql);
-		$datos = mysqli_fetch_assoc($result);
-		$result = mysqli_num_rows($result);
+		$fila1 = mysqli_num_rows($result);
 
-		if ($result > 0) {
+		if ($fila1 > 0) {
+			$datos = mysqli_fetch_assoc($result);
+			
+			$sql1 = "SELECT direccion, barrio FROM radicado_direcciones as rd 
+						INNER JOIN barrio as b ON rd.id_barrio = b.id_barrio 
+						WHERE rd.id_rad = '$radicado'";
+			$result1 =$mysqli->query($sql1);
+			$filas = mysqli_num_rows($result1);
+			$j=0;
+			$direccion='';
+			while ($datos1 = mysqli_fetch_array($result1)) {
+				if ($j == $filas-1) {
+					$direccion .= $datos1['direccion'].' '.$datos1['barrio'].'.';
+					// $direccion['barrio'] .= $datos1['barrio'].'.';
+				}
+				else{
+					$direccion .= $datos1['direccion'].' '.$datos1['barrio'].', ';
+					// $direccion['barrio'] .= $datos2['barrio'].', ';
+				}
+				$j++;
+			}
+
 			$_SESSION['radicado'] = $radicado;
 			$_SESSION['estrato'] = $datos['estrato'];
-			$_SESSION['dir_act'] = $datos['dir_act'];
-			$_SESSION['barrio_act'] = $datos['barrio_act'];
 			$_SESSION['fecha'] = $datos['fecha'];
 
 ////////////// traer las licencias del proyecto  ///////////////////////
@@ -143,8 +162,8 @@
 			$arrayjson[] = array(
 							'radicado'     => $_SESSION['radicado'],
 							'estrato'	   => $_SESSION['estrato'],
-							'dir_act'    => $_SESSION['dir_act'],
-							'barrio_act'    => $_SESSION['barrio_act'],
+							'dir_act'    => $direccion,
+							'barrio_act'    => $_SESSION['barrio'],
 							'fecha'			=> $_SESSION['fecha'],
 							'tipos_licencias' => $tipos_licencias,
 							'tipos_usos'	=> $tipos_usos,
