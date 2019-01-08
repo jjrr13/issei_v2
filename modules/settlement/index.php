@@ -140,7 +140,7 @@ if(file_exists("../../cx/cx.php")){
 
   </script>
   <script type="text/javascript">
-     function ValidNum2(e){
+    function ValidNum2(e){
       var target = e.currentTarget;
       // alert('entro a los numeros ');
       tecla = (document.all) ? e.keyCode : e.which;
@@ -159,34 +159,60 @@ if(file_exists("../../cx/cx.php")){
       // }else{
 
       return patron.test(tecla_final);
-      
     }
 
-    var salarioMensual= 781242;
+    var salarioMensual= 828116;
       
     var cargoFijo= salarioMensual * 0.40;
     var cargoVariable = salarioMensual * 0.80;
     var factor_M = 0.938;
 
     function cargoBasico2(opcion) {
-
+      console.log($(opcion).attr('type'));
+      // if ($(opcion).attr('checked')) {
+      //   alert(' es un checkbox y esta marcado');
+      // }
       var tipo = $(opcion).attr('id');
-
       var tipoUso = tipo.split("_");
 
-      var cant = tipoUso.length
+      var elemento = $(opcion).attr('type');
 
       var modo;
-      if (cant == 2) {
+      var vis;
+      if (elemento == 'checkbox') {
+        modo = $("#"+tipoUso[0] + "_" + tipoUso[1] + "_3").val();
+
+        if ($(opcion).prop('checked')) {
+          // alert('el elemento esta marcado');
+          vis='SI';
+        }
+        else{
+          // alert('el elemento NO');
+          vis='NO';
+        }
+      }
+      else{
         if ($(opcion).val().length == 0) {
           // alert('entro al if');
           $("#"+tipo+ "_2").val('0');
         }
         modo = $("#"+tipo+ "_3").val();
-      }else if (cant == 3) {
-        modo = $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_3").val();
-
+        vis='NO';
       }
+
+
+      // var cant = tipoUso.length
+
+      // if (cant == 2) {
+      //   if ($(opcion).val().length == 0) {
+      //     // alert('entro al if');
+      //     $("#"+tipo+ "_2").val('0');
+      //   }
+      //   modo = $("#"+tipo+ "_3").val();
+      // }else if (cant == 3) {
+      //   modo = $("#"+tipoUso[0] + "_" + tipoUso[1] + "_3").val();
+
+      // }
 
       // alert(modo);
       // alert(cant);
@@ -217,10 +243,10 @@ if(file_exists("../../cx/cx.php")){
         }
       }
 
-      if (cant == 2) {
+      if (vis == 'NO') {
         $("#"+tipo+ "_2").val(totalVariable);
         // alert($("#"+tipo+ "_2").val() + ' este es el valor del campo del variable');
-      }else if (cant == 3) {
+      }else if (vis == 'SI') {
         totalBasico = totalBasico / 2;
         totalVariable = totalVariable / 2;
         $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val(totalVariable);
@@ -616,8 +642,9 @@ if(file_exists("../../cx/cx.php")){
                     <div class="col-lg-12 form-group"></div>
                       <div class="col-lg-12 input-group">
                         <label for="buscaRadicado" class="col-form-label col-lg-3"><strong>Radicado</strong></label>
-                        <input value="180007" autofocus="autofocus" type="text" name="buscaRadicado" id="buscaRadicado" required title="Minimo 5 Numeros" maxlength="6" class="form-control col-lg-5" placeholder="Digite el No.">
+                        <input value="180011" autofocus="autofocus" type="text" name="buscaRadicado" id="buscaRadicado" required title="Minimo 5 Numeros" maxlength="6" class="form-control col-lg-5" placeholder="Digite el No.">
                         <button  type="button" name="burcar1" value="1" onclick="buscarRad(this)" class="btn btn-danger left col-lg-2">Buscar</button>
+                        <!-- <input type="checkbox"> -->
                       </div>
                     </div>
                   </div>
@@ -627,6 +654,9 @@ if(file_exists("../../cx/cx.php")){
                     <div class="col-lg-6 input-group">
                       <h5 class="col-lg-2">Estrato</h5>
                       <label name="estrato" id="estrato" class="col-form-label col-lg-3"><strong>----</strong></label>                  
+                    </div> 
+                    <div class='col-lg-2 form-check'>
+                      <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S
                     </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>
