@@ -113,11 +113,8 @@
     {
         return (Time < 10) ? "0" + Time : + Time;
     }
-
     
 </script>
-
-
 
 </head> 
 
