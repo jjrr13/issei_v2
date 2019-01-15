@@ -13,8 +13,9 @@ if(file_exists("../../cx/cx.php")){
 <!-- <!DOCTYPE html>
 <html>
   <head> -->
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
     <title>Liquidaciones</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     
 
     <style type="text/css">
@@ -43,8 +44,7 @@ if(file_exists("../../cx/cx.php")){
 
   <script type="text/javascript">
     function letras(campo){
-
-    campo.value=campo.value.toUpperCase();
+      campo.value=campo.value.toUpperCase();
     }
 
   </script>
@@ -89,7 +89,6 @@ if(file_exists("../../cx/cx.php")){
         },
         success: function(data)            
         {
-          // alert(data);
           console.log(data);
 
           if (data == 3) {
@@ -105,6 +104,19 @@ if(file_exists("../../cx/cx.php")){
             $('#direccion').val(JSONdata[0].dir_act);
             $('#arq').val(JSONdata[0].construRespon);
             $('#propietario').val(JSONdata[0].titulares);
+
+            alert(JSONdata[0].objetivo_id);
+            if (JSONdata[0].objetivo_id == 2) {
+
+              $('#prorroga_2').val(salarioMensual);
+              $('#prorroga').prop("disabled", "disabled");
+              $('#prorroga').attr("checked", "checked");
+            }
+            else if (JSONdata[0].objetivo_id == 4) {
+              $('#revalidacion_2').val(salarioMensual);
+              $('#revalidacion').prop("disabled", "disabled");
+              $('#revalidacion').attr("checked", "checked");
+            }
 
             for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
               // console.log(JSONdata[0].tipos_usos[r][r+1]);
@@ -141,6 +153,7 @@ if(file_exists("../../cx/cx.php")){
   </script>
   <script type="text/javascript">
     function ValidNum2(e){
+      // console.log(e.target);
       var target = e.currentTarget;
       // alert('entro a los numeros ');
       tecla = (document.all) ? e.keyCode : e.which;
@@ -175,30 +188,30 @@ if(file_exists("../../cx/cx.php")){
       var tipo = $(opcion).attr('id');
       var tipoUso = tipo.split("_");
 
-      var elemento = $(opcion).attr('type');
-
       var modo;
-      var vis;
-      if (elemento == 'checkbox') {
-        modo = $("#"+tipoUso[0] + "_" + tipoUso[1] + "_3").val();
-
-        if ($(opcion).prop('checked')) {
-          // alert('el elemento esta marcado');
-          vis='SI';
-        }
-        else{
-          // alert('el elemento NO');
-          vis='NO';
-        }
-      }
-      else{
         if ($(opcion).val().length == 0) {
           // alert('entro al if');
           $("#"+tipo+ "_2").val('0');
         }
         modo = $("#"+tipo+ "_3").val();
-        vis='NO';
-      }
+
+      // var elemento = $(opcion).attr('type');
+      // var vis;
+      // if (elemento == 'checkbox') {
+      //   modo = $("#"+tipoUso[0] + "_" + tipoUso[1] + "_3").val();
+
+      //   if ($(opcion).prop('checked')) {
+      //     // alert('el elemento esta marcado');
+      //     vis='SI';
+      //   }
+      //   else{
+      //     // alert('el elemento NO');
+      //     vis='NO';
+      //   }
+      // }
+      // else{
+      //   vis='NO';
+      // }
 
 
       // var cant = tipoUso.length
@@ -243,37 +256,61 @@ if(file_exists("../../cx/cx.php")){
         }
       }
 
-      if (vis == 'NO') {
-        $("#"+tipo+ "_2").val(totalVariable);
-        // alert($("#"+tipo+ "_2").val() + ' este es el valor del campo del variable');
-      }else if (vis == 'SI') {
-        totalBasico = totalBasico / 2;
-        totalVariable = totalVariable / 2;
-        $("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val(totalVariable);
-        // alert($("#"+tipoUso[0] + "_" + tipoUso[1] +  "_2").val() + ' este es el valor del campo del variable EN EL if');
+      $("#"+tipo+ "_2").val(totalVariable);
 
-      }
-
-
-      calcular(totalBasico, totalVariable);
+      calcular(totalBasico, 1);
       
     }
 
-    function calcular(total_Basico, total_Variable) {
+    function subsidio(check) {
+      var basico = $('#cargoBasico').val();
+      // alert(basico);
+      if ($(check).prop('checked')) {
+        basico = basico / 2;
+        alert('lo esta dividiendo');
+        basico = basico.toString().replace('.', '');
+        // alert(basico);
+        $(".variable").each(function(){
+          var temp = parseInt($(this).val());
+          temp = temp / 2;
+          $(this).val(temp);
+        });
+      }
+      else {
+        basico = basico * 2;
+        alert('lo esta multiplicando');
+        basico = basico.toString().replace('.', '');
+        // alert(basico);
+        $(".variable").each(function(){
+          var temp = parseInt($(this).val());
+          temp = temp * 2;
+          $(this).val(temp);
+        });
+      }
+
+      calcular(parseInt(basico), 2);
+
+    }
+
+    function calcular(total_Basico, opt) {
 
       // alert(total_Basico + ' / '+ total_Variable);
+      var total_Variable = sumarVariable();
+      // total_Variable = total_Variable / opt;
 
-      var subtotalExpensas = sumarVariable() + total_Basico;
+      var subtotalExpensas = total_Variable + total_Basico;
+      // subtotalExpensas = subtotalExpensas / opt;
       // alert(subtotalExpensas);
 
       var iva = subtotalExpensas * 0.19;
       var total = subtotalExpensas + iva;
+
       var estampillas=0;
-      if (subtotalExpensas >= 0.1) {
-         estampillas = 5800;
-      }
+      if (subtotalExpensas >= 0.1){ estampillas = 5800;}
+      
       var totalExpensas = total + estampillas;
 
+      // alert(total_Basico);
       total_Basico = FormtearNumeros(Math.round(total_Basico));
       total_Variable = FormtearNumeros(Math.round(total_Variable));
       subtotalExpensas = FormtearNumeros(Math.round(subtotalExpensas));
@@ -297,12 +334,12 @@ if(file_exists("../../cx/cx.php")){
       var tempFactor_Q=0;
       //quizas toque determinar si la prioridad a vivienda entre los usos en caso de iguales
       $(".cargoBasico").each(function(){
-      // alert('entro al ciclo');
-            var dato = $(this).val();
-            // alert(dato);
-            if (dato >= tempFactor_Q) {
-              tempFactor_Q = dato;
-            }
+        // alert('entro al ciclo');
+        var dato = $(this).val();
+        // alert(dato);
+        if (dato >= tempFactor_Q) {
+          tempFactor_Q = dato;
+        }
       });
       return tempFactor_Q;
     }
@@ -310,8 +347,9 @@ if(file_exists("../../cx/cx.php")){
     function sumarVariable() {
       var suma=0;
       $(".variable").each(function(){
-            var temp = parseInt($(this).val());
-            suma = suma + temp;
+        var temp = parseInt($(this).val());
+        alert(temp);
+        suma = suma + temp;
       });
       return suma;
     }
@@ -348,6 +386,7 @@ if(file_exists("../../cx/cx.php")){
       return j;
     }
 
+
     function factor_I_otras(factor_Qq) {
       var jj=0;
       if (factor_Qq >= 0.1 && factor_Qq <= 300) { 
@@ -356,11 +395,9 @@ if(file_exists("../../cx/cx.php")){
         jj= 3.2 ;
       }else if (factor_Qq > 1000) {
         jj= 4 ;
-      }else{
-        jj=0;
       }
       return jj;
-      }
+    }
 
     function factor_I_vivienda(estrato) {
       var valor=0;
@@ -415,24 +452,25 @@ if(file_exists("../../cx/cx.php")){
       if (lic + modLicencia == 'SubdivicionUrbana' || lic + modLicencia == 'SubdivicionRural' ) {
         alert('Entro al if de SUBDIVICION');
         elemento+=" <div class='col-lg-12  input-group'>";
-            elemento+=" <div class='col-lg-1  input-group'></div>";
-            elemento+=" <div class='col-lg-2  input-group'>";
-              elemento+=" <h6>Subdivicion</h6>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-3 input-group'>";
-              elemento+=" <input class='cargoBasico' name='sub_"+modLicencia+"' type='text' id='sub_"+modLicencia+"' size='10' return ValidNum(this);' value='781242' readonly > ";
-            elemento+=" <label for=''>M<sup>2</sup></label>";
-            elemento+=" </div>";
-            elemento+=" <div class='col-lg-2 form-check'>";
-              elemento+=" <input name='sub_"+modLicencia+"_vs' type='checkbox' id='sub_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);' > Activar";
-            elemento+=" </div>";
+        elemento+="   <div class='col-lg-1  input-group'></div>";
+        elemento+="   <div class='col-lg-2  input-group'>";
+        elemento+="     <h6>Subdivicion</h6>";
+        elemento+="   </div>";
+        elemento+="   <div class='col-lg-3 input-group'>";
+        elemento+="     <input class='cargoBasico' name='sub_"+modLicencia+"' type='text' id='sub_"+modLicencia+"' size='10' return ValidNum(this);' value='781242' readonly > ";
+        elemento+="     <label for=''>M<sup>2</sup></label>";
+        elemento+="   </div>";
+        elemento+="   <div class='col-lg-2 form-check'>";
 
-            // /////////// datos sub_ /////////////
-              elemento+=" <input class='modalidad' name='sub_"+modLicencia+"_1' type='hidden' id='sub_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='sub_"+modLicencia+"_2' type='hidden' id='sub_"+modLicencia+"_2' value='0' >";
-              elemento+=" <input class='licencia' name='sub_"+modLicencia+"_3' type='hidden' id='sub_"+modLicencia+"_3' value='"+lic+"' >";
-            // elemento+=" </div>";
-          elemento+=" </div>";
+        elemento+="     <input name='sub_"+modLicencia+"_vs' type='checkbox' id='sub_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);' > Activar";
+        elemento+="   </div>";
+
+            ///////////// datos sub_ /////////////
+        elemento+="   <input class='modalidad' name='sub_"+modLicencia+"_1' type='hidden' id='sub_"+modLicencia+"_1' value='"+modLicencia+"' >";
+        elemento+="   <input class='variable' onchange'' name='sub_"+modLicencia+"_2' type='hidden' id='sub_"+modLicencia+"_2' value='0' >";
+        elemento+="   <input class='licencia' name='sub_"+modLicencia+"_3' type='hidden' id='sub_"+modLicencia+"_3' value='"+lic+"' >";
+        // elemento+=" </div>";
+        elemento+=" </div>";
 
       }else if (modLicencia == 'Reloteo' ) {
 
@@ -502,6 +540,7 @@ if(file_exists("../../cx/cx.php")){
                  elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
                 elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
                 elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
+
 
             elemento+=" </div>";
             
@@ -595,6 +634,7 @@ if(file_exists("../../cx/cx.php")){
       padding: .75rem .1rem !important;
     }
   </style>
+
  <!--  </head>
   <body class="hold-transition sidebar-mini"> -->
     <!-- Content Wrapper. Contains page content -->
@@ -651,12 +691,24 @@ if(file_exists("../../cx/cx.php")){
                   </div>
                   <div class="col-lg-12 form-group"></div>
                   <div class="col-lg-12 input-group">
-                    <div class="col-lg-6 input-group">
-                      <h5 class="col-lg-2">Estrato</h5>
+                    <div class="col-lg-2 input-group">
+                      <h6 class="col-lg-4">Estrato</h6>
                       <label name="estrato" id="estrato" class="col-form-label col-lg-3"><strong>----</strong></label>                  
                     </div> 
                     <div class='col-lg-2 form-check'>
-                      <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S
+                      <input name='vivienda_vis' type='checkbox' id='vivienda_vis' value='1' onclick='subsidio(this);'  > V.I.S
+                    </div>
+                    <div class='col-lg-2 form-check'>
+                      <input name='prorroga' type='checkbox' id='prorroga' value='1' onclick=';'> Prorroga
+                      <input class='variable' onchange'' name='prorroga_2' type='hidden' id='prorroga_2' value='0' >
+                    </div>
+                    <div class='col-lg-2 form-check'>
+                      <input name='revalidacion' type='checkbox' id='revalidacion' value='1' onclick=';'> Revalidacion
+                      <input class='variable' onchange'' name='revalidacion_2' type='hidden' id='revalidacion_2' value='0' >
+                    </div>
+                    <div class='col-lg-2 form-check'>
+                      <input name='cotas' type='checkbox' id='cotas' value='1' onclick=';'> Ajuste Cotas
+                      <input class='variable' onchange'' name='cotas_2' type='hidden' id='cotas_2' value='0' >
                     </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>
@@ -759,8 +811,8 @@ if(file_exists("../../cx/cx.php")){
       </section>
     </div>
 <!--   </body>
-</html>
- -->
+</html> -->
+
  <!-- Este SCRIPT ejecuta todos los alerts -->
 <link rel='stylesheet' href='../../cx/demo/demo.css'>
 <link rel='stylesheet' type='text/css' href='../../cx/jquery-confirm.css'>
