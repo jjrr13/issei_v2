@@ -24,7 +24,7 @@
       });
     });
   
-var cantidadObservaciones7=1;
+// var cantidadObservaciones7=1;
 var cantidadObservaciones7=1;
 
 function addObservacion7() {

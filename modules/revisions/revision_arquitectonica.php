@@ -26,47 +26,67 @@
   
 
 var cantidadObservaciones=1;
-var cantidadObservaciones=1;
+var cantidadObservaciones2=1;
+var cantidadObservaciones3=1;
 
-function addObservacion() {
-  if (cantidadObservaciones >= 1  && cantidadObservaciones <= 9) {
+function addObservacion(boton) {
+  var option = $(boton).attr('id');
+  var limite;
+  if (option == '_1'){
+      limite = cantidadObservaciones;
+      cantidadObservaciones++;
+  }else if (option == '_2'){
+      limite = cantidadObservaciones2;
+      cantidadObservaciones2++;
+  }else if (option == '_3'){
+      limite = cantidadObservaciones3;
+      cantidadObservaciones3++;
+  }else if (option == '_4'){
+      limite = cantidadObservaciones4;
+      cantidadObservaciones4++;
+  }else if (option == '_5'){
+      limite = cantidadObservaciones5;
+      cantidadObservaciones5++;
+  }else if (option == '_6'){
+      limite = cantidadObservaciones6;
+      cantidadObservaciones6++;
+  }else if (option == '_7'){
+      limite = cantidadObservaciones7;
+      cantidadObservaciones7++;
+  }else if (option == '_8'){
+      limite = cantidadObservaciones8;
+      cantidadObservaciones8++;
+  }else if (option == '_9'){
+      limite = cantidadObservaciones9;
+      cantidadObservaciones9++;
+  }else if (option == '_10'){
+      limite = cantidadObservaciones10;
+      cantidadObservaciones10++;
+  }else if (option == '_11'){
+      limite = cantidadObservaciones11;
+      cantidadObservaciones11++;
+  }else if (option == '_12'){
+      limite = cantidadObservaciones12;
+      cantidadObservaciones12++;
+  }
+  if (limite >= 1  && limite <= 9) {
     var nuevaObservacion = "";
     nuevaObservacion +="<div class='col-lg-12 input-group borde'>";
     nuevaObservacion +="<div class='col-lg-12 input-group'>";
     nuevaObservacion   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion    +="<input type='text' name='obs1[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(cantidadObservaciones+1)+"'>";
+    nuevaObservacion    +="<input type='text' name='obs1[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(limite+1)+"'>";
     nuevaObservacion   +="</div>";
     nuevaObservacion  +="</div>";
     nuevaObservacion +="</div>";
 
-    $('#obs').append(nuevaObservacion);
-    cantidadObservaciones++;
+    $('#obs'+option).append(nuevaObservacion);
+    // cantidadObservaciones++;
   }
   else{
-    $.confirm({
-          title: '',
-          content: 'HA SUPERADO EL MAXIMO DE OBSERVACIONES',
-          icon: 'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: 'red',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //window.location.replace(destino);
-                  }
-              },
-          }
-      }); 
+    confirmar('HA SUPERADO EL MAXIMO DE OBSERVACIONES', 'fa fa-window-close', 'red', 'S')
   }
 }
 
-var cantidadObservaciones2=1;
-var cantidadObservaciones2=1;
 
 function addObservacion2() {
   if (cantidadObservaciones2 >= 1  && cantidadObservaciones2 <= 9) {
@@ -105,8 +125,7 @@ function addObservacion2() {
   }
 }
 
-var cantidadObservaciones3=1;
-var cantidadObservaciones3=1;
+
 
 function addObservacion3() {
   if (cantidadObservaciones3 >= 1  && cantidadObservaciones3 <= 9) {
@@ -228,7 +247,7 @@ function addObservacion3() {
       </div>
       <div class="col-lg-12 input-group" >
         <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1"  onclick="addObservacion();">
+        <button type="button" class=" btn btn-success agregar col-lg-1" id="_1" onclick="addObservacion(this);">
           <span class="fa fa-plus-circle "></span> 
         </button>
       </div>
@@ -261,7 +280,7 @@ function addObservacion3() {
       </div>
       <div class="col-lg-12 input-group" >
         <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1"  onclick="addObservacion2();">
+        <button type="button" class=" btn btn-success agregar col-lg-1" id="_2" onclick="addObservacion(this);">
           <span class="fa fa-plus-circle "></span> 
         </button>
       </div>
@@ -294,7 +313,7 @@ function addObservacion3() {
       </div>
       <div class="col-lg-12 input-group" >
         <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1"  onclick="addObservacion3();">
+        <button type="button" class=" btn btn-success agregar col-lg-1" id="_3" onclick="addObservacion(this);">
           <span class="fa fa-plus-circle "></span> 
         </button>
       </div>

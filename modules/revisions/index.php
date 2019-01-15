@@ -63,51 +63,50 @@ include_once('../menu.php');
   .sidebar-dark-primary .sidebar a{
     color: #C2C7D0 !important;
   }
-
 </style>
 
 <script>
-    $(function(){
-      $('.fantasma').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar').hide();
-        }else{
-          $('#dvOcultar').show();
-        }
-      
-      })
+  $(function(){
+    $('.fantasma').change(function(){
+      if(!$(this).prop('checked')){
+        $('#dvOcultar').hide();
+      }else{
+        $('#dvOcultar').show();
+      }
+    
     })
-    $(function(){
-      $('.fantasma1').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar1').hide();
-        }else{
-          $('#dvOcultar1').show();
-        }
-      
-      })
+  })
+  $(function(){
+    $('.fantasma1').change(function(){
+      if(!$(this).prop('checked')){
+        $('#dvOcultar1').hide();
+      }else{
+        $('#dvOcultar1').show();
+      }
+    
     })
-    $(function(){
-      $('.fantasma2').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar2').hide();
-        }else{
-          $('#dvOcultar2').show();
-        }
-      
-      })
+  })
+  $(function(){
+    $('.fantasma2').change(function(){
+      if(!$(this).prop('checked')){
+        $('#dvOcultar2').hide();
+      }else{
+        $('#dvOcultar2').show();
+      }
+    
     })
-    $(function(){
-      $('.fantasma3').change(function(){
-        if(!$(this).prop('checked')){
-          $('#dvOcultar3').hide();
-        }else{
-          $('#dvOcultar3').show();
-        }
-      
-      })
+  })
+  $(function(){
+    $('.fantasma3').change(function(){
+      if(!$(this).prop('checked')){
+        $('#dvOcultar3').hide();
+      }else{
+        $('#dvOcultar3').show();
+      }
+    
     })
-  </script>
+  })
+</script>
 <div class="content-wrapper">
   <div class="content-header">  
     <div class="container col-lg-11">
@@ -168,6 +167,7 @@ include_once('../menu.php');
     <b>Version</b> 1.2.1
   </div>
 </footer>
+<script src="../../functions/globales.js"></script>
 <script src="../../plugins/popper/popper.min.js"></script>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
