@@ -13,7 +13,7 @@
 		 (isset($_POST['apellido']) && !empty($_POST['apellido']) ) &&
 		 (isset($_POST['atendio']) && !empty($_POST['atendio']) ) &&
 		 (isset($_POST['fecha_cita']) && !empty($_POST['fecha_cita']) ) ) {
-// echo "<script>alert('entro al if ?');</script>";
+			// echo "<script>alert('entro al if ?');</script>";
 			if( isset($_POST['nroradicado']) && !empty($_POST['nroradicado']) ) $nro_radicado = '760011'.$_POST['nroradicado'];
 			else $nro_radicado="";
 
@@ -77,7 +77,7 @@
 	else if (isset($_POST['buscaRad']) && !empty($_POST['buscaRad']) ) {
 		$radicado = $_POST['buscaRad'];
 
-		$sql = "SELECT estrato, DATE_FORMAT(fecha,'%Y-%m-%d') fecha FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
+		$sql = "SELECT estrato, DATE_FORMAT(fecha,'%Y-%m-%d') fecha, objetivo_id FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
  
 
 		$result =$mysqli->query($sql);
@@ -86,6 +86,7 @@
 		if ($fila1 > 0) {
 			$datos = mysqli_fetch_assoc($result);
 			
+////////////// traer las direcciones del proyecto  ///////////////////////
 			$sql1 = "SELECT direccion, barrio FROM radicado_direcciones as rd 
 						INNER JOIN barrio as b ON rd.id_barrio = b.id_barrio 
 						WHERE rd.id_rad = '$radicado'";
@@ -108,6 +109,7 @@
 			$_SESSION['radicado'] = $radicado;
 			$_SESSION['estrato'] = $datos['estrato'];
 			$_SESSION['fecha'] = $datos['fecha'];
+			$_SESSION['objetivo_id'] = $datos['objetivo_id'];
 
 ////////////// traer las licencias del proyecto  ///////////////////////
 			$sql2 = "SELECT id_lic, tipo_licencias.nombre, modalidad FROM rad_lic 
@@ -163,8 +165,9 @@
 							'radicado'     => $_SESSION['radicado'],
 							'estrato'	   => $_SESSION['estrato'],
 							'dir_act'    => $direccion,
-							'barrio_act'    => $_SESSION['barrio'],
+							'barrio_act'    => '',
 							'fecha'			=> $_SESSION['fecha'],
+							'objetivo_id'			=> $_SESSION['objetivo_id'],
 							'tipos_licencias' => $tipos_licencias,
 							'tipos_usos'	=> $tipos_usos,
 							'construRespon'			=> $_SESSION['construRespon'],
