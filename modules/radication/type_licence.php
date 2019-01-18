@@ -435,7 +435,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
-        <input type="radio" name="objetoTramite" id="objetoTramite2" class="form-check-input" value="2">
+        <input type="radio" name="objetoTramite" id="objetoTramite2" class="form-check-input" value="2" onclick="desabilitaLicencias(this)">
         <label for="objetoTramite2" class="form-check-label izq">Prórroga</label>
       </div>
     </div>
@@ -447,7 +447,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
-        <input type="radio" name="objetoTramite" id="objetoTramite4" class="form-check-input" value="4">
+        <input type="radio" name="objetoTramite" id="objetoTramite4" class="form-check-input" value="4" onclick="desabilitaLicencias(this)">
         <label for="objetoTramite4" class="form-check-label izq">Revalidación</label>
       </div>
     </div>

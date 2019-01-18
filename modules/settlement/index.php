@@ -1,54 +1,38 @@
 <?php 
-if(file_exists("../../cx/cx.php")){
-  $dir="../../";
-  $ruta="../";
-}
+  if(file_exists("../../cx/cx.php")){
+    $dir="../../";
+    $ruta="../";
+  }
   include_once ("../../cx/cx.php");
   include_once('../menu.php');
+?>
 
+  <title>Liquidaciones</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  
 
-
- ?>
-
-<!-- <!DOCTYPE html>
-<html>
-  <head> -->
-
-    <title>Liquidaciones</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    
-
-    <style type="text/css">
-      .numeros{
-        text-align:right;
-        /*color: black;*/
-        font-size: 20px;
-        padding-right: 5px;
-      }
-      .red{
-        color: red;
-        font-weight: bold;
-        /*font-size: 25px;*/
-      }
-      .tituloCuadro2 {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 16px;
-        font-weight: bold;
-        color: #003366;
-      }
-      .Estilo2 {
-        color: #FFFFFF
-      }
-
-  </style>
-
-  <script type="text/javascript">
-    function letras(campo){
-      campo.value=campo.value.toUpperCase();
+  <style type="text/css">
+    .numeros{
+      text-align:right;
+      /*color: black;*/
+      font-size: 20px;
+      padding-right: 5px;
     }
-
-  </script>
-
+    .red{
+      color: red;
+      font-weight: bold;
+      /*font-size: 25px;*/
+    }
+    .tituloCuadro2 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      color: #003366;
+    }
+    .Estilo2 {
+      color: #FFFFFF
+    }
+  </style>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -73,6 +57,9 @@ if(file_exists("../../cx/cx.php")){
     });
 
     
+    function letras(campo){
+      campo.value=campo.value.toUpperCase();
+    }
 
     function buscarRad(valor) {
       var radicado = '760011' + $('#buscaRadicado').val();
@@ -94,6 +81,8 @@ if(file_exists("../../cx/cx.php")){
           if (data == 3) {
             confirmar('EL RADICADO NO EXISTE! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
           }else{
+            $('#contenedor').empty();
+
             var JSONdata    = JSON.parse(data); //parseo la informacion
 
             // alert(JSONdata[0].filas);
@@ -105,17 +94,19 @@ if(file_exists("../../cx/cx.php")){
             $('#arq').val(JSONdata[0].construRespon);
             $('#propietario').val(JSONdata[0].titulares);
 
-            alert(JSONdata[0].objetivo_id);
+            // alert(JSONdata[0].objetivo_id);
             if (JSONdata[0].objetivo_id == 2) {
 
               $('#prorroga_2').val(salarioMensual);
-              $('#prorroga').prop("disabled", "disabled");
               $('#prorroga').attr("checked", "checked");
+              $('#vis_0').empty();
+              calcular(parseInt(0));
             }
             else if (JSONdata[0].objetivo_id == 4) {
               $('#revalidacion_2').val(salarioMensual);
-              $('#revalidacion').prop("disabled", "disabled");
               $('#revalidacion').attr("checked", "checked");
+              $('#vis_0').empty();
+              calcular(parseInt(0));
             }
 
             for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
@@ -128,10 +119,25 @@ if(file_exists("../../cx/cx.php")){
               var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
               var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
               var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
-             
-              elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
-              // alert(elem);
-              $('#contenedor').append(elem);
+              alert(licencia+modalidad);
+              if (licencia+modalidad == 'SubdivicionUrbana' || licencia+modalidad == 'SubdivicionRural'  ) {
+                alert('entro al if de SUBDIVISION022222')
+                $('#Subdivision_2').val(salarioMensual);
+                $('#Subdivision').attr("checked", "checked");
+                calcular(parseInt(0));
+              }
+              else if(licencia+modalidad == 'OtrasAjuste de Cotas'){
+                var valorCota = ajuste_cotas(JSONdata[0].estrato, salarioMensual);
+                $('#cotas_2').val(valorCota);
+                $('#cotas').attr("checked", "checked");
+                $('#vis_0').empty();
+                calcular(parseInt(0));
+
+              }else{
+                elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
+                // alert(elem);
+                $('#contenedor').append(elem);
+              }
             }
           }
 
@@ -168,7 +174,7 @@ if(file_exists("../../cx/cx.php")){
       tecla_final = String.fromCharCode(tecla);
       // if (patron.test(tecla_final)) {
       //   // $(target).val(tecla_final);
-      //   cargoBasico2(target);
+      //   calcular(target);
       // }else{
 
       return patron.test(tecla_final);
@@ -180,11 +186,9 @@ if(file_exists("../../cx/cx.php")){
     var cargoVariable = salarioMensual * 0.80;
     var factor_M = 0.938;
 
-    function cargoBasico2(opcion) {
+    function factores(opcion) {
       console.log($(opcion).attr('type'));
-      // if ($(opcion).attr('checked')) {
-      //   alert(' es un checkbox y esta marcado');
-      // }
+
       var tipo = $(opcion).attr('id');
       var tipoUso = tipo.split("_");
 
@@ -195,42 +199,9 @@ if(file_exists("../../cx/cx.php")){
         }
         modo = $("#"+tipo+ "_3").val();
 
-      // var elemento = $(opcion).attr('type');
-      // var vis;
-      // if (elemento == 'checkbox') {
-      //   modo = $("#"+tipoUso[0] + "_" + tipoUso[1] + "_3").val();
+      // var factor_Q = mayorFactor_Q();
+      var factor_Q = $(opcion).val();
 
-      //   if ($(opcion).prop('checked')) {
-      //     // alert('el elemento esta marcado');
-      //     vis='SI';
-      //   }
-      //   else{
-      //     // alert('el elemento NO');
-      //     vis='NO';
-      //   }
-      // }
-      // else{
-      //   vis='NO';
-      // }
-
-
-      // var cant = tipoUso.length
-
-      // if (cant == 2) {
-      //   if ($(opcion).val().length == 0) {
-      //     // alert('entro al if');
-      //     $("#"+tipo+ "_2").val('0');
-      //   }
-      //   modo = $("#"+tipo+ "_3").val();
-      // }else if (cant == 3) {
-      //   modo = $("#"+tipoUso[0] + "_" + tipoUso[1] + "_3").val();
-
-      // }
-
-      // alert(modo);
-      // alert(cant);
-
-      var factor_Q= mayorFactor_Q();
       var totalBasico=0;
       var totalVariable=0;
       var tempExpesas=0;
@@ -267,7 +238,7 @@ if(file_exists("../../cx/cx.php")){
       // alert(basico);
       if ($(check).prop('checked')) {
         basico = basico / 2;
-        alert('lo esta dividiendo');
+        // alert('lo esta dividiendo');
         basico = basico.toString().replace('.', '');
         // alert(basico);
         $(".variable").each(function(){
@@ -278,7 +249,7 @@ if(file_exists("../../cx/cx.php")){
       }
       else {
         basico = basico * 2;
-        alert('lo esta multiplicando');
+        // alert('lo esta multiplicando');
         basico = basico.toString().replace('.', '');
         // alert(basico);
         $(".variable").each(function(){
@@ -288,18 +259,30 @@ if(file_exists("../../cx/cx.php")){
         });
       }
 
-      calcular(parseInt(basico), 2);
+      calcular(parseInt(basico));
 
     }
 
-    function calcular(total_Basico, opt) {
+    function cargoBasico() {
+       var tempFactor_Q=0;
+      //quizas toque determinar si la prioridad a vivienda entre los usos en caso de iguales
+      $(".cargoBasico1").each(function(){
+        // alert('entro al ciclo');
+        var dato = $(this).val();
+        // alert(dato);
+        if (dato >= tempFactor_Q) {
+          tempFactor_Q = dato;
+        }
+      });
+      return tempFactor_Q;
+    }
+
+    function calcular(total_Basico) {
 
       // alert(total_Basico + ' / '+ total_Variable);
       var total_Variable = sumarVariable();
-      // total_Variable = total_Variable / opt;
 
       var subtotalExpensas = total_Variable + total_Basico;
-      // subtotalExpensas = subtotalExpensas / opt;
       // alert(subtotalExpensas);
 
       var iva = subtotalExpensas * 0.19;
@@ -348,7 +331,7 @@ if(file_exists("../../cx/cx.php")){
       var suma=0;
       $(".variable").each(function(){
         var temp = parseInt($(this).val());
-        alert(temp);
+        // alert(temp);
         suma = suma + temp;
       });
       return suma;
@@ -386,7 +369,6 @@ if(file_exists("../../cx/cx.php")){
       return j;
     }
 
-
     function factor_I_otras(factor_Qq) {
       var jj=0;
       if (factor_Qq >= 0.1 && factor_Qq <= 300) { 
@@ -397,6 +379,19 @@ if(file_exists("../../cx/cx.php")){
         jj= 4 ;
       }
       return jj;
+    }
+
+    function ajuste_cotas(estrato, salario) {
+      var diario = salario / 30;
+      var tempValor=0;
+      if (estrato == 1 || estrato == 2) {
+        tempValor = diario * 4 ;
+      }else if (estrato == 3 || estrato == 4) {
+        tempValor = diario * 8;
+      }else if (estrato == 5 || estrato == 6) {
+        tempValor = diario * 12;
+      }
+      return tempValor;
     }
 
     function factor_I_vivienda(estrato) {
@@ -448,37 +443,20 @@ if(file_exists("../../cx/cx.php")){
       for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
         modLicencia+= modLicencia1[jr];
       }
-      // alert(lic + modLicencia);
-      if (lic + modLicencia == 'SubdivicionUrbana' || lic + modLicencia == 'SubdivicionRural' ) {
-        alert('Entro al if de SUBDIVICION');
-        elemento+=" <div class='col-lg-12  input-group'>";
-        elemento+="   <div class='col-lg-1  input-group'></div>";
-        elemento+="   <div class='col-lg-2  input-group'>";
-        elemento+="     <h6>Subdivicion</h6>";
-        elemento+="   </div>";
-        elemento+="   <div class='col-lg-3 input-group'>";
-        elemento+="     <input class='cargoBasico' name='sub_"+modLicencia+"' type='text' id='sub_"+modLicencia+"' size='10' return ValidNum(this);' value='781242' readonly > ";
-        elemento+="     <label for=''>M<sup>2</sup></label>";
-        elemento+="   </div>";
-        elemento+="   <div class='col-lg-2 form-check'>";
 
-        elemento+="     <input name='sub_"+modLicencia+"_vs' type='checkbox' id='sub_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);' > Activar";
-        elemento+="   </div>";
-
-            ///////////// datos sub_ /////////////
-        elemento+="   <input class='modalidad' name='sub_"+modLicencia+"_1' type='hidden' id='sub_"+modLicencia+"_1' value='"+modLicencia+"' >";
-        elemento+="   <input class='variable' onchange'' name='sub_"+modLicencia+"_2' type='hidden' id='sub_"+modLicencia+"_2' value='0' >";
-        elemento+="   <input class='licencia' name='sub_"+modLicencia+"_3' type='hidden' id='sub_"+modLicencia+"_3' value='"+lic+"' >";
-        // elemento+=" </div>";
-        elemento+=" </div>";
-
-      }else if (modLicencia == 'Reloteo' ) {
+      if (modLicencia == 'Reloteo' ) {
 
       }else{
-
+        console.log('--------------------------------------------------------------');
+        console.log(arrayUsos);
         for (var js = 0; js < arrayUsos.length ; js++) {
-          console.log(arrayUsos[js][js+1]);
-          if (arrayUsos[js][js+1]=='Vivienda') {
+          // console.log(arrayUsos[js][js+1]);
+          // console.log(arrayUsos[js][1]);
+          // console.log(arrayUsos[js][2]);
+          // console.log(arrayUsos[js][3]);
+          // console.log(arrayUsos[js][4]);
+          // alert(arrayUsos[js]);
+          if (arrayUsos[js][1]=='Vivienda') {
             
             elemento+=" <div class='col-lg-12  input-group'>";
               elemento+=" <div class='col-lg-1  input-group'></div>";
@@ -486,12 +464,13 @@ if(file_exists("../../cx/cx.php")){
                 elemento+=" <h6>Vivienda</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' > ";
+                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' > ";
+                elemento+=" <input class='cargoBasico1' name='vivienda_"+modLicencia+"_0' type='hidden' id='vivienda_"+modLicencia+"_0' value='0' >";
               elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
-              elemento+=" <div class='col-lg-2 form-check'>";
-                elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='cargoBasico2(this);'  > V.I.S";
-              elemento+=" </div>";
+              // elemento+=" <div class='col-lg-2 form-check'>";
+              //   elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='factores(this);'  > V.I.S";
+              // elemento+=" </div>";
 
               // /////////// datos vivienda_ /////////////
                 elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
@@ -500,7 +479,7 @@ if(file_exists("../../cx/cx.php")){
               // elemento+=" </div>";
             elemento+=" </div>";
           }
-          else if (arrayUsos[js][js+1]=='Comercio y/o Servicios') {
+          else if (arrayUsos[js][2]=='Comercio y/o Servicios') {
 
              elemento+=" <div class='col-lg-1  form-group'></div>";
            elemento+=" <div class='col-lg-12  input-group'>";
@@ -509,7 +488,8 @@ if(file_exists("../../cx/cx.php")){
                elemento+=" <h6>Comercio</h6>";
              elemento+=" </div>";
              elemento+=" <div class='col-lg-3 input-group'>";
-               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='cargoBasico2(this);' size='10' >";
+               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='factores(this);' size='10' >";
+               elemento+=" <input class='cargoBasico1' name='comercio_"+modLicencia+"_0' type='hidden' id='comercio_"+modLicencia+"_0' value='0' >";
                elemento+=" <label for=''>M<sup>2</sup></label>";
              elemento+=" </div>";
 
@@ -522,7 +502,32 @@ if(file_exists("../../cx/cx.php")){
 
            elemento+=" </div>";
 
-          }else if (arrayUsos[js][js+1]=='Industrial') {
+          }else if (arrayUsos[js][3]=='Institucional') {
+            alert('entro al institucional_');
+            elemento+=" <div class='form-group col-lg-12 '></div>";
+            elemento+=" <div class='col-lg-12 input-group'>";
+              elemento+=" <div class='col-lg-1 input-group'></div>";
+              elemento+=" <div class='col-lg-2 input-group'>";
+                elemento+=" <h6>Institucional</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+                elemento+=" <label for=''>M<sup>2</sup></label>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-2 form-check'>";
+                elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='factores(this);'  > DOT";
+
+                // elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+              elemento+=" </div>";
+
+              // /////////// datos institucional_ /////////////
+              elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
+
+            elemento+=" </div>";
+          }else if (arrayUsos[js][4]=='Industrial') {
+            // alert('entro al Industrial');
 
             elemento+=" <div class='form-group col-lg-12 '></div>";
             elemento+=" <div class='col-lg-12  input-group'>";
@@ -531,7 +536,7 @@ if(file_exists("../../cx/cx.php")){
                 elemento+=" <h6>Industria</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='factores(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
                 elemento+=" <label for=''>M<sup>2</sup></label>                  ";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-2 input-group'></div>";
@@ -544,30 +549,6 @@ if(file_exists("../../cx/cx.php")){
 
             elemento+=" </div>";
             
-          }else if (arrayUsos[js][js+1]=='Institucional') {
-
-            elemento+=" <div class='form-group col-lg-12 '></div>";
-            elemento+=" <div class='col-lg-12 input-group'>";
-              elemento+=" <div class='col-lg-1 input-group'></div>";
-              elemento+=" <div class='col-lg-2 input-group'>";
-                elemento+=" <h6>Institucional</h6>";
-              elemento+=" </div>";
-              elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='cargoBasico2(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
-                elemento+=" <label for=''>M<sup>2</sup></label>";
-              elemento+=" </div>";
-              elemento+=" <div class='col-lg-2 form-check'>";
-                elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='cargoBasico2(this);'  > DOT";
-
-                elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
-              elemento+=" </div>";
-
-              // /////////// datos institucional_ /////////////
-              elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
-                elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
-
-            elemento+=" </div>";
           }
         }
       }
@@ -600,12 +581,12 @@ if(file_exists("../../cx/cx.php")){
              elemento+=" <strong>Cantidad</strong>";
            elemento+=" </h5>                      ";
          elemento+=" </div>";
-         elemento+=" <div class='col-lg-2 form-check'>";
-         // elemento+=" <div class='col-lg-2'>";
-           elemento+=" <h5>";
-             elemento+=" <strong>Subsidio</strong>";
-           elemento+=" </h5>                      ";
-         elemento+=" </div>";
+         // elemento+=" <div class='col-lg-2 form-check'>";
+         // // elemento+=" <div class='col-lg-2'>";
+         //   elemento+=" <h5>";
+         //     elemento+=" <strong>Subsidio</strong>";
+         //   elemento+=" </h5>                      ";
+         // elemento+=" </div>";
        elemento+=" </div>";
 
        elemento+=" <div class='form-group col-lg-12 '></div>";
@@ -695,20 +676,24 @@ if(file_exists("../../cx/cx.php")){
                       <h6 class="col-lg-4">Estrato</h6>
                       <label name="estrato" id="estrato" class="col-form-label col-lg-3"><strong>----</strong></label>                  
                     </div> 
-                    <div class='col-lg-2 form-check'>
+                    <div class='col-lg-2 form-check' id="vis_0">
                       <input name='vivienda_vis' type='checkbox' id='vivienda_vis' value='1' onclick='subsidio(this);'  > V.I.S
                     </div>
                     <div class='col-lg-2 form-check'>
-                      <input name='prorroga' type='checkbox' id='prorroga' value='1' onclick=';'> Prorroga
+                      <input name='prorroga' type='checkbox' id='prorroga' value='1' disabled="" onclick=';'> Prorroga
                       <input class='variable' onchange'' name='prorroga_2' type='hidden' id='prorroga_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
-                      <input name='revalidacion' type='checkbox' id='revalidacion' value='1' onclick=';'> Revalidacion
+                      <input name='revalidacion' type='checkbox' id='revalidacion' value='1' disabled="" onclick=';'> Revalidacion
                       <input class='variable' onchange'' name='revalidacion_2' type='hidden' id='revalidacion_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
-                      <input name='cotas' type='checkbox' id='cotas' value='1' onclick=';'> Ajuste Cotas
+                      <input name='cotas' type='checkbox' id='cotas' value='1' disabled="" onclick=';'> Ajuste Cotas
                       <input class='variable' onchange'' name='cotas_2' type='hidden' id='cotas_2' value='0' >
+                    </div>
+                    <div class='col-lg-2 form-check'>
+                      <input name='Subdivision' type='checkbox' id='Subdivision' value='1' disabled="" onclick=';'> Subdivision
+                      <input class='variable' onchange'' name='Subdivision_2' type='hidden' id='Subdivision_2' value='0' >
                     </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>

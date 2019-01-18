@@ -28,9 +28,22 @@
 var cantidadObservaciones=1;
 var cantidadObservaciones2=1;
 var cantidadObservaciones3=1;
+var cantidadObservaciones4=1;
+var cantidadObservaciones5=1;
+var cantidadObservaciones6=1;
+var cantidadObservaciones7=1;
+var cantidadObservaciones8=1;
+var cantidadObservaciones9=1;
+var cantidadObservaciones10=1;
+var cantidadObservaciones11=1;
+var cantidadObservaciones12=1;
+
+
+
 
 function addObservacion(boton) {
   var option = $(boton).attr('id');
+  alert(option);
   var limite;
   if (option == '_1'){
       limite = cantidadObservaciones;
@@ -70,11 +83,12 @@ function addObservacion(boton) {
       cantidadObservaciones12++;
   }
   if (limite >= 1  && limite <= 9) {
+    alert('entro al if');
     var nuevaObservacion = "";
     nuevaObservacion +="<div class='col-lg-12 input-group borde'>";
     nuevaObservacion +="<div class='col-lg-12 input-group'>";
     nuevaObservacion   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion    +="<input type='text' name='obs1[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(limite+1)+"'>";
+    nuevaObservacion    +="<input type='text' name='obs"+option+"[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(limite+1)+"'>";
     nuevaObservacion   +="</div>";
     nuevaObservacion  +="</div>";
     nuevaObservacion +="</div>";
@@ -88,81 +102,7 @@ function addObservacion(boton) {
 }
 
 
-function addObservacion2() {
-  if (cantidadObservaciones2 >= 1  && cantidadObservaciones2 <= 9) {
-    var nuevaObservacion2 = "";
-    nuevaObservacion2 +="<div class='col-lg-12 input-group borde'>";
-    nuevaObservacion2 +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion2   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion2    +="<input type='text' name='obs2[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(cantidadObservaciones2+1)+"'>";
-    nuevaObservacion2   +="</div>";
-    nuevaObservacion2  +="</div>";
-    nuevaObservacion2 +="</div>";
 
-    $('#obs2').append(nuevaObservacion2);
-    cantidadObservaciones2++;
-  }
-  else{
-    $.confirm({
-          title: '',
-          content: 'HA SUPERADO EL MAXIMO DE OBSERVACIONES',
-          icon: 'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: 'red',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //window.location.replace(destino);
-                  }
-              },
-          }
-      }); 
-  }
-}
-
-
-
-function addObservacion3() {
-  if (cantidadObservaciones3 >= 1  && cantidadObservaciones3 <= 9) {
-    var nuevaObservacion3 = "";
-    nuevaObservacion3 +="<div class='col-lg-12 input-group borde'>";
-    nuevaObservacion3 +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion3   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion3    +="<input type='text' name='obs3[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(cantidadObservaciones3+1)+"'>";
-    nuevaObservacion3   +="</div>";
-    nuevaObservacion3  +="</div>";
-    nuevaObservacion3 +="</div>";
-
-    $('#obs3').append(nuevaObservacion3);
-    cantidadObservaciones3++;
-  }
-  else{
-    $.confirm({
-          title: '',
-          content: 'HA SUPERADO EL MAXIMO DE OBSERVACIONES',
-          icon: 'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: 'red',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //window.location.replace(destino);
-                  }
-              },
-          }
-      }); 
-  }
-}
 
 </script>
 <style>
@@ -235,12 +175,12 @@ function addObservacion3() {
       </div>
       <div class="col-lg-12 form-group"></div>
       <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs">
+      <div class="col-lg-12 form-group" id="obs_1">
         <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
         <div class="col-lg-12 input-group borde">
           <div class="col-lg-12 input-group">
             <div class="col-lg-12 input-group">
-              <input type="text" name="obs1[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
+              <input type="text" name="obs_1[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
             </div>
           </div>
         </div>
@@ -268,12 +208,12 @@ function addObservacion3() {
     <div class="col-lg-12 input-group" id="respuesta-ej2" style="display:none">
       <div class="col-lg-12 form-group"></div>
       <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs2">
+      <div class="col-lg-12 form-group" id="obs_2">
         <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
         <div class="col-lg-12 input-group borde">
           <div class="col-lg-12 input-group">
             <div class="col-lg-12 input-group">
-              <input type="text" name="obs2[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
+              <input type="text" name="obs_2[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
             </div>
           </div>
         </div>
@@ -301,12 +241,12 @@ function addObservacion3() {
     <div class="col-lg-12 input-group" id="respuesta-ej3" style="display:none">
       <div class="col-lg-12 form-group"></div>
       <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs3">
+      <div class="col-lg-12 form-group" id="obs_3">
         <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
         <div class="col-lg-12 input-group borde">
           <div class="col-lg-12 input-group">
             <div class="col-lg-12 input-group">
-              <input type="text" name="obs3[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
+              <input type="text" name="obs_3[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
             </div>
           </div>
         </div>

@@ -35,6 +35,9 @@ include_once "../cx/cx.php";
 
 // echo insertarDirecciones($_SESSION['predio']['dirActual'], 'radicado_direcciones', 760011180011);
 
+
+
+
 if($_POST){
 	$_SESSION['pos'] = $_POST;
 }
@@ -95,6 +98,9 @@ else if (isset($_POST['btn_tipo']) ){
 			$bandera=true;
 		
 			array_push($cantLicencias, $_POST['otrasact']);
+		}
+		if ($_POST['objetoTramite'] == 2 || $_POST['objetoTramite'] == 4) {
+			$bandera=true;
 		}
 
 		if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
@@ -241,30 +247,32 @@ else if (!empty($_POST['btn_Profesionales'])) {
 else if (!empty($_POST['btn_docs'])   ) {
 	$respuesta=0;
 
-	if (!empty($_SESSION['objetoTramite']) && !empty($_SESSION['usos']) && !empty($_SESSION['licencias']) ) {
+	if (!empty($_SESSION['objetoTramite']) && !empty($_SESSION['usos']) || !empty($_SESSION['licencias']) ) {
 		if (!empty($_SESSION['predio'])) {
 			if (!empty($_SESSION['vecinos'])) {
 				if (!empty($_SESSION['titulares'])) {
 					if (!empty($_SESSION['responsables'])) {
 						if ( (!empty($_POST['documentos_generales']) || !empty($_POST['documentos_especificos'])) || !empty($_POST['docCompletos']) ) {
 						
-						$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
-						$_SESSION['documentos_especificos'] = $_POST['documentos_especificos'];
+								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
+								$_SESSION['documentos_especificos'] = (!empty($_POST['documentos_especificos'])) ? $_POST['documentos_especificos'] : '';
 
-						$_SESSION['consecutivoNuevo'] = NuevoRadicado();
-							
-						$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_act, barrio_act, dir_ant, estrato, categoria, nor_matricula, nor_car, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+								$_SESSION['categoria'] = (!empty($_SESSION['categoria']))? $_SESSION['categoria'] : '';
+
+								$_SESSION['consecutivoNuevo'] = NuevoRadicado();
+									
+								$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_ant, estrato, categoria, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
+							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
 							       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
-							       GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
-							       GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
+							       // GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
+							       // GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
 							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
 							       GetSQLValueString($_SESSION['categoria'], "text"),
-							       GetSQLValueString($_SESSION['predio']['matricula'], "int"),
-							       GetSQLValueString($_SESSION['predio']['catastral'], "int"),
+							       // GetSQLValueString($_SESSION['predio']['matricula'], "int"),
+							       // GetSQLValueString($_SESSION['predio']['catastral'], "int"),
 							       GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
 							       GetSQLValueString(1, "int"),

@@ -25,151 +25,8 @@
     });
   
 
-var cantidadObservaciones4=1;
-var cantidadObservaciones4=1;
-
-function addObservacion4() {
-  if (cantidadObservaciones4 >= 1  && cantidadObservaciones4 <= 9) {
-    var nuevaObservacion4 = "";
-    nuevaObservacion4 +="<div class='col-lg-12 input-group borde'>";
-    nuevaObservacion4 +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion4   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion4    +="<input type='text' name='obs4[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(cantidadObservaciones4+1)+"'>";
-    nuevaObservacion4   +="</div>";
-    nuevaObservacion4  +="</div>";
-    nuevaObservacion4 +="</div>";
-
-    $('#obs4').append(nuevaObservacion4);
-    cantidadObservaciones4++;
-  }
-  else{
-    $.confirm({
-          title: '',
-          content: 'HA SUPERADO EL MAXIMO DE OBSERVACIONES',
-          icon: 'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: 'red',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //window.location.replace(destino);
-                  }
-              },
-          }
-      }); 
-  }
-}
-
-var cantidadObservaciones5=1;
-var cantidadObservaciones5=1;
-
-function addObservacion5() {
-  if (cantidadObservaciones5 >= 1  && cantidadObservaciones5 <= 9) {
-    var nuevaObservacion5 = "";
-    nuevaObservacion5 +="<div class='col-lg-12 input-group borde'>";
-    nuevaObservacion5 +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion5   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion5    +="<input type='text' name='obs5[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(cantidadObservaciones5+1)+"'>";
-    nuevaObservacion5   +="</div>";
-    nuevaObservacion5  +="</div>";
-    nuevaObservacion5 +="</div>";
-
-    $('#obs5').append(nuevaObservacion5);
-    cantidadObservaciones5++;
-  }
-  else{
-    // alert('Ha superado la capacidad MAXIMA de Vecinos Permitidos');
-    $.confirm({
-          title: '',
-          content: 'HA SUPERADO EL MAXIMO DE OBSERVACIONES',
-          icon: 'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: 'red',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //console.log('tambien por aqui2');
-                    //window.location.replace(destino);
-
-                  }
-              },
-          }
-      }); 
-  }
-}
-
-var cantidadObservaciones6=1;
-var cantidadObservaciones6=1;
-
-function addObservacion6() {
-  if (cantidadObservaciones6 >= 1  && cantidadObservaciones6 <= 9) {
-    var nuevaObservacion6 = "";
-    nuevaObservacion6 +="<div class='col-lg-12 input-group borde'>";
-    nuevaObservacion6 +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion6   +="<div class='col-lg-12 input-group'>";
-    nuevaObservacion6    +="<input type='text' name='obs6[]' class='form-control col-lg-12' placeholder='OBSERVACION "+(cantidadObservaciones6+1)+"'>";
-    nuevaObservacion6   +="</div>";
-    nuevaObservacion6  +="</div>";
-    nuevaObservacion6 +="</div>";
-
-    $('#obs6').append(nuevaObservacion6);
-    cantidadObservaciones6++;
-  }
-  else{
-    // alert('Ha superado la capacidad MAXIMA de Vecinos Permitidos');
-    $.confirm({
-          title: '',
-          content: 'HA SUPERADO EL MAXIMO DE OBSERVACIONES',
-          icon: 'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: 'red',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //console.log('tambien por aqui2');
-                    //window.location.replace(destino);
-
-                  }
-              },
-          }
-      }); 
-  }
-}
-
 </script>
-<style>
-  .bottons{
-    background-color: #4f5962;
-    color: #fff;
-  }
-  .agregar{
-    text-align: left;
-    margin-top: 2%;
-    margin-bottom: 5%;
-    /*border: 1px solid #000;*/
-  }
-  .borde{
-    margin-bottom: 2%;
-    border: 1px solid #dad8d8;
-    padding-top: 10px;
-    padding-bottom: 15px;
-  }
-</style>
+
 
 <div class="col-lg-12 form-group"></div>      
 <div class="container row">
@@ -222,19 +79,19 @@ function addObservacion6() {
       </div>
       <div class="col-lg-12 form-group"></div>
       <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs4">
+      <div class="col-lg-12 form-group" id="obs_4">
         <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
         <div class="col-lg-12 input-group borde">
           <div class="col-lg-12 input-group">
             <div class="col-lg-12 input-group">
-              <input type="text" name="obs4[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
+              <input type="text" name="obs_4[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-12 input-group" >
         <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1" id="addVecino" onclick="addObservacion4();">
+        <button type="button" class=" btn btn-success agregar col-lg-1" id="addVecino" onclick="addObservacion();">
           <span class="fa fa-plus-circle "></span> 
         </button>
       </div>
@@ -257,19 +114,19 @@ function addObservacion6() {
       
       <div class="col-lg-12 form-group"></div>
       <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs5">
+      <div class="col-lg-12 form-group" id="obs_5">
         <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
         <div class="col-lg-12 input-group borde">
           <div class="col-lg-12 input-group">
             <div class="col-lg-12 input-group">
-              <input type="text" name="obs5[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
+              <input type="text" name="obs_5[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-12 input-group" >
         <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1" id="addVecino" onclick="addObservacion5();">
+        <button type="button" class=" btn btn-success agregar col-lg-1" id="addVecino" onclick="addObservacion();">
           <span class="fa fa-plus-circle "></span> 
         </button>
       </div>
@@ -291,19 +148,19 @@ function addObservacion6() {
       
       <div class="col-lg-12 form-group"></div>
       <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs6">
+      <div class="col-lg-12 form-group" id="obs_6">
         <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
         <div class="col-lg-12 input-group borde">
           <div class="col-lg-12 input-group">
             <div class="col-lg-12 input-group">
-              <input type="text" name="obs6[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
+              <input type="text" name="obs_6[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
             </div>
           </div>
         </div>
       </div>
       <div class="col-lg-12 input-group" >
         <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1" id="addVecino" onclick="addObservacion6();">
+        <button type="button" class=" btn btn-success agregar col-lg-1" id="addVecino" onclick="addObservacion();">
           <span class="fa fa-plus-circle "></span> 
         </button>
       </div>

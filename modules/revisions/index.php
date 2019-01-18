@@ -1,6 +1,7 @@
 <?php 
 
 include_once('../menu.php');
+include_once ('../../functions/globales.js');
 
  ?>
 
@@ -167,7 +168,7 @@ include_once('../menu.php');
     <b>Version</b> 1.2.1
   </div>
 </footer>
-<script src="../../functions/globales.js"></script>
+<!-- <script src="../../functions/globales.js"></script> -->
 <script src="../../plugins/popper/popper.min.js"></script>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
