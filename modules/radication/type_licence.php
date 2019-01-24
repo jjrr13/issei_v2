@@ -55,8 +55,9 @@
   var era;
   var previo=null;
   function uncheckRadio(rbutton){
-    if(previo &&previo!=rbutton ){
-      if ($(rbutton).val() <= 5) {
+    var opcion = $(rbutton).val();
+    if(previo && previo!=rbutton ){
+      if (opcion <= 5) {
         $('#LicUrba').attr('disabled', 'disabled');
         $('#LicPar').attr('disabled', 'disabled');
         $('#LicSub').attr('disabled', 'disabled');
@@ -65,26 +66,31 @@
         $('#LicSub').removeAttr('checked');
         bloqConstruc(4);
         
+       alert('entro al primer if');
       }
-      // alert('entro al primer if');
       previo.era=false;
     }
-    if(rbutton.checked==true && rbutton.era==true){
-      $('#LicUrba').removeAttr('disabled');
-      $('#LicPar').removeAttr('disabled');
-      $('#LicSub').removeAttr('disabled');
-      bloqConstruc(5);
-      rbutton.checked=false;
-    }
-    if (primera==0) {
+    if (primera==0 && opcion == 21) {
       $('#LicUrba').attr('disabled', 'disabled');
       $('#LicPar').attr('disabled', 'disabled');
       $('#LicSub').attr('disabled', 'disabled');
       $('#LicUrba').removeAttr('checked');
       $('#LicPar').removeAttr('checked');
       $('#LicSub').removeAttr('checked');
+       alert('entro al tercer if');
       bloqConstruc(4);
       primera=1;
+    }
+    if(rbutton.checked==true && rbutton.era==true){
+      $('#LicUrba').removeAttr('disabled');
+      $('#LicPar').removeAttr('disabled');
+      $('#LicSub').removeAttr('disabled');
+      bloqConstruc(5);
+       alert('entro al segundoi if');
+      rbutton.checked=false;
+      if (opcion == 21 ) {
+        primera = 0;
+      }
     }
     rbutton.era=rbutton.checked;
     previo=rbutton;
@@ -92,16 +98,19 @@
 
 
   function permitir2(valor){
-    if ($(valor).val()==1) {
+    var option = $(valor).val();
+    if (option ==1) {
       // alert(valor.checked);
       if (valor.checked) {
         $('#industrial').attr('disabled', 'disabled');
+        $('#institu').attr('disabled', 'disabled');
       }
       else{
         $('#industrial').removeAttr('disabled');
+        $('#institu').removeAttr('disabled');
       }
     }
-    else if ($(valor).val()==4) {
+    else if (option ==4 || option == 3) {
       if (valor.checked) {
         $('#vivienda').attr('disabled', 'disabled');
       }
@@ -222,6 +231,18 @@
           <div class="col-lg-1 offset-2 input-group">
             <input type="radio" name="urb" id="urb3" class="form-check-input" value="4">
             <label for="urb3" class="form-check-label izq">Saneamiento</label>
+          </div>
+        </div>
+        <div class="col-lg-12 input-group">
+          <div class="col-lg-4 offset-2 input-group">
+            <input type="radio" name="urb" id="urb4" class="form-check-input" value="29">
+            <label for="urb4" class="form-check-label izq">Modificacion Planos Urbano</label>
+          </div>
+        </div>
+        <div class="col-lg-12 input-group">
+          <div class="col-lg-4 offset-2 input-group">
+            <input type="radio" name="urb" id="urb5" class="form-check-input" value="30">
+            <label for="urb5" class="form-check-label izq">Apobacion Proyecto Urbano</label>
           </div>
         </div>
       </div>
@@ -375,13 +396,13 @@
             <label for="otrasact21" class="form-check-label izq">Ajuste de Cotas</label>
           </div>
         </div>
-        <div class="col-lg-12 input-group">
+        <!-- <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact22" class="form-check-input" value="22" onclick="uncheckRadio(this);">
             <label for="otrasact22" class="form-check-label izq">Concepto de Norma</label>
           </div>
-        </div>
-        <div class="col-lg-12 input-group">
+        </div> -->
+        <!-- <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact23" class="form-check-input" value="23" onclick="uncheckRadio(this);">
             <label for="otrasact23" class="form-check-label izq">Concepto de Uso de Suelos</label>
@@ -398,7 +419,7 @@
             <input type="radio" name="otrasact" id="otrasact25" class="form-check-input" value="25" onclick="uncheckRadio(this);">
             <label for="otrasact25" class="form-check-label izq">Modificacion de Planos</label>
           </div>
-        </div>
+        </div> -->
         <div class="col-lg-12 input-group">
           <div class="col-lg-6 offset-2 input-group">
             <input type="radio" name="otrasact" id="otrasact26" class="form-check-input" value="26" onclick="uncheckRadio(this);">
@@ -433,24 +454,24 @@
         <label for="objetoTramite1" class="form-check-label izq">Inicial</label>
       </div>
     </div>
-    <div class="col-lg-12 input-group">
+    <!-- <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
         <input type="radio" name="objetoTramite" id="objetoTramite2" class="form-check-input" value="2" onclick="desabilitaLicencias(this)">
         <label for="objetoTramite2" class="form-check-label izq">Prórroga</label>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
         <input type="radio" name="objetoTramite" id="objetoTramite3" class="form-check-input" value="3">
         <label for="objetoTramite3" class="form-check-label izq">Modificación de Licencia Vigente</label>
       </div>
     </div>
-    <div class="col-lg-12 input-group">
+    <!-- <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
         <input type="radio" name="objetoTramite" id="objetoTramite4" class="form-check-input" value="4" onclick="desabilitaLicencias(this)">
         <label for="objetoTramite4" class="form-check-label izq">Revalidación</label>
       </div>
-    </div>
+    </div> -->
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group">
@@ -473,7 +494,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-1 offset-2 input-group">
-        <input type="checkbox" name="usos[]" id="institu" class="form-check-input" value="3">
+        <input type="checkbox" name="usos[]" id="institu" class="form-check-input" value="3" onclick="permitir2(this);">
         <label for="institu" class="form-check-label izq">Institucional</label>
       </div> 
       <div class="col-lg-10 input-group">
@@ -483,6 +504,14 @@
       <div class="col-lg-1 offset-2 input-group">
         <input type="checkbox" name="usos[]" id="industrial" class="form-check-input" value="4" onclick="permitir2(this);">
         <label for="industrial" class="form-check-label izq">Industrial</label>
+      </div> 
+      <div class="col-lg-10 input-group">
+      </div>
+    </div>
+    <div class="col-lg-12 input-group">
+      <div class="col-lg-1 offset-2 input-group">
+        <input title="Marque este boton solamente en caso que el proyecto sea en Unidades" type="checkbox" name="usos[]" id="unidades" class="form-check-input" value="5" onclick="permitir2(this);">
+        <label title="Marque este boton solamente en caso que el proyecto sea en Unidades" for="unidades" class="form-check-label izq">Unidades Residenciales</label>
       </div> 
       <div class="col-lg-10 input-group">
       </div>

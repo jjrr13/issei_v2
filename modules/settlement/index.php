@@ -56,7 +56,17 @@
       });
     });
 
-    
+    function validate(campo){
+        var result="";
+        var str = campo.value.split('');
+        for(i=0; i<=str.length-1; i++) {
+            str[i] = str[i].toUpperCase();
+            result+=str[i];
+        }
+      campo.value = result;
+        //return result; //return(result);
+    }
+
     function letras(campo){
       campo.value=campo.value.toUpperCase();
     }
@@ -82,8 +92,21 @@
             confirmar('EL RADICADO NO EXISTE! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
           }else{
             $('#contenedor').empty();
+            eliminarVariable();
+            calcular(0);
+            $('#prorroga').prop('checked', false); 
+            $('#revalidacion').prop('checked', false); 
+            $('#Subdivision').prop('checked', false); 
 
-            var JSONdata    = JSON.parse(data); //parseo la informacion
+            // $('#cargoBasico').val(0);
+            // $('#cargoVariable').val(0);
+            // $('#subExpen').val(0);
+            // $('#iva').val(0);
+            // $('#total').val(0);
+            // $('#estampillas').val(0);
+            // $('#totalExpensas').val(0);
+
+            var JSONdata = JSON.parse(data); //parseo la informacion
 
             // alert(JSONdata[0].filas);
 
@@ -98,32 +121,46 @@
             if (JSONdata[0].objetivo_id == 2) {
 
               $('#prorroga_2').val(salarioMensual);
-              $('#prorroga').attr("checked", "checked");
+              $('#prorroga').prop('checked', true); 
               $('#vis_0').empty();
               calcular(parseInt(0));
             }
             else if (JSONdata[0].objetivo_id == 4) {
               $('#revalidacion_2').val(salarioMensual);
-              $('#revalidacion').attr("checked", "checked");
+            $('#revalidacion').prop('checked', true); 
               $('#vis_0').empty();
               calcular(parseInt(0));
             }
 
+            var vis = false;
+            var dot = false;
             for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
-              // console.log(JSONdata[0].tipos_usos[r][r+1]);
+              console.log(JSONdata[0].tipos_usos[r][r+1]);
+              if (JSONdata[0].tipos_usos[r][r+1] == 'Vivienda') {
+                vis=true;
+              }
+              else if (JSONdata[0].tipos_usos[r][r+1] == 'Institucional') {
+                dot=true;
+              }
+            }
+            if (!vis) {
+              $('#vis_0').empty();
+            }else if (!dot) {
+              $('#dot_0').empty();
             }
 
             var bandera = true;
+            var cantidadLicencias = JSONdata[0].tipos_licencias.length;
 
-            for (var j = 0; j < JSONdata[0].tipos_licencias.length ; j++) {
+            for (var j = 0; j < cantidadLicencias ; j++) {
               var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
               var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
               var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
-              alert(licencia+modalidad);
+              // alert(licencia+modalidad);
               if (licencia+modalidad == 'SubdivicionUrbana' || licencia+modalidad == 'SubdivicionRural'  ) {
-                alert('entro al if de SUBDIVISION022222')
+                // alert('entro al if de SUBDIVISION022222');
                 $('#Subdivision_2').val(salarioMensual);
-                $('#Subdivision').attr("checked", "checked");
+                $('#Subdivision').prop('checked', true); 
                 calcular(parseInt(0));
               }
               else if(licencia+modalidad == 'OtrasAjuste de Cotas'){
@@ -133,7 +170,21 @@
                 $('#vis_0').empty();
                 calcular(parseInt(0));
 
+              }else if(licencia+modalidad == 'Concepto de Norma'){
+                var valorConceptoNorma = concepto_norma(salarioMensual);
+
+                $('#concepto_norma_2').val(valorCota);
+                $('#concepto_norma').attr("checked", "checked");
+                calcular(parseInt(0));
+
+              }else if(licencia+modalidad == 'UrbanizacionModificacion Planos Urbanisticos'){
+                // alert('entro A Modificacion');
+                $('#modificacion_planos_2').val(salarioMensual);
+                $('#modificacion_planos').attr("checked", "checked");
+                calcular(parseInt(0));
+
               }else{
+                alert(licencia+modalidad);
                 elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
                 // alert(elem);
                 $('#contenedor').append(elem);
@@ -143,17 +194,6 @@
 
         }
       });
-    }
-
-    function validate(campo){
-        var result="";
-        var str = campo.value.split('');
-        for(i=0; i<=str.length-1; i++) {
-            str[i] = str[i].toUpperCase();
-            result+=str[i];
-        }
-      campo.value = result;
-        //return result; //return(result);
     }
 
   </script>
@@ -187,7 +227,7 @@
     var factor_M = 0.938;
 
     function factores(opcion) {
-      console.log($(opcion).attr('type'));
+      // console.log($(opcion).attr('type'));
 
       var tipo = $(opcion).attr('id');
       var tipoUso = tipo.split("_");
@@ -226,62 +266,83 @@
           totalVariable = ((cargoVariable * factor_I_o) * factor_J(factor_Q, modo)) * factor_M ;
         }
       }
+      if ($('#vivienda_vis').prop('checked')) {
+        $("#"+tipo+ "_2").val(totalVariable/2);
+        totalBasico = Math.round(totalBasico)
+        $("#"+tipo+ "_0").val(totalBasico/2);
+      }else{
+        $("#"+tipo+ "_2").val(totalVariable);
+        totalBasico = Math.round(totalBasico)
+        $("#"+tipo+ "_0").val(totalBasico);
+      }
 
-      $("#"+tipo+ "_2").val(totalVariable);
-
-      calcular(totalBasico, 1);
+      calcular(totalBasico);
       
     }
 
-    function subsidio(check) {
-      var basico = $('#cargoBasico').val();
-      // alert(basico);
+    function subsidioVIS(check) {
       if ($(check).prop('checked')) {
-        basico = basico / 2;
         // alert('lo esta dividiendo');
-        basico = basico.toString().replace('.', '');
-        // alert(basico);
-        $(".variable").each(function(){
+        $(".vivienda").each(function(){
+          var campo = $(this).attr('id').split("_2");
+          var base = $('#'+campo[0]+'_0').val();
+          base = base / 2;
+          $('#'+campo[0]+'_0').val(base);
+
           var temp = parseInt($(this).val());
           temp = temp / 2;
           $(this).val(temp);
         });
       }
       else {
-        basico = basico * 2;
         // alert('lo esta multiplicando');
-        basico = basico.toString().replace('.', '');
-        // alert(basico);
-        $(".variable").each(function(){
+        $(".vivienda").each(function(){
+          var campo = $(this).attr('id').split("_2");
+          var base = $('#'+campo[0]+'_0').val();
+          base = base * 2;
+          $('#'+campo[0]+'_0').val(base);
+
           var temp = parseInt($(this).val());
           temp = temp * 2;
           $(this).val(temp);
         });
       }
 
-      calcular(parseInt(basico));
+      calcular(parseInt(0));
 
     }
 
     function cargoBasico() {
        var tempFactor_Q=0;
+       var cargoB
       //quizas toque determinar si la prioridad a vivienda entre los usos en caso de iguales
-      $(".cargoBasico1").each(function(){
+      $(".cargoBasico").each(function(){
         // alert('entro al ciclo');
         var dato = $(this).val();
         // alert(dato);
         if (dato >= tempFactor_Q) {
           tempFactor_Q = dato;
+          var idCampo = $(this).attr('id');
+        // alert(idCampo);
+          cargoB = $('#'+ idCampo +'_0').val().replace('.', "");
+          console.log('---------//---------------//----------------');
+          console.log(cargoB)
+          console.log('---------//---------------//----------------');
         }
       });
-      return tempFactor_Q;
+      return cargoB;
+
     }
 
-    function calcular(total_Basico) {
+    function calcular(total_Basicoss) {
 
       // alert(total_Basico + ' / '+ total_Variable);
       var total_Variable = sumarVariable();
-
+      var total_Basico = parseInt(cargoBasico());
+      if(isNaN(total_Basico)){
+        total_Basico=0;
+      }
+      // alert(cargoBasico());
       var subtotalExpensas = total_Variable + total_Basico;
       // alert(subtotalExpensas);
 
@@ -293,11 +354,10 @@
       
       var totalExpensas = total + estampillas;
 
-      // alert(total_Basico);
       total_Basico = FormtearNumeros(Math.round(total_Basico));
       total_Variable = FormtearNumeros(Math.round(total_Variable));
       subtotalExpensas = FormtearNumeros(Math.round(subtotalExpensas));
-      console.log(subtotalExpensas);
+      // console.log(subtotalExpensas);
       iva = FormtearNumeros(Math.round(iva));
       total = FormtearNumeros(Math.round(total));
       estampillas = FormtearNumeros(Math.round(estampillas));
@@ -322,6 +382,7 @@
         // alert(dato);
         if (dato >= tempFactor_Q) {
           tempFactor_Q = dato;
+          console.log($(this).attr('id'))
         }
       });
       return tempFactor_Q;
@@ -331,15 +392,19 @@
       var suma=0;
       $(".variable").each(function(){
         var temp = parseInt($(this).val());
-        // alert(temp);
         suma = suma + temp;
       });
       return suma;
     }
+    function eliminarVariable() {
+      $(".variable").each(function(){
+        $(this).val(0);
+      });
+    }
 
     function FormtearNumeros(valor) {
       valor+='';
-      console.log(valor);
+      // console.log(valor);
       var num = valor.replace(/\./g,'');
       if(!isNaN(num)){
         num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
@@ -394,6 +459,11 @@
       return tempValor;
     }
 
+    function concepto_norma(salario) {
+      var tempValor = (salario /30 ) * 10 ;
+      return tempValor;
+    }
+
     function factor_I_vivienda(estrato) {
       var valor=0;
       switch (estrato) {
@@ -417,10 +487,12 @@
       return valor;
     }
 
-    function valor_Reloteo(factor_qq, salario) {
+    function valor_Reloteo(elemento, salario) {
       var tempValor=0;
+      var factor_qq = $(elemento).val();
+
       if (factor_qq >= 0.1 && factor_qq <= 1000) {
-        tempValor = (salario /2 ) * 2 ;
+        tempValor = (salario /30 ) * 2 ;
       }else if (factor_qq >= 1001 && factor_qq <= 5000) {
         tempValor = salario /2;
       }else if (factor_qq >= 5001 && factor_qq <= 10000) {
@@ -430,9 +502,71 @@
       }else if (factor_qq > 20000) {
         tempValor = salario * 2;
       }
-      return tempValor;
+      $('#reloteo_Reloteo_2').val(tempValor);
+      calcular(0);
     }
 
+    function valor_ph(elemento, salario) {
+      var tempValor=0;
+      var factor_qq = $(elemento).val();
+      //a la formula se aplica la logica de la abogada en la cual se elimina el primer rango de 5000 y se ponen inferior de 10000
+      if (factor_qq >= 0.1 && factor_qq <= 250) {
+        tempValor = salario  * 0.25 ;
+      }else if (factor_qq >= 251 && factor_qq <= 500) {
+        tempValor = salario * 0.5;
+      }else if (factor_qq >= 501 && factor_qq <= 1000) {
+        tempValor = salario * 1;
+      }else if (factor_qq >= 1001 && factor_qq <= 5000) {
+        tempValor = salario * 2;
+      }else if (factor_qq >= 5001 && factor_qq <= 10000) {
+        tempValor = salario * 3;
+      }else if (factor_qq >= 10001 && factor_qq <= 20000) {
+        tempValor = salario * 4;
+      }else if (factor_qq >= 20000) {
+        tempValor = salario * 5;
+      }
+      $('#ph_PropiedadHorizontal_2').val(tempValor);
+      calcular(0);
+    }
+
+    function valor_aprobacion_proyectos(elemento, salario) {
+      var tempValor=0;
+      var factor_qq = $(elemento).val();
+      //a la formula se aplica la logica de la abogada en la cual se elimina el primer rango de 5000 y se ponen inferior de 10000
+      if (factor_qq >= 0.1 && factor_qq <= 10000) {
+        tempValor = (salario /30 ) * 10 ;
+      }else if (factor_qq >= 10001 && factor_qq <= 15000) {
+        tempValor = (salario /30 ) * 20 ;
+      }else if (factor_qq >= 15001 && factor_qq <= 20000) {
+        tempValor = salario;
+      }else if (factor_qq >= 20001 && factor_qq <= 25000) {
+        tempValor = salario + ((salario /30 ) * 10) ;
+      }else if (factor_qq >= 25001 && factor_qq <= 30000) {
+        tempValor = salario + ((salario /30 ) * 20) ;
+      }else if (factor_qq >= 30001 && factor_qq <= 35000) {
+        tempValor = salario * 2;
+      }else if (factor_qq >= 35001 && factor_qq <= 40000) {
+        tempValor = salario * 2 + ((salario /30 ) * 10) ;
+      }else if (factor_qq >= 40001 && factor_qq <= 45000) {
+        tempValor = salario * 2 + ((salario /30 ) * 20) ;
+      }else if (factor_qq >= 45001 && factor_qq <= 50000) {
+        tempValor = salario * 3;
+      }else if (factor_qq >= 50001 && factor_qq <= 55000) {
+        tempValor = salario * 3 + ((salario /30 ) * 10) ;
+      }else if (factor_qq >= 55001 && factor_qq <= 60000) {
+        tempValor = salario * 3 + ((salario /30 ) * 20) ;
+      }else if (factor_qq >= 60001 && factor_qq <= 65000) {
+        tempValor = salario * 4;
+      }else if (factor_qq >= 65001 && factor_qq <= 70000) {
+        tempValor = salario * 4 + ((salario /30 ) * 10) ;
+      }else if (factor_qq >= 70001 && factor_qq <= 75000) {
+        tempValor = salario * 4 + ((salario /30 ) * 20) ;
+      }else if (factor_qq >= 75001) {
+        tempValor = salario * 5;
+      }
+      $('#Aprobacion_AprobacionPoryectosUrbanisticos_2').val(tempValor);
+      calcular(0);
+    }
 
     function getUsos(arrayUsos, modLicencia1, lic) {
       var modLicencia='';
@@ -443,19 +577,30 @@
       for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
         modLicencia+= modLicencia1[jr];
       }
+      //TERNER EN CUENTA VALIDAR QUIZAS DESDE AFUERA, YA QUE SE PUEDE REPETIR DEPENDIENDO DE LA CANTIDAD DE USUS QUE TENGA
+      // if (modLicencia == 'Reloteo' ) {
+      //   elemento+=" <div class='col-lg-12  input-group'>";
+      //     elemento+=" <div class='col-lg-1  input-group'></div>";
+      //     elemento+=" <div class='col-lg-2  input-group'>";
+      //       elemento+=" <h6>Reloteo</h6>";
+      //     elemento+=" </div>";
+      //     elemento+=" <div class='col-lg-3 input-group'>";
+      //       elemento+=" <input class='cargoBasico' name='reloteo_"+modLicencia+"' type='text' id='reloteo_"+modLicencia+"' size='10' onkeyup='valor_Reloteo(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+      //     elemento+=" <label for=''>M<sup>2</sup></label>";
+      //     elemento+=" </div>";
 
-      if (modLicencia == 'Reloteo' ) {
-
-      }else{
+      //     // /////////// datos reloteo_ /////////////
+      //       elemento+=" <input class='cargoBasico1' name='reloteo_"+modLicencia+"_0' type='hidden' id='reloteo_"+modLicencia+"_0' value='0' >";
+      //       elemento+=" <input class='modalidad' name='reloteo_"+modLicencia+"_1' type='hidden' id='reloteo_"+modLicencia+"_1' value='"+modLicencia+"' >";
+      //       elemento+=" <input class='variable' onchange'' name='reloteo_"+modLicencia+"_2' type='hidden' id='reloteo_"+modLicencia+"_2' value='0' >";
+      //       elemento+=" <input class='licencia' name='reloteo_"+modLicencia+"_3' type='hidden' id='reloteo_"+modLicencia+"_3' value='"+lic+"' >";
+      //     // elemento+=" </div>";
+      //   elemento+=" </div>";
+      // }else{
         console.log('--------------------------------------------------------------');
-        console.log(arrayUsos);
+        // console.log(arrayUsos);
         for (var js = 0; js < arrayUsos.length ; js++) {
-          // console.log(arrayUsos[js][js+1]);
-          // console.log(arrayUsos[js][1]);
-          // console.log(arrayUsos[js][2]);
-          // console.log(arrayUsos[js][3]);
-          // console.log(arrayUsos[js][4]);
-          // alert(arrayUsos[js]);
+          console.log(arrayUsos[js]);
           if (arrayUsos[js][1]=='Vivienda') {
             
             elemento+=" <div class='col-lg-12  input-group'>";
@@ -465,45 +610,41 @@
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
                 elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' > ";
-                elemento+=" <input class='cargoBasico1' name='vivienda_"+modLicencia+"_0' type='hidden' id='vivienda_"+modLicencia+"_0' value='0' >";
               elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
-              // elemento+=" <div class='col-lg-2 form-check'>";
-              //   elemento+=" <input name='vivienda_"+modLicencia+"_vs' type='checkbox' id='vivienda_"+modLicencia+"_vs' value='1' onclick='factores(this);'  > V.I.S";
-              // elemento+=" </div>";
 
               // /////////// datos vivienda_ /////////////
+                elemento+=" <input class='cargoBasico1' name='vivienda_"+modLicencia+"_0' type='hidden' id='vivienda_"+modLicencia+"_0' value='0' >";
                 elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
-                elemento+=" <input class='variable' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='variable vivienda' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
                 elemento+=" <input class='licencia' name='vivienda_"+modLicencia+"_3' type='hidden' id='vivienda_"+modLicencia+"_3' value='"+lic+"' >";
               // elemento+=" </div>";
             elemento+=" </div>";
           }
           else if (arrayUsos[js][2]=='Comercio y/o Servicios') {
-
-             elemento+=" <div class='col-lg-1  form-group'></div>";
-           elemento+=" <div class='col-lg-12  input-group'>";
+             
+            elemento+=" <div class='col-lg-1  form-group'></div>";
+            elemento+=" <div class='col-lg-12  input-group'>";
              elemento+=" <div class='col-lg-1  input-group'></div>";
              elemento+=" <div class='col-lg-2  input-group'>";
                elemento+=" <h6>Comercio</h6>";
              elemento+=" </div>";
              elemento+=" <div class='col-lg-3 input-group'>";
-               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onchange='factores(this);' size='10' >";
-               elemento+=" <input class='cargoBasico1' name='comercio_"+modLicencia+"_0' type='hidden' id='comercio_"+modLicencia+"_0' value='0' >";
+               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='factores(this);' size='10' >";
                elemento+=" <label for=''>M<sup>2</sup></label>";
              elemento+=" </div>";
 
              elemento+=" <div class='col-lg-2  input-group'></div>";
 
               // /////////// datos comercio_ /////////////
+               elemento+=" <input class='cargoBasico1' name='comercio_"+modLicencia+"_0' type='hidden' id='comercio_"+modLicencia+"_0' value='0' >";
                 elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
                 elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
                 elemento+=" <input class='licencia' name='comercio_"+modLicencia+"_3' type='hidden' id='comercio_"+modLicencia+"_3' value='"+lic+"' >";
 
-           elemento+=" </div>";
-
+            elemento+=" </div>";
           }else if (arrayUsos[js][3]=='Institucional') {
-            alert('entro al institucional_');
+            // alert('entro al institucional_');
             elemento+=" <div class='form-group col-lg-12 '></div>";
             elemento+=" <div class='col-lg-12 input-group'>";
               elemento+=" <div class='col-lg-1 input-group'></div>";
@@ -521,6 +662,7 @@
               elemento+=" </div>";
 
               // /////////// datos institucional_ /////////////
+               elemento+=" <input class='cargoBasico1' name='institucional_"+modLicencia+"_0' type='hidden' id='institucional_"+modLicencia+"_0' value='0' >";
               elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
               elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
                 elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
@@ -542,6 +684,7 @@
               elemento+=" <div class='col-lg-2 input-group'></div>";
 
               // /////////// datos industria_ /////////////
+               elemento+=" <input class='cargoBasico1' name='industria_"+modLicencia+"_0' type='hidden' id='industria_"+modLicencia+"_0' value='0' >";
                  elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
                 elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
                 elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
@@ -551,7 +694,7 @@
             
           }
         }
-      }
+      // }
       return elemento;
     }
   </script>
@@ -588,9 +731,87 @@
          //   elemento+=" </h5>                      ";
          // elemento+=" </div>";
        elemento+=" </div>";
-
+       console.log('-------------------------------------------');
+       console.log(modalidad); 
+       console.log('-------------------------------------------');
        elemento+=" <div class='form-group col-lg-12 '></div>";
-       elemento+= getUsos(arrayUsos, modalidad, licencia);
+       if (modalidad == 'Reloteo') {
+         elemento+=" <div class='col-lg-12  input-group'>";
+          elemento+=" <div class='col-lg-1  input-group'></div>";
+          elemento+=" <div class='col-lg-2  input-group'>";
+            elemento+=" <h6>Reloteo</h6>";
+          elemento+=" </div>";
+          elemento+=" <div class='col-lg-3 input-group'>";
+            elemento+=" <input class='cargoBasico' name='reloteo_"+modalidad+"' type='text' id='reloteo_"+modalidad+"' size='10' onkeyup='valor_Reloteo(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+          elemento+=" <label for=''>M<sup>2</sup></label>";
+          elemento+=" </div>";
+
+          // /////////// datos reloteo_ /////////////
+            elemento+=" <input class='cargoBasico1' name='reloteo_"+modalidad+"_0' type='hidden' id='reloteo_"+modalidad+"_0' value='0' >";
+            elemento+=" <input class='modalidad' name='reloteo_"+modalidad+"_1' type='hidden' id='reloteo_"+modalidad+"_1' value='"+modalidad+"' >";
+            elemento+=" <input class='variable' onchange'' name='reloteo_"+modalidad+"_2' type='hidden' id='reloteo_"+modalidad+"_2' value='0' >";
+            elemento+=" <input class='licencia' name='reloteo_"+modalidad+"_3' type='hidden' id='reloteo_"+modalidad+"_3' value='"+licencia+"' >";
+          // elemento+=" </div>";
+        elemento+=" </div>";
+       } 
+       else if (modalidad == 'Aprobacion Poryectos Urbanisticos') {
+        modalidad = modalidad.split(' ');
+        // alert(modalidad.length);
+        modalidad = modalidad[0]+modalidad[1]+modalidad[2];
+        // alert(modalidad);
+         elemento+=" <div class='col-lg-12  input-group'>";
+          elemento+=" <div class='col-lg-1  input-group'></div>";
+          elemento+=" <div class='col-lg-2  input-group'>";
+            elemento+=" <h6>Aprobacion Poryectos</h6>";
+          elemento+=" </div>";
+          elemento+=" <div class='col-lg-3 input-group'>";
+            elemento+=" <input class='cargoBasico' name='Aprobacion_"+modalidad+"' type='text' id='Aprobacion_"+modalidad+"' size='10' onkeyup='valor_aprobacion_proyectos(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+          elemento+=" <label for=''>M<sup>2</sup></label>";
+          elemento+=" </div>";
+
+          // /////////// datos Aprobacion_ /////////////
+            elemento+=" <input class='cargoBasico1' name='Aprobacion_"+modalidad+"_0' type='hidden' id='Aprobacion_"+modalidad+"_0' value='0' >";
+            elemento+=" <input class='modalidad' name='Aprobacion_"+modalidad+"_1' type='hidden' id='Aprobacion_"+modalidad+"_1' value='"+modalidad+"' >";
+            elemento+=" <input class='variable' onchange'' name='Aprobacion_"+modalidad+"_2' type='hidden' id='Aprobacion_"+modalidad+"_2' value='0' >";
+            elemento+=" <input class='licencia' name='Aprobacion_"+modalidad+"_3' type='hidden' id='Aprobacion_"+modalidad+"_3' value='"+licencia+"' >";
+          // elemento+=" </div>";
+        elemento+=" </div>";
+       } else if (modalidad == 'Propiedad Horizontal') {
+          if (cantidadLicencias > 1) {
+            var elemento2 = '';
+            elemento2+="<div class='col-lg-2 form-check'>";
+              elemento2+="<input name='propiedad_horizontal' type='checkbox' id='propiedad_horizontal' value='1' disabled='' onclick=''> Propiedad Horizontal";
+              elemento2+="<input class='variable' onchange'' name='propiedad_horizontal_2' type='hidden' id='propiedad_horizontal_2' value='0' >";
+            elemento2+="</div>";
+
+            $('#checks').append(elemento2);
+          }
+          else{
+            modalidad = modalidad.split(' ');
+            // alert(modalidad.length);
+            modalidad = modalidad[0]+modalidad[1];
+            // alert(modalidad);
+             elemento+=" <div class='col-lg-12  input-group'>";
+              elemento+=" <div class='col-lg-1  input-group'></div>";
+              elemento+=" <div class='col-lg-2  input-group'>";
+                elemento+=" <h6>Propiedad Horizontal</h6>";
+              elemento+=" </div>";
+              elemento+=" <div class='col-lg-3 input-group'>";
+                elemento+=" <input class='cargoBasico' name='ph_"+modalidad+"' type='text' id='ph_"+modalidad+"' size='10' onkeyup='valor_ph(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+              elemento+=" <label for=''>M<sup>2</sup></label>";
+              elemento+=" </div>";
+
+              // /////////// datos ph_ /////////////
+                elemento+=" <input class='cargoBasico1' name='ph_"+modalidad+"_0' type='hidden' id='ph_"+modalidad+"_0' value='0' >";
+                elemento+=" <input class='modalidad' name='ph_"+modalidad+"_1' type='hidden' id='ph_"+modalidad+"_1' value='"+modalidad+"' >";
+                elemento+=" <input class='variable' onchange'' name='ph_"+modalidad+"_2' type='hidden' id='ph_"+modalidad+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='ph_"+modalidad+"_3' type='hidden' id='ph_"+modalidad+"_3' value='"+licencia+"' >";
+              // elemento+=" </div>";
+            elemento+=" </div>";
+          }
+       }else{
+        elemento+= getUsos(arrayUsos, modalidad, licencia);
+       }
        elemento+=" <div class='form-group col-lg-12 '></div>";
        
      elemento+=" </div>";
@@ -671,13 +892,15 @@
                   </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>
-                  <div class="col-lg-12 input-group">
+                  <div class="col-lg-12 input-group" id="checks">
                     <div class="col-lg-2 input-group">
                       <h6 class="col-lg-4">Estrato</h6>
-                      <label name="estrato" id="estrato" class="col-form-label col-lg-3"><strong>----</strong></label>                  
                     </div> 
                     <div class='col-lg-2 form-check' id="vis_0">
-                      <input name='vivienda_vis' type='checkbox' id='vivienda_vis' value='1' onclick='subsidio(this);'  > V.I.S
+                      <input name='vivienda_vis' type='checkbox' id='vivienda_vis' value='1' onclick='subsidioVIS(this);'  > V.I.S
+                    </div>
+                    <div class='col-lg-2 form-check' id="dot_0">
+                      <input name='institucional_dot' type='checkbox' id='institucional_dot' value='1' onclick='subsidioVIS(this);'  > DOT
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='prorroga' type='checkbox' id='prorroga' value='1' disabled="" onclick=';'> Prorroga
@@ -692,8 +915,16 @@
                       <input class='variable' onchange'' name='cotas_2' type='hidden' id='cotas_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
-                      <input name='Subdivision' type='checkbox' id='Subdivision' value='1' disabled="" onclick=';'> Subdivision
+                      <input name='Subdivision' type='checkbox' id='Subdivision' value='1' disabled="" onclick=''> Subdivision
                       <input class='variable' onchange'' name='Subdivision_2' type='hidden' id='Subdivision_2' value='0' >
+                    </div>
+                    <div class='col-lg-2 form-check'>
+                      <input name='concepto_norma' type='checkbox' id='concepto_norma' value='1' disabled="" onclick=''> Conceptos de Norma
+                      <input class='variable' onchange'' name='concepto_norma_2' type='hidden' id='concepto_norma_2' value='0' >
+                    </div>
+                    <div class='col-lg-2 form-check'>
+                      <input name='modificacion_planos' type='checkbox' id='modificacion_planos' value='1' disabled="" onclick=''> Modificacion de Planos
+                      <input class='variable' onchange'' name='modificacion_planos_2' type='hidden' id='modificacion_planos_2' value='0' >
                     </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>

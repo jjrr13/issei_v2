@@ -1,3 +1,18 @@
+<?php 
+	function lista($nombre, $numero){
+		$contador = 163;
+		$j = 0;
+		$elemento = "<select name='".$nombre."' id='".$nombre.$numero."'>";
+		$elemento.= "<option value='0'>N/A</option>";
+		$elemento.= "<option value='170'>OK</option>";
+		while ($contador > $j) {
+			$j++;
+			$elemento.= "<option value='".($j)."'>".($j)."</option>";
+		}
+		$elemento.= "</select>";
+		echo $elemento;
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +30,9 @@
 		}
 		.text-left{
 		   text-align: left !important;
+		}
+		.negro{
+			background-color: #000000;
 		}
 	</style>
 </head>
@@ -51,25 +69,25 @@
 				<label for="" >Uso</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",5); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",6); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("usos",7); ?>
 			</td>
 		</tr>
 		<tr>
@@ -77,25 +95,20 @@
 				<label for="" >Indice de Ocupación</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocupacion",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocupacion",2); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -103,25 +116,21 @@
 				<label for="" >Indice de Construcción Base</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("base",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("base",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("base",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -129,25 +138,21 @@
 				<label for="" >Indice de Construcción Adicional</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("adicional",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("adicional",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("adicional",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -155,33 +160,30 @@
 				<label for="" >Indice de Construcción Tope</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("tope",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("tope",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("tope",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Andén</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -189,11 +191,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -206,8 +204,9 @@
 			<td class="text-left">
 				<label for="" >Aislamiento Posterior</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -221,22 +220,16 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Aislamiento Lateral</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -258,8 +251,7 @@
 			<td class="text-left">
 				<label for="" >Antejardín</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -267,11 +259,9 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -284,8 +274,9 @@
 			<td class="text-left">
 				<label for="" >Voladizo</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -299,11 +290,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -319,11 +306,9 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -336,8 +321,7 @@
 			<td class="text-left">
 				<label for="" >Aislamiento contra predios</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -345,17 +329,14 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -365,17 +346,14 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -391,8 +369,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -400,14 +377,11 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -417,8 +391,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -426,16 +399,12 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >UAR</label>
@@ -443,8 +412,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -452,14 +420,11 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -469,8 +434,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -478,14 +442,11 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -495,8 +456,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -504,14 +464,11 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -521,8 +478,7 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
 				<input type="checkbox">
@@ -530,14 +486,11 @@
 			<td>
 				<input type="checkbox">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
