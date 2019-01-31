@@ -13,10 +13,10 @@
 	$observaciones= "hola !";
 	$barrio = $_SESSION['predio']['BarrioActual'];
 
-	$sql = sprintf("SELECT barrio FROM barrio  WHERE id_barrio = '%s'", $barrio);
-	$result =$mysqli->query($sql);
-	$result_barrio = mysqli_fetch_assoc($result);
-	$totalrows_result_barrio = mysqli_num_rows($result);
+	// $sql = sprintf("SELECT barrio FROM barrio  WHERE id_barrio = '%s'", $barrio);
+	// $result =$mysqli->query($sql);
+	// $result_barrio = mysqli_fetch_assoc($result);
+	// $totalrows_result_barrio = mysqli_num_rows($result);
 
 	// echo "<script>console.log('".$nro_orden."')</script>";
 
@@ -25,17 +25,53 @@
 	setlocale(LC_ALL,"es_ES");
 	$fecha_radicacion = strftime("%A %d de %B del %Y");
 
+	// $pendientes.=' '. docFaltantesEspecificos($_SESSION['docEspecificos'], $_SESSION['documentos_especificos']);
+	// $pendientes.=' y en Generales: '. docFaltantesGenerales($_SESSION['docGenerales'], $_SESSION['documentos_generales']);
 
-	$entregados='<strong>Se entregaron los siguientes documentos: </strong>';
-	$faltantes='<strong>Quedaron pendientes los siguientes documentos: </strong>';
-	$entregados.=' '. docFaltantesEspecificos($_SESSION['docEspecificos'], $_SESSION['documentos_especificos']);
-	$entregados.=' y en Generales: '. docFaltantesGenerales($_SESSION['docGenerales'], $_SESSION['documentos_generales']);
+	// $faltantes='<strong>Se entregaron los siguientes documentos: </strong>';
+	// $pendientes='Los Pendientes son:';
+
+	$y='';
+	$v1= count($_SESSION['docEspecificos']);
+	$v2= count($_SESSION['documentos_generales']);
+	$v3= count($_SESSION['documentos_adicionales']);
+
+	if ($v1>0) {
+		$pendientes.=' '. docFaltantes($_SESSION['docEspecificos']);
+		$y= ' y ';
+	}
+	if ($v2>0) {
+		$pendientes.= $y.' en Generales: '. docFaltantes($_SESSION['documentos_generales']);
+	}
+
+	if (count($_SESSION['documentos_adicionales'])>1) {
+		$pendientes.=' adicionales le faltan: '. docFaltantes($_SESSION['documentos_adicionales']);
+		// $pendientes.= $v2;
+	}
+
+	if ($v1 > 0 || $v2 >0 || $v3 > 1) {
+		$necesitaDocumentos = '<strong>Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos: </strong>'.$v2;
+	}
+
 	$titulares = ponerTitulares($_SESSION['titulares_nombres']);
 	$nombre_tramitador = $_SESSION['tramitador_nombre'];
 	$radicado = $_SESSION['consecutivoNuevo'];
-	console($radicado);
 	$proyecto = $_SESSION['predio']['nombre'];
-	$direccion = $_SESSION['predio']['dirActual'] . ' ' . $result_barrio['barrio'] ;
+
+	function direccion($dir,$barrio){
+
+		$direccion = $_SESSION['predio']['dirActual'];
+
+		$i = 0; /* sólo para efectos ilustrativos */
+
+		foreach ($direccion as $v) {
+		    // echo "$direccion[$i] => $v.";
+		    $i++;
+		}
+	
+	}
+
+	// $direccion = $_SESSION['predio']['dirActual'] . ' ' . $result_barrio['barrio'];
 	$categoria = $_SESSION['categoria'];
 	$nombre_usuario = $_SESSION['nombre_usuario'];
 
@@ -61,7 +97,7 @@
 	}
 
 if (!empty($_SESSION['consecutivoNuevo'])) {
-	$algo=' Deberia de motrar el valor';
+	$algo=' Deberia de mostrar el valor';
 }
 else{
 	$algo=' llego vacia la session';
@@ -125,7 +161,7 @@ $ho = '
 				</div>
 				<div>
 					<strong>
-						<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$direccion.'</span>
+						<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$direccion[0].'</span>
 					</strong>
 				</div>
 			</div>
@@ -142,15 +178,15 @@ $ho = '
 						<span style="font-size: 12px !important;">DE CONFORMIDAD CON EL ARTICULO 2.2.6.1.2.3.2 DEL DECRETO 1077 DE 2015 SU PROYECTO CORRESPONDE A LA '.$oracion.'</span>
 					</strong>
 					<br>
-					<span style="font-size: 12px !important;">'.$entregados.'<br></span>
+					<span style="font-size: 12px !important;"><br></span>
 				</div>
 			</div>
 			<br>
 			<div style="text-align: justify;">
 				<div>
-					<span style="font-size: 12px !important;">Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos:
+					<span style="font-size: 12px !important;">'.$necesitaDocumentos.'
 					</span>
-					<span style="font-size: 12px !important;"><br>'.$faltantes.'<br></span>
+					<span style="font-size: 12px !important;"><br>'.$pendientes.'<br></span>
 				</div>
 			</div>
 			<br>
@@ -201,8 +237,8 @@ $mpdf = new Mpdf(['format' => 'letter', 'margin_left' => 30, 'margin_right' => 3
 // $mpdf->SetWatermarkText('CU1');
 // $mpdf->showWatermarkText = true;
 //Marca de agua imagen
-$mpdf->SetWatermarkImage('img/logo.png',0.2,'F');
-$mpdf->showWatermarkImage = true;
+// $mpdf->SetWatermarkImage('img/logo.png',0.2,'F');
+// $mpdf->showWatermarkImage = true;
 
 $mpdf->WriteHTML($ho);
 $mpdf->Output();
@@ -212,20 +248,37 @@ function ponerTitulares($array)
 	$values="";
 	$cant = count($array)-1;
 
-	foreach ($array as $key => $value) {
+	if ($cant <= 1) {
+		$values = $array[0];
+	}
+	else{
+		foreach ($array as $key => $value) {
 
-		$titular = $array[$key];
+			$titular = $array[$key];
 
-		if ($cant != $key) {
-			$values.="$titular, ";
-		}
-		else{
-			$values.="y $titular ";
+			if ($cant != $key) {
+				$values.="$titular, ";
+			}
+			else{
+				$values.="y $titular ";
+			}
 		}
 	}
 	return $values;
 }
 
+function docFaltantes($array)
+{
+	$doc="";
+	$cant = count($array)-1;
+
+	foreach ($array as $key => $value) {
+		for ($j=1; $j < count($array[$key]); $j++) { 
+			$doc.= $array[$key][$j]."; ";
+		}
+	}
+	return $doc;
+}
 
 // var_dump($_SESSION['docGenerales']);
 

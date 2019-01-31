@@ -78,7 +78,7 @@
         $idLic = $_SESSION['licencias'][$j];
         // echo $idLic.' / ';
 
-        $sql2="SELECT DISTINCT rd.id_documento, rd.nombre FROM radicado_documentos AS rd
+        $sql2="SELECT DISTINCT rd.id_documento, rd.nombre as nombre FROM radicado_documentos AS rd
               INNER JOIN lic_doc AS l ON l.id_doc = rd.id_documento
               WHERE l.id_lic ='$idLic'";
 
@@ -88,13 +88,14 @@
           // var_dump($datos2);
           //capturamos todos los valores con su id dentro de un arraya
           array_push($documentos, $datos2); 
+          array_push($_SESSION['docEspecificos'], $datos2['nombre']); 
         }
       }
           // var_dump($documentos);
           //quitamos los elementos repetidos del array
           $documentos = array_unique($documentos, SORT_REGULAR  );
           // var_dump($documentos);
-      $_SESSION['docEspecificos'] = $documentos;
+      // $_SESSION['docEspecificos'] = $documentos;
       // var_dump($_SESSION['docEspecificos']);
           //recorremos el nuevo arraya
       foreach ($documentos as $key => $value) {
@@ -133,9 +134,10 @@
     <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
-        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+        <button type="button" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp" onclick="limpiar();"> Cancelar</button>
       </form>
     </div>
+
     <div class="col-lg-4">
       <input type="text" hidden="" name="btn_docs" value="Docs">
       <button type="button" name="btn_docs" id="btn_docs" value="Docs" class=" btn btn-danger agregar col-lg-6" >

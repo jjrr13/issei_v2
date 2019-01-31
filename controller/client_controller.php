@@ -3,19 +3,6 @@
 $ruta="../";
 	
 include_once $ruta."cx/cx.php";
-scripts($ruta);
-// echo "
-// <link rel='stylesheet' href='".$ruta."cx/demo/libs/bundled.css'>
-// 			<link rel='stylesheet' href='".$ruta."cx/demo/demo.css'>
-// 			<link rel='stylesheet' type='text/css' href='".$ruta."cx/jquery-confirm.css'>
-// 			<!-- Este SCRIPT ejecuta todos los alerts -->
-// 			<script src='".$ruta."cx/demo/libs/bundled.js'></script>
-// 			<script src='".$ruta."cx/demo/demo.js'></script>
-// 			<script type='text/javascript' src='".$ruta."cx/jquery-confirm.js'></script>
-
-
-// ";
-
 
 //Esta función calula el digito de verificación para el documento nit.
 function calcularDV($nit) {
@@ -62,7 +49,7 @@ $dv_bd = calcularDV($_POST['nit']);
 
 		// echo "<script>alert('". $_POST['nit'] ." / ". $_POST['tdocumento']." / ". $_POST['nombre']." / ". $_POST['apellido']." / ". $_POST['ciudad']." / ". $_POST['direccion']." / ".$_POST['barrio']." / ".$_POST['otro']." / ".$_POST['estrato']." / ".$_SESSION['id_usuario']." / $fecha_registro ')</script>";
 
-/////////////////////////// consulta si existe el cliente ///////////////////////////////////////
+		/////////////////////////// consulta si existe el cliente ///////////////////////////////////////
 		$nit = $_POST['nit'];
 		$sql="SELECT nit FROM terceros where nit = $nit";
 
@@ -123,112 +110,52 @@ $dv_bd = calcularDV($_POST['nit']);
 		                    GetSQLValueString($fecha_registro, "datetime")); 
 			}
 
-
 			$result = $mysqli->query($sql); 
 
-	        if ($result) {
+      if ($result) {
+      	if (isset($_POST['submitRadica']) ) {
+	    		echo 3;
+	    	}
+	    	else{
+					scripts($ruta);
+	      	$_SESSION['nit']= $_POST['nit'];
 
-	        	$_SESSION['nit']= $_POST['nit'];
+      		confirmar('OPERACION EXITOSA! <br> CONTINUEMOS', 'fa fa-check-square', 'green', '../modules/quotes');
+	    	}
 
-		        echo "<script  type='text/javascript'>
-		                $.confirm({
-		                        title: '',
-		                        content: 'OPERACION EXITOSA! <br> CONTINUEMOS',
-		                        icon: 'fa fa-check-square',
-		                        animation: 'scale',
-		                        closeAnimation: 'scale',
-		                        theme: 'supervan',
-		                        type: 'green',
-		                        opacity: 0.5,
-		                        buttons: {
-		                            'ok': {
-		                                text: 'OK',
-		                                btnClass: 'btn-blue',
-		                                action: function () {
-		                                    console.log('tambien por aqui');
-		                                    window.location.replace('../modules/quotes');
-		                                }
-		                            }, 
-		                        }
-		                    });
-		                </script>";
-	        }else{
 
-	        	$_SESSION['nit']= $_POST['nit'];
+        
+      }else{
+      	if (isset($_POST['submitRadica']) ) {
+	    		echo 2;
+	    	}
+	    	else{
+					scripts($ruta);
+	      	$_SESSION['nit']= $_POST['nit'];
 
-		        echo "<script  type='text/javascript'>
-		                $.confirm({
-		                        title: '',
-		                        content: 'ERROR 300! CONSULTE A SU DPTO DE SISTEMAS',
-		                        icon: 'fa fa-check-square',
-		                        animation: 'scale',
-		                        closeAnimation: 'scale',
-		                        theme: 'supervan',
-		                        type: 'red',
-		                        opacity: 0.5,
-		                        buttons: {
-		                            'ok': {
-		                                text: 'OK',
-		                                btnClass: 'btn-blue',
-		                                action: function () {
-		                                    console.log('tambien por aqui');
-		                                    window.location.replace('../modules/client');
-		                                }
-		                            }, 
-		                        }
-		                    });
-		                </script>";
-	        }
-		     
+	      	confirmar('ERROR 300! CONSULTE A SU DPTO DE SISTEMAS', 'fa fa-check-square', 'red', '../modules/client');
+	    	}
+
+       
+      }
 		    
 		}else{
-			echo "<script  type='text/javascript'>
-	                $.confirm({
-	                    title: '',
-	                    content: 'EL CLIENTE YA EXISTE, CONSULTE DPTO DE SISTEMAS!',
-	                    icon: 'fa fa-window-close ',
-	                    animation: 'scale',
-	                    closeAnimation: 'scale',
-	                    theme: 'supervan',
-	                    type: 'red',
-	                    opacity: 0.5,
-	                    buttons: {
-	                        'ok': {
-	                            text: 'OK',
-	                            btnClass: 'btn-blue',
-	                            action: function () {
-	                                console.log('tambien por aqui2');
-	                                window.location.replace('../modules/client');
-
-	                            }
-	                        }, 
-	                    }
-	                });
-	            </script>"; 
+			if (isset($_POST['submitRadica']) ) {
+	    	echo 1;
+    	}
+    	else{
+				scripts($ruta);
+	    	confirmar('EL CLIENTE YA EXISTE, CONSULTE DPTO DE SISTEMAS!', 'fa fa-window-close', 'red', '../modules/client');
+    	}
 		}
-    }else{
-    	echo "<script  type='text/javascript'>
-	            $.confirm({
-	                title: '',
-	                content: 'RECUERDE QUE LOS CAMPOS CON (*) SON OBLIGATORIOS!',
-	                icon: 'fa fa-window-close ',
-	                animation: 'scale',
-	                closeAnimation: 'scale',
-	                theme: 'supervan',
-	                type: 'red',
-	                opacity: 0.5,
-	                buttons: {
-	                    'ok': {
-	                        text: 'OK',
-	                        btnClass: 'btn-blue',
-	                        action: function () {
-	                            console.log('tambien por aqui2');
-	                            window.location.replace('../modules/client');
+  }else{
+  	if (isset($_POST['submitRadica']) ) {
+    	echo 0;
+  	}
+  	else{
+			scripts($ruta);
+    	confirmar('RECUERDE QUE LOS CAMPOS CON (*) SON OBLIGATORIOS!', 'fa fa-window-close', 'red', '../modules/client');
+  	}
 
-	                        }
-	                    }, 
-	                }
-	            });
-	        </script>"; 
-    }
+  }
  ?>

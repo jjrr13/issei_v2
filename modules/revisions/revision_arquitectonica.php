@@ -141,56 +141,11 @@ function addObservacion(boton) {
           <h3>Pedientes</h3>
         </strong>
       </center>
-      <div class="col-lg-12 input-group">
-        <div class="col-lg-1 offset-1 input-group">
-          <input type="checkbox" name="document_acs" class="form-check-input" value="1">
-        </div> 
-        <div class="col-lg-10 input-group">
-          <label for="document_acs" class="form-check-label">Acta de Calibración de Surtidores</label>
+      <!-- Panel de Revisión Arquitectonica -->
+        <div id="" class="container tab-pane active"><br>
+          <?php include_once('checklist.php'); ?>
         </div>
-      </div>                     
-      <div class="col-lg-12 input-group">
-        <div class="col-lg-1 offset-1 input-group">
-          <input type="checkbox" name="document_ccb" class="form-check-input" value="1">
-        </div> 
-        <div class="col-lg-10 input-group">
-          <label for="document_ccb" class="form-check-label">Certificado de Calibración de Balanza</label>
-        </div>
-      </div>   
-      <div class="col-lg-12 input-group">
-        <div class="col-lg-1 offset-1 input-group">
-          <input type="checkbox" name="document_ccrv" class="form-check-input" value="1">
-        </div> 
-        <div class="col-lg-10 input-group">
-          <label for="document_ccrv" class="form-check-label">Certificado de Calibración de Recipiente Volumetrico</label>
-        </div>
-      </div> 
-      <div class="col-lg-12 input-group">
-        <div class="col-lg-1 offset-1 input-group">
-          <input type="checkbox" name="document_ccc" class="form-check-input" value="1">
-        </div> 
-        <div class="col-lg-10 input-group">
-          <label for="document_ccc" class="form-check-label">Certificado de Camara y Comercio</label>
-        </div>
-      </div>
-      <div class="col-lg-12 form-group"></div>
-      <div class="col-lg-12 form-group"></div>      
-      <div class="col-lg-12 form-group" id="obs_1">
-        <label for="diractual" class="col-form-label col-lg-4">Observaciones</label>
-        <div class="col-lg-12 input-group borde">
-          <div class="col-lg-12 input-group">
-            <div class="col-lg-12 input-group">
-              <input type="text" name="obs_1[]" class="form-control col-lg-12" placeholder="OBSERVACION 1">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12 input-group" >
-        <div class="col-lg-11"></div>
-        <button type="button" class=" btn btn-success agregar col-lg-1" id="_1" onclick="addObservacion(this);">
-          <span class="fa fa-plus-circle "></span> 
-        </button>
-      </div>
+        <!-- // Panel de Revisión Arquitectonica -->
       <div class="col-lg-12 input-group" >
         <button type="button" class=" btn btn-danger col-lg-2 " >
           Guardar

@@ -15,7 +15,6 @@ include_once ('../../functions/globales.js');
   }
 
   a {
-  color: black!important;
   text-decoration: none;
   background-color: transparent;
   background: #f4f6f9;

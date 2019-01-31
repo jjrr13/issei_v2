@@ -128,6 +128,7 @@ $tipo_area = $_SESSION['id_area'];
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               
           <?php 
           $acceso_actividades1 = array(1);//cada id del tipo de usuario futuro aqui
           $acceso_actividades2 = array(10);//cada id a futuro aqui
@@ -195,7 +196,7 @@ $tipo_area = $_SESSION['id_area'];
             </a>
           </li>           
           <?php  }
-          $acceso_sistemas1 = array(1);//cada id del tipo de usuario futuro aqui
+          $acceso_sistemas1 = array(1, 3, 4);//cada id del tipo de usuario futuro aqui
           $acceso_sistemas2 = array(10);//cada id del area del usuario futuro aqui
 
           if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
@@ -225,8 +226,14 @@ $tipo_area = $_SESSION['id_area'];
           </li>
 
          <?php }
-
-         if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
+         // echo "
+         //  <script>
+         //    alert('".$tipo_usuario."')
+         //  </script>
+         // ";
+            $acceso_radicacion1 = array(1, 2);//cada id del tipo de usuario futuro aqui
+            $acceso_radicacion2 = array(10, 6);//cada id del area del usuario futuro aqui
+         if(in_array($tipo_usuario, $acceso_radicacion1) && in_array($tipo_area, $acceso_radicacion2)){
           ?>
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>radication/" class="nav-link">
@@ -238,8 +245,9 @@ $tipo_area = $_SESSION['id_area'];
           </li>  
 
           <?php } 
-
-          if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
+          $acceso_liquidacion1 = array(1, 3);//cada id del tipo de usuario futuro aqui
+           $acceso_liquidacion2 = array(10, 3);//cada id del area del usuario futuro aqui
+          if(in_array($tipo_usuario, $acceso_liquidacion1) && in_array($tipo_area, $acceso_liquidacion2)){
           ?>
 
           <li class="nav-item">

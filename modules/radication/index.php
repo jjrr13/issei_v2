@@ -38,7 +38,7 @@ if(file_exists("../../cx/cx.php")){
   }
 
   a {
-  color: black!important;
+  /*color: black!important;*/
   text-decoration: none;
   background-color: transparent;
   background: #f4f6f9;
@@ -317,6 +317,26 @@ if(file_exists("../../cx/cx.php")){
       confirmar('LA CANTIDAD DE NUEMEROS ESTA ERRADA', 'fa fa-window-close', 'red', 'ejecutar');
 
     }
+  }
+  function limpiar() {
+    
+    $.ajax({
+      type: "POST",
+      url: "../../controller/radication_controller.php",
+      data: "limpia='limp'",
+      dataType:"html",
+      success: function(data) 
+      {
+           //alert(data);
+        window.location.replace('../radication');
+      },
+      error: function( jqXHR, textStatus, errorThrown ){
+          console.log(textStatus);
+          alert(textStatus);
+      }
+    });
+    
+
   }
 </script>
 <!-- <script src="../../plugins/jquery/jquery.min.js"></script> -->

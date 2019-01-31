@@ -24,6 +24,53 @@ $(document).ready(function() {
         
     });
 });
+
+const crearCliente = (form) => {
+    $( "#formularioCliente" ).submit(function( event ) {
+      // alert( "Handler for .submit() called." );
+      event.preventDefault();
+    // alert(form);
+    });
+
+    const datos = $("#formularioCliente").serialize();
+    
+    console.log(datos);
+    // alert(datos);
+    $.ajax({   
+      cache: false,                     
+      type: "POST",                 
+      url: "../../controller/client_controller.php",                    
+      data: datos,
+      error: function(request, status, error)
+      {
+        console.log(error);
+        alert("ocurrio un error "+request.responseText);
+      },
+      success: function(data)            
+      {
+        $("#modal").colorbox.close();
+
+        if (data == 0) {
+          confirmar('RECUERDE QUE LOS CAMPOS CON (*) SON OBLIGATORIOS!', 'fa fa-window-close', 'red', 'S');
+        }
+        else if (data == 1) {
+          confirmar('EL CLIENTE YA EXISTE, CONSULTE DPTO DE SISTEMAS!', 'fa fa-window-close', 'red', 'S');
+        }
+        else if (data == 2) {
+          confirmar('ERROR 300! CONSULTE A SU DPTO DE SISTEMAS', 'fa fa-check-square', 'red', 'S');
+        }
+        else if (data == 3) {
+          confirmar('OPERACION EXITOSA! <br> CONTINUEMOS', 'fa fa-check-square', 'green', 'S');
+        }
+
+
+      }
+    });
+  };
+
+function cerrarModal(boton) {
+  $("#modal").colorbox.close();
+}
 </script>
 
     <!-- Content Header (Page header) -->
@@ -33,7 +80,7 @@ $(document).ready(function() {
           <div class="card-header">
             <center><h3 class="card-title">CREAR CLIENTE</h3></center>
           </div>
-          <form class="form-horizontal" action="../../controller/client_controller.php" method="post" >
+          <form class="form-horizontal" id="formularioCliente" action="../../controller/client_controller.php" method="post" >
             <div class="card-body">
               <div class="row form-group">
                 <div class="form-group col-lg-12 "></div>
@@ -138,7 +185,7 @@ $(document).ready(function() {
                 <div class="form-group col-lg-12 "></div>
                 <div class="col-lg-12  input-group">
                   <div class="col-lg-6 input-group">
-                    <label for="tarjeta" class="col-form-label col-lg-4 " style="padding-right: 0px;">Tarjeta Profesional <p class="requerido">*</p></label>
+                    <label for="tarjeta" class="col-form-label col-lg-4 " style="padding-right: 0px;">Tarjeta Profesional</label>
                     <input type="text" class="form-control col-lg-8"  id="tarjeta" name="tarjeta" placeholder="Numeros y Letras" onChange="letras(this)" >
                   </div>
                   <div class="col-lg-5  input-group">
@@ -181,11 +228,12 @@ $(document).ready(function() {
             <div class="card-footer input-group">
               <div class="form-group col-lg-12 "></div>
               <div class="col-lg-4 offset-3">
-                <button class="btn btn-danger" type="submit" name="submit" id="submit" >Crear</button>
+                <input type="hidden" name="submitRadica" value="submitRadica">
+                <button class="btn btn-danger" type="submit" name="submitRadica" id="submit" value="9" onclick="crearCliente(this);">Crear</button>
               </div>
               <div class="col-lg-2">
                 <input type="hidden" name="cancelar">
-                <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
+                <button type="button" class="btn btn-default" id="cancelar" name="cancelar" value="9" onclick="cerrarModal(this);" >Cancelar</button>
               </div>
               <div class="form-group col-lg-12 "></div>
             </div>

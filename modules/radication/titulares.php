@@ -1,11 +1,11 @@
 <script type="text/javascript">
 
-function validaCorreo(valor){
-    var permitidos = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // alert('aprimio');
-    var valid = permitidos.test(valor);
-    return valid;
-}
+  function validaCorreo(valor){
+      var permitidos = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      // alert('aprimio');
+      var valid = permitidos.test(valor);
+      return valid;
+  }
   var cantTitular= 9;
 
   function addTitulares1(){
@@ -239,7 +239,7 @@ function validaCorreo(valor){
     <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
-        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+        <button type="button" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp" onclick="limpiar();"> Cancelar</button>
       </form>
     </div>
     <div class="col-lg-4">
