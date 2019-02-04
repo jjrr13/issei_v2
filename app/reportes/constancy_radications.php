@@ -13,12 +13,8 @@
 	$observaciones= "hola !";
 	$barrio = $_SESSION['predio']['BarrioActual'];
 
-	// $sql = sprintf("SELECT barrio FROM barrio  WHERE id_barrio = '%s'", $barrio);
-	// $result =$mysqli->query($sql);
-	// $result_barrio = mysqli_fetch_assoc($result);
-	// $totalrows_result_barrio = mysqli_num_rows($result);
+	
 
-	// echo "<script>console.log('".$nro_orden."')</script>";
 
 	// $conver_hora = date("g:i a",strtotime($orden['hora']));
 	// $hora = $orden['hora'];
@@ -30,46 +26,50 @@
 
 	// $faltantes='<strong>Se entregaron los siguientes documentos: </strong>';
 	// $pendientes='Los Pendientes son:';
+	$pendientes='';
+	$necesitaDocumentos='';
+	$tiempo = '';
 
-	$y='';
-	$v1= count($_SESSION['docEspecificos']);
-	$v2= count($_SESSION['documentos_generales']);
-	$v3= count($_SESSION['documentos_adicionales']);
+	if (empty($_SESSION['docCompletos'])) {
+		$y='';
+		$v1= count($_SESSION['documentos_generales']);
+		$v2= count($_SESSION['documentos_especificos']);
+		$v3= count($_SESSION['documentos_adicionales']);
 
-	if ($v1>0) {
-		$pendientes.=' '. docFaltantes($_SESSION['docEspecificos']);
-		$y= ' y ';
+		if ($v1>0) {
+			$pendientes.=' '. docFaltantes($_SESSION['documentos_especificos']);
+			$y= ' y ';
+		}
+		if ($v2>0) {
+			$pendientes.= '<strong> En Generales:</strong> '. docFaltantes($_SESSION['documentos_generales']);
+		}
+
+		if ($v3>0) {
+			$pendientes.=' <strong>Adicionales le faltan:</strong> '. docFaltantes($_SESSION['documentos_adicionales']);
+			// $pendientes.= $v2;
+		}
+
+		if ($v1 > 0 || $v2 >0 || $v3 > 0) {
+			$necesitaDocumentos = '<strong>Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos: </strong>';
+			$tiempo = 'DE ACUERDO CON EL ARTÍCULO 2.2.6.1.2.1.2 DEL DECRETO 1077 DE 2015, SE INFORMA QUE A PARTIR DE LA FECHA DE RADICACIÓN USTED CUENTA CON  TREINTA (30) DÍAS HÁBILES PARA COMPLETAR LA DOCUMENTACIÓN, DE LO CONTRARIO SU SOLICITUD SERÁ DESISTIDA POR MEDIO DE ACTO ADMINISTRATIVO.';
+		}
 	}
-	if ($v2>0) {
-		$pendientes.= $y.' en Generales: '. docFaltantes($_SESSION['documentos_generales']);
-	}
-
-	if (count($_SESSION['documentos_adicionales'])>1) {
-		$pendientes.=' adicionales le faltan: '. docFaltantes($_SESSION['documentos_adicionales']);
-		// $pendientes.= $v2;
-	}
-
-	if ($v1 > 0 || $v2 >0 || $v3 > 1) {
-		$necesitaDocumentos = '<strong>Así que para que el proyecto quede radicado en legal y debida forma usted debe presentar los siguientes documentos: </strong>'.$v2;
+	else{
+			$necesitaDocumentos = '<strong>Usted ha aportado todos los ducumentos necesarios para el continuo proceso. </strong>';
 	}
 
 	$titulares = ponerTitulares($_SESSION['titulares_nombres']);
 	$nombre_tramitador = $_SESSION['tramitador_nombre'];
-	$radicado = $_SESSION['consecutivoNuevo'];
+	// 76001-1-19-XXXX
+	$rd = str_split($_SESSION['consecutivoNuevo']);
+	$radicado = $rd[0].$rd[1].$rd[2].$rd[3].$rd[4]."-".$rd[5]."-".$rd[6].$rd[7]."-".$rd[8].$rd[9].$rd[10].$rd[11];
+
+
 	$proyecto = $_SESSION['predio']['nombre'];
 
-	function direccion($dir,$barrio){
+	$direccion= direcciones($_SESSION['predio']['dirActual'] , $_SESSION['predio']['BarrioActual']);
 
-		$direccion = $_SESSION['predio']['dirActual'];
 
-		$i = 0; /* sólo para efectos ilustrativos */
-
-		foreach ($direccion as $v) {
-		    // echo "$direccion[$i] => $v.";
-		    $i++;
-		}
-	
-	}
 
 	// $direccion = $_SESSION['predio']['dirActual'] . ' ' . $result_barrio['barrio'];
 	$categoria = $_SESSION['categoria'];
@@ -96,12 +96,12 @@
 			break;
 	}
 
-if (!empty($_SESSION['consecutivoNuevo'])) {
-	$algo=' Deberia de mostrar el valor';
-}
-else{
-	$algo=' llego vacia la session';
-}
+// if (!empty($_SESSION['consecutivoNuevo'])) {
+// 	// $algo=' Deberia de mostrar el valor';
+// }
+// else{
+// 	$algo=' llego vacia la session';
+// }
 
 	$descripcion = "LICENCIA DE CONSTRUCCIÓN MODALIDAD AMPLIACION 2 PISOS Y LICENCIA DE RECONOCIMIENTO DE LA EXISTENCIA DE UNA EDIFICACIÓN 2 PISOS";
 
@@ -121,12 +121,10 @@ $ho = '
 			<table border="1">
 				<thead>
 				  <tr>
-					<th class="" style="border-bottom: 0px solid #C1CED9;">
+					<th class="" style="border-bottom: 1px solid #C1CED9;">
 						<div class="">
 							<div>
 								<strong>
-									<span style="font-size: 12px !important; color: #000000;">CURADURIA URBANA UNO SANTIAGO DE CALI</span>
-									<br>
 									<span style="font-size: 12px !important; color: #000000;">CONSTANCIA DE RADICACIÓN</span>
 								</strong>
 							</div>
@@ -146,7 +144,7 @@ $ho = '
 					</strong>
 				</div>
 				<div>
-					<span style="font-size: 12px !important;">Atn. Arquitecto '.$nombre_tramitador.'</span>
+					<span style="font-size: 12px !important;">Atn. Tramitador '.$nombre_tramitador.'</span>
 				</div>
 				<div>
 					<span style="font-size: 12px !important;">La Ciudad</span> 
@@ -161,17 +159,12 @@ $ho = '
 				</div>
 				<div>
 					<strong>
-						<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$direccion[0].'</span>
+						<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$direccion.'</span>
 					</strong>
 				</div>
 			</div>
 			<br>
-			<div style="text-align: left;">
-				<div>
-					<span style="font-size: 12px !important;">CONSTANCIA DE RADICACIÓN PARA '.$descripcion.'</span> 
-				</div>
-			</div>
-			<br>
+			
 			<div style="text-align: justify;">
 				<div>
 					<strong>
@@ -193,7 +186,7 @@ $ho = '
 			<div style="text-align: justify;">
 				<div>
 					<strong>
-						<span style="font-size: 12px !important;">DE ACUERDO CON EL ARTÍCULO 2.2.6.1.2.1.2 DEL DECRETO 1077 DE 2015, SE INFORMA QUE A PARTIR DE LA FECHA DE RADICACIÓN USTED CUENTA CON  TREINTA (30) DÍAS HÁBILES PARA COMPLETAR LA DOCUMENTACIÓN, DE LO CONTRARIO SU SOLICITUD SERÁ DESISTIDA POR MEDIO DE ACTO ADMINISTRATIVO.</span>
+						<span style="font-size: 12px !important;">'.$tiempo.'</span>
 					</strong>
 				</div>
 			</div>
@@ -218,7 +211,7 @@ $ho = '
 						<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firma de quien radica__________________________.</span>
 					</strong>
 					<br>
-					<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nombre_usuario.$algo.'</span>
+					<span style="font-size: 12px !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$nombre_usuario.'</span>
 				</div>
 			</div>
 		</main>
@@ -267,19 +260,70 @@ function ponerTitulares($array)
 	return $values;
 }
 
-function docFaltantes($array)
-{
-	$doc="";
-	$cant = count($array)-1;
+function direcciones($dir,$barrio){
+	global $mysqli;
+	$diresciones="";
+	$cant = count($dir)-1;
 
-	foreach ($array as $key => $value) {
-		for ($j=1; $j < count($array[$key]); $j++) { 
-			$doc.= $array[$key][$j]."; ";
-		}
+	$result =$mysqli->query($sql);
+	$result_barrio = mysqli_fetch_assoc($result);
+	$totalrows_result_barrio = mysqli_num_rows($result);
+
+	foreach ($dir as $key => $value) {
+		// $dato = $array[$key];
+		$barrio = $barrio[$key];
+		$sql = sprintf("SELECT barrio as nombre FROM barrio  WHERE id_barrio = '%s'", $barrio);
+
+    $result = $mysqli->query($sql);
+
+    while($datos1 = mysqli_fetch_assoc($result)  ) {  
+    	if ($cant != $key) {
+      	$doc.= $dir[$key]. " ". $datos1['nombre']."; ";
+    	}
+    	else{
+      	$doc.= $dir[$key]. " ". $datos1['nombre'].". ";
+    	}
+    }
+
 	}
 	return $doc;
 }
 
+function docFaltantes($array)
+{
+	global $mysqli;
+	$doc="";
+	$cant = count($array)-1;
+
+	foreach ($array as $key => $value) {
+		// $dato = $array[$key];
+		$idDoc = $array[$key];
+		$sql="SELECT DISTINCT rd.nombre as nombre FROM radicado_documentos AS rd
+              WHERE rd.id_documento ='$idDoc'";
+
+      $result = $mysqli->query($sql);
+      while($datos = mysqli_fetch_assoc($result)  ) {  
+      	if ($cant != $key) {
+        	$doc.= utf8_encode($datos['nombre']) ."; ";
+      	}
+      	else{
+        	$doc.= utf8_encode($datos['nombre']) .". ";
+      	}
+      }
+
+	}
+	return $doc;
+}
+
+unset($_SESSION['radicar']);
+	unset( $_SESSION['objetoTramite']);
+	unset( $_SESSION['usos']);
+	unset( $_SESSION['licencias']);
+	unset( $_SESSION['predio']);
+	unset( $_SESSION['vecinos']);
+	unset( $_SESSION['titulares']);
+	$_SESSION['radicar']=130;
+	unset( $_SESSION['responsables']);
 // var_dump($_SESSION['docGenerales']);
 
 
@@ -344,49 +388,3 @@ function docFaltantesGenerales($array, $array2)
 	return $values;
 }
 
-// echo "<pre>";
-// console(var_dump($_SESSION['objetoTramite']));
-// echo "<HR>";
-// console(var_dump($_SESSION['usos']));
-// echo "<HR>";
-// console(var_dump($_SESSION['licencias']));
-// echo "<HR>";
-// console(var_dump($_SESSION['predio']));
-// echo "<HR>";
-// console(var_dump($_SESSION['vecinos']));
-// echo "<HR>";
-// console(var_dump($_SESSION['titulares']));
-// echo "<HR>";
-// console(var_dump($_SESSION['responsables']));
-// echo "<HR>";
-// console(var_dump($_SESSION['documentos_generales']));
-// echo "<HR>";
-// console(var_dump($_SESSION['documentos_especificos']));
-// echo "<HR>";
-
-// echo "<HR>";
-// console(var_dump($_SESSION['licencias']));
-// echo "<HR>";
-// console(var_dump($_SESSION['usos']));
-// echo "<HR>";
-// console(var_dump($_SESSION['vecinos']));
-// echo "<HR>";
-// console(var_dump($_SESSION['titulares']));
-// echo "<HR>";
-// console(var_dump($_SESSION['responsables']));
-// echo "</pre>";
-
-
-// unset($_SESSION['radicar']);
-// unset( $_SESSION['objetoTramite']);
-// unset( $_SESSION['usos']);
-// unset( $_SESSION['licencias']);
-// unset( $_SESSION['predio']);
-// unset( $_SESSION['vecinos']);
-// unset( $_SESSION['titulares']);
-// $_SESSION['radicar']=130;
-// unset( $_SESSION['responsables']);
-// unset( $_SESSION['titulares_nombres']);
-// unset( $_SESSION['tramitador_nombre']);
-// unset( $_SESSION['categoria']);
-// unset( $_SESSION['consecutivoNuevo']);

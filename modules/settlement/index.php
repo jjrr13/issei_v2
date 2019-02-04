@@ -71,6 +71,8 @@
       campo.value=campo.value.toUpperCase();
     }
 
+    var bandera = true;
+
     function buscarRad(valor) {
       var radicado = '760011' + $('#buscaRadicado').val();
       // alert(radicado);
@@ -87,6 +89,7 @@
         success: function(data)            
         {
           console.log(data);
+          bandera = true;
 
           if (data == 3) {
             confirmar('EL RADICADO NO EXISTE! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
@@ -99,15 +102,7 @@
             $('#revalidacion').prop('checked', false);
             $('#Subdivision').prop('checked', false);
             $('#cotas').prop('checked', false);
-            $('#modificacion_planos').attr("checked", false);
-
-            // $('#cargoBasico').val(0);
-            // $('#cargoVariable').val(0);
-            // $('#subExpen').val(0);
-            // $('#iva').val(0);
-            // $('#total').val(0);
-            // $('#estampillas').val(0);
-            // $('#totalExpensas').val(0);
+            $('#modificacion_planos').prop('checked', false);
 
             var JSONdata = JSON.parse(data); //parseo la informacion
 
@@ -127,6 +122,8 @@
               $('#prorroga_2').val(salarioMensual);
               $('#prorroga').prop('checked', true); 
               $('#vis_0').empty();
+
+              bandera = false;
               calcular(parseInt(0));
             }
             else if (JSONdata[0].objetivo_id == 4) {
@@ -153,7 +150,7 @@
               $('#dot_0').empty();
             }
 
-            var bandera = true;
+            
             var cantidadLicencias = JSONdata[0].tipos_licencias.length;
 
             for (var j = 0; j < cantidadLicencias ; j++) {
@@ -186,7 +183,7 @@
               }else if(licencia+modalidad == 'UrbanizacionModificacion Planos Urbanisticos'){
                 // alert('entro A Modificacion');
                 $('#modificacion_planos_2').val(salarioMensual);
-                $('#modificacion_planos').attr("checked", "checked");
+                $('#modificacion_planos').prop('checked', true);
                 calcular(parseInt(0));
 
               }else if(licencia+modalidad == 'OtrasPropiedad Horizontal' && cantidadLicencias > 1){
@@ -241,6 +238,7 @@
     var cargoFijo= salarioMensual * 0.40;
     var cargoVariable = salarioMensual * 0.80;
     var factor_M = 0.938;
+    var estampillas=0;
 
     function factores(opcion) {
       // console.log($(opcion).attr('type'));
@@ -333,7 +331,6 @@
       }
 
       calcular(parseInt(0));
-
     }
 
     function cargoBasico() {
@@ -380,8 +377,8 @@
       var iva = subtotalExpensas * 0.19;
       var total = subtotalExpensas + iva;
 
-      var estampillas=0;
-      if (subtotalExpensas >= 0.1){ estampillas = 5800;}
+      
+      if (subtotalExpensas >= 0.1 && bandera == true){ estampillas = 6000;}
       
       var totalExpensas = total + estampillas;
 
@@ -852,6 +849,8 @@
         elemento+=" </div>";
        } else if (modalidad == 'Propiedad Horizontal') {
           // console.log(cantidadLicencias);
+          bandera = false;
+          console.log(bandera + ' aqui informacion de la bandera');
           modalidad = modalidad.split(' ');
           // alert(modalidad.length);
           modalidad = modalidad[0]+modalidad[1];

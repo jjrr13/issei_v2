@@ -18,7 +18,6 @@
     
       cantTitular++;
       var otroTitular = "";
-
       otroTitular +="<div class='col-lg-12 input-group borde'>";
       otroTitular +="<div class='col-lg-12 input-group'>";
       otroTitular   +="<div class='col-lg-5 input-group'>";
@@ -26,50 +25,60 @@
       otroTitular     +="<input type='text' name='nit[]' id='nit"+cantTitular+"' class='form-control col-lg-8' placeholder='NIT'>";
       otroTitular     +="<button type='button' name='burcar"+cantTitular+"' value='"+cantTitular+"' onclick='buscarNit(this)' class='btn btn-danger left'>Buscar</button>";
       otroTitular   +="</div>";
-      otroTitular   +="<div class='col-lg-7 input-group opcion"+cantTitular+"' hidden id='opcion"+cantTitular+"' >";
-      otroTitular     +="<label for='nombre"+cantTitular+"' class='col-form-label col-lg-3'>NOMBRE</label>";
-      otroTitular      +="<input type='text' readonly id='nombre"+cantTitular+"' name='nombre[]' class='form-control col-lg-9' placeholder='NOMBRE'>";
+      otroTitular   +="<div class='col-md-6 input-group opcion"+cantTitular+"' hidden id='opcion"+cantTitular+"' >";
+      otroTitular     +="<label for='tarjeta"+cantTitular+"' class='col-form-label col-md-4'>TARJETA</label>";
+      otroTitular      +="<input type='text' id='tarjeta"+cantTitular+"' name='tarjeta[]' class='form-control col-md-6' placeholder='Numeros y Letras' onChange='letras(this)'>";
       otroTitular   +="</div>";
       otroTitular +="</div>";
+      otroTitular +="<div class='col-lg-12 form-group'></div>"
+      otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>"
+      otroTitular   +="<div class='col-md-5 input-group' >"
+      otroTitular     +="<label for='nombre"+cantTitular+"' class='col-form-label col-md-4'>NOMBRE</label>"
+      otroTitular     +="<input type='text' id='nombre"+cantTitular+"' name='nombre[]' class='form-control col-md-9' placeholder='NOMBRE'>"
+      otroTitular   +="</div>"
+      otroTitular   +="<div class='col-md-6 input-group '>"
+      otroTitular     +="<label for='apellido"+cantTitular+"' class='col-form-label col-md-4'>APELLIDO</label>"
+      otroTitular     +="<input type='text' id='apellido"+cantTitular+"' name='apellido[]' class='form-control col-md-10' placeholder='APELLIDO'>"
+      otroTitular   +="</div>"
+      otroTitular +=" </div>"
       otroTitular +="<div class='col-lg-12 form-group'></div>";
       otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
       otroTitular   +="<div class='col-lg-5 input-group'>";
       otroTitular     +="<label for='celular"+cantTitular+"' class='col-form-label col-lg-4'>CELULAR</label>";
       otroTitular     +="<input type='text' id='celular"+cantTitular+"' name='celular[]' class='form-control col-lg-8' placeholder='CELULAR'>";
       otroTitular   +="</div>";
-      otroTitular   +="<div class='col-lg-7 input-group'>";
-      otroTitular     +="<label for='email"+cantTitular+"' class='col-form-label col-lg-3'>EMAIL</label>";
+      otroTitular   +="<div class='col-lg-6 input-group'>";
+      otroTitular     +="<label for='email"+cantTitular+"' class='col-form-label col-lg-4'>EMAIL</label>";
       otroTitular     +="<input type='email' id='email"+cantTitular+"' name='email[]' class='form-control col-lg-9' placeholder='EMAIL'>";
       otroTitular   +="</div>";
       otroTitular +="</div>";
       otroTitular +="<div class='col-lg-12 form-group'></div>";
       otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
-      otroTitular +="<div class='col-lg-5 input-group'>";
-      otroTitular +="<label for='dirTitular"+cantTitular+"' class='col-form-label col-lg-4'>Dirección </label>";
-      otroTitular +="<input type='text'  placeholder='DIRECCION' id='dirTitular"+cantTitular+"' name='dirTitular[]' class='form-control col-lg-8'>";
-      otroTitular +="</div>";
-      otroTitular +="<div class='col-lg-6 input-group'>";
-      otroTitular +="<label for='barrioTitular"+cantTitular+"' class='col-form-label col-lg-4'>Barrio </label>";
-      otroTitular +="<select style='width: 66%;' class='js-example-basic-single form-control col-md-12' id='barrioTitular"+cantTitular+"' name='barrioTitular"+cantTitular+"' >";
-      otroTitular +="<option class='clasestado'>SELECCIONAR</option>";
-      otroTitular +="<option class='clasestado' value='487'>OTRO BARRIO</option>";
+      otroTitular   +="<div class='col-lg-5 input-group'>";
+      otroTitular     +="<label for='dirTitular"+cantTitular+"' class='col-form-label col-lg-4'>Dirección </label>";
+      otroTitular     +="<input type='text'  placeholder='DIRECCION' id='dirTitular"+cantTitular+"' name='dirTitular[]' class='form-control col-lg-8'>";
+      otroTitular   +="</div>";
+      otroTitular   +="<div class='col-lg-6 input-group'>";
+      otroTitular     +="<label for='barrioTitular"+cantTitular+"' class='col-form-label col-lg-4'>Barrio </label>";
+      otroTitular     +="<select style='width: 66%;' class='js-example-basic-single form-control col-md-12' id='barrioTitular"+cantTitular+"' name='barrioTitular"+cantTitular+"' >";
+      otroTitular       +="<option class='clasestado'>SELECCIONAR</option>";
+      otroTitular       +="<option class='clasestado' value='487'>OTRO BARRIO</option>";
 
         <?php 
         $query = $mysqli-> query ('SELECT * FROM barrio WHERE id_barrio NOT IN (487) ORDER BY barrio ASC');
         while ($valores = mysqli_fetch_array($query)) { ?>
-      otroTitular +="<option class='clasestado' value='<?=$valores['id_barrio']; ?>'><?=$valores['barrio']; ?> </option>";
+      otroTitular       +="<option class='clasestado' value='<?=$valores['id_barrio']; ?>'><?=$valores['barrio']; ?> </option>";
                   <?php   } ?>
-      otroTitular +="</select>";
-      otroTitular +="</div>";
+      otroTitular     +="</select>";
+      otroTitular   +="</div>";
       otroTitular +="</div>";
       otroTitular +="<div class='col-lg-12 form-group'></div>";
       otroTitular +="<div class='col-lg-12 input-group opcion"+cantTitular+"' hidden>";
-      otroTitular +="<div class='col-lg-11'></div>";
-      otroTitular +="<button type='button' class='col-lg-2  btn btn-primary ' id='actualiza' value='"+cantTitular+"' onclick='actualizarDatos(this)'>Actualiza";
-      otroTitular +="<span class='fa fa-exchange '></span>";
-      otroTitular +="</button>";
+      otroTitular   +="<div class='col-lg-11'></div>";
+      otroTitular     +="<button type='button' class='col-lg-2  btn btn-primary ' id='actualiza' value='"+cantTitular+"' onclick='actualizarDatos(this)'>Actualiza";
+      otroTitular       +="<span class='fa fa-exchange '></span>";
+      otroTitular     +="</button>";
       otroTitular +="</div>";
-
 
       otroTitular +="</div>";
       $('#titulares').append(otroTitular);
@@ -105,16 +114,18 @@
     var valor = $(btn).val();
     var nit = $('#nit'+valor).val();
     if (nit.length > 5 && nit.length <= 11) {
-      // var nombre = $('#nombre'+valor).val();
+      var apellido = $('#apellido'+valor).val();
+      var nombre = $('#nombre'+valor).val();
       var celular = $('#celular'+valor).val();
       var email = $('#email'+valor).val();
       var dir = $('#dirTitular'+valor).val();
+      var tarjeta = $('#tarjeta'+valor).val();
       // alert(dir);
       var id_barrio = $('#barrioTitular'+valor).val(); 
       $.ajax({
         type: "POST",
         url: "../../controller/radication_controller.php",
-        data: "nit="+ nit+'&celular='+ celular +'&email='+email+'&direccion='+ dir + '&id_barrio='+ id_barrio,
+        data: "nit="+ nit+'&celular='+ celular +'&email='+email+'&direccion='+ dir + '&id_barrio='+ id_barrio+ '&nombre='+ nombre+ '&apellido='+ apellido+ '&tarjeta='+ tarjeta,
         dataType:"html",
         success: function(data) 
         {
@@ -148,9 +159,20 @@
           <input type="text" value="1113524482" name="nit[]" id="nit9" class="form-control col-lg-8" placeholder="NIT">
           <button type="button" name="burcar9" value="9" onclick="buscarNit(this)" class="btn btn-danger left">Buscar</button>
         </div>
-        <div class="col-lg-7 input-group opcion9" hidden id="opcion9" >
-          <label for="nombre9" class="col-form-label col-lg-3">NOMBRE</label>
-          <input readonly type="text" id="nombre9" name="nombre[]" class="form-control col-lg-9" placeholder="NOMBRE">
+        <div class="col-lg-5 input-group opcion9" hidden id="opcion9">
+          <label for="tarjeta9" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
+          <input type="text" class="form-control col-lg-8"  id="tarjeta9" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        </div>
+      </div>
+      <div class="col-lg-12 form-group"></div>
+      <div class="col-lg-12 input-group opcion9" hidden>
+        <div class="col-md-5 input-group" >
+          <label for="nombre9" class="col-form-label col-md-4">NOMBRE</label>
+          <input type="text" id="nombre9" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        </div>
+        <div class="col-md-6 input-group ">
+          <label for="apellido9" class="col-form-label col-md-4">APELLIDO</label>
+          <input type="text" id="apellido9" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
         </div>
       </div>
       <div class="col-lg-12 form-group"></div>
@@ -159,8 +181,8 @@
           <label for="celular9" class="col-form-label col-lg-4">CELULAR</label>
           <input type="text" id="celular9" name="celular[]" class="form-control col-lg-8" placeholder="CELULAR">
         </div>
-        <div class="col-lg-7 input-group">
-          <label for="email9" class="col-form-label col-lg-3">EMAIL</label>
+        <div class="col-lg-6 input-group">
+          <label for="email9" class="col-form-label col-lg-4">EMAIL</label>
           <input type="email" id="email9" name="email[]" class="form-control col-lg-9" placeholder="EMAIL">
         </div>
       </div>
@@ -172,7 +194,6 @@
         </div>
         <div class="col-lg-6 input-group">
           <label for="barrioTitular9" class="col-form-label col-lg-4">Barrio </label>
-          <!-- <input type="text"  value="algo aqui" name="barrioTitular9" class="form-control col-lg-7"> -->
           <select style="width: 66%;" class="js-example-basic-single form-control col-md-12" id="barrioTitular9" name="barrioTitular9" >
             <option class="clasestado">SELECCIONAR</option>
             <option class="clasestado" value="487">OTRO BARRIO</option>
@@ -186,10 +207,7 @@
           </select>
         </div>
         <div class="form-group col-lg-12 "></div>
-        <div class="col-lg-5 input-group">
-          <label for="tarjeta9" class="col-form-label col-lg-3 " style="padding-right: 0px;">TARJETA</label>
-          <input type="text" class="form-control col-lg-8"  id="tarjeta9" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
-        </div>
+        
         <div class="col-lg-5  input-group">
           <label for="profesion9" class="col-form-label col-lg-4 ">PROFESION</label>
           <select class="form-control" id="profesion9" name="profesion[]" >

@@ -254,7 +254,9 @@ else if (!empty($_POST['btn_docs'])   ) {
 					if (!empty($_SESSION['responsables'])) {
 						if ( (!empty($_POST['documentos_generales']) || !empty($_POST['documentos_especificos'])) || !empty($_POST['docCompletos']) ) {
 						
-								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
+								// $_SESSION['documentos_generales'] = $_POST['documentos_generales'];
+								$_SESSION['docCompletos'] = (!empty($_POST['docCompletos'])) ? $_POST['docCompletos'] : '';
+								$_SESSION['documentos_generales'] = (!empty($_POST['documentos_generales'])) ? $_POST['documentos_generales'] : '';
 								$_SESSION['documentos_especificos'] = (!empty($_POST['documentos_especificos'])) ? $_POST['documentos_especificos'] : '';
 								$_SESSION['documentos_adicionales'] = (!empty($_POST['documentos_adicionales'])) ? $_POST['documentos_adicionales'] : '';
 
@@ -350,22 +352,47 @@ else if (!empty($_POST['btn_docs'])   ) {
 	echo $respuesta;
 	// header('Location: ../modules/radication');
 }
-else if (!empty($_POST['nit']) && isset($_POST['celular']) && isset($_POST['email']) && isset($_POST['direccion']) && isset($_POST['id_barrio']) ) {
+else if (!empty($_POST['nit']) && isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['celular']) && isset($_POST['email']) && isset($_POST['direccion']) && isset($_POST['id_barrio']) ) {
 	
 	$resultado;
 	$nit = $_POST['nit'];
+	$nombre = $_POST['nombre'];
+	$apellido = $_POST['apellido'];
 	$celular = $_POST['celular'];
 	$email = $_POST['email'];
 	$direccion = $_POST['direccion'];
 	$id_barrio = $_POST['id_barrio'];
 
-	$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s  WHERE nit = %s ",
-		GetSQLValueString($celular, "text"),
-		GetSQLValueString($email, "text"),
-		GetSQLValueString($direccion, "text"),
-		GetSQLValueString($id_barrio, "int"),
-		GetSQLValueString($nit, "int")
-	);
+	$sql='';
+	if (!empty($_POST['tarjeta'])) {
+		$tarjeta = $_POST['tarjeta'];
+
+		$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s, nombre = %s, apellido = %s, tarjeta_profesional = %s   WHERE nit = %s ",
+			GetSQLValueString($celular, "text"),
+			GetSQLValueString($email, "text"),
+			GetSQLValueString($direccion, "text"),
+			GetSQLValueString($id_barrio, "int"),
+			GetSQLValueString($nombre, "text"),
+			GetSQLValueString($apellido, "text"),
+			GetSQLValueString($tarjeta, "text"),
+			GetSQLValueString($nit, "int")
+		);
+	}
+	else{
+		$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s, nombre = %s, apellido = %s WHERE nit = %s ",
+			GetSQLValueString($celular, "text"),
+			GetSQLValueString($email, "text"),
+			GetSQLValueString($direccion, "text"),
+			GetSQLValueString($id_barrio, "int"),
+			GetSQLValueString($nombre, "text"),
+			GetSQLValueString($apellido, "text"),
+			GetSQLValueString($nit, "int")
+		);
+	}
+
+
+
+
 
 		$result =$mysqli->query($sql);
 
@@ -375,7 +402,7 @@ else if (!empty($_POST['nit']) && isset($_POST['celular']) && isset($_POST['emai
 else if (!empty($_POST['nit'])) {
 	
 	$nit = $_POST['nit'];
-	$sql=sprintf("SELECT nombre, apellido, celular, email, direccion, id_barrio FROM terceros WHERE nit = %s ",
+	$sql=sprintf("SELECT nombre, apellido, celular, email, direccion, id_barrio, tarjeta_profesional FROM terceros WHERE nit = %s ",
 		GetSQLValueString($nit, "int"));
 
 		$result =$mysqli->query($sql);
@@ -392,7 +419,8 @@ else if (!empty($_POST['nit'])) {
 							'celular'   => $datos['celular'],
 							'email'		=> $datos['email'],
 							'direccion'	=> $datos['direccion'],
-							'id_barrio'	=> $datos['id_barrio']
+							'id_barrio'	=> $datos['id_barrio'],
+							'tarjeta_profesional'	=> $datos['tarjeta_profesional']
 			);
 
 			echo json_encode($arrayjson);

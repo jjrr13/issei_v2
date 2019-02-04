@@ -80,7 +80,6 @@ if(file_exists("../../cx/cx.php")){
     opacity: 1;
     padding: 10px;
   }
-
 </style>
 
 <script type="text/javascript">
@@ -263,12 +262,16 @@ if(file_exists("../../cx/cx.php")){
             var email = JSONdata[0].email;
             var direccion = JSONdata[0].direccion;
             var id_barrio = JSONdata[0].id_barrio;
-
-            $('#nombre'+opcion).val(nombre+" "+apellido);
+            var tarjeta_profesional = JSONdata[0].tarjeta_profesional;
+            
+            // $('#nombre'+opcion).val(nombre+" "+apellido);
+            $('#nombre'+opcion).val(nombre);
+            $('#apellido'+opcion).val(apellido);
             $('#celular'+opcion).val(celular);
             $('#email'+opcion).val(email);
             $('#dirTitular'+opcion).val(direccion);
             $('#barrioTitular'+opcion).val(id_barrio).change();
+            $('#tarjeta'+opcion).val(tarjeta_profesional);
 
             $('.opcion'+opcion).each(function() {
               // alert($(this).val());
