@@ -6,11 +6,7 @@
     var dirActual = $('#dirActual_'+cantDirecciones).val();
     var barrioActual = $('#BarrioActual_'+cantDirecciones).val();
 
-    alert(barrioActual);
-
     if (dirActual.length >5 && barrioActual != 'SELECCIONAR' ) {
-
-    alert('entro al ifffffffffffffff');
 
       cantDirecciones++;
       var otraDireccion="";
@@ -88,6 +84,13 @@
     <div class="col-md-12">
       <label class="col-md-12 " style="color: red;">A = Avenida, C = Calle, K = Carrera, P = Pasaje, T = Transversal, D = Diagonal, N = Norte, O = Oeste</label>
     </div>
+     <div class="col-md-9 borde">
+      <label class="col-md-6 offset-3"><strong><u>Guia de Direcciones</u></label></strong>
+      <label class="col-md-6">A 2 BIS # 24A N - 25</label><label class="col-md-6">A 4 O # 6 O - 170</label>
+      <label class="col-md-6">C 56A # 42C2 - 35</label><label class="col-md-6">K 2 N # 22 - 103</label>
+      <label class="col-md-6">P 7F # 66 - 24</label><label class="col-md-6">T 2A # 1C - 14</label>
+      <label class="col-md-6">D 28C # 43A - 41</label><label class="col-md-6">A 2A con C 12 N (Cruces ejes viales)</label>
+    </div>
     <div class="col-lg-12 input-group borde">
       <div class="col-md-6 input-group">
           <label for="catastral_0" class="col-form-label col-lg-5">Nro. Catastral</label>
@@ -121,13 +124,7 @@
   </div>
   <!-- termina parte dinamica con js -->
   <div class="col-md-12 input-group ">
-    <div class="col-md-9 borde">
-      <label class="col-md-6 offset-3"><strong><u>Guia de Direcciones</u></label></strong>
-      <label class="col-md-6">A 2 BIS # 24A N - 25</label><label class="col-md-6">A 4 O # 6 O - 170</label>
-      <label class="col-md-6">C 56A # 42C2 - 35</label><label class="col-md-6">K 2 N # 22 - 103</label>
-      <label class="col-md-6">P 7F # 66 - 24</label><label class="col-md-6">T 2A # 1C - 14</label>
-      <label class="col-md-6">D 28C # 43A - 41</label><label class="col-md-6">A 2A con C 12 N (Cruces ejes viales)</label>
-    </div>
+   
     <div class="col-md-1 offset-2">
       <button type="button" class=" btn btn-success agregar col-lg-12" id="addDirecciones" name="adddir" onclick="add_Direcciones();">
         <span class="fa fa-plus-circle "></span> 
@@ -224,7 +221,7 @@
     <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
-        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+        <button type="button" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp" onclick="limpiar();"> Cancelar</button>
       </form>
     </div>
     <div class="col-lg-4">

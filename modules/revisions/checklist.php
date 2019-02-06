@@ -1,14 +1,14 @@
 <?php 
 	function lista($nombre, $numero){
 		$contador = 163;
-		$j = 0;
-		$elemento = "<select name='".$nombre."' id='".$nombre.$numero."'>";
+		$j = 1;
+		$elemento = "<select class='listas' name='".$nombre.$numero."' id='".$nombre.$numero."' onchange='enumerar(this);'>";
 		$elemento.= "<option value='0'>N/A</option>";
 		$elemento.= "<option value='170'>OK</option>";
-		while ($contador > $j) {
-			$j++;
+		// while ($contador > $j) {
+		// 	$j++;
 			$elemento.= "<option value='".($j)."'>".($j)."</option>";
-		}
+		// }
 		$elemento.= "</select>";
 		echo $elemento;
 	}
@@ -32,9 +32,50 @@
 		   text-align: left !important;
 		}
 		.negro{
-			background-color: #000000;
+			background-color: #585858;
 		}
+
+/*3351, 	'760011180995', 	'bloqueado', 	'2018-12-13 14:58:03'
+64500, 	'760011180995', 	50 ,	'2019-00002', 	'desistido'
+64598, 	'760011180995', 	50 ,	'2019-00002' ,	*/
 	</style>
+	<script>
+		var j=1;
+		function enumerar(selec) {
+			var elemento = $(selec).val();
+			console.log($(selec).val());
+
+			if (elemento == '170' || elemento == '0') {
+				alert('entro al if');
+			}
+			
+			var suma=0;
+      $(".listas").each(function(){
+      // $(".listas option[value='"+j+"']").each(function() {
+        var valor = $(this).val();
+        // console.log(valor);
+        if (valor == '0' || valor == '170') {
+        	var id = $(this).attr('id');
+        	$("#"+id+" option[value='"+j+"']").remove();
+	    		// $(this).remove();
+	    		var o = new Option("option text", j+1);
+					$(o).html(j+1);
+					$(this).append(o);
+        	// console.log((j+1) + ' entro al if');
+
+        	$("#"+id+" option[value='0']").attr("selected", true);
+	        // $(this).val(j+1);
+        }
+			});
+        
+      // });
+      
+				j++;
+      console.log('......................');
+      console.log(j);
+      console.log('......................');
+		}
+	</script>
 </head>
 <body>
 	<table>
@@ -186,18 +227,18 @@
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("anden",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("anden",2); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("anden",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("anden",4); ?>
 			</td>
 		</tr>
 		<tr>
@@ -209,16 +250,16 @@
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientopost",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientopost",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientopost",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientopost",4); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -232,19 +273,19 @@
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientolat",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientolat",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientolat",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientolat",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislamientolat",5); ?>
 			</td>
 		</tr>
 		<tr>
@@ -254,20 +295,20 @@
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("antejardin",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("antejardin",2); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("antejardin",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("antejardin",4); ?>
 			</td>
 		</tr>
 		<tr>
@@ -279,16 +320,16 @@
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("voladizo",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("voladizo",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("voladizo",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("voladizo",4); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -298,23 +339,23 @@
 				<label for="" >Cerramiento Antejardín</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("cerramientoantej",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("cerramientoantej",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("cerramientoantej",3); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("cerramientoantej",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("cerramientoantej",5); ?>
 			</td>
 		</tr>
 		<tr>
@@ -324,15 +365,15 @@
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislmientcpredios",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislmientcpredios",2); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("aislmientcpredios",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -344,22 +385,22 @@
 				<label for="" >Semisótano</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("semisotano",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("semisotano",2); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("semisotano",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("semisotano",4); ?>
 			</td>
 		</tr>
 		<tr>
@@ -367,15 +408,15 @@
 				<label for="" >Parqueadero Privados</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqueaderopriv",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqueaderopriv",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqueaderopriv",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -389,15 +430,15 @@
 				<label for="" >Parqueadero Visitantes</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqueaderovisi",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqueaderovisi",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqueaderovisi",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -410,15 +451,15 @@
 				<label for="" >UAR</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("uar",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("uar",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("uar",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -432,15 +473,15 @@
 				<label for="" >Area Comunal de Uso Privado</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacusoprovado",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacusoprovado",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacusoprovado",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -454,15 +495,15 @@
 				<label for="" >Area de Cesión de zonas verdes</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacesionzverdes",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacesionzverdes",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacesionzverdes",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -476,15 +517,15 @@
 				<label for="" >Area Cesión de Equipamiento</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacesione",1); ?>
 			</td>
 			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacesione",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areacesione",3); ?>
 			</td>
 			<td class="negro">
 			</td>
@@ -497,52 +538,46 @@
 			<td class="text-left">
 				<label for="" >Frente de Lote</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("flote",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("flote",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("flote",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("flote",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Dimensiones del Lote</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dlote",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dlote",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dlote",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dlote",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -550,51 +585,44 @@
 				<label for="" >Área del Lote</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("arealote",1); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Terreno Inclinado</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("terrenoincl",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("terrenoincl",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("terrenoincl",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("terrenoincl",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("terrenoincl",5); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("terrenoincl",6); ?>
 			</td>
 		</tr>
 		<tr>
@@ -602,25 +630,19 @@
 				<label for="" >Área construida primer piso</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areaconsprimerp",1); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -628,25 +650,19 @@
 				<label for="" >Área libre primer piso</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("arealibre",1); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -654,25 +670,19 @@
 				<label for="" >Área construida pisos restantes</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areaconsres",1); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -680,25 +690,19 @@
 				<label for="" >Área total construida</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("areatcons",1); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -706,25 +710,22 @@
 				<label for="" >Concordancia planos PH Vs ARQ.</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciapharq",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciapharq",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciapharq",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciapharq",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -732,129 +733,114 @@
 				<label for="" >Concordancia planos PH Vs Cuadro A.</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciaphca",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciaphca",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciaphca",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("concordanciaphca",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Dimension de patios</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dpatios",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dpatios",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dpatios",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dpatios",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Habitabilidad</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("habitabilidad",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("habitabilidad",2); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Iluminación</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("iluminacion",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("iluminacion",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("iluminacion",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("iluminacion",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+				<?php lista("iluminacion",5); ?>
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Ventilación /Buitrones Baños</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ventilacionba",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ventilacionba",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ventilacionba",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ventilacionba",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+				<?php lista("ventilacionba",5); ?>
 			</td>
 		</tr>
 		<tr>
@@ -862,129 +848,115 @@
 				<label for="" >Unidades</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("unidades",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("unidades",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("unidades",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Empates</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("empates",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("empates",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("empates",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("empates",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("empates",5); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("empates",6); ?>
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Espacio Público Vía</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("espaciopvia",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("espaciopvia",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("espaciopvia",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("espaciopvia",4); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("espaciopvia",5); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("espaciopvia",6); ?>
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Altura entre pisos</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
+			</td>
+			<td class="negro">
+			</td>
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("alturaentrep",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+				<?php lista("alturaentrep",2); ?>
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Servidumbre de vista</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrev",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrev",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrev",3); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrev",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -992,25 +964,22 @@
 				<label for="" >Sotano</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("sotano",1); ?>
+			</td>
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("sotano",2); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("sotano",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+				<?php lista("sotano",4); ?>
 			</td>
 		</tr>
 		<tr>
@@ -1018,51 +987,42 @@
 				<label for="" >Parqueadero Motos/Bicicletas</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqmotos",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqmotos",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("parqmotos",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Dimensión de parqueaderos</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dparqueadero",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dparqueadero",2); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -1070,155 +1030,130 @@
 				<label for="" >Minusvalidos</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("minusvalido",1); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("minusvalido",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("minusvalido",3); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("minusvalido",4); ?>
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Pendiente Rampa</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("prampa",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("prampa",2); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("prampa",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Servidumbre de paso</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrep",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrep",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("servidumbrep",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Escaleras ancho abanícos</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("escaleraaa",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("escaleraaa",2); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Escaleras Huella y Contrahuella</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("escalerahych",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("escalerahych",2); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("escalerahych",3); ?>
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
 			<td class="text-left">
 				<label for="" >Dimensíon de Habitaciones</label>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dimensionh",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("dimensionh",2); ?>
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
-			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+			<td class="negro">
 			</td>
 		</tr>
 		<tr>
@@ -1226,25 +1161,24 @@
 				<label for="" >Otros cerramientos</label>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocerramiento",1); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocerramiento",2); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocerramiento",3); ?>
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocerramiento",4); ?>
+			</td>
+			<td class="negro">
 			</td>
 			<td>
-				<input type="checkbox">
+				<?php lista("ocerramiento",5); ?>
 			</td>
 			<td>
-				<input type="checkbox">
-			</td>
-			<td>
-				<input type="checkbox">
+				<?php lista("ocerramiento",6); ?>
 			</td>
 		</tr>
 	</table>

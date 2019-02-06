@@ -78,25 +78,22 @@
         $idLic = $_SESSION['licencias'][$j];
         // echo $idLic.' / ';
 
-        $sql2="SELECT DISTINCT rd.id_documento, rd.nombre FROM radicado_documentos AS rd
+        $sql2="SELECT DISTINCT rd.id_documento, rd.nombre as nombre FROM radicado_documentos AS rd
               INNER JOIN lic_doc AS l ON l.id_doc = rd.id_documento
               WHERE l.id_lic ='$idLic'";
 
         $result2 = $mysqli->query($sql2);
-
+// $_SESSION['docEspecificos'] = array();
         while($datos2 = mysqli_fetch_assoc($result2)  ) {   
           // var_dump($datos2);
           //capturamos todos los valores con su id dentro de un arraya
           array_push($documentos, $datos2); 
+          // array_push($_SESSION['docEspecificos'], utf8_encode($datos2['nombre']) ); 
         }
       }
-          // var_dump($documentos);
-          //quitamos los elementos repetidos del array
-          $documentos = array_unique($documentos, SORT_REGULAR  );
-          // var_dump($documentos);
-      $_SESSION['docEspecificos'] = $documentos;
-      // var_dump($_SESSION['docEspecificos']);
-          //recorremos el nuevo arraya
+      //quitamos los elementos repetidos del array
+      $documentos = array_unique($documentos, SORT_REGULAR  );
+      //recorremos el nuevo arraya
       foreach ($documentos as $key => $value) {
         ?>
         <div class="col-lg-12 input-group">
@@ -117,7 +114,12 @@
         <h5><strong><u>Documentos Adicionales:</u></strong></h5>
       </div>
     </div>
-    <?php while($datos3 = mysqli_fetch_assoc($result3)) { ?>
+    <?php 
+      // $_SESSION['docAdicionales'] = array();
+      while($datos3 = mysqli_fetch_assoc($result3)) {
+        // console( $datos3['nombre']);
+        // array_push($_SESSION['docAdicionales'], utf8_encode($datos3['nombre']) ); 
+    ?>
       <div class="col-lg-12 input-group">
         <div class="col-lg-10 offset-2 input-group">
           <input type="checkbox"  name="documentos_adicionales[]" id="doc_<?php echo $datos3['id_documento']; ?>" class="form-check-input" value="<?php echo $datos3['id_documento']; ?>" onclick="">
@@ -133,9 +135,10 @@
     <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
-        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+        <button type="button" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp" onclick="limpiar();"> Cancelar</button>
       </form>
     </div>
+
     <div class="col-lg-4">
       <input type="text" hidden="" name="btn_docs" value="Docs">
       <button type="button" name="btn_docs" id="btn_docs" value="Docs" class=" btn btn-danger agregar col-lg-6" >

@@ -525,7 +525,7 @@
     <div class="col-lg-6 offset-2">
       <form name="frPredio" id="skdj" method="post">
 
-        <button type="submit" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp"> Cancelar</button>
+        <button type="button" class="btn btn-primary agregar col-lg-4" formaction="../../controller/radication_controller.php" name="limpia" value="limp" onclick="limpiar();"> Cancelar</button>
       </form>
     </div>
     <div class="col-lg-4">

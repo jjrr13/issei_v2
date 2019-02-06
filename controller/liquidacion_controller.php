@@ -77,7 +77,7 @@
 	else if (isset($_POST['buscaRad']) && !empty($_POST['buscaRad']) ) {
 		$radicado = $_POST['buscaRad'];
 
-		$sql = "SELECT estrato, DATE_FORMAT(fecha,'%Y-%m-%d') fecha, objetivo_id FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
+		$sql = "SELECT nombre, estrato, DATE_FORMAT(fecha,'%Y-%m-%d') fecha, objetivo_id FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
  
 
 		$result =$mysqli->query($sql);
@@ -107,11 +107,12 @@
 			}
 
 			$_SESSION['radicado'] = $radicado;
+			$_SESSION['nombreProyecto'] = $datos['nombre'];
 			$_SESSION['estrato'] = $datos['estrato'];
 			$_SESSION['fecha'] = $datos['fecha'];
 			$_SESSION['objetivo_id'] = $datos['objetivo_id'];
 
-////////////// traer las licencias del proyecto  ///////////////////////
+			////////////// traer las licencias del proyecto  ///////////////////////
 			$sql2 = "SELECT id_lic, tipo_licencias.nombre, modalidad FROM rad_lic 
 		        INNER JOIN tipo_licencias ON tipo_licencias.id =  rad_lic.id_lic
 		        WHERE id_rad = '$radicado'";
@@ -124,7 +125,7 @@
 
       }
 
-////////////// traer los usos del proyecto  ///////////////////////
+			////////////// traer los usos del proyecto  ///////////////////////
 			$sql3 = "SELECT rad_usos.id_usos, nombre FROM rad_usos 
         INNER JOIN radicado_usos ON radicado_usos.id_usos =  rad_usos.id_usos
         WHERE id_rad = '$radicado'";
@@ -136,10 +137,10 @@
 				array_push($tipos_usos, [$valores3['id_usos'] => $valores3['nombre']] );
 			}
 
-////////////// traer el constructor responsable ///////////////////////
-			$sql4 = "SELECT t.nombre FROM rad_respo rr 
+			////////////// traer el constructor responsable ///////////////////////
+			$sql4 = "SELECT concat(t.nombre, ' ', t.apellido) as nombre FROM rad_respo rr 
         INNER JOIN terceros t ON t.nit =  rr.id_terc
-        WHERE rr.id_rad = '$radicado' AND rr.id_profesion = 3 ";
+        WHERE rr.id_rad = '$radicado' AND rr.id_profesion = 5 ";
 
 			$result4 =$mysqli->query($sql4);
 			$datos2 = mysqli_fetch_assoc($result4);
@@ -163,6 +164,7 @@
 			$arrayjson = array();
 			$arrayjson[] = array(
 							'radicado'     => $_SESSION['radicado'],
+							'nombreProyecto'	   => $_SESSION['nombreProyecto'],
 							'estrato'	   => $_SESSION['estrato'],
 							'dir_act'    => $direccion,
 							'barrio_act'    => '',

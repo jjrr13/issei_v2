@@ -38,7 +38,7 @@ if(file_exists("../../cx/cx.php")){
   }
 
   a {
-  color: black!important;
+  /*color: black!important;*/
   text-decoration: none;
   background-color: transparent;
   background: #f4f6f9;
@@ -80,7 +80,6 @@ if(file_exists("../../cx/cx.php")){
     opacity: 1;
     padding: 10px;
   }
-
 </style>
 
 <script type="text/javascript">
@@ -182,7 +181,7 @@ if(file_exists("../../cx/cx.php")){
       // alert('volvio del controlador ');
       var tamano ='width=' +screen.width + ", height=" + screen.height;
 
-      window.open("http://192.168.0.200/issei_v2/app/reportes/constancy_radications.php", "Constancia", tamano);
+      window.open("http://192.168.0.200/issei_v2/modules/reports/constancy_radications.php", "Constancia", tamano);
       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
     }
     else if (valor == 0) {
@@ -263,12 +262,16 @@ if(file_exists("../../cx/cx.php")){
             var email = JSONdata[0].email;
             var direccion = JSONdata[0].direccion;
             var id_barrio = JSONdata[0].id_barrio;
-
-            $('#nombre'+opcion).val(nombre+" "+apellido);
+            var tarjeta_profesional = JSONdata[0].tarjeta_profesional;
+            
+            // $('#nombre'+opcion).val(nombre+" "+apellido);
+            $('#nombre'+opcion).val(nombre);
+            $('#apellido'+opcion).val(apellido);
             $('#celular'+opcion).val(celular);
             $('#email'+opcion).val(email);
             $('#dirTitular'+opcion).val(direccion);
             $('#barrioTitular'+opcion).val(id_barrio).change();
+            $('#tarjeta'+opcion).val(tarjeta_profesional);
 
             $('.opcion'+opcion).each(function() {
               // alert($(this).val());
@@ -317,6 +320,26 @@ if(file_exists("../../cx/cx.php")){
       confirmar('LA CANTIDAD DE NUEMEROS ESTA ERRADA', 'fa fa-window-close', 'red', 'ejecutar');
 
     }
+  }
+  function limpiar() {
+    
+    $.ajax({
+      type: "POST",
+      url: "../../controller/radication_controller.php",
+      data: "limpia='limp'",
+      dataType:"html",
+      success: function(data) 
+      {
+           //alert(data);
+        window.location.replace('../radication');
+      },
+      error: function( jqXHR, textStatus, errorThrown ){
+          console.log(textStatus);
+          alert(textStatus);
+      }
+    });
+    
+
   }
 </script>
 <!-- <script src="../../plugins/jquery/jquery.min.js"></script> -->

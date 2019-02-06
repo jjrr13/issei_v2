@@ -71,6 +71,9 @@
       campo.value=campo.value.toUpperCase();
     }
 
+    var bandera = true;
+    var reconocimiento = false;
+
     function buscarRad(valor) {
       var radicado = '760011' + $('#buscaRadicado').val();
       // alert(radicado);
@@ -87,30 +90,27 @@
         success: function(data)            
         {
           console.log(data);
+          bandera = true;
 
           if (data == 3) {
             confirmar('EL RADICADO NO EXISTE! <br> INTENTA DE NUEVO', 'fa fa-window-close', 'red', 'S');
           }else{
             $('#contenedor').empty();
+            $('#ph_check').empty();
             eliminarVariable();
             calcular(0);
-            $('#prorroga').prop('checked', false); 
-            $('#revalidacion').prop('checked', false); 
-            $('#Subdivision').prop('checked', false); 
-
-            // $('#cargoBasico').val(0);
-            // $('#cargoVariable').val(0);
-            // $('#subExpen').val(0);
-            // $('#iva').val(0);
-            // $('#total').val(0);
-            // $('#estampillas').val(0);
-            // $('#totalExpensas').val(0);
+            $('#prorroga').prop('checked', false);
+            $('#revalidacion').prop('checked', false);
+            $('#Subdivision').prop('checked', false);
+            $('#cotas').prop('checked', false);
+            $('#modificacion_planos').prop('checked', false);
 
             var JSONdata = JSON.parse(data); //parseo la informacion
 
-            // alert(JSONdata[0].filas);
+            // alert(JSONdata[0].estrato);
 
             $('#estrato').html(JSONdata[0].estrato);
+            $('#nombreProyecto').val(JSONdata[0].nombreProyecto);
             $('#radicado').val(JSONdata[0].radicado);
             $('#fechaRad').val(JSONdata[0].fecha);
             $('#direccion').val(JSONdata[0].dir_act);
@@ -123,11 +123,13 @@
               $('#prorroga_2').val(salarioMensual);
               $('#prorroga').prop('checked', true); 
               $('#vis_0').empty();
+
+              bandera = false;
               calcular(parseInt(0));
             }
             else if (JSONdata[0].objetivo_id == 4) {
               $('#revalidacion_2').val(salarioMensual);
-            $('#revalidacion').prop('checked', true); 
+              $('#revalidacion').prop('checked', true); 
               $('#vis_0').empty();
               calcular(parseInt(0));
             }
@@ -149,14 +151,22 @@
               $('#dot_0').empty();
             }
 
-            var bandera = true;
+            
             var cantidadLicencias = JSONdata[0].tipos_licencias.length;
+
+            //para saber si tiene reconocimiento, si es true no se cobraran las licencias de construccion a eccepcion de ampliacion y reconstruccion
+            for (var j = 0; j < cantidadLicencias ; j++) {
+              if(JSONdata[0].tipos_licencias[j].NOMBRE == 'Reconocimiento'){
+                alert('entro al if de Reconocimiento')
+                reconocimiento = true;
+              }
+            }
 
             for (var j = 0; j < cantidadLicencias ; j++) {
               var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
               var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
               var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
-              // alert(licencia+modalidad);
+              alert(licencia+modalidad);
               if (licencia+modalidad == 'SubdivicionUrbana' || licencia+modalidad == 'SubdivicionRural'  ) {
                 // alert('entro al if de SUBDIVISION022222');
                 $('#Subdivision_2').val(salarioMensual);
@@ -166,7 +176,8 @@
               else if(licencia+modalidad == 'OtrasAjuste de Cotas'){
                 var valorCota = ajuste_cotas(JSONdata[0].estrato, salarioMensual);
                 $('#cotas_2').val(valorCota);
-                $('#cotas').attr("checked", "checked");
+                $('#cotas').prop('checked', true);
+                // $('#cotas').attr("checked", "checked");
                 $('#vis_0').empty();
                 calcular(parseInt(0));
 
@@ -174,18 +185,32 @@
                 var valorConceptoNorma = concepto_norma(salarioMensual);
 
                 $('#concepto_norma_2').val(valorCota);
-                $('#concepto_norma').attr("checked", "checked");
+                $('#concepto_norma').prop('checked', true);
+                // $('#concepto_norma').attr("checked", "checked");
                 calcular(parseInt(0));
 
               }else if(licencia+modalidad == 'UrbanizacionModificacion Planos Urbanisticos'){
                 // alert('entro A Modificacion');
                 $('#modificacion_planos_2').val(salarioMensual);
-                $('#modificacion_planos').attr("checked", "checked");
+                $('#modificacion_planos').prop('checked', true);
                 calcular(parseInt(0));
 
+              }else if(licencia+modalidad == 'OtrasPropiedad Horizontal' && cantidadLicencias > 1){
+                // alert('entro A Modificacion');
+                var elemento2 = '';
+                elemento2+="<div class='col-lg-2 form-check' id='ph_check'>";
+                elemento2+=  "<input name='propiedad_horizontal' type='checkbox' id='propiedad_horizontal' value='1' disabled='' onclick='' checked='checked'> Propiedad Horizontal";
+                elemento2+=  "<input class='variable' onchange'' name='propiedad_horizontal_2' type='hidden' id='propiedad_horizontal_2' value='0' >";
+                elemento2+="</div>";
+
+                $('#checks').append(elemento2);
+
               }else{
-                alert(licencia+modalidad);
-                elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos );
+                if(licencia+modalidad == 'ReconocimientoN-A'){
+                  // alert('entro A Modificacion');
+                }
+                // alert(licencia+modalidad);
+                elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos);
                 // alert(elem);
                 $('#contenedor').append(elem);
               }
@@ -225,12 +250,14 @@
     var cargoFijo= salarioMensual * 0.40;
     var cargoVariable = salarioMensual * 0.80;
     var factor_M = 0.938;
+    var estampillas=0;
 
     function factores(opcion) {
       // console.log($(opcion).attr('type'));
 
       var tipo = $(opcion).attr('id');
       var tipoUso = tipo.split("_");
+
 
       var modo;
         if ($(opcion).val().length == 0) {
@@ -241,6 +268,14 @@
 
       // var factor_Q = mayorFactor_Q();
       var factor_Q = $(opcion).val();
+
+        // alert(tipoUso[1]);
+      if (validar_30(tipoUso[1])) {
+        factor_Q = factor_Q * 0.30;
+        // alert(tipo);
+        $('#'+tipo+'_4').val(factor_Q);
+      }
+
 
       var totalBasico=0;
       var totalVariable=0;
@@ -255,7 +290,7 @@
 
           totalBasico = (cargoFijo * factor_I_v) * factor_M ;
           totalVariable = ((cargoVariable * factor_I_v) * factor_J(factor_Q, modo)) * factor_M ;
-          // alert(totalVariable);
+          // alert(totalBasico);
         }
          // alert(factor_I_v);
       }else {
@@ -309,29 +344,35 @@
       }
 
       calcular(parseInt(0));
-
     }
 
     function cargoBasico() {
-       var tempFactor_Q=0;
-       var cargoB
+      var tempFactor_Q=0;
+      var cargoB =0;
+      var j=0;
       //quizas toque determinar si la prioridad a vivienda entre los usos en caso de iguales
       $(".cargoBasico").each(function(){
         // alert('entro al ciclo');
-        var dato = $(this).val();
+          j++;
+        var dato = parseInt( $(this).val());
         // alert(dato);
+          // console.log(dato + ' es mayor que ? ' + tempFactor_Q);
+          // console.log(dato >= tempFactor_Q);
         if (dato >= tempFactor_Q) {
+          // console.log(dato);
+          // console.log(tempFactor_Q);
           tempFactor_Q = dato;
           var idCampo = $(this).attr('id');
         // alert(idCampo);
           cargoB = $('#'+ idCampo +'_0').val().replace('.', "");
-          console.log('---------//---------------//----------------');
-          console.log(cargoB)
-          console.log('---------//---------------//----------------');
+          // console.log('---------/*/---------------/*/----------------');
+          // console.log(tempFactor_Q+ ' Nuevo Valor temp');
+          // console.log(cargoB)
         }
+          // console.log(j + ' Cantidad de Ciclos');
+          // console.log('---------//---------------//----------------');
       });
       return cargoB;
-
     }
 
     function calcular(total_Basicoss) {
@@ -349,8 +390,8 @@
       var iva = subtotalExpensas * 0.19;
       var total = subtotalExpensas + iva;
 
-      var estampillas=0;
-      if (subtotalExpensas >= 0.1){ estampillas = 5800;}
+      
+      if (subtotalExpensas >= 0.1 && bandera == true){ estampillas = 6000;}
       
       var totalExpensas = total + estampillas;
 
@@ -382,7 +423,7 @@
         // alert(dato);
         if (dato >= tempFactor_Q) {
           tempFactor_Q = dato;
-          console.log($(this).attr('id'));
+          // console.log($(this).attr('id'))
         }
       });
       return tempFactor_Q;
@@ -529,6 +570,30 @@
       calcular(0);
     }
 
+    function valor_tierras_piscinas(elemento, salario) {
+      var tempValor=0;
+      var factor_qq = $(elemento).val();
+      var id = $(elemento).attr('id');
+      //a la formula se aplica la logica de la abogada en la cual se elimina el primer rango de 5000 y se ponen inferior de 10000
+      if (factor_qq >= 0.1 && factor_qq <= 100) {
+        tempValor = (salario/30)  * 2 ;
+      }else if (factor_qq >= 101 && factor_qq <= 500) {
+        tempValor = (salario/30)  * 4 ;
+      }else if (factor_qq >= 501 && factor_qq <= 1000) {
+        tempValor = salario * 1;
+      }else if (factor_qq >= 1001 && factor_qq <= 5000) {
+        tempValor = salario * 2;
+      }else if (factor_qq >= 5001 && factor_qq <= 10000) {
+        tempValor = salario * 3;
+      }else if (factor_qq >= 10001 && factor_qq <= 20000) {
+        tempValor = salario * 4;
+      }else if (factor_qq >= 20000) {
+        tempValor = salario * 5;
+      }
+      $('#'+id+'_2').val(tempValor);
+      calcular(0);
+    }
+
     function valor_aprobacion_proyectos(elemento, salario) {
       var tempValor=0;
       var factor_qq = $(elemento).val();
@@ -568,36 +633,45 @@
       calcular(0);
     }
 
+    function validar_30(modalidades) {
+      var resultado = false;
+
+      if (modalidades == 'Modificacion' || modalidades == 'Restauracion' || modalidades == 'Reforzamiento Estructural' || modalidades == 'ReforzamientoEstructural' || modalidades == 'Reconstruccion') {
+        resultado = true;
+      }
+      return resultado;
+    }
+
+    function cobro_30(modalidades, tipo) {
+      var elemento = '';
+        
+      elemento+=" <div class='col-lg-3 input-group'>";
+      elemento+=" <input class='cargoBasico4' name='"+tipo+"_"+modalidades+"_4' type='text' id='"+tipo+"_"+modalidades+"_4' size='10' value='' disabled='' > ";
+      elemento+=" <label for=''>M<sup>2</sup></label>";
+      elemento+=" </div>";
+     
+      return elemento;
+    }
+
     function getUsos(arrayUsos, modLicencia1, lic) {
       var modLicencia='';
       var elemento='';
-
+      var funcion = 'factores(this);';
+      alert(reconocimiento);
+      if (reconocimiento && (modLicencia !='ConstruccionAmpliacion' || modLicencia !='ConstruccionReconstruccion') ) {
+        alert('entro al if de inhabilitar la funcion');
+        funcion='';
+      }
+      alert(modLicencia);
+      modLicencia2 = modLicencia1;
       modLicencia1 = modLicencia1.split(' ');
 
       for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
         modLicencia+= modLicencia1[jr];
       }
       //TERNER EN CUENTA VALIDAR QUIZAS DESDE AFUERA, YA QUE SE PUEDE REPETIR DEPENDIENDO DE LA CANTIDAD DE USUS QUE TENGA
-      // if (modLicencia == 'Reloteo' ) {
-      //   elemento+=" <div class='col-lg-12  input-group'>";
-      //     elemento+=" <div class='col-lg-1  input-group'></div>";
-      //     elemento+=" <div class='col-lg-2  input-group'>";
-      //       elemento+=" <h6>Reloteo</h6>";
-      //     elemento+=" </div>";
-      //     elemento+=" <div class='col-lg-3 input-group'>";
-      //       elemento+=" <input class='cargoBasico' name='reloteo_"+modLicencia+"' type='text' id='reloteo_"+modLicencia+"' size='10' onkeyup='valor_Reloteo(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
-      //     elemento+=" <label for=''>M<sup>2</sup></label>";
-      //     elemento+=" </div>";
 
-      //     // /////////// datos reloteo_ /////////////
-      //       elemento+=" <input class='cargoBasico1' name='reloteo_"+modLicencia+"_0' type='hidden' id='reloteo_"+modLicencia+"_0' value='0' >";
-      //       elemento+=" <input class='modalidad' name='reloteo_"+modLicencia+"_1' type='hidden' id='reloteo_"+modLicencia+"_1' value='"+modLicencia+"' >";
-      //       elemento+=" <input class='variable' onchange'' name='reloteo_"+modLicencia+"_2' type='hidden' id='reloteo_"+modLicencia+"_2' value='0' >";
-      //       elemento+=" <input class='licencia' name='reloteo_"+modLicencia+"_3' type='hidden' id='reloteo_"+modLicencia+"_3' value='"+lic+"' >";
-      //     // elemento+=" </div>";
-      //   elemento+=" </div>";
-      // }else{
-        console.log('--------------------------------------------------------------');
+        
         // console.log(arrayUsos);
         for (var js = 0; js < arrayUsos.length ; js++) {
           console.log(arrayUsos[js]);
@@ -609,9 +683,16 @@
                 elemento+=" <h6>Vivienda</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' > ";
+                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
+                // alert('Afuera del if con /*/' + modLicencia2);
+              if (validar_30(modLicencia2)) {
+
+                // alert('entro al if con /*/' + modLicencia);
+
+                elemento+= cobro_30(modLicencia, 'vivienda');
+              }
 
               // /////////// datos vivienda_ /////////////
                 elemento+=" <input class='cargoBasico1' name='vivienda_"+modLicencia+"_0' type='hidden' id='vivienda_"+modLicencia+"_0' value='0' >";
@@ -630,9 +711,12 @@
                elemento+=" <h6>Comercio</h6>";
              elemento+=" </div>";
              elemento+=" <div class='col-lg-3 input-group'>";
-               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='factores(this);' size='10' >";
+               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='"+funcion+"' size='10' >";
                elemento+=" <label for=''>M<sup>2</sup></label>";
              elemento+=" </div>";
+             if (validar_30(modLicencia2)) {
+                elemento+= cobro_30(modLicencia, 'comercio');
+              }
 
              elemento+=" <div class='col-lg-2  input-group'></div>";
 
@@ -652,14 +736,17 @@
                 elemento+=" <h6>Institucional</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' size='10' > ";
                 elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
-              elemento+=" <div class='col-lg-2 form-check'>";
-                elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='factores(this);'  > DOT";
+              if (validar_30(modLicencia2)) {
+                elemento+= cobro_30(modLicencia, 'institucional');
+              }
+              // elemento+=" <div class='col-lg-2 form-check'>";
+              //   elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='"+funcion+"'  > DOT";
 
-                // elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
-              elemento+=" </div>";
+              //   // elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+              // elemento+=" </div>";
 
               // /////////// datos institucional_ /////////////
                elemento+=" <input class='cargoBasico1' name='institucional_"+modLicencia+"_0' type='hidden' id='institucional_"+modLicencia+"_0' value='0' >";
@@ -678,9 +765,13 @@
                 elemento+=" <h6>Industria</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='factores(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ;?>' size='10' /> ";
                 elemento+=" <label for=''>M<sup>2</sup></label>                  ";
               elemento+=" </div>";
+              if (validar_30(modLicencia2)) {
+                elemento+= cobro_30(modLicencia, 'industria');
+              }
+
               elemento+=" <div class='col-lg-2 input-group'></div>";
 
               // /////////// datos industria_ /////////////
@@ -697,6 +788,7 @@
       // }
       return elemento;
     }
+
   </script>
   <script type="text/javascript">
     
@@ -724,17 +816,20 @@
              elemento+=" <strong>Cantidad</strong>";
            elemento+=" </h5>                      ";
          elemento+=" </div>";
-         // elemento+=" <div class='col-lg-2 form-check'>";
-         // // elemento+=" <div class='col-lg-2'>";
-         //   elemento+=" <h5>";
-         //     elemento+=" <strong>Subsidio</strong>";
-         //   elemento+=" </h5>                      ";
-         // elemento+=" </div>";
+         if (validar_30(modalidad)) {
+          elemento+=" <div class='col-lg-3 input-group'>";
+           elemento+=" <h5>";
+             elemento+=" <strong>30% de Cantidad</strong>";
+           elemento+=" </h5>                      ";
+          elemento+=" </div>";
+         }
        elemento+=" </div>";
        console.log('-------------------------------------------');
        console.log(modalidad); 
        console.log('-------------------------------------------');
+
        elemento+=" <div class='form-group col-lg-12 '></div>";
+
        if (modalidad == 'Reloteo') {
          elemento+=" <div class='col-lg-12  input-group'>";
           elemento+=" <div class='col-lg-1  input-group'></div>";
@@ -755,10 +850,10 @@
         elemento+=" </div>";
        } 
        else if (modalidad == 'Aprobacion Poryectos Urbanisticos') {
-        modalidad = modalidad.split(' ');
-        // alert(modalidad.length);
-        modalidad = modalidad[0]+modalidad[1]+modalidad[2];
-        // alert(modalidad);
+         modalidad = modalidad.split(' ');
+         // alert(modalidad.length);
+         modalidad = modalidad[0]+modalidad[1]+modalidad[2];
+         // alert(modalidad);
          elemento+=" <div class='col-lg-12  input-group'>";
           elemento+=" <div class='col-lg-1  input-group'></div>";
           elemento+=" <div class='col-lg-2  input-group'>";
@@ -775,40 +870,81 @@
             elemento+=" <input class='variable' onchange'' name='Aprobacion_"+modalidad+"_2' type='hidden' id='Aprobacion_"+modalidad+"_2' value='0' >";
             elemento+=" <input class='licencia' name='Aprobacion_"+modalidad+"_3' type='hidden' id='Aprobacion_"+modalidad+"_3' value='"+licencia+"' >";
           // elemento+=" </div>";
-        elemento+=" </div>";
+          elemento+=" </div>";
        } else if (modalidad == 'Propiedad Horizontal') {
-          if (cantidadLicencias > 1) {
-            var elemento2 = '';
-            elemento2+="<div class='col-lg-2 form-check'>";
-              elemento2+="<input name='propiedad_horizontal' type='checkbox' id='propiedad_horizontal' value='1' disabled='' onclick=''> Propiedad Horizontal";
-              elemento2+="<input class='variable' onchange'' name='propiedad_horizontal_2' type='hidden' id='propiedad_horizontal_2' value='0' >";
-            elemento2+="</div>";
-
-            $('#checks').append(elemento2);
-          }
-          else{
-            modalidad = modalidad.split(' ');
-            // alert(modalidad.length);
-            modalidad = modalidad[0]+modalidad[1];
-            // alert(modalidad);
-             elemento+=" <div class='col-lg-12  input-group'>";
-              elemento+=" <div class='col-lg-1  input-group'></div>";
-              elemento+=" <div class='col-lg-2  input-group'>";
-                elemento+=" <h6>Propiedad Horizontal</h6>";
-              elemento+=" </div>";
-              elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='ph_"+modalidad+"' type='text' id='ph_"+modalidad+"' size='10' onkeyup='valor_ph(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
-              elemento+=" <label for=''>M<sup>2</sup></label>";
-              elemento+=" </div>";
-
-              // /////////// datos ph_ /////////////
-                elemento+=" <input class='cargoBasico1' name='ph_"+modalidad+"_0' type='hidden' id='ph_"+modalidad+"_0' value='0' >";
-                elemento+=" <input class='modalidad' name='ph_"+modalidad+"_1' type='hidden' id='ph_"+modalidad+"_1' value='"+modalidad+"' >";
-                elemento+=" <input class='variable' onchange'' name='ph_"+modalidad+"_2' type='hidden' id='ph_"+modalidad+"_2' value='0' >";
-                elemento+=" <input class='licencia' name='ph_"+modalidad+"_3' type='hidden' id='ph_"+modalidad+"_3' value='"+licencia+"' >";
-              // elemento+=" </div>";
+          // console.log(cantidadLicencias);
+          bandera = false;
+          console.log(bandera + ' aqui informacion de la bandera');
+          modalidad = modalidad.split(' ');
+          // alert(modalidad.length);
+          modalidad = modalidad[0]+modalidad[1];
+          // alert(modalidad);
+           elemento+=" <div class='col-lg-12  input-group'>";
+            elemento+=" <div class='col-lg-1  input-group'></div>";
+            elemento+=" <div class='col-lg-2  input-group'>";
+              elemento+=" <h6>Propiedad Horizontal</h6>";
             elemento+=" </div>";
-          }
+            elemento+=" <div class='col-lg-3 input-group'>";
+              elemento+=" <input class='cargoBasico' name='ph_"+modalidad+"' type='text' id='ph_"+modalidad+"' size='10' onkeyup='valor_ph(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+            elemento+=" <label for=''>M<sup>2</sup></label>";
+            elemento+=" </div>";
+
+            // /////////// datos ph_ /////////////
+              elemento+=" <input class='cargoBasico1' name='ph_"+modalidad+"_0' type='hidden' id='ph_"+modalidad+"_0' value='0' >";
+              elemento+=" <input class='modalidad' name='ph_"+modalidad+"_1' type='hidden' id='ph_"+modalidad+"_1' value='"+modalidad+"' >";
+              elemento+=" <input class='variable' onchange'' name='ph_"+modalidad+"_2' type='hidden' id='ph_"+modalidad+"_2' value='0' >";
+              elemento+=" <input class='licencia' name='ph_"+modalidad+"_3' type='hidden' id='ph_"+modalidad+"_3' value='"+licencia+"' >";
+            // elemento+=" </div>";
+          elemento+=" </div>";
+          
+       }else if (modalidad == 'Movimiento de Tierras') {
+          // console.log(cantidadLicencias);
+          modalidad = modalidad.split(' ');
+          // alert(modalidad.length);
+          modalidad = modalidad[0]+modalidad[1]+modalidad[2];
+          // alert(modalidad);
+           elemento+=" <div class='col-lg-12  input-group'>";
+            elemento+=" <div class='col-lg-1  input-group'></div>";
+            elemento+=" <div class='col-lg-2  input-group'>";
+              elemento+=" <h6>Movimiento de Tierras</h6>";
+            elemento+=" </div>";
+            elemento+=" <div class='col-lg-3 input-group'>";
+              elemento+=" <input class='cargoBasico' name='movimiento_Tierras_"+modalidad+"' type='text' id='movimiento_Tierras_"+modalidad+"' size='10' onkeyup='valor_tierras_piscinas(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+            elemento+=" <label for=''>M<sup>3</sup></label>";
+            elemento+=" </div>";
+
+            // /////////// datos movimiento_Tierras_ /////////////
+              elemento+=" <input class='cargoBasico1' name='movimiento_Tierras_"+modalidad+"_0' type='hidden' id='movimiento_Tierras_"+modalidad+"_0' value='0' >";
+              elemento+=" <input class='modalidad' name='movimiento_Tierras_"+modalidad+"_1' type='hidden' id='movimiento_Tierras_"+modalidad+"_1' value='"+modalidad+"' >";
+              elemento+=" <input class='variable' onchange'' name='movimiento_Tierras_"+modalidad+"_2' type='hidden' id='movimiento_Tierras_"+modalidad+"_2' value='0' >";
+              elemento+=" <input class='licencia' name='movimiento_Tierras_"+modalidad+"_3' type='hidden' id='movimiento_Tierras_"+modalidad+"_3' value='"+licencia+"' >";
+            // elemento+=" </div>";
+          elemento+=" </div>";
+          
+       }else if (modalidad == 'Aprobacion de Piscina') {
+          // console.log(cantidadLicencias);
+          modalidad = modalidad.split(' ');
+          // alert(modalidad.length);
+          modalidad = modalidad[0]+modalidad[1]+modalidad[2];
+          // alert(modalidad);
+           elemento+=" <div class='col-lg-12  input-group'>";
+            elemento+=" <div class='col-lg-1  input-group'></div>";
+            elemento+=" <div class='col-lg-2  input-group'>";
+              elemento+=" <h6>Aprobacion de Piscina</h6>";
+            elemento+=" </div>";
+            elemento+=" <div class='col-lg-3 input-group'>";
+              elemento+=" <input class='cargoBasico' name='aprovacion_piscinas_"+modalidad+"' type='text' id='aprovacion_piscinas_"+modalidad+"' size='10' onkeyup='valor_tierras_piscinas(this,"+salarioMensual+"); return ValidNum(this);' value='<?php ; ?>' > ";
+            elemento+=" <label for=''>M<sup>3</sup></label>";
+            elemento+=" </div>";
+
+            // /////////// datos aprovacion_piscinas_ /////////////
+              elemento+=" <input class='cargoBasico1' name='aprovacion_piscinas_"+modalidad+"_0' type='hidden' id='aprovacion_piscinas_"+modalidad+"_0' value='0' >";
+              elemento+=" <input class='modalidad' name='aprovacion_piscinas_"+modalidad+"_1' type='hidden' id='aprovacion_piscinas_"+modalidad+"_1' value='"+modalidad+"' >";
+              elemento+=" <input class='variable' onchange'' name='aprovacion_piscinas_"+modalidad+"_2' type='hidden' id='aprovacion_piscinas_"+modalidad+"_2' value='0' >";
+              elemento+=" <input class='licencia' name='aprovacion_piscinas_"+modalidad+"_3' type='hidden' id='aprovacion_piscinas_"+modalidad+"_3' value='"+licencia+"' >";
+            // elemento+=" </div>";
+          elemento+=" </div>";
+          
        }else{
         elemento+= getUsos(arrayUsos, modalidad, licencia);
        }
@@ -860,23 +996,27 @@
                       <div class="col-lg-12 input-group">
                         <div class="col-lg-12">
                           <label for="fechaRad" class="col-form-label col-lg-3">Fecha</label>
-                          <input class="form-control col-lg-9" type="date" name="fechaRad" id="fechaRad" required title="Fecha del Radicado">
+                          <input class="form-control col-lg-9" type="date" name="fechaRad" id="fechaRad" readonly="" required title="Fecha del Radicado">
                         </div>
                         <div class="col-lg-12">
                           <label for="radicado" class="col-form-label col-lg-3">Radicado</label>
-                          <input class="form-control col-lg-9" type="text" name="radicado" id="radicado" required title="Numero del Radicado">
+                          <input class="form-control col-lg-9" type="text" name="radicado" id="radicado" readonly="" required title="Numero del Radicado">
                         </div>
                         <div class="col-lg-12">
                           <label for="arq" class="col-form-label col-lg-3">Arquitecto</label>
-                          <input class="form-control col-lg-9" type="text" name="arq" id="arq" required title="Numero del Radicado">
+                          <input class="form-control col-lg-9" type="text" name="arq" id="arq" readonly="" required title="Ingeniero Responsable de la Obra">
                         </div>
                         <div class="col-lg-12">
                           <label for="propietario" class="col-form-label col-lg-3">Propietarios</label>
-                          <input class="form-control col-lg-9" type="text" name="propietario" id="propietario" required title="Numero del Radicado">
+                          <input class="form-control col-lg-9" type="text" name="propietario" id="propietario" readonly="" required title="Uno o varios Propietarios">
                         </div>
                         <div class="col-lg-12">
                           <label for="direccion" class="col-form-label col-lg-3">Direccion</label>
-                          <input class="form-control col-lg-9" type="text" name="direccion" id="direccion" required title="Numero del Radicado">
+                          <input class="form-control col-lg-9" type="text" name="direccion" id="direccion" readonly="" required title="Direcciones asociadas al Radicado">
+                        </div>
+                        <div class="col-lg-12">
+                          <label for="nombreProyecto" class="col-form-label col-lg-6">Nombre Proyecto</label>
+                          <input class="form-control col-lg-9" type="text" name="nombreProyecto" id="nombreProyecto" readonly="" required title="Nombre del Proyecto">
                         </div>
                       </div>
                     </div>
@@ -895,6 +1035,7 @@
                   <div class="col-lg-12 input-group" id="checks">
                     <div class="col-lg-2 input-group">
                       <h6 class="col-lg-4">Estrato</h6>
+                      <label for="" id="estrato">---</label>
                     </div> 
                     <div class='col-lg-2 form-check' id="vis_0">
                       <input name='vivienda_vis' type='checkbox' id='vivienda_vis' value='1' onclick='subsidioVIS(this);'  > V.I.S
@@ -1004,19 +1145,19 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-12  input-group">
+              <!-- <div class="col-lg-12  input-group">
                 <div class="col-lg-6  input-group">
                   <label class="col-form-label col-lg-12 requerido">&nbsp;&nbsp;&nbsp;&nbsp;Los campos con (*) son obligatorios</label>
                 </div>
-              </div>
+              </div> -->
                   <!-- /.card-body -->
               <div class="card-footer input-group">
                 <div class="form-group col-lg-12 "></div>
                 <div class="col-lg-12  input-group">
                   <div class="col-lg-3"></div>  
-                  <button class="btn btn-danger col-lg-2" type="submit" name="submit" id="submit" >Generar</button>
+                  <button class="btn btn-danger col-lg-2" type="button" name="submit" id="submit" >Generar</button>
                   <div class="col-lg-1"></div>              
-                  <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
+                  <button class="btn btn-default col-lg-2" type="button" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
                 </div>
                 <div class="form-group col-lg-12 "></div>
               </div>
