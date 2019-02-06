@@ -181,7 +181,7 @@ if(file_exists("../../cx/cx.php")){
       // alert('volvio del controlador ');
       var tamano ='width=' +screen.width + ", height=" + screen.height;
 
-      window.open("http://192.168.0.200/issei_v2/app/reportes/constancy_radications.php", "Constancia", tamano);
+      window.open("http://192.168.0.200/issei_v2/modules/reports/constancy_radications.php", "Constancia", tamano);
       confirmar('CREADO EXITOSAMENTE', 'fa fa-window-close', 'green', '../radication');
     }
     else if (valor == 0) {

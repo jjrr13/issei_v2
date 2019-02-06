@@ -112,7 +112,7 @@
 			$_SESSION['fecha'] = $datos['fecha'];
 			$_SESSION['objetivo_id'] = $datos['objetivo_id'];
 
-////////////// traer las licencias del proyecto  ///////////////////////
+			////////////// traer las licencias del proyecto  ///////////////////////
 			$sql2 = "SELECT id_lic, tipo_licencias.nombre, modalidad FROM rad_lic 
 		        INNER JOIN tipo_licencias ON tipo_licencias.id =  rad_lic.id_lic
 		        WHERE id_rad = '$radicado'";
@@ -125,7 +125,7 @@
 
       }
 
-////////////// traer los usos del proyecto  ///////////////////////
+			////////////// traer los usos del proyecto  ///////////////////////
 			$sql3 = "SELECT rad_usos.id_usos, nombre FROM rad_usos 
         INNER JOIN radicado_usos ON radicado_usos.id_usos =  rad_usos.id_usos
         WHERE id_rad = '$radicado'";
@@ -137,7 +137,7 @@
 				array_push($tipos_usos, [$valores3['id_usos'] => $valores3['nombre']] );
 			}
 
-////////////// traer el constructor responsable ///////////////////////
+			////////////// traer el constructor responsable ///////////////////////
 			$sql4 = "SELECT concat(t.nombre, ' ', t.apellido) as nombre FROM rad_respo rr 
         INNER JOIN terceros t ON t.nit =  rr.id_terc
         WHERE rr.id_rad = '$radicado' AND rr.id_profesion = 5 ";

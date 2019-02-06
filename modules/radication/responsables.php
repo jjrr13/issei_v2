@@ -13,18 +13,18 @@
       </div>
       <div class="col-lg-5 input-group opcion0" hidden id="opcion">
         <label for="tarjeta0" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta0" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta0" name="tarjeta0" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion0" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre0" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre0" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre0" name="nombre0" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido0" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido0" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido0" name="apellido0" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -42,7 +42,7 @@
     <div class="col-lg-12 input-group opcion0" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular0" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular0" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular0" name="dirTitular0" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular0" class="col-form-label col-md-4">Barrio </label>
@@ -110,18 +110,18 @@
       </div>
       <div class="col-lg-5 input-group opcion1" hidden id="opcion">
         <label for="tarjeta1" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta1" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta1" name="tarjeta1" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion1" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre1" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre1" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre1" name="nombre1" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido1" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido1" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido1" name="apellido1" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -139,7 +139,7 @@
     <div class="col-lg-12 input-group opcion1" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular1" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular1" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular1" name="dirTitular1" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular1" class="col-form-label col-md-4">Barrio </label>
@@ -205,18 +205,18 @@
       </div>
       <div class="col-lg-5 input-group opcion2" hidden id="opcion">
         <label for="tarjeta2" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta2" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta2" name="tarjeta2" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion2" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre2" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre2" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre2" name="nombre2" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido2" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido2" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido2" name="apellido2" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -234,7 +234,7 @@
     <div class="col-lg-12 input-group opcion2" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular2" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular2" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular2" name="dirTitular2" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular2" class="col-form-label col-md-4">Barrio </label>
@@ -300,18 +300,18 @@
       </div>
       <div class="col-lg-5 input-group opcion3" hidden id="opcion">
         <label for="tarjeta3" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta3" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta3" name="tarjeta3" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion3" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre3" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre3" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre3" name="nombre3" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido3" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido3" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido3" name="apellido3" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -329,7 +329,7 @@
     <div class="col-lg-12 input-group opcion3" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular3" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular3" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular3" name="dirTitular3" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular3" class="col-form-label col-md-4">Barrio </label>
@@ -395,18 +395,18 @@
       </div>
       <div class="col-lg-5 input-group opcion4" hidden id="opcion">
         <label for="tarjeta4" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta4" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta4" name="tarjeta4" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion4" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre4" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre4" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre4" name="nombre4" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido4" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido4" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido4" name="apellido4" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -424,7 +424,7 @@
     <div class="col-lg-12 input-group opcion4" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular4" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular4" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular4" name="dirTitular4" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular4" class="col-form-label col-md-4">Barrio </label>
@@ -490,18 +490,18 @@
       </div>
       <div class="col-lg-5 input-group opcion5" hidden id="opcion">
         <label for="tarjeta5" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta5" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta5" name="tarjeta5" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion5" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre5" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre5" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre5" name="nombre5" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido5" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido5" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido5" name="apellido5" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -519,7 +519,7 @@
     <div class="col-lg-12 input-group opcion5" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular5" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular5" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular5" name="dirTitular5" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular5" class="col-form-label col-md-4">Barrio </label>
@@ -585,18 +585,18 @@
       </div>
       <div class="col-lg-5 input-group opcion6" hidden id="opcion">
         <label for="tarjeta6" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta6" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta6" name="tarjeta6" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion6" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre6" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre6" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre6" name="nombre6" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido6" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido6" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido6" name="apellido6" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -614,7 +614,7 @@
     <div class="col-lg-12 input-group opcion6" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular6" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular6" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular6" name="dirTitular6" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular6" class="col-form-label col-md-4">Barrio </label>
@@ -680,18 +680,18 @@
       </div>
       <div class="col-lg-5 input-group opcion7" hidden id="opcion">
         <label for="tarjeta7" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta7" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta7" name="tarjeta7" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion7" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre7" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre7" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre7" name="nombre7" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido7" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido7" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido7" name="apellido7" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -709,7 +709,7 @@
     <div class="col-lg-12 input-group opcion7" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular7" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular7" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular7" name="dirTitular7" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular7" class="col-form-label col-md-4">Barrio </label>
@@ -775,18 +775,18 @@
       </div>
       <div class="col-lg-5 input-group opcion8" hidden id="opcion">
         <label for="tarjeta8" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
-        <input type="text" class="form-control col-lg-8"  id="tarjeta8" name="tarjeta[]" placeholder="Numeros y Letras" onChange="letras(this)" >
+        <input type="text" class="form-control col-lg-8"  id="tarjeta8" name="tarjeta8" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
     <div class="col-lg-12 input-group opcion8" hidden>
       <div class="col-md-6 input-group" >
         <label for="nombre8" class="col-form-label col-md-4">NOMBRE</label>
-        <input type="text" id="nombre8" name="nombre[]" class="form-control col-md-9" placeholder="NOMBRE">
+        <input type="text" id="nombre8" name="nombre8" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
       <div class="col-md-6 input-group ">
         <label for="apellido8" class="col-form-label col-md-4">APELLIDO</label>
-        <input type="text" id="apellido8" name="apellido[]" class="form-control col-md-10" placeholder="APELLIDO">
+        <input type="text" id="apellido8" name="apellido8" class="form-control col-md-10" placeholder="APELLIDO">
       </div>
     </div>
     <div class="col-lg-12 form-group"></div>
@@ -804,7 +804,7 @@
     <div class="col-lg-12 input-group opcion8" hidden>
       <div class="col-lg-6 input-group">
         <label for="dirTitular8" class="col-form-label col-lg-4">Dirección </label>
-        <input type="text"  placeholder="DIRECCION" id="dirTitular8" name="dirTitular[]" class="form-control col-lg-8">
+        <input type="text"  placeholder="DIRECCION" id="dirTitular8" name="dirTitular8" class="form-control col-lg-8">
       </div>
       <div class="col-md-6 input-group">
         <label for="barrioTitular8" class="col-form-label col-md-4">Barrio </label>

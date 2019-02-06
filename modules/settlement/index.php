@@ -72,6 +72,7 @@
     }
 
     var bandera = true;
+    var reconocimiento = false;
 
     function buscarRad(valor) {
       var radicado = '760011' + $('#buscaRadicado').val();
@@ -153,11 +154,19 @@
             
             var cantidadLicencias = JSONdata[0].tipos_licencias.length;
 
+            //para saber si tiene reconocimiento, si es true no se cobraran las licencias de construccion a eccepcion de ampliacion y reconstruccion
+            for (var j = 0; j < cantidadLicencias ; j++) {
+              if(JSONdata[0].tipos_licencias[j].NOMBRE == 'Reconocimiento'){
+                alert('entro al if de Reconocimiento')
+                reconocimiento = true;
+              }
+            }
+
             for (var j = 0; j < cantidadLicencias ; j++) {
               var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
               var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
               var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
-              // alert(licencia+modalidad);
+              alert(licencia+modalidad);
               if (licencia+modalidad == 'SubdivicionUrbana' || licencia+modalidad == 'SubdivicionRural'  ) {
                 // alert('entro al if de SUBDIVISION022222');
                 $('#Subdivision_2').val(salarioMensual);
@@ -197,6 +206,9 @@
                 $('#checks').append(elemento2);
 
               }else{
+                if(licencia+modalidad == 'ReconocimientoN-A'){
+                  // alert('entro A Modificacion');
+                }
                 // alert(licencia+modalidad);
                 elem = crearElemento(licencia, modalidad, JSONdata[0].tipos_usos);
                 // alert(elem);
@@ -257,9 +269,10 @@
       // var factor_Q = mayorFactor_Q();
       var factor_Q = $(opcion).val();
 
-      if (validar_30(tipoUso[1])) {
         // alert(tipoUso[1]);
+      if (validar_30(tipoUso[1])) {
         factor_Q = factor_Q * 0.30;
+        // alert(tipo);
         $('#'+tipo+'_4').val(factor_Q);
       }
 
@@ -343,8 +356,8 @@
           j++;
         var dato = parseInt( $(this).val());
         // alert(dato);
-          console.log(dato + ' es mayor que ? ' + tempFactor_Q);
-          console.log(dato >= tempFactor_Q);
+          // console.log(dato + ' es mayor que ? ' + tempFactor_Q);
+          // console.log(dato >= tempFactor_Q);
         if (dato >= tempFactor_Q) {
           // console.log(dato);
           // console.log(tempFactor_Q);
@@ -352,12 +365,12 @@
           var idCampo = $(this).attr('id');
         // alert(idCampo);
           cargoB = $('#'+ idCampo +'_0').val().replace('.', "");
-          console.log('---------/*/---------------/*/----------------');
-          console.log(tempFactor_Q+ ' Nuevo Valor temp');
-          console.log(cargoB)
+          // console.log('---------/*/---------------/*/----------------');
+          // console.log(tempFactor_Q+ ' Nuevo Valor temp');
+          // console.log(cargoB)
         }
-          console.log(j + ' Cantidad de Ciclos');
-          console.log('---------//---------------//----------------');
+          // console.log(j + ' Cantidad de Ciclos');
+          // console.log('---------//---------------//----------------');
       });
       return cargoB;
     }
@@ -410,7 +423,7 @@
         // alert(dato);
         if (dato >= tempFactor_Q) {
           tempFactor_Q = dato;
-          console.log($(this).attr('id'))
+          // console.log($(this).attr('id'))
         }
       });
       return tempFactor_Q;
@@ -623,7 +636,7 @@
     function validar_30(modalidades) {
       var resultado = false;
 
-      if (modalidades == 'Modificacion' || modalidades == 'Restauracion' || modalidades == 'Reforzamiento Estructural' || modalidades == 'Reconstruccion') {
+      if (modalidades == 'Modificacion' || modalidades == 'Restauracion' || modalidades == 'Reforzamiento Estructural' || modalidades == 'ReforzamientoEstructural' || modalidades == 'Reconstruccion') {
         resultado = true;
       }
       return resultado;
@@ -643,7 +656,14 @@
     function getUsos(arrayUsos, modLicencia1, lic) {
       var modLicencia='';
       var elemento='';
-
+      var funcion = 'factores(this);';
+      alert(reconocimiento);
+      if (reconocimiento && (modLicencia !='ConstruccionAmpliacion' || modLicencia !='ConstruccionReconstruccion') ) {
+        alert('entro al if de inhabilitar la funcion');
+        funcion='';
+      }
+      alert(modLicencia);
+      modLicencia2 = modLicencia1;
       modLicencia1 = modLicencia1.split(' ');
 
       for (var jr =0; modLicencia1.length-1 >= jr ; jr++) {
@@ -663,10 +683,14 @@
                 elemento+=" <h6>Vivienda</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' > ";
+                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
-              if (validar_30(modLicencia)) {
+                // alert('Afuera del if con /*/' + modLicencia2);
+              if (validar_30(modLicencia2)) {
+
+                // alert('entro al if con /*/' + modLicencia);
+
                 elemento+= cobro_30(modLicencia, 'vivienda');
               }
 
@@ -687,10 +711,10 @@
                elemento+=" <h6>Comercio</h6>";
              elemento+=" </div>";
              elemento+=" <div class='col-lg-3 input-group'>";
-               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='factores(this);' size='10' >";
+               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='"+funcion+"' size='10' >";
                elemento+=" <label for=''>M<sup>2</sup></label>";
              elemento+=" </div>";
-             if (validar_30(modLicencia)) {
+             if (validar_30(modLicencia2)) {
                 elemento+= cobro_30(modLicencia, 'comercio');
               }
 
@@ -712,14 +736,14 @@
                 elemento+=" <h6>Institucional</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='factores(this); return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' size='10' > ";
                 elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
-              if (validar_30(modLicencia)) {
+              if (validar_30(modLicencia2)) {
                 elemento+= cobro_30(modLicencia, 'institucional');
               }
               // elemento+=" <div class='col-lg-2 form-check'>";
-              //   elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='factores(this);'  > DOT";
+              //   elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='"+funcion+"'  > DOT";
 
               //   // elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
               // elemento+=" </div>";
@@ -741,10 +765,10 @@
                 elemento+=" <h6>Industria</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='factores(this); return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ;?>' size='10' /> ";
                 elemento+=" <label for=''>M<sup>2</sup></label>                  ";
               elemento+=" </div>";
-              if (validar_30(modLicencia)) {
+              if (validar_30(modLicencia2)) {
                 elemento+= cobro_30(modLicencia, 'industria');
               }
 
@@ -826,10 +850,10 @@
         elemento+=" </div>";
        } 
        else if (modalidad == 'Aprobacion Poryectos Urbanisticos') {
-        modalidad = modalidad.split(' ');
-        // alert(modalidad.length);
-        modalidad = modalidad[0]+modalidad[1]+modalidad[2];
-        // alert(modalidad);
+         modalidad = modalidad.split(' ');
+         // alert(modalidad.length);
+         modalidad = modalidad[0]+modalidad[1]+modalidad[2];
+         // alert(modalidad);
          elemento+=" <div class='col-lg-12  input-group'>";
           elemento+=" <div class='col-lg-1  input-group'></div>";
           elemento+=" <div class='col-lg-2  input-group'>";
@@ -846,7 +870,7 @@
             elemento+=" <input class='variable' onchange'' name='Aprobacion_"+modalidad+"_2' type='hidden' id='Aprobacion_"+modalidad+"_2' value='0' >";
             elemento+=" <input class='licencia' name='Aprobacion_"+modalidad+"_3' type='hidden' id='Aprobacion_"+modalidad+"_3' value='"+licencia+"' >";
           // elemento+=" </div>";
-        elemento+=" </div>";
+          elemento+=" </div>";
        } else if (modalidad == 'Propiedad Horizontal') {
           // console.log(cantidadLicencias);
           bandera = false;

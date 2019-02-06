@@ -1,6 +1,7 @@
 
 <?php 
-	require_once '../mpdf/vendor/autoload.php';
+	require_once '../../plugins/mpdf/vendor/autoload.php';
+	// require_once '../mpdf/vendor/autoload.php';
 	// require_once('../lib/pdf/mpdf.php');
 	require_once('../../cx/cx.php');
 	include_once ('../../functions/globales.js');
