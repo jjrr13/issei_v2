@@ -25,11 +25,13 @@
 	setlocale(LC_ALL,"es_ES");
 	$fecha_radicacion = strftime("%A %d de %B del %Y");
 
+	// $entregados.=' y en Generales: '. docFaltantesGenerales($_SESSION['docGenerales'], $_SESSION['documentos_generales']);
+	// $entregados.=' '. docFaltantesEspecificos($_SESSION['docEspecificos'], $_SESSION['documentos_especificos']);
 
-	$entregados='<strong>Se entregaron los siguientes documentos: </strong>';
 	$faltantes='<strong>Quedaron pendientes los siguientes documentos: </strong>';
-	$entregados.=' '. docFaltantesEspecificos($_SESSION['docEspecificos'], $_SESSION['documentos_especificos']);
-	$entregados.=' y en Generales: '. docFaltantesGenerales($_SESSION['docGenerales'], $_SESSION['documentos_generales']);
+	$entregados='<strong>Se entregaron los siguientes documentos: </strong>';
+	$entregados.=' '. docFaltantesEspecificos($_SESSION['documentos_generales'], $_SESSION['documentos_especificos']);
+	$entregados.=' y en Generales: '. docFaltantesGenerales($_SESSION['documentos_especificos'], $_SESSION['documentos_generales']);
 	$titulares = ponerTitulares($_SESSION['titulares_nombres']);
 	$nombre_tramitador = $_SESSION['tramitador_nombre'];
 	$radicado = $_SESSION['consecutivoNuevo'];
@@ -61,7 +63,7 @@
 	}
 
 if (!empty($_SESSION['consecutivoNuevo'])) {
-	$algo=' Deberia de motrar el valor';
+	$algo=' Deberia de mostrar el valor';
 }
 else{
 	$algo=' llego vacia la session';
@@ -242,7 +244,7 @@ function docFaltantesEspecificos($array, $array2)
 	$cant = count($array)-1;
 	global $faltantes;
 
-	  // console(var_dump($array2));
+	// console(var_dump($array2));
 	foreach ($array as $key => $value) {
 
 	  $documento = $array[$key];

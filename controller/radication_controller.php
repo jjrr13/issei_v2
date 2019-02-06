@@ -256,6 +256,7 @@ else if (!empty($_POST['btn_docs'])   ) {
 						
 								$_SESSION['documentos_generales'] = $_POST['documentos_generales'];
 								$_SESSION['documentos_especificos'] = (!empty($_POST['documentos_especificos'])) ? $_POST['documentos_especificos'] : '';
+								$_SESSION['documentos_adicionales'] = (!empty($_POST['documentos_adicionales'])) ? $_POST['documentos_adicionales'] : '';
 
 								$_SESSION['categoria'] = (!empty($_SESSION['categoria']))? $_SESSION['categoria'] : '';
 

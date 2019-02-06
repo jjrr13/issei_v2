@@ -382,7 +382,7 @@
         // alert(dato);
         if (dato >= tempFactor_Q) {
           tempFactor_Q = dato;
-          console.log($(this).attr('id'))
+          console.log($(this).attr('id'));
         }
       });
       return tempFactor_Q;
