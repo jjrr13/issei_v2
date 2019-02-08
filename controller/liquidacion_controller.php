@@ -8,76 +8,61 @@
 	$tipos_usos= array();
 	$tipos_licencias = array();
 	// $titulares = array();
+	// var_dump($_SESSION['conceptos']);
+
+	// echo crearTabla($_SESSION['conceptos'])	;
+
 	
-	if ( (isset($_POST['nombre']) && !empty($_POST['nombre']) ) &&
-		 (isset($_POST['apellido']) && !empty($_POST['apellido']) ) &&
-		 (isset($_POST['atendio']) && !empty($_POST['atendio']) ) &&
-		 (isset($_POST['fecha_cita']) && !empty($_POST['fecha_cita']) ) ) {
-			// echo "<script>alert('entro al if ?');</script>";
-			if( isset($_POST['nroradicado']) && !empty($_POST['nroradicado']) ) $nro_radicado = '760011'.$_POST['nroradicado'];
-			else $nro_radicado="";
 
-			$hora = date('H:i:s');
-			$estado_inicial = '1';
-			$atendio = $_POST['atendio'];
-			$nrosolicitud = $_POST['nrosolicitud'];
-			$nit = $_SESSION['nit'];
-			$nombres = $_POST['nombre'] ." ". $_POST['apellido'];
+	
 
-			$sql = sprintf("INSERT INTO agendamiento (nit,
-			        nro_radicado, nro_solicitud, fecha, hora, id_consulta, id_asignado, id_estado, id_creacion, fecha_registro)
-			       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-			      
-			       GetSQLValueString($_SESSION['nit'], "int"),
-			       GetSQLValueString($nro_radicado, "text"),
-			       GetSQLValueString($_POST['nrosolicitud'], "text"),
-			       GetSQLValueString($_POST['fecha_cita'], "date"),
-			       GetSQLValueString($hora, "time"),
-			       GetSQLValueString($_POST['LISTA'], "int"),
-			       GetSQLValueString($_POST['atendio'], "int"),
-			       GetSQLValueString($estado_inicial, "int"),
-			       GetSQLValueString($_SESSION['id_usuario'], "int"),
-			       GetSQLValueString($fecha_registro, "datetime"));
+	if (!empty($_POST['usos']) && !empty($_POST['tipoModalidades'])) {
+		$retorno=111;
+		// La funcion explode convertira la cadena a arreglo
+		$estrato = !empty($_POST['estrato']) ? $_POST['estrato'] : '' ;
+		$_SESSION['conceptos'] = array();
 
-			$result = $mysqli->query($sql);
+		$uso = explode(',', $_POST['usos']);
+		$modalidad = explode(',', $_POST['tipoModalidades']);
+		$cant=0;
 
-			if($result){
+		for ($j=0; $j < sizeof($uso); $j++) { 
+			// if ($uso[$j] == 'Vivienda' ) {
+			// 	$estrato2 = $estrato;
+			// }
+			for ($jr=0; $jr < sizeof($modalidad); $jr++) {
 				
-				$arrayjson = array();
-				$arrayjson[] = array(
-								'nit'          =>  $nit,//nit del solicitante
-								'nombre'	   => $nombres,// nombres concatenados 
-								'funcionario'  => $atendio,//quien atiende
-								'nro_radicado' => $nro_radicado,//numero de radicado
-								'nrosolicitud' => $nrosolicitud,// numero de solicitud
-								'consulta'	   => 'APORTAR plnitos',//tipo de consulta que se realiza
-								'hora'		   => $hora//hora de agendamiento
-				);
-				$_SESSION['nit'];
+				$datoModalidad = $modalidad[$jr];
+				$modalidad[$jr] = unir($modalidad[$jr]);
+				if ($uso[$j]=='Comercio y/o Servicios') {
+					$temp = explode(' ', $uso[$j]);
+					$uso[$j] = $temp[0];
+				}
+				$fQ = $uso[$j].'_'.$modalidad[$jr];
 
-				unset($_SESSION['nombre']);
-				unset($_SESSION['apellido']);
+					$cant++;
+				if (!empty($_POST["$fQ"])) {
+					$concepto = $datoModalidad.' '.$uso[$j].' '. ($uso[$j] == 'Vivienda' ) ? 'Estrato '.$estrato : '' ;
 
-				echo json_encode($arrayjson);
-					
+					$variable = $uso[$j].'_'.$modalidad[$jr].'_0';
+					$variable = $_POST[$variable];
+
+					array_push($_SESSION['conceptos'], array(  "1"  => $concepto,  "2" => $fQ,  "3" => $variable, ));
+
+				}
+				else{
+					// $retorno=101;
+					$retorno=$fQ.$cant;
+				}
 				
-			}else{
-				//scripts($ruta);
-
-				$_SESSION['nit'];
-
-				unset($_SESSION['nombre']);
-				unset($_SESSION['apellido']);
-				//no se inserto en en la BD
-				echo 0;
 			}
-
-
+		}
+		echo $retorno;
 	}
 	else if (isset($_POST['buscaRad']) && !empty($_POST['buscaRad']) ) {
 		$radicado = $_POST['buscaRad'];
 
-		$sql = "SELECT nombre, estrato, DATE_FORMAT(fecha,'%Y-%m-%d') fecha, objetivo_id FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
+		$sql = "SELECT nombre, estrato, categoria, DATE_FORMAT(fecha,'%Y-%m-%d') fecha, objetivo_id FROM radicacion WHERE consecutivo = '$radicado' AND  estado_id < 7";
  
 
 		$result =$mysqli->query($sql);
@@ -86,7 +71,7 @@
 		if ($fila1 > 0) {
 			$datos = mysqli_fetch_assoc($result);
 			
-////////////// traer las direcciones del proyecto  ///////////////////////
+			////////////// traer las direcciones del proyecto  ///////////////////////
 			$sql1 = "SELECT direccion, barrio FROM radicado_direcciones as rd 
 						INNER JOIN barrio as b ON rd.id_barrio = b.id_barrio 
 						WHERE rd.id_rad = '$radicado'";
@@ -111,6 +96,8 @@
 			$_SESSION['estrato'] = $datos['estrato'];
 			$_SESSION['fecha'] = $datos['fecha'];
 			$_SESSION['objetivo_id'] = $datos['objetivo_id'];
+			$_SESSION['categoria'] = $datos['categoria'];
+			$_SESSION['direccion'] = $direccion;
 
 			////////////// traer las licencias del proyecto  ///////////////////////
 			$sql2 = "SELECT id_lic, tipo_licencias.nombre, modalidad FROM rad_lic 
@@ -150,30 +137,52 @@
 				$_SESSION['construRespon'] = $datos2['nombre'];
 			}else{$_SESSION['construRespon']=''; }
 
-//////////////// traer los titulares //////////////////////////////////
+			//////////////// traer los titulares //////////////////////////////////
 			$sql5 = "SELECT t.nombre FROM rad_titulares rt 
         INNER JOIN terceros t ON t.nit =  rt.id_terc
         WHERE rt.id_rad = '$radicado'";
 
       $result5 =$mysqli->query($sql5);
       $titulares='';
-			while ($valores5 = mysqli_fetch_array($result5)) {
-				$titulares.= $valores5['nombre'].', ';
+      $valores5 = mysqli_fetch_array($result5);
+			// while ($valores5 = mysqli_fetch_array($result5)) {
+			// 	$titulares.= $valores5['nombre'].', ';
+			// }
+
+			$values="";
+			$cant = count($valores5)-1;
+
+			if ($cant <= 1) {
+				$values = $valores5[0];
 			}
+			else{
+				foreach ($valores5 as $key => $value) {
+
+					$titular = $valores5[$key];
+
+					if ($cant != $key) {
+						$values.="$titular, ";
+					}
+					else{
+						$values.="y $titular ";
+					}
+				}
+			}
+			$_SESSION['titulares'] = $values;
 
 			$arrayjson = array();
 			$arrayjson[] = array(
 							'radicado'     => $_SESSION['radicado'],
 							'nombreProyecto'	   => $_SESSION['nombreProyecto'],
 							'estrato'	   => $_SESSION['estrato'],
-							'dir_act'    => $direccion,
+							'dir_act'    => $_SESSION['direccion'],
 							'barrio_act'    => '',
 							'fecha'			=> $_SESSION['fecha'],
 							'objetivo_id'			=> $_SESSION['objetivo_id'],
 							'tipos_licencias' => $tipos_licencias,
 							'tipos_usos'	=> $tipos_usos,
 							'construRespon'			=> $_SESSION['construRespon'],
-							'titulares'			=> $titulares
+							'titulares'			=> $_SESSION['titulares']
 			);
 
 			echo json_encode($arrayjson);
@@ -183,22 +192,88 @@
 
 		}
 		else{
-			
+	//181378		3434 	760011181378 	bloqueado 	2019-02-08 11:08:31
+
+
 			echo 3; 
 		}
 	}
-	else if (isset($_POST['limpiar']) && !empty($_POST['limpiar'])) {
-		unset($_SESSION['nit']);
-		unset($_SESSION['nombre']);
-		unset($_SESSION['apellido']);
-		//no llegaron datos
+	else if (isset($_POST['cancelar']) && !empty($_POST['cancelar'])) {
+		unset($_SESSION['radicado']);
+		unset($_SESSION['titulares']);
+		unset($_SESSION['construRespon']);
+		unset($_SESSION['nombreProyecto']);
+		unset($_SESSION['direccion']);
+		unset($_SESSION['estrato']);
+		unset($_SESSION['fecha']);
+		unset($_SESSION['objetivo_id']);
 		echo 4;
 	}
 	else{
-		unset($_SESSION['nit']);
-		unset($_SESSION['nombre']);
-		unset($_SESSION['apellido']);
+		// unset($_SESSION['nit']);
+		// unset($_SESSION['nombre']);
+		// unset($_SESSION['apellido']);
 		//no llegaron datos
-		echo 0;
+		// unset($_SESSION['radicado']);
+		// unset($_SESSION['titulares']);
+		// unset($_SESSION['construRespon']);
+		// unset($_SESSION['nombreProyecto']);
+		// unset($_SESSION['direccion']);
+		// unset($_SESSION['estrato']);
+		// unset($_SESSION['fecha']);
+		// unset($_SESSION['objetivo_id']);
+		// echo 0;
 	}
- ?>
+ 
+	function unir($modalidad1)
+	{
+		$tem = explode(' ', $modalidad1);
+		if ( sizeof($tem)>1) {
+			$union='';
+			for ($js=0; $js < sizeof($tem); $js++) {
+				$union.=$tem[$js];
+			}
+			return $union;
+		}
+		else{
+			return $modalidad1;
+		}
+
+	}
+
+
+
+ function crearTabla($valores){
+	$elemento='
+	<table class="egt">
+	  <thead>
+	    <tr>
+	      <th>Conceptos</th>
+	      <th>Cantidad Q</th>
+	      <th>Valor $</th>
+	    </tr>
+	  </thead>
+	  <tbody>';
+	    
+	$cant = sizeof($valores);
+
+	foreach ($valores as $key => $value) {
+		$elemento.='
+				<tr>';
+		foreach ($variable[$key] as $key2 => $value2) {
+			$elemento.='
+				<td>';
+						$elemento.=$variable[$key][$key2];
+			$elemento.='
+				</td>';
+		}
+		$elemento.='
+				</tr>';
+	}
+
+
+	$elemento.='
+	  </tbody>
+	</table>';
+	return $elemento;
+}
