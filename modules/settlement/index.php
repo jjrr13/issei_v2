@@ -216,7 +216,7 @@
                 var elemento2 = '';
                 elemento2+="<div class='col-lg-2 form-check' id='ph_check'>";
                 elemento2+=  "<input name='propiedad_horizontal' type='checkbox' id='propiedad_horizontal' value='1' disabled='' onclick='' checked='checked'> Propiedad Horizontal";
-                elemento2+=  "<input class='variable' onchange'' name='propiedad_horizontal_2' type='hidden' id='propiedad_horizontal_2' value='0' >";
+                elemento2+=  "<input class='variable' name='propiedad_horizontal_2' type='hidden' id='propiedad_horizontal_2' value='0' >";
                 elemento2+="</div>";
 
                 $('#checks').append(elemento2);
@@ -283,7 +283,7 @@
       // alert(factor_Q);
       // alert(modo);
 
-      if (tipoUso[0]=='vivienda') {
+      if (tipoUso[0]=='Vivienda') {
         if (factor_Q >= 0.1) {
           var factor_I_v = factor_I_vivienda($('#estrato').html());
 
@@ -469,7 +469,7 @@
                 elemento+=" <h6>Vivienda</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='vivienda_"+modLicencia+"' type='text' id='vivienda_"+modLicencia+"' size='10' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' > ";
+                elemento+=" <input class='cargoBasico' name='Vivienda_"+modLicencia+"' type='text' id='Vivienda_"+modLicencia+"' size='10' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' > ";
               elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
                 // alert('Afuera del if con /*/' + modLicencia2);
@@ -477,14 +477,14 @@
 
                 // alert('entro al if con /*/' + modLicencia);
 
-                elemento+= cobro_30(modLicencia, 'vivienda');
+                elemento+= cobro_30(modLicencia, 'Vivienda');
               }
 
-              // /////////// datos vivienda_ /////////////
-                elemento+=" <input class='cargoBasico1' name='vivienda_"+modLicencia+"_0' type='hidden' id='vivienda_"+modLicencia+"_0' value='0' >";
-                elemento+=" <input class='modalidad' name='vivienda_"+modLicencia+"_1' type='hidden' id='vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
-                elemento+=" <input class='variable vivienda' onchange'' name='vivienda_"+modLicencia+"_2' type='hidden' id='vivienda_"+modLicencia+"_2' value='0' >";
-                elemento+=" <input class='licencia' name='vivienda_"+modLicencia+"_3' type='hidden' id='vivienda_"+modLicencia+"_3' value='"+lic+"' >";
+              // /////////// datos Vivienda_ /////////////
+                elemento+=" <input class='cargoBasico1' name='Vivienda_"+modLicencia+"_0' type='hidden' id='Vivienda_"+modLicencia+"_0' value='0' >";
+                elemento+=" <input class='modalidad' name='Vivienda_"+modLicencia+"_1' type='hidden' id='Vivienda_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable Vivienda' name='Vivienda_"+modLicencia+"_2' type='hidden' id='Vivienda_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='Vivienda_"+modLicencia+"_3' type='hidden' id='Vivienda_"+modLicencia+"_3' value='"+lic+"' >";
               // elemento+=" </div>";
             elemento+=" </div>";
           }
@@ -497,20 +497,20 @@
                elemento+=" <h6>Comercio</h6>";
              elemento+=" </div>";
              elemento+=" <div class='col-lg-3 input-group'>";
-               elemento+=" <input class='cargoBasico' name='comercio_"+modLicencia+"' type='text' id='comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='"+funcion+"' size='10' >";
+               elemento+=" <input class='cargoBasico' name='Comercio_"+modLicencia+"' type='text' id='Comercio_"+modLicencia+"' onkeypress='ValidNum2(event); '  onkeyup='"+funcion+"' size='10' >";
                elemento+=" <label for=''>M<sup>2</sup></label>";
              elemento+=" </div>";
              if (validar_30(modLicencia2)) {
-                elemento+= cobro_30(modLicencia, 'comercio');
+                elemento+= cobro_30(modLicencia, 'Comercio');
               }
 
              elemento+=" <div class='col-lg-2  input-group'></div>";
 
-              // /////////// datos comercio_ /////////////
-               elemento+=" <input class='cargoBasico1' name='comercio_"+modLicencia+"_0' type='hidden' id='comercio_"+modLicencia+"_0' value='0' >";
-                elemento+=" <input class='modalidad' name='comercio_"+modLicencia+"_1' type='hidden' id='comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
-                elemento+=" <input class='variable' onchange'' name='comercio_"+modLicencia+"_2' type='hidden' id='comercio_"+modLicencia+"_2' value='0' >";
-                elemento+=" <input class='licencia' name='comercio_"+modLicencia+"_3' type='hidden' id='comercio_"+modLicencia+"_3' value='"+lic+"' >";
+              // /////////// datos Comercio_ /////////////
+               elemento+=" <input class='cargoBasico1' name='Comercio_"+modLicencia+"_0' type='hidden' id='Comercio_"+modLicencia+"_0' value='0' >";
+                elemento+=" <input class='modalidad' name='Comercio_"+modLicencia+"_1' type='hidden' id='Comercio_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' name='Comercio_"+modLicencia+"_2' type='hidden' id='Comercio_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='Comercio_"+modLicencia+"_3' type='hidden' id='Comercio_"+modLicencia+"_3' value='"+lic+"' >";
 
             elemento+=" </div>";
           }else if (arrayUsos[js][3]=='Institucional') {
@@ -522,23 +522,23 @@
                 elemento+=" <h6>Institucional</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='institucional_"+modLicencia+"' type='text' id='institucional_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' size='10' > ";
+                elemento+=" <input class='cargoBasico' name='Institucional_"+modLicencia+"' type='text' id='Institucional_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ; ?>' size='10' > ";
                 elemento+=" <label for=''>M<sup>2</sup></label>";
               elemento+=" </div>";
               if (validar_30(modLicencia2)) {
-                elemento+= cobro_30(modLicencia, 'institucional');
+                elemento+= cobro_30(modLicencia, 'Institucional');
               }
               // elemento+=" <div class='col-lg-2 form-check'>";
-              //   elemento+=" <input name='institucional_"+modLicencia+"_dot' type='checkbox' id='institucional_"+modLicencia+"_dot' value='1' onclick='"+funcion+"'  > DOT";
+              //   elemento+=" <input name='Institucional_"+modLicencia+"_dot' type='checkbox' id='Institucional_"+modLicencia+"_dot' value='1' onclick='"+funcion+"'  > DOT";
 
-              //   // elemento+=" <input name='institucional_dot_1' type='checkbox' id='institucional_dot_1' value='1' onclick='' >DOT";
+              //   // elemento+=" <input name='Institucional_dot_1' type='checkbox' id='Institucional_dot_1' value='1' onclick='' >DOT";
               // elemento+=" </div>";
 
-              // /////////// datos institucional_ /////////////
-               elemento+=" <input class='cargoBasico1' name='institucional_"+modLicencia+"_0' type='hidden' id='institucional_"+modLicencia+"_0' value='0' >";
-              elemento+=" <input class='modalidad' name='institucional_"+modLicencia+"_1' type='hidden' id='institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
-              elemento+=" <input class='variable' onchange'' name='institucional_"+modLicencia+"_2' type='hidden' id='institucional_"+modLicencia+"_2' value='0' >";
-                elemento+=" <input class='licencia' name='institucional_"+modLicencia+"_3' type='hidden' id='institucional_"+modLicencia+"_3' value='"+lic+"' >";
+              // /////////// datos Institucional_ /////////////
+               elemento+=" <input class='cargoBasico1' name='Institucional_"+modLicencia+"_0' type='hidden' id='Institucional_"+modLicencia+"_0' value='0' >";
+              elemento+=" <input class='modalidad' name='Institucional_"+modLicencia+"_1' type='hidden' id='Institucional_"+modLicencia+"_1' value='"+modLicencia+"' >";
+              elemento+=" <input class='variable' name='Institucional_"+modLicencia+"_2' type='hidden' id='Institucional_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='Institucional_"+modLicencia+"_3' type='hidden' id='Institucional_"+modLicencia+"_3' value='"+lic+"' >";
 
             elemento+=" </div>";
           }else if (arrayUsos[js][4]=='Industrial') {
@@ -551,20 +551,20 @@
                 elemento+=" <h6>Industria</h6>";
               elemento+=" </div>";
               elemento+=" <div class='col-lg-3 input-group'>";
-                elemento+=" <input class='cargoBasico' name='industria_"+modLicencia+"' type='text' id='industria_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+                elemento+=" <input class='cargoBasico' name='Industria_"+modLicencia+"' type='text' id='Industria_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ;?>' size='10' /> ";
                 elemento+=" <label for=''>M<sup>2</sup></label>                  ";
               elemento+=" </div>";
               if (validar_30(modLicencia2)) {
-                elemento+= cobro_30(modLicencia, 'industria');
+                elemento+= cobro_30(modLicencia, 'Industria');
               }
 
               elemento+=" <div class='col-lg-2 input-group'></div>";
 
-              // /////////// datos industria_ /////////////
-               elemento+=" <input class='cargoBasico1' name='industria_"+modLicencia+"_0' type='hidden' id='industria_"+modLicencia+"_0' value='0' >";
-                 elemento+=" <input class='modalidad' name='industria_"+modLicencia+"_1' type='hidden' id='industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
-                elemento+=" <input class='variable' onchange'' name='industria_"+modLicencia+"_2' type='hidden' id='industria_"+modLicencia+"_2' value='0' >";
-                elemento+=" <input class='licencia' name='industria_"+modLicencia+"_3' type='hidden' id='industria_"+modLicencia+"_3' value='"+lic+"' >";
+              // /////////// datos Industria_ /////////////
+               elemento+=" <input class='cargoBasico1' name='Industria_"+modLicencia+"_0' type='hidden' id='Industria_"+modLicencia+"_0' value='0' >";
+                 elemento+=" <input class='modalidad' name='Industria_"+modLicencia+"_1' type='hidden' id='Industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
+                elemento+=" <input class='variable' name='Industria_"+modLicencia+"_2' type='hidden' id='Industria_"+modLicencia+"_2' value='0' >";
+                elemento+=" <input class='licencia' name='Industria_"+modLicencia+"_3' type='hidden' id='Industria_"+modLicencia+"_3' value='"+lic+"' >";
 
 
             elemento+=" </div>";
@@ -630,7 +630,7 @@
           // /////////// datos reloteo_ /////////////
             elemento+=" <input class='cargoBasico1' name='reloteo_"+modalidad+"_0' type='hidden' id='reloteo_"+modalidad+"_0' value='0' >";
             elemento+=" <input class='modalidad' name='reloteo_"+modalidad+"_1' type='hidden' id='reloteo_"+modalidad+"_1' value='"+modalidad+"' >";
-            elemento+=" <input class='variable' onchange'' name='reloteo_"+modalidad+"_2' type='hidden' id='reloteo_"+modalidad+"_2' value='0' >";
+            elemento+=" <input class='variable' name='reloteo_"+modalidad+"_2' type='hidden' id='reloteo_"+modalidad+"_2' value='0' >";
             elemento+=" <input class='licencia' name='reloteo_"+modalidad+"_3' type='hidden' id='reloteo_"+modalidad+"_3' value='"+licencia+"' >";
           // elemento+=" </div>";
         elemento+=" </div>";
@@ -653,7 +653,7 @@
           // /////////// datos Aprobacion_ /////////////
             elemento+=" <input class='cargoBasico1' name='Aprobacion_"+modalidad+"_0' type='hidden' id='Aprobacion_"+modalidad+"_0' value='0' >";
             elemento+=" <input class='modalidad' name='Aprobacion_"+modalidad+"_1' type='hidden' id='Aprobacion_"+modalidad+"_1' value='"+modalidad+"' >";
-            elemento+=" <input class='variable' onchange'' name='Aprobacion_"+modalidad+"_2' type='hidden' id='Aprobacion_"+modalidad+"_2' value='0' >";
+            elemento+=" <input class='variable' name='Aprobacion_"+modalidad+"_2' type='hidden' id='Aprobacion_"+modalidad+"_2' value='0' >";
             elemento+=" <input class='licencia' name='Aprobacion_"+modalidad+"_3' type='hidden' id='Aprobacion_"+modalidad+"_3' value='"+licencia+"' >";
           // elemento+=" </div>";
           elemento+=" </div>";
@@ -678,7 +678,7 @@
             // /////////// datos ph_ /////////////
               elemento+=" <input class='cargoBasico1' name='ph_"+modalidad+"_0' type='hidden' id='ph_"+modalidad+"_0' value='0' >";
               elemento+=" <input class='modalidad' name='ph_"+modalidad+"_1' type='hidden' id='ph_"+modalidad+"_1' value='"+modalidad+"' >";
-              elemento+=" <input class='variable' onchange'' name='ph_"+modalidad+"_2' type='hidden' id='ph_"+modalidad+"_2' value='0' >";
+              elemento+=" <input class='variable' name='ph_"+modalidad+"_2' type='hidden' id='ph_"+modalidad+"_2' value='0' >";
               elemento+=" <input class='licencia' name='ph_"+modalidad+"_3' type='hidden' id='ph_"+modalidad+"_3' value='"+licencia+"' >";
             // elemento+=" </div>";
           elemento+=" </div>";
@@ -702,7 +702,7 @@
             // /////////// datos movimiento_Tierras_ /////////////
               elemento+=" <input class='cargoBasico1' name='movimiento_Tierras_"+modalidad+"_0' type='hidden' id='movimiento_Tierras_"+modalidad+"_0' value='0' >";
               elemento+=" <input class='modalidad' name='movimiento_Tierras_"+modalidad+"_1' type='hidden' id='movimiento_Tierras_"+modalidad+"_1' value='"+modalidad+"' >";
-              elemento+=" <input class='variable' onchange'' name='movimiento_Tierras_"+modalidad+"_2' type='hidden' id='movimiento_Tierras_"+modalidad+"_2' value='0' >";
+              elemento+=" <input class='variable' name='movimiento_Tierras_"+modalidad+"_2' type='hidden' id='movimiento_Tierras_"+modalidad+"_2' value='0' >";
               elemento+=" <input class='licencia' name='movimiento_Tierras_"+modalidad+"_3' type='hidden' id='movimiento_Tierras_"+modalidad+"_3' value='"+licencia+"' >";
             // elemento+=" </div>";
           elemento+=" </div>";
@@ -726,7 +726,7 @@
             // /////////// datos aprovacion_piscinas_ /////////////
               elemento+=" <input class='cargoBasico1' name='aprovacion_piscinas_"+modalidad+"_0' type='hidden' id='aprovacion_piscinas_"+modalidad+"_0' value='0' >";
               elemento+=" <input class='modalidad' name='aprovacion_piscinas_"+modalidad+"_1' type='hidden' id='aprovacion_piscinas_"+modalidad+"_1' value='"+modalidad+"' >";
-              elemento+=" <input class='variable' onchange'' name='aprovacion_piscinas_"+modalidad+"_2' type='hidden' id='aprovacion_piscinas_"+modalidad+"_2' value='0' >";
+              elemento+=" <input class='variable' name='aprovacion_piscinas_"+modalidad+"_2' type='hidden' id='aprovacion_piscinas_"+modalidad+"_2' value='0' >";
               elemento+=" <input class='licencia' name='aprovacion_piscinas_"+modalidad+"_3' type='hidden' id='aprovacion_piscinas_"+modalidad+"_3' value='"+licencia+"' >";
             // elemento+=" </div>";
           elemento+=" </div>";
@@ -753,6 +753,7 @@
 
       // alert(form);
       const datos = $("#datos").serialize();
+      var cargoBasico = $('#cargoBasico').val();
       // var datos = $('#datos').serialize();
       // const datos2 = usos.serialize();
       console.log('/*/*//*//');
@@ -764,7 +765,7 @@
         cache: false,                     
         type: "POST",                 
         url: "../../controller/liquidacion_controller.php",                    
-        data: 'usos='+usos+'&'+'tipoModalidades='+tipoModalidades+'&'+'estrato='+estrato+'&'+datos,
+        data: 'usos='+usos+'&'+'tipoModalidades='+tipoModalidades+'&'+'estrato='+estrato+'&'+'cargoBasico='+cargoBasico+'&'+datos,
         error: function(request, status, error)
         {
           console.log(error);
@@ -785,22 +786,13 @@
             confirmar('CONSTANCIA CREADA EXITOSAMENTE', 'fa fa-window-close', 'green', '../settlement');
           }
           else{
-            alert(data);
+            confirmar('Los campos de la licencia '+ data + ' No estar vacios todos.', 'fa fa-window-close', 'red', 'S');
+            // alert(data);
           }
           // var dat = JSON.parse(data);
           console.log('-----------**-----------------');
           console.log('en el success' + data);
           console.log('-----------**-----------------');
-          // if (form=='Tipo') {
-          //   if (data == 31) {
-          //     confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', '../radication');
-          //   }else{
-          //     window.location.reload();
-          //   }
-          // }else{
-          //   verificar(data);
-          // }
-          // confirmar('Haciendo pruebas', 'fa fa-check-square', 'blue', 'window');
         }
       });
     };
@@ -821,7 +813,7 @@
         success: function(data)            
         {
           if (data == 4) {
-            confirmar('SE CANCELO LA LIQUIDACIÓN', 'fa fa-window-close', 'red', '../settlement'); //../radication
+            confirmar('SE CANCELÓ LA LIQUIDACIÓN', 'fa fa-window-close', 'red', '../settlement');
           }
           else{
             alert(data);
@@ -905,27 +897,27 @@
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='prorroga' type='checkbox' id='prorroga' value='1' disabled="" onclick=';'> Prorroga
-                      <input class='variable' onchange'' name='prorroga_2' type='hidden' id='prorroga_2' value='0' >
+                      <input class='variable' name='prorroga_2' type='hidden' id='prorroga_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='revalidacion' type='checkbox' id='revalidacion' value='1' disabled="" onclick=';'> Revalidacion
-                      <input class='variable' onchange'' name='revalidacion_2' type='hidden' id='revalidacion_2' value='0' >
+                      <input class='variable' name='revalidacion_2' type='hidden' id='revalidacion_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='cotas' type='checkbox' id='cotas' value='1' disabled="" onclick=';'> Ajuste Cotas
-                      <input class='variable' onchange'' name='cotas_2' type='hidden' id='cotas_2' value='0' >
+                      <input class='variable' name='cotas_2' type='hidden' id='cotas_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='Subdivision' type='checkbox' id='Subdivision' value='1' disabled="" onclick=''> Subdivision
-                      <input class='variable' onchange'' name='Subdivision_2' type='hidden' id='Subdivision_2' value='0' >
+                      <input class='variable' name='Subdivision_2' type='hidden' id='Subdivision_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='concepto_norma' type='checkbox' id='concepto_norma' value='1' disabled="" onclick=''> Conceptos de Norma
-                      <input class='variable' onchange'' name='concepto_norma_2' type='hidden' id='concepto_norma_2' value='0' >
+                      <input class='variable' name='concepto_norma_2' type='hidden' id='concepto_norma_2' value='0' >
                     </div>
                     <div class='col-lg-2 form-check'>
                       <input name='modificacion_planos' type='checkbox' id='modificacion_planos' value='1' disabled="" onclick=''> Modificacion de Planos
-                      <input class='variable' onchange'' name='modificacion_planos_2' type='hidden' id='modificacion_planos_2' value='0' >
+                      <input class='variable' name='modificacion_planos_2' type='hidden' id='modificacion_planos_2' value='0' >
                     </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>
@@ -1052,54 +1044,3 @@
 <script src='../../cx/demo/demo.js'></script>
 <script type='text/javascript' src='../../cx/jquery-confirm.js'></script>
 
-
-<!-- vivienda_Ampliacion=42.92
-vivienda_Ampliacion_0=310709
-vivienda_Ampliacion_1=Ampliacion
-vivienda_Ampliacion_2=279638.21087999997
-vivienda_Ampliacion_3=Construccion
-comercio_Ampliacion=10
-comercio_Ampliacion_0=901056
-comercio_Ampliacion_1=Ampliacion
-comercio_Ampliacion_2=810950.811552
-comercio_Ampliacion_3=Construccion
-vivienda_Modificacion=
-vivienda_Modificacion_0=0
-vivienda_Modificacion_1=Modificacion
-vivienda_Modificacion_2=0
-vivienda_Modificacion_3=Construccion
-comercio_Modificacion=
-comercio_Modificacion_0=0
-comercio_Modificacion_1=Modificacion
-comercio_Modificacion_2=0
-comercio_Modificacion_3=Construccion
-vivienda_ReforzamientoEstructural=
-vivienda_ReforzamientoEstructural_0=0
-vivienda_ReforzamientoEstructural_1=ReforzamientoEstructural
-vivienda_ReforzamientoEstructural_2=0
-vivienda_ReforzamientoEstructural_3=Construccion
-comercio_ReforzamientoEstructural=
-comercio_ReforzamientoEstructural_0=0
-comercio_ReforzamientoEstructural_1=ReforzamientoEstructural
-comercio_ReforzamientoEstructural_2=0
-comercio_ReforzamientoEstructural_3=Construccion
-vivienda_DemolicionParcial=
-vivienda_DemolicionParcial_0=0
-vivienda_DemolicionParcial_1=DemolicionParcial
-vivienda_DemolicionParcial_2=0
-vivienda_DemolicionParcial_3=Construccion
-comercio_DemolicionParcial=
-comercio_DemolicionParcial_0=0
-comercio_DemolicionParcial_1=DemolicionParcial
-comercio_DemolicionParcial_2=0
-comercio_DemolicionParcial_3=Construccion
-vivienda_N-A=100
-vivienda_N-A_0=310709
-vivienda_N-A_1=N-A
-vivienda_N-A_2=279638.21087999997
-vivienda_N-A_3=Reconocimiento
-comercio_N-A=150
-comercio_N-A_0=901056
-comercio_N-A_1=N-A
-comercio_N-A_2=1255751.0529330075
-comercio_N-A_3=Reconocimiento -->

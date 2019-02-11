@@ -10,54 +10,129 @@
 	// $titulares = array();
 	// var_dump($_SESSION['conceptos']);
 
-	// echo crearTabla($_SESSION['conceptos'])	;
+// 	echo crearTabla($_SESSION['conceptos'])	;
 
+// echo "<pre>";
+// var_dump($_SESSION['pos']);
+// echo "</pre>";
+
+// echo "<hr>";
+
+// echo "<pre>";
+// var_dump($_SESSION['campos']);
+// echo "</pre>";
+
+// echo "<hr>";
+
+// echo "<pre>";
+// var_dump($_SESSION['entradas']);
+// echo "</pre>";
+
+// echo "<hr>";
+
+// echo "<pre>";
+// var_dump($_SESSION['conceptos']);
+// echo "</pre>";
+
+// echo "<hr>";
+// echo "<pre>";
+// var_dump($_SESSION['cont1']);
+// echo "<hr>";
+// var_dump($_SESSION['cont2']);
+// echo "</pre>";
 	
+if($_POST){
+	$_SESSION['pos'] = $_POST;
+}
+	function validarVacios($array1, $array2)
+	{
+		$retorno=111;
+		for ($j=0; $j < sizeof($array1); $j++) {
 
-	
+			if ($array1[$j][1]==0 && $array2[$j][1]==0) {
+				$retorno = $array1[$j][2];
+				break;
+			}
+		}
+		return $retorno;
+	}
 
-	if (!empty($_POST['usos']) && !empty($_POST['tipoModalidades'])) {
+	if (!empty($_POST['usos']) && !empty($_POST['tipoModalidades']) ) {
+		$_SESSION['campos'] = array();
+		$_SESSION['entradas'] = array();
+		$cont1 = array();
+		$cont2 = array();
 		$retorno=111;
 		// La funcion explode convertira la cadena a arreglo
 		$estrato = !empty($_POST['estrato']) ? $_POST['estrato'] : '' ;
 		$_SESSION['conceptos'] = array();
 
+		array_push($_SESSION['entradas'], 'Paso el primer if de llegada');
+
 		$uso = explode(',', $_POST['usos']);
 		$modalidad = explode(',', $_POST['tipoModalidades']);
-		$cant=0;
+		$verificaCAntidades = true;
 
 		for ($j=0; $j < sizeof($uso); $j++) { 
+			$cant=0;
+			array_push($_SESSION['entradas'], 'Entro al primer Ciclo '.$j);
 			// if ($uso[$j] == 'Vivienda' ) {
 			// 	$estrato2 = $estrato;
 			// }
 			for ($jr=0; $jr < sizeof($modalidad); $jr++) {
+				array_push($_SESSION['entradas'], 'Entro al segundo Ciclo '.$jr);
 				
 				$datoModalidad = $modalidad[$jr];
 				$modalidad[$jr] = unir($modalidad[$jr]);
+
 				if ($uso[$j]=='Comercio y/o Servicios') {
 					$temp = explode(' ', $uso[$j]);
 					$uso[$j] = $temp[0];
 				}
+				
+				$datoModalidad = ($datoModalidad == 'N-A') ? 'Reconocimiento' : $datoModalidad ;
+
 				$fQ = $uso[$j].'_'.$modalidad[$jr];
-
-					$cant++;
+					array_push($_SESSION['campos'], $fQ);
+					array_push($_SESSION['entradas'], 'Nombre del campo '.$fQ);
+					array_push($_SESSION['entradas'], 'Valor del campo '.$_POST[$fQ]);
 				if (!empty($_POST["$fQ"])) {
-					$concepto = $datoModalidad.' '.$uso[$j].' '. ($uso[$j] == 'Vivienda' ) ? 'Estrato '.$estrato : '' ;
+					$cant++;
+					
+					$estrato2 =  ($uso[$j] == 'Vivienda' ) ? 'Estrato '.$estrato : '' ;
 
-					$variable = $uso[$j].'_'.$modalidad[$jr].'_0';
+
+					$concepto = $datoModalidad.' '.$uso[$j].' '.$estrato2 ;
+
+					$variable = $uso[$j].'_'.$modalidad[$jr].'_2';
+
+					$fQ =  $_POST[$fQ];
 					$variable = $_POST[$variable];
 
-					array_push($_SESSION['conceptos'], array(  "1"  => $concepto,  "2" => $fQ,  "3" => $variable, ));
+					array_push($_SESSION['conceptos'], array(  "1"  => $concepto,  "2" => $fQ,  "3" => $variable ));
+
+					if ($j==0) {
+						array_push($cont1, array(  "1"  => 1,  "2" => $datoModalidad));
+					}else if ($j==1){
+						array_push($cont2, array(  "1"  => 1,  "2" => $datoModalidad));
+					}
 
 				}
 				else{
-					// $retorno=101;
-					$retorno=$fQ.$cant;
+					if ($j==0) {
+						array_push($cont1, array(  "1"  => 0,  "2" => $datoModalidad));
+					}else if ($j==1){
+						array_push($cont2, array(  "1"  => 0,  "2" => $datoModalidad));
+					}
 				}
 				
 			}
+			array_push($_SESSION['entradas'], 'Valor del de Buenos '.$cant);
 		}
-		echo $retorno;
+		$_SESSION['cargoBasico'] = $_POST['cargoBasico'];
+		// $_SESSION['cont1']= $cont1;
+		// $_SESSION['cont2']= $cont2;
+		echo validarVacios($cont1, $cont2);
 	}
 	else if (isset($_POST['buscaRad']) && !empty($_POST['buscaRad']) ) {
 		$radicado = $_POST['buscaRad'];
@@ -258,12 +333,13 @@
 	$cant = sizeof($valores);
 
 	foreach ($valores as $key => $value) {
+		// $variable = $valores[$key];
 		$elemento.='
 				<tr>';
-		foreach ($variable[$key] as $key2 => $value2) {
+		foreach ($valores[$key] as $key2 => $value2) {
 			$elemento.='
 				<td>';
-						$elemento.=$variable[$key][$key2];
+						$elemento.=$valores[$key][$key2];
 			$elemento.='
 				</td>';
 		}

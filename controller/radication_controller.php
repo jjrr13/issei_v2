@@ -35,9 +35,6 @@ include_once "../cx/cx.php";
 
 // echo insertarDirecciones($_SESSION['predio']['dirActual'], 'radicado_direcciones', 760011180011);
 
-
-
-
 if($_POST){
 	$_SESSION['pos'] = $_POST;
 }
@@ -272,18 +269,18 @@ else if (!empty($_POST['btn_docs'])   ) {
 							       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
 							       // GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
-							       // GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
+							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
 							       GetSQLValueString($_SESSION['categoria'], "text"),
-							       // GetSQLValueString($_SESSION['predio']['matricula'], "int"),
-							       // GetSQLValueString($_SESSION['predio']['catastral'], "int"),
 							       GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
 							       GetSQLValueString(1, "int"),
 							       GetSQLValueString(30, "int"),
 							       GetSQLValueString($_SESSION['objetoTramite'], "int"),
 							       GetSQLValueString($_SESSION['revisorProyecto'], "text"),
-							       GetSQLValueString($_SESSION['rad_vigente'], "text"));
+							       GetSQLValueString($_SESSION['rad_vigente'], "text") );
+
+								$_SESSION['datos'] = $sql;
 
 							$result = $mysqli->query($sql);
 							// $result=false;
@@ -314,13 +311,13 @@ else if (!empty($_POST['btn_docs'])   ) {
 									
 								}else{
 									$respuesta= 112;
-					        	}
-					        }else{
-					        	// $respuesta = 111;
-					        	$respuesta = 37;
-					        	
-					        	$_SESSION['radicar'] = '1'.($respuesta-2);
-					        }
+			        	}
+			        }else{
+			        	// $respuesta = 111;
+			        	$respuesta = 37;
+			        	
+			        	$_SESSION['radicar'] = '1'.($respuesta-2);
+			        }
 						}else{
 							$respuesta= 36;
 							$_SESSION['radicar'] = '1'.$respuesta-1;
