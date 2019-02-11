@@ -7,12 +7,15 @@
           $('#LicCons'+j).attr('disabled', 'disabled');
           $('#LicCons'+j).removeAttr('checked');
         }
+        $('#LicRec').attr('disabled', 'disabled');
+        $('#LicRec').removeAttr('checked');
       }
       else if (op==2){
         //se vuelven a habilitar si se desmarca
         for (var r = 11; r <=16 ; r++) {
           $('#LicCons'+r).removeAttr('disabled');
         }
+        $('#LicRec').removeAttr('disabled');
       }
       else if (op==3){
         //se evaluan todas las casillas de la construccion a execcion de la primera y las 2 ultima 
@@ -110,11 +113,23 @@
         $('#institu').removeAttr('disabled');
       }
     }
-    else if (option ==4 || option == 3) {
+    else if (option == 3) {
       if (valor.checked) {
         $('#vivienda').attr('disabled', 'disabled');
+        $('#industrial').attr('disabled', 'disabled');
       }
       else{
+        $('#industrial').removeAttr('disabled');
+        $('#vivienda').removeAttr('disabled');
+      }
+    }
+    else if (option ==4 ) {
+      if (valor.checked) {
+        $('#vivienda').attr('disabled', 'disabled');
+        $('#institu').attr('disabled', 'disabled');
+      }
+      else{
+        $('#institu').removeAttr('disabled');
         $('#vivienda').removeAttr('disabled');
       }
     }
@@ -180,6 +195,27 @@
         bloqConstruc(2);
       }
     }
+    else if (opcion == 20) {
+      if (valor.checked) {
+        $('#LicCons10').attr('disabled', 'disabled');
+        $('#LicCons10').removeAttr('checked');
+      }
+      else{
+        $('#LicCons10').removeAttr('disabled');
+      }
+    }
+  }
+
+  function mostrar(valor){
+    var option = $(valor).val();
+    if (option ==1) {
+      $('#rad_vigente').attr('hidden', 'hidden');
+      $('#contRadVigente').attr('hidden', 'hidden');
+    }
+    else if (option == 3) {
+      $('#rad_vigente').removeAttr('hidden');
+      $('#contRadVigente').removeAttr('hidden');
+    }
   }
 </script>
 
@@ -211,7 +247,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-6  offset-2 input-group">
-        <input type="checkbox"  name="LicUrba" id="LicUrba" class="form-check-input fantasma" value="1" onclick="permitir(this);">
+        <input type="checkbox"  name="LicCons10" id="LicUrba" class="form-check-input fantasma" value="1" onclick="permitir(this);">
         <label for="LicUrba" class="form-check-label izq">Licencia de Urbanización</label>
       </div>
       <div class="col-lg-12"  id="dvOcultar1" style="display: none;">
@@ -450,7 +486,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
-        <input type="radio" name="objetoTramite" id="objetoTramite1" class="form-check-input" value="1">
+        <input type="radio" name="objetoTramite" id="objetoTramite1" class="form-check-input" value="1" onclick="mostrar(this);">
         <label for="objetoTramite1" class="form-check-label izq">Inicial</label>
       </div>
     </div>
@@ -462,8 +498,15 @@
     </div> -->
     <div class="col-lg-12 input-group">
       <div class="col-lg-6 offset-2 input-group">
-        <input type="radio" name="objetoTramite" id="objetoTramite3" class="form-check-input" value="3">
+        <input type="radio" name="objetoTramite" id="objetoTramite3" class="form-check-input" value="3" onclick="mostrar(this);">
         <label for="objetoTramite3" class="form-check-label izq">Modificación de Licencia Vigente</label>
+      </div>
+    </div>
+    <div class="col-lg-12 offset-2 input-group" hidden="" id="contRadVigente">
+      <div class="col-lg-8 offset-1 input-group">
+        <label for="objetoTramite3" class="col-lg-5 form-check-label izq "><strong>No. Radicado Vigente: </strong></label>
+        <input type="text" placeholder="Radicado" class="col-lg-5" hidden="" name="rad_vigente" id="rad_vigente">
+
       </div>
     </div>
     <!-- <div class="col-lg-12 input-group">

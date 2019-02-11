@@ -106,6 +106,8 @@ else if (isset($_POST['btn_tipo']) ){
 		if ($bandera && (isset($_POST['objetoTramite']) && !empty($_POST['objetoTramite'])) && (isset($_POST['usos']) && !empty($_POST['usos'])) ) {
 			//asigna varaible de se session de objeto de trabajo
 			$_SESSION['objetoTramite']= $_POST['objetoTramite'];
+			$_SESSION['rad_vigente'] = (!empty($_POST['rad_vigente'])) ? $_POST['rad_vigente'] : '';
+
 			//ararry que almacenara todos los tipo de usos
 			$cantUsos = array();
 			// $valores='';
@@ -264,15 +266,14 @@ else if (!empty($_POST['btn_docs'])   ) {
 
 								$_SESSION['consecutivoNuevo'] = NuevoRadicado();
 									
-								$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_ant, estrato, categoria, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+								$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_ant, estrato, categoria, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor, rad_vigente) 
+							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
 							       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
 							       // GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
 							       // GetSQLValueString($_SESSION['predio']['BarrioActual'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
-							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
 							       GetSQLValueString($_SESSION['categoria'], "text"),
 							       // GetSQLValueString($_SESSION['predio']['matricula'], "int"),
 							       // GetSQLValueString($_SESSION['predio']['catastral'], "int"),
@@ -281,7 +282,8 @@ else if (!empty($_POST['btn_docs'])   ) {
 							       GetSQLValueString(1, "int"),
 							       GetSQLValueString(30, "int"),
 							       GetSQLValueString($_SESSION['objetoTramite'], "int"),
-							       GetSQLValueString($_SESSION['revisorProyecto'], "text"));
+							       GetSQLValueString($_SESSION['revisorProyecto'], "text"),
+							       GetSQLValueString($_SESSION['rad_vigente'], "text"));
 
 							$result = $mysqli->query($sql);
 							// $result=false;
