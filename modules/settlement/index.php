@@ -61,14 +61,15 @@
     });
 
     function validate(campo){
-        var result="";
-        var str = campo.value.split('');
-        for(i=0; i<=str.length-1; i++) {
-            str[i] = str[i].toUpperCase();
-            result+=str[i];
-        }
+      var result="";
+      var str = campo.value.split('');
+      for(i=0; i<=str.length-1; i++) {
+        str[i] = str[i].toUpperCase();
+        result+=str[i];
+      }
+      
       campo.value = result;
-        //return result; //return(result);
+      //return result; //return(result);
     }
 
     function letras(campo){
@@ -77,6 +78,10 @@
 
     var bandera = true;
     var reconocimiento = false;
+    var usos = new Array();
+    var tipoModalidades = new Array();
+    var estrato;
+    var tipoLicencias;
 
     function buscarRad(valor) {
       var radicado = '760011' + $('#buscaRadicado').val();
@@ -112,8 +117,9 @@
             var JSONdata = JSON.parse(data); //parseo la informacion
 
             // alert(JSONdata[0].estrato);
+            estrato = JSONdata[0].estrato;
 
-            $('#estrato').html(JSONdata[0].estrato);
+            $('#estrato').html(estrato);
             $('#nombreProyecto').val(JSONdata[0].nombreProyecto);
             $('#radicado').val(JSONdata[0].radicado);
             $('#fechaRad').val(JSONdata[0].fecha);
@@ -140,8 +146,13 @@
 
             var vis = false;
             var dot = false;
+            // usos = JSONdata[0].tipos_usos;
+
+            tipoLicencias = JSONdata[0].tipos_licencias;
+
             for (var r = 0; r < JSONdata[0].tipos_usos.length ; r++) {
               console.log(JSONdata[0].tipos_usos[r][r+1]);
+              usos[r] = JSONdata[0].tipos_usos[r][r+1];
               if (JSONdata[0].tipos_usos[r][r+1] == 'Vivienda') {
                 vis=true;
               }
@@ -168,6 +179,7 @@
 
             for (var j = 0; j < cantidadLicencias ; j++) {
               var licencia = JSONdata[0].tipos_licencias[j].NOMBRE;
+              tipoModalidades[j] = JSONdata[0].tipos_licencias[j].MODALI;
               var modalidad = JSONdata[0].tipos_licencias[j].MODALI;
               var id_Modalidad = JSONdata[0].tipos_licencias[j].ID;
               // alert(licencia+modalidad);
@@ -178,7 +190,7 @@
                 calcular(parseInt(0));
               }
               else if(licencia+modalidad == 'OtrasAjuste de Cotas'){
-                var valorCota = ajuste_cotas(JSONdata[0].estrato, salarioMensual);
+                var valorCota = ajuste_cotas(estrato, salarioMensual);
                 $('#cotas_2').val(valorCota);
                 $('#cotas').prop('checked', true);
                 // $('#cotas').attr("checked", "checked");
@@ -246,7 +258,6 @@
       var tipo = $(opcion).attr('id');
       var tipoUso = tipo.split("_");
 
-
       var modo;
         if ($(opcion).val().length == 0) {
           // alert('entro al if');
@@ -257,11 +268,11 @@
       // var factor_Q = mayorFactor_Q();
       var factor_Q = $(opcion).val();
 
-        // alert(tipoUso[1]);
+      // alert(tipoUso[1]);
       if (validar_30(tipoUso[1])) {
         factor_Q = factor_Q * 0.30;
         // alert(tipo);
-        $('#'+tipo+'_4').val(factor_Q);
+        $('#'+tipo+'_4').val(factor_Q.toFixed(2));
       }
 
 
@@ -292,7 +303,7 @@
       if ($('#vivienda_vis').prop('checked')) {
         $("#"+tipo+ "_2").val(totalVariable/2);
         totalBasico = Math.round(totalBasico)
-        $("#"+tipo+ "_0").val(totalBasico/2);
+        $("#"+tipo+ "_0").val(Math.round(totalBasico/2) );
       }else{
         $("#"+tipo+ "_2").val(totalVariable);
         totalBasico = Math.round(totalBasico)
@@ -319,8 +330,9 @@
       var total = subtotalExpensas + iva;
 
       
-      if (subtotalExpensas >= 0.1 && bandera == true){ estampillas = 6000;}
-      
+      if (subtotalExpensas >= 0.1 && bandera == true){ 
+        estampillas = parseInt($('#estampillas').val());
+      }
       var totalExpensas = total + estampillas;
 
       total_Basico = FormtearNumeros(Math.round(total_Basico));
@@ -337,7 +349,7 @@
       $('#subExpen').val(subtotalExpensas);
       $('#iva').val(iva);
       $('#total').val(total);
-      $('#estampillas').val(estampillas);
+      $('#estampillas2').val(estampillas);
       $('#totalExpensas').val(totalExpensas);
       // totalVariable = parseInt(totalVariable.replace(/\./g,''));
     }
@@ -403,6 +415,20 @@
       return elemento;
     }
 
+    function poner30(elemento){
+      var tipo = $(elemento).attr('id');
+      var tipoUso = tipo.split("_");
+
+      var factor_Q = $(elemento).val();
+
+        // alert(tipoUso[1]);
+      if (validar_30(tipoUso[1])) {
+        factor_Q = factor_Q * 0.30;
+        // alert(tipo);
+        $('#'+tipo+'_4').val(factor_Q.toFixed(2));
+      }
+    }
+
     function getUsos(arrayUsos, modLicencia1, lic) {
       var modLicencia='';
       var elemento='';
@@ -411,17 +437,16 @@
       // alert(lic + ' licencia antes del if');
       if (lic == 'Construccion' && reconocimiento) {
         if (modLicencia1 !='Ampliacion' && modLicencia1 !='Reconstruccion')  {
-          alert('entro al if de inhabilitar la funcion ' +  lic +' ' +modLicencia1);
-          funcion='';
-        }
-        else{
-          alert('entro al ELSE INTERNO de inhabilitar la funcion ' +  lic +' ' +modLicencia1);
+          // alert('entro al if de inhabilitar la funcion ' +  lic +' ' +modLicencia1);
+          if (validar_30(modLicencia1)) {
+            funcion='poner30(this);';
+          }
+          else{
+            funcion='';
+          }
         }
       }
-      else{
-        alert('entro al ELSE extrerno de inhabilitar la funcion '+ lic +' ' + modLicencia1);
-
-      }
+      
       modLicencia2 = modLicencia1;
       // alert(modLicencia1 + ' despues del if');
       modLicencia1 = modLicencia1.split(' ');
@@ -716,6 +741,95 @@
       return elemento;
     }
 
+    // function liquidar() {     
+    //   var datos = $('#datos').serialize();
+    //   console.log('/*/*//*//');
+    //   console.log(datos);
+    //   console.log('/*/*//*//');
+    //   // alert(datos);
+    // }
+
+    const liquidar = () => {
+
+      // alert(form);
+      const datos = $("#datos").serialize();
+      // var datos = $('#datos').serialize();
+      // const datos2 = usos.serialize();
+      console.log('/*/*//*//');
+      console.log(usos + tipoModalidades + datos);
+      console.log('/*/*//*//');
+      console.log(usos);
+      // alert(datos);
+      $.ajax({   
+        cache: false,                     
+        type: "POST",                 
+        url: "../../controller/liquidacion_controller.php",                    
+        data: 'usos='+usos+'&'+'tipoModalidades='+tipoModalidades+'&'+'estrato='+estrato+'&'+datos,
+        error: function(request, status, error)
+        {
+          console.log(error);
+          alert("ocurrio un error "+request.responseText);
+        },
+        success: function(data)            
+        {
+          if (data == 0) {
+            confirmar('NO LLEGARON DATOS', 'fa fa-window-close', 'red', '../settlement'); //../radication
+            location.reload(); 
+          }else if (data == 101) {
+            confirmar('No entro al if', 'fa fa-window-close', 'red', '../settlement'); //../radication
+          }else if (data == 111) {
+            // alert('volvio del controlador ');
+            var tamano ='width=' +screen.width + ", height=" + screen.height;
+
+            window.open("http://192.168.0.200/issei_v2/modules/reports/constancy_settlement.php", "Constancia", tamano);
+            confirmar('CONSTANCIA CREADA EXITOSAMENTE', 'fa fa-window-close', 'green', '../settlement');
+          }
+          else{
+            alert(data);
+          }
+          // var dat = JSON.parse(data);
+          console.log('-----------**-----------------');
+          console.log('en el success' + data);
+          console.log('-----------**-----------------');
+          // if (form=='Tipo') {
+          //   if (data == 31) {
+          //     confirmar('EL FORMULARIO DE LICENCIAS INCOMPLETO', 'fa fa-window-close', 'red', '../radication');
+          //   }else{
+          //     window.location.reload();
+          //   }
+          // }else{
+          //   verificar(data);
+          // }
+          // confirmar('Haciendo pruebas', 'fa fa-check-square', 'blue', 'window');
+        }
+      });
+    };
+
+  function limpiar() {
+    // alert(form);
+      const datos = $("#cancelar").val();
+      $.ajax({   
+        cache: false,                     
+        type: "POST",                 
+        url: "../../controller/liquidacion_controller.php",                    
+        data: 'cancelar='+datos,
+        error: function(request, status, error)
+        {
+          console.log(error);
+          alert("ocurrio un error "+request.responseText);
+        },
+        success: function(data)            
+        {
+          if (data == 4) {
+            confirmar('SE CANCELO LA LIQUIDACIÓN', 'fa fa-window-close', 'red', '../settlement'); //../radication
+          }
+          else{
+            alert(data);
+          }
+        }
+      });
+  }
+
 
   </script>
 
@@ -732,7 +846,7 @@
                 <h3 class="card-title">LIQUIDACIÓN</h3>
               </center>
             </div>
-            <form id="form1" name="form1" method="post" action="">
+            <!-- <form id="form1" name="form1" method="post" action=""> -->
               <div class="card-body">
                 <div class="row form-group">
                   <div class="borde" style="border: 1px solid #000">
@@ -815,9 +929,12 @@
                     </div>
                   </div>
                   <div class="col-lg-12 form-group"></div>
-                  <div class="col-lg-12 borde" id="contenedor" >
-                    
-                  </div>
+                  <form action="" method="post" mane="datos" id="datos">
+                    <div class="col-lg-12 borde" id="contenedor" >
+                      <input type="hidden" name="Comercio_N-A">
+                      
+                    </div>
+                  </form>
 
                   <div class="col-lg-6 form-group"></div>
                   <div class="col-lg-12 input-group">
@@ -870,13 +987,29 @@
                     </div>
                   </div>
                   <div class="form-group col-lg-12 "></div>
+                  <!-- <div class="col-lg-12 input-group">
+                    <div class="col-lg-6 input-group"></div>
+                    <div class="col-lg-2 input-group">
+                      <h5 class="col-lg-12">Estampillas</h5>
+                    </div>
+                  </div> -->
                   <div class="col-lg-12 input-group">
                     <div class="col-lg-6 input-group"></div>
                     <div class="col-lg-2 input-group">
                       <h5 class="col-lg-12">Estampillas</h5>
                     </div>
-                    <div class="col-lg-3 input-group">
-                      <input class="numeros" name="estampillas" type="text" id="estampillas" value="0" size="10" onchange="" onkeyup="" >
+                    <div class="col-lg-1 input-group">
+                      <select class="form-control" id="estampillas" name="estampillas" onchange="calcular('0');">
+                        <option value="0">0</option>
+                        <option value="6000" selected="">1</option>
+                        <option value="12000">2</option>
+                        <option value="18000">3</option>
+                        <option value="24000">4</option>
+                        <option value="30000">5</option>
+                      </select>
+                      <div class="col-lg-1 input-group">
+                        <input class="numeros" name="estampillas2" type="text" size="5" id="estampillas2" value="0" size="10" onchange="" onkeyup="" >
+                      </div>
                     </div>
                   </div>
                   <div class="form-group col-lg-12 "></div>
@@ -891,24 +1024,20 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="col-lg-12  input-group">
-                <div class="col-lg-6  input-group">
-                  <label class="col-form-label col-lg-12 requerido">&nbsp;&nbsp;&nbsp;&nbsp;Los campos con (*) son obligatorios</label>
-                </div>
-              </div> -->
                   <!-- /.card-body -->
               <div class="card-footer input-group">
                 <div class="form-group col-lg-12 "></div>
                 <div class="col-lg-12  input-group">
                   <div class="col-lg-3"></div>  
-                  <button class="btn btn-danger col-lg-2" type="button" name="submit" id="submit" >Generar</button>
+                  <button class="btn btn-danger col-lg-2" type="button" name="submit" id="submit" onclick="liquidar();">Generar</button>
                   <div class="col-lg-1"></div>              
-                  <button class="btn btn-default col-lg-2" type="button" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">Cancelar</button>
+                  <button class="btn btn-default col-lg-2" type="button" id="cancelar" name="cancelar" value="9" onclick="limpiar();">Cancelar</button>
+
                 </div>
                 <div class="form-group col-lg-12 "></div>
               </div>
               <!-- /.card-footer -->
-            </form>
+            <!-- </form> -->
           </div>
         </div>
       </section>
@@ -922,3 +1051,55 @@
 <script src='../../cx/demo/libs/bundled.js'></script>
 <script src='../../cx/demo/demo.js'></script>
 <script type='text/javascript' src='../../cx/jquery-confirm.js'></script>
+
+
+<!-- vivienda_Ampliacion=42.92
+vivienda_Ampliacion_0=310709
+vivienda_Ampliacion_1=Ampliacion
+vivienda_Ampliacion_2=279638.21087999997
+vivienda_Ampliacion_3=Construccion
+comercio_Ampliacion=10
+comercio_Ampliacion_0=901056
+comercio_Ampliacion_1=Ampliacion
+comercio_Ampliacion_2=810950.811552
+comercio_Ampliacion_3=Construccion
+vivienda_Modificacion=
+vivienda_Modificacion_0=0
+vivienda_Modificacion_1=Modificacion
+vivienda_Modificacion_2=0
+vivienda_Modificacion_3=Construccion
+comercio_Modificacion=
+comercio_Modificacion_0=0
+comercio_Modificacion_1=Modificacion
+comercio_Modificacion_2=0
+comercio_Modificacion_3=Construccion
+vivienda_ReforzamientoEstructural=
+vivienda_ReforzamientoEstructural_0=0
+vivienda_ReforzamientoEstructural_1=ReforzamientoEstructural
+vivienda_ReforzamientoEstructural_2=0
+vivienda_ReforzamientoEstructural_3=Construccion
+comercio_ReforzamientoEstructural=
+comercio_ReforzamientoEstructural_0=0
+comercio_ReforzamientoEstructural_1=ReforzamientoEstructural
+comercio_ReforzamientoEstructural_2=0
+comercio_ReforzamientoEstructural_3=Construccion
+vivienda_DemolicionParcial=
+vivienda_DemolicionParcial_0=0
+vivienda_DemolicionParcial_1=DemolicionParcial
+vivienda_DemolicionParcial_2=0
+vivienda_DemolicionParcial_3=Construccion
+comercio_DemolicionParcial=
+comercio_DemolicionParcial_0=0
+comercio_DemolicionParcial_1=DemolicionParcial
+comercio_DemolicionParcial_2=0
+comercio_DemolicionParcial_3=Construccion
+vivienda_N-A=100
+vivienda_N-A_0=310709
+vivienda_N-A_1=N-A
+vivienda_N-A_2=279638.21087999997
+vivienda_N-A_3=Reconocimiento
+comercio_N-A=150
+comercio_N-A_0=901056
+comercio_N-A_1=N-A
+comercio_N-A_2=1255751.0529330075
+comercio_N-A_3=Reconocimiento -->

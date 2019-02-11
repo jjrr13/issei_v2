@@ -8,14 +8,9 @@ function cargoBasico() {
       j++;
     var dato = parseInt( $(this).val());
     // alert(dato);
-      // console.log(dato + ' es mayor que ? ' + tempFactor_Q);
-      // console.log(dato >= tempFactor_Q);
     if (dato >= tempFactor_Q) {
-      // console.log(dato);
-      // console.log(tempFactor_Q);
       tempFactor_Q = dato;
       var idCampo = $(this).attr('id');
-    // alert(idCampo);
       cargoB = $('#'+ idCampo +'_0').val().replace('.', "");
     }
   });
@@ -121,11 +116,11 @@ function subsidioVIS(check) {
       var campo = $(this).attr('id').split("_2");
       var base = $('#'+campo[0]+'_0').val();
       base = base / 2;
-      $('#'+campo[0]+'_0').val(base);
+      $('#'+campo[0]+'_0').val(Math.round(base) );
 
       var temp = parseInt($(this).val());
       temp = temp / 2;
-      $(this).val(temp);
+      $(this).val(Math.round(temp));
     });
   }
   else {

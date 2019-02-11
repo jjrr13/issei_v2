@@ -316,14 +316,14 @@ function docFaltantes($array)
 }
 
 unset($_SESSION['radicar']);
-	unset( $_SESSION['objetoTramite']);
-	unset( $_SESSION['usos']);
-	unset( $_SESSION['licencias']);
-	unset( $_SESSION['predio']);
-	unset( $_SESSION['vecinos']);
-	unset( $_SESSION['titulares']);
-	$_SESSION['radicar']=130;
-	unset( $_SESSION['responsables']);
+unset( $_SESSION['objetoTramite']);
+unset( $_SESSION['usos']);
+unset( $_SESSION['licencias']);
+unset( $_SESSION['predio']);
+unset( $_SESSION['vecinos']);
+unset( $_SESSION['titulares']);
+$_SESSION['radicar']=130;
+unset( $_SESSION['responsables']);
 // var_dump($_SESSION['docGenerales']);
 
 
