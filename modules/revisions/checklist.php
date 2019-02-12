@@ -40,37 +40,113 @@
 64598, 	'760011180995', 	50 ,	'2019-00002' ,	*/
 	</style>
 	<script>
+		function asignar(elemento, ids, oldE, newE) {
+			$("#"+ids+" option[value='"+old+"']").remove();
+  		var o = new Option("option text", newE);
+			$(o).html(newE);
+			$(elemento).append(o);
+
+    	$("#"+ids+" option[value='"+(newE)+"']").attr("selected", true);
+		}
+		function sumar(elemento, ids, oldE, newE) {
+			// alert(j);
+			// alert(j+1);
+			$("#"+ids+" option[value='"+oldE+"']").remove();
+  		var o = new Option("option text", newE+1);
+			$(o).html(newE+1);
+			$(elemento).append(o);
+
+    	$("#"+ids+" option[value='0']").attr("selected", true);
+		}
 		var j=1;
 		function enumerar(selec) {
 			var elemento = $(selec).val();
 			console.log($(selec).val());
 
 			if (elemento == '170' || elemento == '0') {
-				alert('entro al if');
+				// alert('entro al if');
+				var idElemento = $(selec).attr('id');
+				var numero = parseInt( $('#'+idElemento+" option:last-child").val() );
+				// alert(numero);
+				if (numero <= j) {// eveluar este if si cabe posibilidades de que haya numero mayo que j
+					// j= j-1;
+					var temp = numero - (j-1) ;
+					$(".listas").each(function(){
+		        var valor = $(this).val();
+		        // console.log(valor);
+		        var id = $(this).attr('id');
+		        // alert(id);
+		        var oldNumero = parseInt(  $('#'+id+" option:last-child").val() );
+
+		        if (temp == oldNumero) {
+		        	temp = temp + 1;
+		        	j = j -1;
+		        }
+
+		        if (valor == '0' || valor == '170') {
+		        	// alert('entros por el otro valor');
+		        	
+		        	// alert(oldNumero +' oldNumero');
+		        	// alert(numero +' numero'); 
+		        	// alert(j +' valor de J'); 
+				    	var jr = (oldNumero == numero) ? oldNumero : j;
+				    	// alert(jr);
+		        	$("#"+id+" option[value='"+(jr)+"']").remove();
+			    		// $(this).remove();
+			    		var o = new Option("option text", j);
+							$(o).html(j);
+							$(this).append(o);
+		        	// console.log((j+1) + ' entro al if');
+
+		        	$("#"+id+" option[value='0']").attr("selected", true);
+
+			        // $(this).val(j+1);
+		        }
+		        else{
+		        	// alert('Entro al ese');
+		        	// alert(oldNumero +' oldNumero');
+
+		        	// alert(numero +' numero');
+		        	// alert(oldNumero +' oldNumero');
+
+		        	// alert(numero +' numero');
+		        	if (oldNumero >= numero) {
+		        		
+				        asignar(this, id, oldNumero, oldNumero-1);
+				    //     $("#"+ids+" option[value='"+oldNumero+"']").remove();
+					  	// 	var o = new Option("option text", oldNumero-1);
+								// $(o).html(oldNumero-1);
+								// $(elemento).append(o);
+
+					   //  	$("#"+ids+" option[value='"+(oldNumero-1)+"']").attr("selected", true);
+		        	}
+		     //    	function asignar(elemento, ids, oldE, newE) {
+							// 	$("#"+ids+" option[value='"+old+"']").remove();
+					  // 		var o = new Option("option text", newE);
+							// 	$(o).html(newE);
+							// 	$(elemento).append(o);
+
+					  //   	$("#"+ids+" option[value='"+(newE)+"']").attr("selected", true);
+							// }
+
+		        }
+					});
+				}
+			}
+			else{
+				var suma=0;
+	      $(".listas").each(function(){
+	        var valor = $(this).val();
+	        // console.log(valor);
+	        if (valor == '0' || valor == '170') {
+	        	var id = $(this).attr('id');
+	        	sumar(this, id, j, j);
+	        }
+				});
+	        
+					j++;
 			}
 			
-			var suma=0;
-      $(".listas").each(function(){
-      // $(".listas option[value='"+j+"']").each(function() {
-        var valor = $(this).val();
-        // console.log(valor);
-        if (valor == '0' || valor == '170') {
-        	var id = $(this).attr('id');
-        	$("#"+id+" option[value='"+j+"']").remove();
-	    		// $(this).remove();
-	    		var o = new Option("option text", j+1);
-					$(o).html(j+1);
-					$(this).append(o);
-        	// console.log((j+1) + ' entro al if');
-
-        	$("#"+id+" option[value='0']").attr("selected", true);
-	        // $(this).val(j+1);
-        }
-			});
-        
-      // });
-      
-				j++;
       console.log('......................');
       console.log(j);
       console.log('......................');

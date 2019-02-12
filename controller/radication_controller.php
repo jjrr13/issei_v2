@@ -2,9 +2,9 @@
 
 include_once "../cx/cx.php";
 // echo "<pre>";
-// var_dump($_SESSION['objetoTramite']);
-// echo "<HR>";
 // var_dump($_SESSION['usos']);
+// echo "<HR>";
+// var_dump($_SESSION['objetoTramite']);
 // echo "<HR>";
 // var_dump($_SESSION['licencias']);
 // echo "<HR>";
@@ -33,6 +33,8 @@ include_once "../cx/cx.php";
 // var_dump($_SESSION['responsables']);
 // echo "</pre>";
 
+								
+echo insertMuchos($_SESSION['usos'], 'rad_usos', $_SESSION['consecutivoNuevo']);;
 // echo insertarDirecciones($_SESSION['predio']['dirActual'], 'radicado_direcciones', 760011180011);
 
 if($_POST){
@@ -485,8 +487,8 @@ function insertMuchos($array, $tabla, $consec)
 	}
 
 	$sql="INSERT INTO $tabla VALUES ".$values;
-	return $result = $mysqli->query($sql);
-	// return $sql.'<hr>';
+	// return $result = $mysqli->query($sql);
+	return $sql.'<hr>';
 }
 function insertarDirecciones($array, $tabla, $consec='13')
 {
