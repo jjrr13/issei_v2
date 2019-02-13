@@ -41,14 +41,14 @@
 	</style>
 	<script>
 		function asignar(elemento, ids, oldE, newE) {
-			$("#"+ids+" option[value='"+old+"']").remove();
+			$("#"+ids+" option[value='"+oldE+"']").remove();
   		var o = new Option("option text", newE);
 			$(o).html(newE);
 			$(elemento).append(o);
 
     	$("#"+ids+" option[value='"+(newE)+"']").attr("selected", true);
 		}
-		function sumar(elemento, ids, oldE, newE) {
+		function aunmentar(elemento, ids, oldE, newE) {
 			// alert(j);
 			// alert(j+1);
 			$("#"+ids+" option[value='"+oldE+"']").remove();
@@ -60,8 +60,11 @@
 		}
 		var j=1;
 		function enumerar(selec) {
+				// alert('entro al funcion');
 			var elemento = $(selec).val();
 			console.log($(selec).val());
+			var cont=0;
+			var bandera = true;
 
 			if (elemento == '170' || elemento == '0') {
 				// alert('entro al if');
@@ -72,6 +75,7 @@
 					// j= j-1;
 					var temp = numero - (j-1) ;
 					$(".listas").each(function(){
+						cont++;
 		        var valor = $(this).val();
 		        // console.log(valor);
 		        var id = $(this).attr('id');
@@ -79,27 +83,28 @@
 		        var oldNumero = parseInt(  $('#'+id+" option:last-child").val() );
 
 		        if (temp == oldNumero) {
-		        	temp = temp + 1;
-		        	j = j -1;
+		        	// temp = temp + 1;
+		        	// alert('if del temp');
+		        	bandera= false;
 		        }
 
 		        if (valor == '0' || valor == '170') {
-		        	// alert('entros por el otro valor');
+		        	// alert('entros por el otro valor '+cont);
 		        	
 		        	// alert(oldNumero +' oldNumero');
 		        	// alert(numero +' numero'); 
 		        	// alert(j +' valor de J'); 
 				    	var jr = (oldNumero == numero) ? oldNumero : j;
-				    	// alert(jr);
+				    	var jj = (bandera) ? j-1 : j;
+				    	alert(jr);
 		        	$("#"+id+" option[value='"+(jr)+"']").remove();
 			    		// $(this).remove();
-			    		var o = new Option("option text", j);
-							$(o).html(j);
+			    		var o = new Option("option text", jj);
+							$(o).html(jj);
 							$(this).append(o);
 		        	// console.log((j+1) + ' entro al if');
 
 		        	$("#"+id+" option[value='0']").attr("selected", true);
-
 			        // $(this).val(j+1);
 		        }
 		        else{
@@ -120,27 +125,40 @@
 
 					   //  	$("#"+ids+" option[value='"+(oldNumero-1)+"']").attr("selected", true);
 		        	}
-		     //    	function asignar(elemento, ids, oldE, newE) {
-							// 	$("#"+ids+" option[value='"+old+"']").remove();
-					  // 		var o = new Option("option text", newE);
-							// 	$(o).html(newE);
-							// 	$(elemento).append(o);
-
-					  //   	$("#"+ids+" option[value='"+(newE)+"']").attr("selected", true);
-							// }
-
+		        	else{
+								// alert('oldNumero es menor que numero');
+		        		
+		        	}
+		        }
+		        if (cont == 9) {
+		        	cont=0;
+		        	return false;
 		        }
 					});
+					if (bandera) {
+						j= j-1;
+					}
+				}
+				else{
+					alert('se metio al else abandonado');
+					
 				}
 			}
 			else{
+				// alert('paso a la suma');
 				var suma=0;
 	      $(".listas").each(function(){
+	      	cont++;
 	        var valor = $(this).val();
 	        // console.log(valor);
+	        // alert(j + ' el valor de J');
 	        if (valor == '0' || valor == '170') {
 	        	var id = $(this).attr('id');
-	        	sumar(this, id, j, j);
+	        	aunmentar(this, id, j, j);
+	        }
+	        if (cont == 9) {
+	        	cont=0;
+	        	return false;
 	        }
 				});
 	        
