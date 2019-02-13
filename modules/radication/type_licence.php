@@ -140,6 +140,7 @@
     var opcion = $(valor).val();
     if (opcion == 1) {
       if (valor.checked) {
+
         $('#LicPar').attr('disabled', 'disabled');
         $('#LicSub').attr('disabled', 'disabled');
         $('#LicPar').removeAttr('checked');
@@ -207,14 +208,9 @@
       }
     }
     else if (opcion == 30) {
-      alert('llamo la funcion');
-        $('#LicSub').prop('disabled', false);
-        $('#dvOcultar3').show();
-      if (valor.checked) {
-      }
-      else{
-        // $('#LicSub').removeAttr('disabled');
-      }
+      // alert('entro al 30');
+      $('#LicSub').prop('disabled', false);
+      $('#dvOcultar3').show();
     }
   }
 
@@ -259,7 +255,7 @@
     </div>
     <div class="col-lg-12 input-group">
       <div class="col-lg-6  offset-2 input-group">
-        <input type="checkbox"  name="LicCons10" id="LicUrba" class="form-check-input fantasma" value="1" onclick="permitir(this);">
+        <input type="checkbox"  name="LicCons" id="LicUrba" class="form-check-input fantasma" value="1" onclick="permitir(this);">
         <label for="LicUrba" class="form-check-label izq">Licencia de Urbanización</label>
       </div>
       <div class="col-lg-12"  id="dvOcultar1" style="display: none;">

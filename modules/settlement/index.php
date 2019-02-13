@@ -433,7 +433,6 @@
       var modLicencia='';
       var elemento='';
       var funcion = 'factores(this);';
-
       // alert(lic + ' licencia antes del if');
       if (lic == 'Construccion' && reconocimiento) {
         if (modLicencia1 !='Ampliacion' && modLicencia1 !='Reconstruccion')  {
@@ -456,11 +455,12 @@
         modLicencia+= modLicencia1[jr];
       }
       //TERNER EN CUENTA VALIDAR QUIZAS DESDE AFUERA, YA QUE SE PUEDE REPETIR DEPENDIENDO DE LA CANTIDAD DE USUS QUE TENGA
-
         
         // console.log(arrayUsos);
+        // console.log('/////88888//');
         for (var js = 0; js < arrayUsos.length ; js++) {
-          console.log(arrayUsos[js]);
+          // alert('if de arrayUsos');
+          // console.log(arrayUsos[js]);
           if (arrayUsos[js][1]=='Vivienda') {
             
             elemento+=" <div class='col-lg-12  input-group'>";
@@ -528,11 +528,6 @@
               if (validar_30(modLicencia2)) {
                 elemento+= cobro_30(modLicencia, 'Institucional');
               }
-              // elemento+=" <div class='col-lg-2 form-check'>";
-              //   elemento+=" <input name='Institucional_"+modLicencia+"_dot' type='checkbox' id='Institucional_"+modLicencia+"_dot' value='1' onclick='"+funcion+"'  > DOT";
-
-              //   // elemento+=" <input name='Institucional_dot_1' type='checkbox' id='Institucional_dot_1' value='1' onclick='' >DOT";
-              // elemento+=" </div>";
 
               // /////////// datos Institucional_ /////////////
                elemento+=" <input class='cargoBasico1' name='Institucional_"+modLicencia+"_0' type='hidden' id='Institucional_"+modLicencia+"_0' value='0' >";
@@ -568,6 +563,35 @@
 
 
             elemento+=" </div>";
+            
+          }
+          else if (arrayUsos[js][5]=='Unidades') {
+            alert('Dbera poner las Unidades');
+
+            // elemento+=" <div class='form-group col-lg-12 '></div>";
+            // elemento+=" <div class='col-lg-12  input-group'>";
+            //   elemento+=" <div class='col-lg-1  input-group'></div>";
+            //   elemento+=" <div class='col-lg-2  input-group'>";
+            //     elemento+=" <h6>Industria</h6>";
+            //   elemento+=" </div>";
+            //   elemento+=" <div class='col-lg-3 input-group'>";
+            //     elemento+=" <input class='cargoBasico' name='Industria_"+modLicencia+"' type='text' id='Industria_"+modLicencia+"' onkeyup='"+funcion+" return ValidNum(this);' value='<?php ;?>' size='10' /> ";
+            //     elemento+=" <label for=''>M<sup>2</sup></label>                  ";
+            //   elemento+=" </div>";
+            //   if (validar_30(modLicencia2)) {
+            //     elemento+= cobro_30(modLicencia, 'Industria');
+            //   }
+
+            //   elemento+=" <div class='col-lg-2 input-group'></div>";
+
+            //   // /////////// datos Industria_ /////////////
+            //    elemento+=" <input class='cargoBasico1' name='Industria_"+modLicencia+"_0' type='hidden' id='Industria_"+modLicencia+"_0' value='0' >";
+            //      elemento+=" <input class='modalidad' name='Industria_"+modLicencia+"_1' type='hidden' id='Industria_"+modLicencia+"_1' value='"+modLicencia+"' >";
+            //     elemento+=" <input class='variable' name='Industria_"+modLicencia+"_2' type='hidden' id='Industria_"+modLicencia+"_2' value='0' >";
+            //     elemento+=" <input class='licencia' name='Industria_"+modLicencia+"_3' type='hidden' id='Industria_"+modLicencia+"_3' value='"+lic+"' >";
+
+
+            // elemento+=" </div>";
             
           }
         }
@@ -616,6 +640,7 @@
 
        elemento+=" <div class='form-group col-lg-12 '></div>";
 
+       // alert(modalidad);
        if (modalidad == 'Reloteo') {
          elemento+=" <div class='col-lg-12  input-group'>";
           elemento+=" <div class='col-lg-1  input-group'></div>";
@@ -633,11 +658,11 @@
             elemento+=" <input class='variable' name='reloteo_"+modalidad+"_2' type='hidden' id='reloteo_"+modalidad+"_2' value='0' >";
             elemento+=" <input class='licencia' name='reloteo_"+modalidad+"_3' type='hidden' id='reloteo_"+modalidad+"_3' value='"+licencia+"' >";
           // elemento+=" </div>";
-        elemento+=" </div>";
+          elemento+=" </div>";
        } 
        else if (modalidad == 'Aprobacion Poryectos Urbanisticos') {
          modalidad = modalidad.split(' ');
-         // alert(modalidad.length);
+         // alert(modalidad.length+' LLEGO A LA APROBACION');
          modalidad = modalidad[0]+modalidad[1]+modalidad[2];
          // alert(modalidad);
          elemento+=" <div class='col-lg-12  input-group'>";
@@ -657,7 +682,8 @@
             elemento+=" <input class='licencia' name='Aprobacion_"+modalidad+"_3' type='hidden' id='Aprobacion_"+modalidad+"_3' value='"+licencia+"' >";
           // elemento+=" </div>";
           elemento+=" </div>";
-       } else if (modalidad == 'Propiedad Horizontal') {
+       } 
+       else if (modalidad == 'Propiedad Horizontal') {
           // console.log(cantidadLicencias);
           bandera = false;
           console.log(bandera + ' aqui informacion de la bandera');

@@ -125,7 +125,7 @@
   <!-- termina parte dinamica con js -->
   <div class="col-md-12 input-group ">
    
-    <div class="col-md-1 offset-2">
+    <div class="col-md-1 offset-11">
       <button type="button" class=" btn btn-success agregar col-lg-12" id="addDirecciones" name="adddir" onclick="add_Direcciones();">
         <span class="fa fa-plus-circle "></span> 
       </button>
