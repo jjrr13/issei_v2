@@ -223,28 +223,30 @@ if($_POST){
 			// while ($valores5 = mysqli_fetch_array($result5)) {
 			// 	$titulares.= $valores5['nombre'].', ';
 			// }
+      $fila5 = mysqli_num_rows($result5);
 
-			$values="";
-			$cant = count($valores5)-1;
+			if ($fila5 > 0) {
+				$values="";
+				$cant = count($valores5)-1;
 
-			if ($cant <= 1) {
-				$values = $valores5[0];
-			}
-			else{
-				foreach ($valores5 as $key => $value) {
+				if ($cant <= 1) {
+					$values = $valores5[0];
+				}
+				else{
+					foreach ($valores5 as $key => $value) {
 
-					$titular = $valores5[$key];
+						$titular = $valores5[$key];
 
-					if ($cant != $key) {
-						$values.="$titular, ";
-					}
-					else{
-						$values.="y $titular ";
+						if ($cant != $key) {
+							$values.="$titular, ";
+						}
+						else{
+							$values.="y $titular ";
+						}
 					}
 				}
+				$_SESSION['titulares'] = $values;
 			}
-			$_SESSION['titulares'] = $values;
-
 			$arrayjson = array();
 			$arrayjson[] = array(
 							'radicado'     => $_SESSION['radicado'],

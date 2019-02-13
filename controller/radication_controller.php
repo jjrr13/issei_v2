@@ -34,7 +34,7 @@ include_once "../cx/cx.php";
 // echo "</pre>";
 
 								
-echo insertMuchos($_SESSION['usos'], 'rad_usos', $_SESSION['consecutivoNuevo']);;
+// echo insertMuchos($_SESSION['usos'], 'rad_usos', $_SESSION['consecutivoNuevo']);;
 // echo insertarDirecciones($_SESSION['predio']['dirActual'], 'radicado_direcciones', 760011180011);
 
 if($_POST){

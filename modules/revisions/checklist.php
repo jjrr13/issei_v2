@@ -35,9 +35,6 @@
 			background-color: #585858;
 		}
 
-/*3351, 	'760011180995', 	'bloqueado', 	'2018-12-13 14:58:03'
-64500, 	'760011180995', 	50 ,	'2019-00002', 	'desistido'
-64598, 	'760011180995', 	50 ,	'2019-00002' ,	*/
 	</style>
 	<script>
 		function asignar(elemento, ids, oldE, newE) {
@@ -52,8 +49,8 @@
 			// alert(j);
 			// alert(j+1);
 			$("#"+ids+" option[value='"+oldE+"']").remove();
-  		var o = new Option("option text", newE+1);
-			$(o).html(newE+1);
+  		var o = new Option("option text", newE);
+			$(o).html(newE);
 			$(elemento).append(o);
 
     	$("#"+ids+" option[value='0']").attr("selected", true);
@@ -62,86 +59,71 @@
 		function enumerar(selec) {
 				// alert('entro al funcion');
 			var elemento = $(selec).val();
-			console.log($(selec).val());
+			console.log($(selec).val() + ' valor de la seleccion');
 			var cont=0;
 			var bandera = true;
 
 			if (elemento == '170' || elemento == '0') {
 				// alert('entro al if');
-				var idElemento = $(selec).attr('id');
-				var numero = parseInt( $('#'+idElemento+" option:last-child").val() );
-				// alert(numero);
-				if (numero <= j) {// eveluar este if si cabe posibilidades de que haya numero mayo que j
-					// j= j-1;
-					var temp = numero - (j-1) ;
-					$(".listas").each(function(){
-						cont++;
-		        var valor = $(this).val();
-		        // console.log(valor);
-		        var id = $(this).attr('id');
-		        // alert(id);
-		        var oldNumero = parseInt(  $('#'+id+" option:last-child").val() );
-
-		        if (temp == oldNumero) {
-		        	// temp = temp + 1;
-		        	// alert('if del temp');
-		        	bandera= false;
-		        }
-
-		        if (valor == '0' || valor == '170') {
-		        	// alert('entros por el otro valor '+cont);
-		        	
-		        	// alert(oldNumero +' oldNumero');
-		        	// alert(numero +' numero'); 
-		        	// alert(j +' valor de J'); 
-				    	var jr = (oldNumero == numero) ? oldNumero : j;
-				    	var jj = (bandera) ? j-1 : j;
-				    	alert(jr);
-		        	$("#"+id+" option[value='"+(jr)+"']").remove();
-			    		// $(this).remove();
-			    		var o = new Option("option text", jj);
-							$(o).html(jj);
-							$(this).append(o);
-		        	// console.log((j+1) + ' entro al if');
-
-		        	$("#"+id+" option[value='0']").attr("selected", true);
-			        // $(this).val(j+1);
-		        }
-		        else{
-		        	// alert('Entro al ese');
-		        	// alert(oldNumero +' oldNumero');
-
-		        	// alert(numero +' numero');
-		        	// alert(oldNumero +' oldNumero');
-
-		        	// alert(numero +' numero');
-		        	if (oldNumero >= numero) {
-		        		
-				        asignar(this, id, oldNumero, oldNumero-1);
-				    //     $("#"+ids+" option[value='"+oldNumero+"']").remove();
-					  	// 	var o = new Option("option text", oldNumero-1);
-								// $(o).html(oldNumero-1);
-								// $(elemento).append(o);
-
-					   //  	$("#"+ids+" option[value='"+(oldNumero-1)+"']").attr("selected", true);
-		        	}
-		        	else{
-								// alert('oldNumero es menor que numero');
-		        		
-		        	}
-		        }
-		        if (cont == 9) {
-		        	cont=0;
-		        	return false;
-		        }
-					});
-					if (bandera) {
+				if (j!=1) {
+					var idElemento = $(selec).attr('id');
+					var numero = parseInt( $('#'+idElemento+" option:last-child").val() );
+					// alert(numero);
+					if (numero == j-1) {
+				    // alert(' pre iif del oldNumero ('+numero+') == ('+(j-1)+') J lista = '+idElemento);
 						j= j-1;
 					}
-				}
-				else{
-					alert('se metio al else abandonado');
-					
+					else if (numero < j-1) {// eveluar este if si cabe posibilidades de que haya numero mayo que j
+						// j= j-1;
+						var temp = (j-1) - numero ;
+						$(".listas").each(function(){
+							cont++;
+			        var valor = $(this).val();
+			        var id = $(this).attr('id');
+			        // alert(id);
+			        var oldNumero = parseInt(  $('#'+id+" option:last-child").val() );
+			     
+			        if ( oldNumero <= j) {
+
+				        if (valor == '0' || valor == '170') {
+						    	var jr;
+						    	if (oldNumero == numero) {
+						    		jr = oldNumero;
+				        		// alert('if del oldNumero ('+jr+') == ('+(j-1)+') numero lista = '+id);
+						      	aunmentar(this, id, jr, j-1);
+						    	}
+						    	else{
+						    		jr = j;
+				        		// alert('ELSE del oldNumero ('+jr+') == ('+(j-1)+') numero lista = '+id);
+						      	aunmentar(this, id, jr, j-1);
+						    		// j = j - 1 ;
+						    	}
+				        }
+				        else{
+				        	if (oldNumero >= numero) {
+						        asignar(this, id, oldNumero, oldNumero-1);
+				        	}
+				        	else{
+										// alert('oldNumero es menor que numero');
+				        		
+				        	}
+				        }
+			        }
+				        if (cont == 9) {
+				        	cont=0;
+				        	return false;
+				        }
+
+						});
+						// if (bandera) {
+						// 	j= j-1;
+						// }
+					}
+					else{
+						// j= j+1;
+						// alert('se metio al else abandonado');
+						
+					}
 				}
 			}
 			else{
@@ -154,7 +136,7 @@
 	        // alert(j + ' el valor de J');
 	        if (valor == '0' || valor == '170') {
 	        	var id = $(this).attr('id');
-	        	aunmentar(this, id, j, j);
+	        	aunmentar(this, id, j, j+1);
 	        }
 	        if (cont == 9) {
 	        	cont=0;
