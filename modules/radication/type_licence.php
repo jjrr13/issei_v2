@@ -136,7 +136,7 @@
   }
   
   function permitir(valor){
-    //alert($(valor).val());
+    alert($(valor).val());
     var opcion = $(valor).val();
     if (opcion == 1) {
       if (valor.checked) {
@@ -166,9 +166,11 @@
     }
     else if (opcion == 3) {
       if (valor.checked) {
-        $('#LicUrba').attr('disabled', 'disabled');
+        if(!$('#urb5').prop('checked')){
+          $('#LicUrba').attr('disabled', 'disabled');
+          $('#LicUrba').removeAttr('checked');
+        }
         $('#LicPar').attr('disabled', 'disabled');
-        $('#LicUrba').removeAttr('checked');
         $('#LicPar').removeAttr('checked');
       }
       else{
@@ -202,6 +204,16 @@
       }
       else{
         $('#LicCons10').removeAttr('disabled');
+      }
+    }
+    else if (opcion == 30) {
+      alert('llamo la funcion');
+        $('#LicSub').prop('disabled', false);
+        $('#dvOcultar3').show();
+      if (valor.checked) {
+      }
+      else{
+        // $('#LicSub').removeAttr('disabled');
       }
     }
   }
@@ -271,13 +283,13 @@
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-4 offset-2 input-group">
-            <input type="radio" name="urb" id="urb4" class="form-check-input" value="29">
+            <input type="radio" name="urb" id="urb4" class="form-check-input" value="29" >
             <label for="urb4" class="form-check-label izq">Modificacion Planos Urbano</label>
           </div>
         </div>
         <div class="col-lg-12 input-group">
           <div class="col-lg-4 offset-2 input-group">
-            <input type="radio" name="urb" id="urb5" class="form-check-input" value="30">
+            <input type="radio" name="urb" id="urb5" class="form-check-input" value="30" onclick="permitir(this);">
             <label for="urb5" class="form-check-label izq">Apobacion Proyecto Urbano</label>
           </div>
         </div>
