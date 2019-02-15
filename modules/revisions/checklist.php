@@ -69,11 +69,11 @@
 					var idElemento = $(selec).attr('id');
 					var numero = parseInt( $('#'+idElemento+" option:last-child").val() );
 					// alert(numero);
-					if (numero == j-1) {
-				    // alert(' pre iif del oldNumero ('+numero+') == ('+(j-1)+') J lista = '+idElemento);
-						j= j-1;
+					if (numero == j) {
+				    alert(' pre iif del oldNumero ('+numero+') == ('+(j-1)+') J lista = '+idElemento);
+						// j= j-1;
 					}
-					else if (numero < j-1) {// eveluar este if si cabe posibilidades de que haya numero mayo que j
+					else if (numero < j) {// eveluar este if si cabe posibilidades de que haya numero mayo que j
 						// j= j-1;
 						var temp = (j-1) - numero ;
 						$(".listas").each(function(){
@@ -97,14 +97,17 @@
 				        		// alert('ELSE del oldNumero ('+jr+') == ('+(j-1)+') numero lista = '+id);
 						      	aunmentar(this, id, jr, j-1);
 						    		// j = j - 1 ;
+						        bandera = false;
 						    	}
 				        }
 				        else{
+				        	//validamos que solo se reasignen los numeros mayores al numero que se esta cambiando para simplificar el proceso 
 				        	if (oldNumero >= numero) {
 						        asignar(this, id, oldNumero, oldNumero-1);
+						        bandera = false;
 				        	}
 				        	else{
-										// alert('oldNumero es menor que numero');
+										alert('oldNumero es menor que numero');
 				        		
 				        	}
 				        }
@@ -115,13 +118,13 @@
 				        }
 
 						});
-						// if (bandera) {
-						// 	j= j-1;
-						// }
+						if (!bandera) {
+							j= j-1;
+						}
 					}
 					else{
 						// j= j+1;
-						// alert('se metio al else abandonado');
+						alert('se metio al else abandonado');
 						
 					}
 				}
@@ -148,7 +151,7 @@
 			}
 			
       console.log('......................');
-      console.log(j);
+      console.log(j + ' valor final de J');
       console.log('......................');
 		}
 	</script>

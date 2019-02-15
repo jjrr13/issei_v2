@@ -32,7 +32,9 @@ include_once "../cx/cx.php";
 // echo "<HR>";
 // var_dump($_SESSION['responsables']);
 // echo "</pre>";
-
+// echo "<pre>";
+// var_dump($_SESSION['datosac']);
+// echo "</pre>";
 								
 // echo insertMuchos($_SESSION['usos'], 'rad_usos', $_SESSION['consecutivoNuevo']);;
 // echo insertarDirecciones($_SESSION['predio']['dirActual'], 'radicado_direcciones', 760011180011);
@@ -141,7 +143,7 @@ else if (!empty($_POST['btn_predio'])) {
 		 !empty($_POST['dirAnterior']) && 
 		 !empty($_POST['matricula'][0]) && !empty($_POST['catastral'][0]) &&
 		 !empty($_POST['clasificacionsuelo']) && !empty($_POST['planimetria']) &&
-		 !empty($_POST['nombrePredio']) ) {
+		 !empty($_POST['nombrePredio']) && !empty($_POST['descripcion']) ) {
 
 			$_SESSION['predio']['dirActual'] = $_POST['dirActual'];
 			$_SESSION['predio']['BarrioActual'] = $_POST['BarrioActual'];
@@ -149,6 +151,7 @@ else if (!empty($_POST['btn_predio'])) {
 			$_SESSION['predio']['catastral'] = $_POST['catastral'];
 			// $_SESSION['predio']['BarrioAnterior'] = $_POST['BarrioAnterior'];
 			$_SESSION['predio']['nombre'] = $_POST['nombrePredio'];
+			$_SESSION['predio']['descripcion'] = $_POST['descripcion'];
 			$_SESSION['predio']['dirAnterior'] = $_POST['dirAnterior'];
 			$_SESSION['predio']['clasificacionsuelo'] = $_POST['clasificacionsuelo'];
 			$_SESSION['predio']['planimetria'] = $_POST['planimetria'];
@@ -265,14 +268,15 @@ else if (!empty($_POST['btn_docs'])   ) {
 
 								$_SESSION['consecutivoNuevo'] = NuevoRadicado();
 									
-								$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, dir_ant, estrato, categoria, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor, rad_vigente) 
-							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+								$sql = sprintf(" INSERT INTO radicacion (consecutivo, nombre, descripcion, dir_ant, estrato, categoria, id_suelos, id_planimetria, estado_id, dias, objetivo_id, id_revisor, rad_vigente) 
+							       VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
 							      
 							       GetSQLValueString($_SESSION['consecutivoNuevo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['nombre'], "text"),
+							       GetSQLValueString($_SESSION['predio']['descripcion'], "text"),
 							       // GetSQLValueString($_SESSION['predio']['dirActual'], "text"),
-							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
 							       GetSQLValueString($_SESSION['predio']['dirAnterior'], "text"),
+							       GetSQLValueString($_SESSION['predio']['estrato'], "text"),
 							       GetSQLValueString($_SESSION['categoria'], "text"),
 							       GetSQLValueString($_SESSION['predio']['clasificacionsuelo'], "text"),
 							       GetSQLValueString($_SESSION['predio']['planimetria'], "int"),
@@ -363,47 +367,48 @@ else if (!empty($_POST['nit']) && isset($_POST['nombre']) && isset($_POST['apell
 	$email = $_POST['email'];
 	$direccion = $_POST['direccion'];
 	$id_barrio = $_POST['id_barrio'];
+	$id_profesion = $_POST['profesion'];
 
 	$sql='';
 	if (!empty($_POST['tarjeta'])) {
 		$tarjeta = $_POST['tarjeta'];
 
-		$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s, nombre = %s, apellido = %s, tarjeta_profesional = %s   WHERE nit = %s ",
+		$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s, nombre = %s, apellido = %s, id_profesion = %s, tarjeta_profesional = %s   WHERE nit = %s ",
 			GetSQLValueString($celular, "text"),
 			GetSQLValueString($email, "text"),
 			GetSQLValueString($direccion, "text"),
 			GetSQLValueString($id_barrio, "int"),
 			GetSQLValueString($nombre, "text"),
 			GetSQLValueString($apellido, "text"),
+			GetSQLValueString($id_profesion, "text"),
 			GetSQLValueString($tarjeta, "text"),
 			GetSQLValueString($nit, "int")
 		);
 	}
 	else{
-		$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s, nombre = %s, apellido = %s WHERE nit = %s ",
+		$sql=sprintf("UPDATE terceros SET celular = %s, email = %s, direccion = %s, id_barrio = %s, nombre = %s, apellido = %s  id_profesion = %s, WHERE nit = %s ",
 			GetSQLValueString($celular, "text"),
 			GetSQLValueString($email, "text"),
 			GetSQLValueString($direccion, "text"),
 			GetSQLValueString($id_barrio, "int"),
 			GetSQLValueString($nombre, "text"),
 			GetSQLValueString($apellido, "text"),
+			GetSQLValueString($id_profesion, "text"),
 			GetSQLValueString($nit, "int")
 		);
 	}
 
+	$_SESSION['datosac'] = $sql;
 
+	$result =$mysqli->query($sql);
 
-
-
-		$result =$mysqli->query($sql);
-
-		// echo ($sql)? $sql : 'error'; 
-		echo ($result)? 1 : 1111;
+	// echo ($sql)? $sql : 'error'; 
+	echo ($result)? 1 : 1111;
 }
 else if (!empty($_POST['nit'])) {
 	
 	$nit = $_POST['nit'];
-	$sql=sprintf("SELECT nombre, apellido, celular, email, direccion, id_barrio, tarjeta_profesional FROM terceros WHERE nit = %s ",
+	$sql=sprintf("SELECT nombre, apellido, celular, email, direccion, id_barrio, id_profesion, tarjeta_profesional FROM terceros WHERE nit = %s ",
 		GetSQLValueString($nit, "int"));
 
 		$result =$mysqli->query($sql);
@@ -421,6 +426,7 @@ else if (!empty($_POST['nit'])) {
 							'email'		=> $datos['email'],
 							'direccion'	=> $datos['direccion'],
 							'id_barrio'	=> $datos['id_barrio'],
+							'id_profesion'	=> $datos['id_profesion'],
 							'tarjeta_profesional'	=> $datos['tarjeta_profesional']
 			);
 
@@ -487,8 +493,8 @@ function insertMuchos($array, $tabla, $consec)
 	}
 
 	$sql="INSERT INTO $tabla VALUES ".$values;
-	// return $result = $mysqli->query($sql);
-	return $sql.'<hr>';
+	return $result = $mysqli->query($sql);
+	// return $sql.'<hr>';
 }
 function insertarDirecciones($array, $tabla, $consec='13')
 {

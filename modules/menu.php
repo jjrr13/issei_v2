@@ -279,6 +279,19 @@ $tipo_area = $_SESSION['id_area'];
               </p>
             </a>
           </li>   
+          <?php }
+          $acceso_update1 = array(1, 3);//cada id del tipo de usuario futuro aqui
+           $acceso_update2 = array(10, 3, 9);//cada id del area del usuario futuro aqui
+          if(in_array($tipo_usuario, $acceso_update1) && in_array($tipo_area, $acceso_update2)){
+          ?>
+          <li class="nav-item">
+            <a href="<?php echo "$ruta"; ?>users/update.php" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-danger"></i>
+              <p>
+                Verificar Clientes
+              </p>
+            </a>
+          </li>   
           <?php } ?>       
         </ul>
       </nav>
