@@ -263,15 +263,10 @@ if($_POST){
 			);
 
 			echo json_encode($arrayjson);
-			// var_dump($arrayjson);
-			// header('Location: ../quotes');
-			// echo 2;
 
 		}
 		else{
-	//181378		3434 	760011181378 	bloqueado 	2019-02-08 11:08:31
-
-
+			//181378		3434 	760011181378 	bloqueado 	2019-02-08 11:08:31
 			echo 3; 
 		}
 	}

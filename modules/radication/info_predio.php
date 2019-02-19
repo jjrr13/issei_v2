@@ -62,6 +62,15 @@
       <input type="text" value="MODALIDAD"  id="descripcion" name="descripcion" class="form-control col-md-10">
     </div>
   </div>
+
+  <div class="col-lg-12 form-group"></div>
+
+  <div class="col-lg-12 input-group">
+    <div class="col-lg-12 input-group">
+      <label for="descripcion" class="col-form-label col-md-3">Descripción Proyecto</label>
+      <input type="text" value="MODALIDAD"  id="descripcion" name="descripcion" class="form-control col-md-10">
+    </div>
+  </div>
   
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 input-group">

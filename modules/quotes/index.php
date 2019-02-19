@@ -219,12 +219,12 @@ include_once ("../../cx/cx.php");
     <section class="content-header">
       <div class="container col-lg-10">
           <div class="card card-danger">
-              <div class="card-header">
-                <center><h3 class="card-title">AGENDAR CITA</h3></center>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <!-- <form method="post" content="../quotes"> -->
+            <div class="card-header">
+              <center><h3 class="card-title">AGENDAR CITA</h3></center>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <!-- <form method="post" content="../quotes"> -->
             <div  class="card-body">
               <div class="row form-group">
                 <div class="form-group col-lg-12 "></div>
