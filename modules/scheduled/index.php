@@ -15,7 +15,6 @@ include_once('../../functions/ruta.php');
   $_SESSION['id_tipo_usuario']; 
   $_SESSION['id_area'];
 
-
   //If the variable does not exist, destroy the session
   if (empty($_SESSION['id_usuario'])) {
        header("location: ../../cx/destroy_session.php");
@@ -36,6 +35,7 @@ include_once('../../functions/ruta.php');
               END)
           ELSE a.nro_radicado
         END as numero, a.hora, ae.estado, t.nit
+                                          
         FROM agendamiento a, terceros t, agendamiento_estado ae, consultas c 
         WHERE a.nit = t.nit AND a.id_estado = ae.id_estado AND a.id_consulta = c.id_consulta AND ae.id_estado = 1 AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
         
@@ -66,6 +66,7 @@ include_once('../../functions/ruta.php');
   <script src="../../functions/fancywebsocket.js"></script>
   <script src="../../plugins/colorbox/jquery.colorbox.js"></script>
 
+
   <link rel='stylesheet' href='../../cx/demo/demo.css'>
   <link rel='stylesheet' type='text/css' href='../../cx/jquery-confirm.css'>
   <script src='../../cx/demo/demo.js'></script>
@@ -77,75 +78,76 @@ include_once('../../functions/ruta.php');
     $(document).ready(function() {
       var estado;
       //localStorage.setItem("cita", null);
-          //se verifica si existe la variable en el navegador
-          if(localStorage.getItem("cita")!='null'){
-              estado = 1;
-              $.confirm({
-                        icon: 'fa fa-user-circle-o',
-                        theme: 'supervan',
-                        closeIcon: false,
-                        content: 'HUBO UNA CITA SIN TERMINAR',
-                        animation: 'scale',
-                        type: 'RED',
-                        buttons: {
-                            'ok': {
-                                text: 'COMPLETAR!',
-                                btnClass: 'btn-blue',
-                                action: function () {
-                                    // hacemos la peticion a jax y que recargue la pagina
-                                    estados(localStorage.getItem("cita"), estado);
-                                }
-                            },
-                        }
-                    });
-          }else{
-            $(".inline").colorbox({
-              inline:true, width:"80%", escKey:false, overlayClose:false, closeButton:false, speed:1000,
-              onComplete:function(){ 
-                var cita =$('#cita').val();
-                  //se crea la variable en el navegador
-                  localStorage.setItem("cita", cita);
-                  estado = 2;
-                    // hacemos la peticion a jax y que recargue la pagina
-                    estados(cita, estado);
-                    
-                
-                // var solicitud = $('#mconsulta').val();
-                // if (solicitud == "PROYECTO A RADICAR") {
-                //   $('#traslado').show();
-                // }
-              }
-              // onCleanup:function(){ 
-              //     alert('onCleanup: colorbox has begun the close process'); 
-              //     alert($('#obs').length);
-              //     alert($('#estado').val());
-              // }
-
+      //se verifica si existe la variable en el navegador
+      if(localStorage.getItem("cita")!='null'){
+          estado = 1;
+          $.confirm({
+            icon: 'fa fa-user-circle-o',
+            theme: 'supervan',
+            closeIcon: false,
+            content: 'HUBO UNA CITA SIN TERMINAR',
+            animation: 'scale',
+            type: 'RED',
+            buttons: {
+              'ok': {
+                text: 'COMPLETAR!',
+                btnClass: 'btn-blue',
+                action: function () {
+                  // hacemos la peticion a jax y que recargue la pagina
+                  estados(localStorage.getItem("cita"), estado);
+                }
+              },
+            }
+        });
+      }else{
+        $(".inline").colorbox({
+          inline:true, width:"80%", escKey:false, overlayClose:false, closeButton:false, speed:1000,
+          onComplete:function(){ 
+            var cita =$('#cita').val();
+            //se crea la variable en el navegador
+            localStorage.setItem("cita", cita);
+            estado = 2;
+            // hacemos la peticion a jax y que recargue la pagina
+            estados(cita, estado);
               
-            });
+            // var solicitud = $('#mconsulta').val();
+            // if (solicitud == "PROYECTO A RADICAR") {
+            //   $('#traslado').show();
+            // }
           }
+          // onCleanup:function(){ 
+          //     alert('onCleanup: colorbox has begun the close process'); 
+          //     alert($('#obs').length);
+          //     alert($('#estado').val());
+          // }
+
+          
+        });
+      }
 
 
     function estados(cita, estado){
-        $.ajax({
-                type: "POST",
-                url: "../../controller/scheduled_estado_controller.php",
-                data: "cita="+ cita+"&estado="+estado,
-                dataType:"html",
-                success: function(data) 
-                {
-                  var JSONdata    = JSON.parse(data); //parseo la informacion
-                  var estado = JSONdata[0].estado;
-                  if (estado==1) {
-                    localStorage.setItem("cita", null);
-                    window.location.replace('../scheduled');
-                  }
-                },
-                error: function( jqXHR, textStatus, errorThrown ){
-                    console.log(textStatus);
-                    alert(textStatus);
-                }
-              });
+      var datos= "cita="+ cita+"&estado="+estado;
+      alert(datos);
+      $.ajax({
+        type: "POST",
+        url: "../../controller/scheduled_estado_controller.php",
+        data: datos,
+        dataType:"html",
+        success: function(data) 
+        {
+          var JSONdata    = JSON.parse(data); //parseo la informacion
+          var estado = JSONdata[0].estado;
+          if (estado==1) {
+            localStorage.setItem("cita", null);
+            window.location.replace('../scheduled');
+          }
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
+            console.log(textStatus);
+            alert(textStatus);
+        }
+      });
     }
 
 
@@ -174,7 +176,7 @@ include_once('../../functions/ruta.php');
             });
             // alert(valores[0]);
 
-            $('#nit').val(valores[0]);
+            $('#cita').val(valores[0]);
             $('#nombre').val(valores[1]);
             $('#mconsulta').val(valores[2]);
             $('#nroradicado').val(valores[3]);
@@ -210,10 +212,10 @@ include_once('../../functions/ruta.php');
       <div class="card-header">
         <center><h3 class="card-title">MI AGENDA</h3></center>
       </div>
-      <!-- /.card-header -->
-      <!-- form start -->
+    <!-- /.card-header -->
+    <!-- form start -->
         <div class="card-body p-0">
-          <?php  ?>
+        <?php  ?>
           <table  id="example1" class="table table-bordered table-striped">
             <thead>
               <tr>
@@ -231,8 +233,7 @@ include_once('../../functions/ruta.php');
                 $primera=0;
                 do { ?>
                   <tr>
-                    <td style="display: none;"><?php print_r($result2['nit']); ?></td>
-
+                    <td style="display: none;"><?php print_r($result2['id_agendamiento']); ?></td>
                     <td width="35%"><?php print_r($result2['cliente']); ?></td>
                     <td width="25%"><?php print_r($result2['consulta']); ?></td>
                     <td width="15%"><?php print_r($result2['numero']); ?></td>
@@ -270,8 +271,7 @@ include_once('../../functions/ruta.php');
       <div class="float-center d-none d-sm-inline-block">
         <b style="text-align: center;">Desing By:</b> srJJ
       </div><div class="float-right d-none d-sm-inline-block">
-
-        <b>Version</b> 1.2.3
+        <b>Version</b> 1.2.0
       </div>
     </footer>
 

@@ -77,6 +77,215 @@ include ('../menu.php');
                       </select>                      
                     </div>
                   </div>
+                  <div class="card-body col-lg-10">
+                    <table class="table table-bordered">
+                      <tr>
+                        <th colspan="3">
+                          <h4>
+                            <strong>Contrucción</strong>
+                          </h4>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th style="width: 20%;">
+                          <center>
+                            <h5>
+                              <strong>Usos</strong>
+                            </h5>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <h5>
+                              <strong>Cantidad M<sup>2</sup></strong>
+                            </h5>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <h5>
+                              <strong>Valor</strong>
+                            </h5>
+                          </center>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td>
+                          Vivienda
+                        </td>
+                        <td>
+                          <input name="vivienda_cant_1" type="text" id="vivienda_cant_1" size="15" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['vivienda_cant_1']; ?>" >
+                          <input name="vivienda_VISD_1" type="checkbox" id="vivienda_VISD_1" value="1" onClick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['vivienda_VISD_1']) echo "checked"; ?> >V.I.S
+                        </td>
+                        <td>
+                          <input name="vivienda_1" type="text" id="vivienda_1" value="<?= $_POST['vivienda_1']; ?>" size="13" onKeyPress="document.form1.modificado.value='vivienda_1';" readonly  >
+                          <input name="cero_vivienda_1" type="checkbox" id="cero_vivienda_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="vivienda_total_1" type="hidden" id="vivienda_total_1" value="<?= $_POST['vivienda_total_1']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Vivienda VIS
+                        </td>
+                        <td>
+                          <input name="vivienda_vis_cant_1" type="text" id="vivienda_vis_cant_1" onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['vivienda_vis_cant_1']; ?>" size="15" >
+                        </td>
+                        <td>
+                          <input name="vivienda_vis_1" type="text" id="vivienda_vis_1" value="<?= $_POST['vivienda_vis_1']; ?>" size="13" onkeypress="document.form1.modificado.value='vivienda_vis_2';" readonly="readonly" >
+                          <input name="cero_vivienda_vis_1" type="checkbox" id="cero_vivienda_vis_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="vivienda_vis_total_1" type="hidden" id="vivienda_vis_total_1" value="<?= $_POST['vivienda_vis_total_1']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Comercio
+                        </td>
+                        <td>
+                          <input name="comercio_cant_1" type="text" id="comercio_cant_1" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['comercio_cant_1'];?>" size="15" >
+                        </td>
+                        <td>
+                          <input name="comercio_1" type="text" id="comercio_1" value="<?= $_POST['comercio_1']; ?>" size="13" onKeyPress="document.form1.modificado.value='comercio_1';" readonly >
+                          <input name="cero_comercio_1" type="checkbox" id="cero_comercio_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="comercio_total_1" type="hidden" id="comercio_total_1" value="<?= $_POST['comercio_total_1']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Industria
+                        </td>
+                        <td>
+                          <input name="industria_cant_1" type="text" id="industria_cant_1" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['industria_cant_1'];?>" size="15" >
+                        </td>
+                        <td>
+                          <input name="industria_1" type="text" id="industria_1" value="<?= $_POST['industria_1']; ?>" size="13" onKeyPress="document.form1.modificado.value='industria_1';" readonly >
+                          <input name="cero_industria_1" type="checkbox" id="cero_industria_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="industria_total_1" type="hidden" id="industria_total_1" value="<?= $_POST['industria_total_1']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Institucional
+                        </td>
+                        <td>
+                          <input name="institucional_cant_1" type="text" id="institucional_cant_1" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['institucional_cant_1']; ?>" size="15" >
+                          <input name="institucional_dot_1" type="checkbox" id="institucional_dot_1" value="1" onClick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_1']) echo "checked"; ?>>DOT
+                        </td>
+                        <td>
+                          <input name="institucional_1" type="text" id="institucional_1" value="<?= $_POST['institucional_1']; ?>" size="13" onKeyPress="document.form1.modificado.value='institucional_1';" readonly >
+                          <input name="cero_institucional_1" type="checkbox" id="cero_institucional_1" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="institucional_total_1" type="hidden" id="institucional_total_1" value="<?= $_POST['institucional_total_1']; ?>" >
+                        </td>
+                      </tr>
+                    </table><table class="table table-bordered">
+                      <tr>
+                        <th colspan="3">
+                          <h4>
+                            <strong>Reconocimiento</strong>
+                          </h4>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th style="width: 20%;">
+                          <center>
+                            <h5>
+                              <strong>Usos</strong>
+                            </h5>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <h5>
+                              <strong>Cantidad M<sup>2</sup></strong>
+                            </h5>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <h5>
+                              <strong>Valor</strong>
+                            </h5>
+                          </center>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td>
+                          Vivienda
+                        </td>
+                        <td>
+                          <input name="vivienda_cant_2" type="text" id="vivienda_cant_2" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['vivienda_cant_2']; ?>" size="15" >
+                          <input name="vivienda_VISD_2" type="checkbox" id="vivienda_VISD_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['vivienda_VISD_2']) echo "checked"; ?> >V.I.S.
+                        </td>
+                        <td>
+                          <input name="vivienda_2" type="text" id="vivienda_2" value="<?= $_POST['vivienda_2']; ?>" size="13" onKeyPress="document.form1.modificado.value='vivienda_2';" readonly >
+                          <input name="cero_vivienda_2" type="checkbox" id="cero_vivienda_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="vivienda_total_2" type="hidden" id="vivienda_total_2" value="<?= $_POST['vivienda_total_2']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Vivienda VIS
+                        </td>
+                        <td>
+                          <input name="vivienda_vis_cant_2" type="text" id="vivienda_vis_cant_2"  onkeyup="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['vivienda_vis_cant_2']; ?>" size="15"  >
+                        </td>
+                        <td>
+                          <input name="vivienda_vis_2" type="text" id="vivienda_vis_2" value="<?= $_POST['vivienda_vis_2']; ?>" size="13" onKeyPress="document.form1.modificado.value='vivienda_vis_2';" readonly >
+                          <input name="cero_vivienda_vis_2" type="checkbox" id="cero_vivienda_vis_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="vivienda_vis_total_2" type="hidden" id="vivienda_vis_total_2" value="<?= $_POST['vivienda_vis_total_2']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Comercio
+                        </td>
+                        <td>
+                          <input name="comercio_cant_2" type="text" id="comercio_cant_2" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['comercio_cant_2']; ?>" size="15" >
+                        </td>
+                        <td>
+                          <input name="comercio_2" type="text" id="comercio_2" value="<?= $_POST['comercio_2']; ?>" size="13" onKeyPress="document.form1.modificado.value='comercio_2';" readonly >
+                          <input name="cero_comercio_2" type="checkbox" id="cero_comercio_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="comercio_total_2" type="hidden" id="comercio_total_2" value="<?= $_POST['comercio_total_2']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Industria
+                        </td>
+                        <td>
+                          <input name="industria_cant_2" type="text" id="industria_cant_2" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['industria_cant_2']; ?>" size="15" >
+                        </td>
+                        <td>
+                          <input name="industria_2" type="text" id="industria_2" value="<?= $_POST['industria_2']; ?>" size="13" onKeyPress="document.form1.modificado.value='industria_2';" readonly >
+                          <input name="cero_industria_2" type="checkbox" id="cero_industria_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="industria_total_2" type="hidden" id="industria_total_2" value="<?= $_POST['industria_total_2']; ?>" >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Institucional
+                        </td>
+                        <td>
+                          <input name="institucional_cant_2" type="text" id="institucional_cant_2" onKeyUp="xajax_liquidacion(xajax.getFormValues('form1'));return acceptNum(event);" value="<?= $_POST['institucional_cant_2']; ?>" size="15" >
+                          <input name="institucional_dot_2" type="checkbox" id="institucional_dot_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" <?php if($_POST['institucional_dot_2']) echo "checked"; ?> >DOT
+                        </td>
+                        <td>
+                          <input name="institucional_2" type="text" id="institucional_2" value="<?= $_POST['institucional_2']; ?>" size="13" onKeyPress="document.form1.modificado.value='institucional_2';" readonly>
+                          <input name="cero_institucional_2" type="checkbox" id="cero_institucional_2" value="1" onclick="xajax_liquidacion(xajax.getFormValues('form1'))" >
+                          <input name="institucional_total_2" type="hidden" id="institucional_total_2" value="<?= $_POST['institucional_total_2']; ?>" >
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+
+
+
+
+
+
+
+
+
+
                   <div class="form-group col-lg-12 "></div>
                   <div class="form-group col-lg-12 "></div>
                   <div class="borde input-group col-lg-11">

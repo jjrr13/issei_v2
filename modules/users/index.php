@@ -27,15 +27,12 @@ include ('../menu.php');
   <title>ISSEI</title>
   <!-- Requeridos -->
   <style type="text/css">
+  
+  .requerido{
+    color: #dc3545;
+    display: inline;
+  }
 
-    .requerido{
-      color: #dc3545;
-      display: inline;
-    }
-    /*Soluciona Problema de barra inferior del div principal*/
-    .card-footer {
-      padding: .75rem .1rem !important;
-    }
   </style>
 
  <!-- Closing session by inactivity function -->
@@ -89,109 +86,109 @@ include ('../menu.php');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container col-lg-10">
-        <div class="card card-danger">
-          <div class="card-header">
-            <center><h3 class="card-title">CREAR USUARIO</h3></center>
+          <div class="card card-danger">
+              <div class="card-header">
+                <center><h3 class="card-title">CREAR USUARIO</h3></center>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form class="form-horizontal" id="form1" name="form1" action="" method="post" >
+                <div class="card-body">
+                  <div class="row form-group">
+                    <div class="form-group col-lg-12 "></div>
+                    <div class="col-lg-12  input-group">
+                      <div class="col-lg-5  input-group">
+                        <label for="cc" class="col-form-label col-lg-4 ">Documento <p class="requerido">*</p></label>
+                        <input type="text" min="0"  class="form-control col-lg-7" id="cc" name="cc" placeholder="Numero Documento" onkeypress="return ValidNum(event)" maxlength="10" autofocus>
+                        <button type="submit" class="btn btn-danger btn-sm" id="buscar" formaction="../../controller/user_controller.php">buscar&nbsp;</button>
+                      </div>
+                      <div class="col-lg-5  input-group">
+                      	<label for="perfil" class="col-form-label col-lg-3 ">Perfil <p class="requerido">*</p></label>
+                        <select class="form-control col-lg-9" id="perfil" name="perfil" >
+                          <option value="">SELECCIONAR</option>
+                           <?php 
+              							$query = $mysqli -> query ("SELECT * FROM tipo_usuario");
+              							  while ($valores = mysqli_fetch_array($query)) {
+
+              							  echo '<option value="'.$valores[id_tipo_usuario].'">'.$valores[tipo_usuario].'</option>';
+              								  
+              							  } 
+              						 ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-12 "></div>
+                    <div class="col-lg-12  input-group">
+                      <div class="col-lg-5  input-group">
+                        <label for="nombre" class="col-form-label col-lg-3">Nombre</label>
+                        <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
+                      </div>
+                      <div class="col-lg-5  input-group">
+                        <label for="apellido" class="col-form-label col-lg-3">Apellido</label>
+                        <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-12 "></div>
+                    <div class="col-lg-12  input-group">
+                      <div class="col-lg-5  input-group">
+                        <label for="usuario" class="col-form-label col-lg-3 ">Usuario <p class="requerido">*</p></label>
+                        <input type="text" class="form-control col-lg-8"  id="usuario" name="usuario" placeholder="Usuario" >
+                      </div>
+                      <div class="col-lg-5  input-group">
+                        <label for="password" class="col-form-label col-lg-3 ">Password <p class="requerido">*</p></label>
+                        <input type="password" class="form-control col-lg-9"  id="password" name="password" placeholder="Password" >
+                      </div>
+                    </div>
+                    <div class="form-group col-lg-12 "></div>
+                    <div class="col-lg-12  input-group">
+                      <div class="col-lg-5  input-group">
+                        <label for="cargo" class="col-form-label col-lg-3 ">Cargo <p class="requerido">*</p></label>
+                        <select class="form-control col-lg-9" id="cargo" name="cargo" >
+                          <option value="0">SELECCIONAR</option>
+                           <?php 
+                            $query = $mysqli -> query ("SELECT * FROM cargo");
+                                  while ($valores = mysqli_fetch_array($query)) {
+                                  echo '<option value="'.$valores[id_cargo].'">'.$valores[cargo].'</option>';
+                              } ?>
+                        </select>
+                      </div>
+                      <div class="col-lg-5  input-group">
+                        <label for="area" class="col-form-label col-lg-3 ">Area <p class="requerido">*</p></label>
+                        <select class="form-control col-lg-9" id="area" name="area" >
+                          <option value="">SELECCIONAR</option>
+                           <?php 
+              							$query = $mysqli -> query ("SELECT * FROM area");
+              									  while ($valores = mysqli_fetch_array($query)) {
+
+              										echo '<option value="'.$valores[id_area].'">'.$valores[area].'</option>';
+              							  } ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12  input-group">
+                  <div class="col-lg-6  input-group">
+                    <label class="col-form-label col-lg-12 requerido">&nbsp;&nbsp;&nbsp;&nbsp;Los campos con (*) son obligatorios</label>
+                  </div>
+                </div>
+                    <!-- /.card-body -->
+                <div class="card-footer input-group">
+                  <div class="form-group col-lg-12 "></div>
+                  <div class="col-lg-4 offset-3">
+                    <button class="btn btn-danger" type="submit" id="submit1" formaction="../../controller/user_controller.php" >Crear</button>
+                  </div>
+                  <div class="col-lg-2">
+                    <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="10" formaction="../../functions/routes.php">cancelar</button>
+                  </div>
+                  <div class="form-group col-lg-12 "></div>
+                </div>
+                <!-- /.card-footer -->
+              </form>
+            </div>
           </div>
-          <!-- /.card-header -->
-          <!-- form start -->
-          <form class="form-horizontal" id="form1" name="form1" action="" method="post" >
-            <div class="card-body">
-              <div class="row form-group">
-                <div class="form-group col-lg-12 "></div>
-                <div class="col-lg-12  input-group">
-                  <div class="col-lg-5  input-group">
-                    <label for="cc" class="col-form-label col-lg-4 ">Documento <p class="requerido">*</p></label>
-                    <input type="text" min="0"  class="form-control col-lg-7" id="cc" name="cc" placeholder="Numero Documento" onkeypress="return ValidNum(event)" maxlength="10" autofocus>
-                    <button type="submit" class="btn btn-danger btn-sm" id="buscar" formaction="../../controller/user_controller.php">buscar&nbsp;</button>
-                  </div>
-                  <div class="col-lg-5  input-group">
-                  	<label for="perfil" class="col-form-label col-lg-3 ">Perfil <p class="requerido">*</p></label>
-                    <select class="form-control col-lg-9" id="perfil" name="perfil" >
-                      <option value="">SELECCIONAR</option>
-                       <?php 
-          							$query = $mysqli -> query ("SELECT * FROM tipo_usuario");
-          							  while ($valores = mysqli_fetch_array($query)) {
-
-          							  echo '<option value="'.$valores[id_tipo_usuario].'">'.$valores[tipo_usuario].'</option>';
-          								  
-          							  } 
-          						 ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group col-lg-12 "></div>
-                <div class="col-lg-12  input-group">
-                  <div class="col-lg-5  input-group">
-                    <label for="nombre" class="col-form-label col-lg-3">Nombre</label>
-                    <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre" <?php if(!empty($_SESSION['nombre2'])) echo "value='".$_SESSION['nombre2']."' readonly "; ?>>
-                  </div>
-                  <div class="col-lg-5  input-group">
-                    <label for="apellido" class="col-form-label col-lg-3">Apellido</label>
-                    <input type="text" class="form-control col-lg-9"  id="apellido" name="apellido" <?php if(!empty($_SESSION['apellido2'])) echo "value='".$_SESSION['apellido2']."' readonly"; ?> >
-                  </div>
-                </div>
-                <div class="form-group col-lg-12 "></div>
-                <div class="col-lg-12  input-group">
-                  <div class="col-lg-5  input-group">
-                    <label for="usuario" class="col-form-label col-lg-3 ">Usuario <p class="requerido">*</p></label>
-                    <input type="text" class="form-control col-lg-8"  id="usuario" name="usuario" placeholder="Usuario" >
-                  </div>
-                  <div class="col-lg-5  input-group">
-                    <label for="password" class="col-form-label col-lg-3 ">Password <p class="requerido">*</p></label>
-                    <input type="password" class="form-control col-lg-9"  id="password" name="password" placeholder="Password" >
-                  </div>
-                </div>
-                <div class="form-group col-lg-12 "></div>
-                <div class="col-lg-12  input-group">
-                  <div class="col-lg-5  input-group">
-                    <label for="cargo" class="col-form-label col-lg-3 ">Cargo <p class="requerido">*</p></label>
-                    <select class="form-control col-lg-9" id="cargo" name="cargo" >
-                      <option value="0">SELECCIONAR</option>
-                       <?php 
-                        $query = $mysqli -> query ("SELECT * FROM cargo");
-                              while ($valores = mysqli_fetch_array($query)) {
-                              echo '<option value="'.$valores[id_cargo].'">'.$valores[cargo].'</option>';
-                          } ?>
-                    </select>
-                  </div>
-                  <div class="col-lg-5  input-group">
-                    <label for="area" class="col-form-label col-lg-3 ">Area <p class="requerido">*</p></label>
-                    <select class="form-control col-lg-9" id="area" name="area" >
-                      <option value="">SELECCIONAR</option>
-                       <?php 
-          							$query = $mysqli -> query ("SELECT * FROM area");
-          									  while ($valores = mysqli_fetch_array($query)) {
-
-          										echo '<option value="'.$valores[id_area].'">'.$valores[area].'</option>';
-          							  } ?>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-12  input-group">
-              <div class="col-lg-6  input-group">
-                <label class="col-form-label col-lg-12 requerido">&nbsp;&nbsp;&nbsp;&nbsp;Los campos con (*) son obligatorios</label>
-              </div>
-            </div>
-                <!-- /.card-body -->
-            <div class="card-footer input-group">
-              <div class="form-group col-lg-12 "></div>
-              <div class="col-lg-12  input-group">
-                <div class="col-lg-3"></div>  
-                <button class="btn btn-danger col-lg-2" type="submit" id="submit1" formaction="../../controller/user_controller.php" >Crear</button>
-                <div class="col-lg-1"></div>              
-                <button class="btn btn-default col-lg-2" type="submit" id="cancelar" name="cancelar" value="10" formaction="../../functions/routes.php">cancelar</button>
-              </div>
-              <div class="form-group col-lg-12 "></div>
-            </div>
-            <!-- /.card-footer -->
-          </form>
-        </div>
+        </section>
       </div>
-    </section>
-  </div>
   <!-- /.content-wrapper -->
     <footer class="main-footer">
       <strong>Copyright &copy; 2018 Computer Services.</strong>

@@ -9,50 +9,25 @@
 			 (isset($_POST['cita']) && !empty($_POST['cita']) ) &&
 		 	 (isset($_POST['obs']) && !empty($_POST['obs']) ) ) {
 	
-			$obs = $_POST['obs'];
+				$obs = $_POST['obs'];
+				$hora = date('H:i:s');
+				$estado = $_POST['estado'];
+				$id_agendamiento = $_POST['cita'];
 
-			$hora = date('H:i:s');
-			$estado = $_POST['estado'];
-			$id_agendamiento = $_POST['cita'];
 
+				$sql = sprintf("UPDATE agendamiento SET hora_fin=%s, id_estado=%s, obervacion_agd=%s WHERE id_agendamiento= %s",
+				      
+				       GetSQLValueString($hora, "text"),
+				       GetSQLValueString($estado, "int"),
+				       GetSQLValueString($_POST['obs'], "text"),
+				       GetSQLValueString($id_agendamiento, "int"));
 
-			$sql = sprintf("UPDATE agendamiento SET hora_fin=%s, id_estado=%s, obervacion_agd=%s WHERE id_agendamiento= %s",
-			      
-			       GetSQLValueString($hora, "text"),
-			       GetSQLValueString($estado, "int"),
-			       GetSQLValueString($_POST['obs'], "text"),
-			       GetSQLValueString($id_agendamiento, "int"));
+				$result = $mysqli->query($sql);
 
-			$result = $mysqli->query($sql);
-
-			scripts($ruta);	
+				scripts($ruta);	
 			
 			if(!$result){
-
-
-				echo "
-					<script  type='text/javascript'>
-		   	        	 	
-		                $.confirm({
-		                    icon: 'fa fa-user-circle-o',
-		                    theme: 'supervan',
-		                    closeIcon: false,
-		                    content: 'ERROR EN LA BD CONSULTE DTO SISTEMAS',
-		                    animation: 'scale',
-		                    type: 'red',
-		                    buttons: {
-		                        'ok': {
-		                            text: 'VERIFIQUE',
-		                            btnClass: 'btn-blue',
-		                            action: function () {
-		                                console.log('Se cayo la bd');
-		                                window.location.replace('../modules/scheduled');
-		                            }
-		                        },
-		                    }
-		                });
-
-		        	</script>";
+				confirmar('ERROR EN LA BD CONSULTE DTO SISTEMAS', 'fa fa-window-close-o', 'red', '../modules/scheduled');
 			}else{
 				echo "
 					<script  type='text/javascript'>
@@ -82,6 +57,11 @@
 			}
 
 		}
+		else{
+				scripts($ruta);	
+			confirmar('FALTARON ALGUNOS DATOS PARA TERMINAR LA CITA', 'fa fa-window-close-o', 'green', '../modules/scheduled');
+		}
+
 	}
 
 	if ( (isset($_POST['cita']) && !empty($_POST['cita']) ) &&
@@ -103,34 +83,8 @@
 
 				scripts($ruta);	
 
-				echo "
-					<script  type='text/javascript'>
+				confirmar('ERROR EN LA BD CONSULTE DTO SISTEMAS', 'fa fa-window-close-o', 'green', '../modules/scheduled');
 
-						alert($result);
-						alert($hora);
-						alert($estado);
-						alert($id_agendamiento);
-		   	        	 	
-		                $.confirm({
-		                    icon: 'fa fa-user-circle-o',
-		                    theme: 'supervan',
-		                    closeIcon: false,
-		                    content: 'ERROR EN LA BD CONSULTE DTO SISTEMAS',
-		                    animation: 'scale',
-		                    type: 'red',
-		                    buttons: {
-		                        'ok': {
-		                            text: 'VOLVER',
-		                            btnClass: 'btn-blue',
-		                            action: function () {
-		                                console.log('Se cayo la bd');
-		                               // window.location.replace('../modules/scheduled');
-		                            }
-		                        },
-		                    }
-		                });
-
-		        	</script>";
 			}else{
 				$arrayjson = array();
 				$arrayjson[] = array(
@@ -144,28 +98,7 @@
 	else{
 		scripts($ruta);	
 		
-		echo "
-				<script  type='text/javascript'>
-	                $.confirm({
-	                    icon: 'fa fa-window-close',
-	                    theme: 'supervan',
-	                    closeIcon: false,
-	                    content: 'FALTARON ALGUNOS DATOS, INTENTA DE NUEVO!',
-	                    animation: 'scale',
-	                    type: 'red',
-	                    buttons: {
-	                        'ok': {
-	                            text: 'VOLVER',
-	                            btnClass: 'btn-blue',
-	                            action: function () {
-	                                console.log('se violo la seguridad');
-	                                window.location.replace('../modules/scheduled');
-	                            }
-	                        },
-	                    }
-	                });
-
-	        	</script>";
+		confirmar('FALTARON ALGUNOS DATOS PARA ACTUALIZAR EL ESTADO DE LA CITA, INTENTA DE NUEVO!', 'fa fa-window-close-o', 'red', '../modules/scheduled');
 	}
 
  ?>

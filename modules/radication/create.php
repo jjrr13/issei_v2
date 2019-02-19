@@ -15,8 +15,6 @@ include_once $dir."cx/cx.php";
 <script>
 $(document).ready(function() {
 
-   // $('.js-example-basic-single').select2({ dropdownParent: $('.js-example-basic-single').parent()});
-
    $(".inline").colorbox({
         inline:true, width:"80%",  overlayClose:false,  speed:1000,
         onComplete:function(){ 
@@ -24,53 +22,6 @@ $(document).ready(function() {
         
     });
 });
-
-const crearCliente = (form) => {
-    $( "#formularioCliente" ).submit(function( event ) {
-      // alert( "Handler for .submit() called." );
-      event.preventDefault();
-    // alert(form);
-    });
-
-    const datos = $("#formularioCliente").serialize();
-    
-    console.log(datos);
-    // alert(datos);
-    $.ajax({   
-      cache: false,                     
-      type: "POST",                 
-      url: "../../controller/client_controller.php",                    
-      data: datos,
-      error: function(request, status, error)
-      {
-        console.log(error);
-        alert("ocurrio un error "+request.responseText);
-      },
-      success: function(data)            
-      {
-        $("#modal").colorbox.close();
-
-        if (data == 0) {
-          confirmar('RECUERDE QUE LOS CAMPOS CON (*) SON OBLIGATORIOS!', 'fa fa-window-close', 'red', 'S');
-        }
-        else if (data == 1) {
-          confirmar('EL CLIENTE YA EXISTE, CONSULTE DPTO DE SISTEMAS!', 'fa fa-window-close', 'red', 'S');
-        }
-        else if (data == 2) {
-          confirmar('ERROR 300! CONSULTE A SU DPTO DE SISTEMAS', 'fa fa-check-square', 'red', 'S');
-        }
-        else if (data == 3) {
-          confirmar('OPERACION EXITOSA! <br> CONTINUEMOS', 'fa fa-check-square', 'green', 'S');
-        }
-
-
-      }
-    });
-  };
-
-function cerrarModal(boton) {
-  $("#modal").colorbox.close();
-}
 </script>
 
     <!-- Content Header (Page header) -->
@@ -80,7 +31,7 @@ function cerrarModal(boton) {
           <div class="card-header">
             <center><h3 class="card-title">CREAR CLIENTE</h3></center>
           </div>
-          <form class="form-horizontal" id="formularioCliente" action="../../controller/client_controller.php" method="post" >
+          <form class="form-horizontal" action="../../controller/client_controller.php" method="post" >
             <div class="card-body">
               <div class="row form-group">
                 <div class="form-group col-lg-12 "></div>
@@ -165,7 +116,7 @@ function cerrarModal(boton) {
                 <div class="col-lg-12  input-group">
                   <div class="col-lg-6  input-group">
                     <label for="barrio" class="col-form-label col-lg-4 ">Barrio <p class="requerido">*</p></label>
-                    <select style="width: 66%;" class="col-lg-12 form-control col-md-4" id="barrio" name="barrio" >
+                    <select style="width: 66%;" class="col-lg-12 js-example-basic-single form-control col-md-4" id="barrio" name="barrio" >
                       <option class="clasestado">SELECCIONAR</option>
                       <option class="clasestado" value="487">OTRO BARRIO</option>
                       <?php 
@@ -182,41 +133,6 @@ function cerrarModal(boton) {
                     <input type="text" class="form-control col-lg-8"  id="otro" name="otro" placeholder="Otro Barrio">
                   </div>
                 </div>
-                <div class="form-group col-lg-12 "></div>
-                <div class="col-lg-12  input-group">
-                  <div class="col-lg-6 input-group">
-                    <label for="tarjeta" class="col-form-label col-lg-4 " style="padding-right: 0px;">Tarjeta Profesional</label>
-                    <input type="text" class="form-control col-lg-8"  id="tarjeta" name="tarjeta" placeholder="Numeros y Letras" onChange="letras(this)" >
-                  </div>
-                  <div class="col-lg-5  input-group">
-                    <label for="profesion" class="col-form-label col-lg-4 ">Profesion <p class="requerido">*</p></label>
-                    <select class="form-control" id="profesion" name="profesion" >
-                      <option value="1">Otros Profesionales</option>
-                      <option value="2">Diseñador</option>
-                      <option value="3">Ingeniero Civil</option>
-                      <option value="4">Ingeniero Geotécnico</option>
-                      <option value="5">Ingeniero Constructor</option>
-                      <option value="6">Ingeniero Proyectista</option>
-                      <option value="7">Arquitecto</option>
-                      <option value="8">Revisor Independiente</option>
-                      <option value="10">Topógrafo</option>
-                      <option value="11">Abogado</option>
-                      <option value="12">Contador</option>
-                      <option value="13">Administración de Empresas</option>
-                      <option value="14">Técnico en Sistemas</option>
-                      <option value="15">Técnico en Administración de Empresas</option>
-                      <option value="16">Bachiller</option>
-                      <option value="17">Trabajador Social</option>
-                      <option value="18">Técnico en Gestión Documental</option>
-                      <option value="19">Administración Pública</option>
-                      <option value="20">Técnico Analista Financiero y Contable</option>
-                      <option value="21">Técnico Asistente Administrativo</option>
-                      <option value="22">Técnico Auxiliar Contable</option>
-                      <option value="23">Tecnólogo en Análisis y Desarrollo de Sistemas de ...</option>
-                      <option value="24">Tramitador</option>
-                    </select>
-                  </div>
-                </div>
               </div>
             </div>
             <div class="col-lg-12  input-group">
@@ -228,12 +144,11 @@ function cerrarModal(boton) {
             <div class="card-footer input-group">
               <div class="form-group col-lg-12 "></div>
               <div class="col-lg-4 offset-3">
-                <input type="hidden" name="submitRadica" value="submitRadica">
-                <button class="btn btn-danger" type="submit" name="submitRadica" id="submit" value="9" onclick="crearCliente(this);">Crear</button>
+                <button class="btn btn-danger" type="submit" name="submit" id="submit" >Crear</button>
               </div>
               <div class="col-lg-2">
                 <input type="hidden" name="cancelar">
-                <button type="button" class="btn btn-default" id="cancelar" name="cancelar" value="9" onclick="cerrarModal(this);" >Cancelar</button>
+                <button type="submit" class="btn btn-default" id="cancelar" name="cancelar" value="9" formaction="../../functions/routes.php">cancelar</button>
               </div>
               <div class="form-group col-lg-12 "></div>
             </div>
@@ -247,7 +162,7 @@ function cerrarModal(boton) {
       <strong>Copyright &copy; 2018 Computer Services.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.2.2
+        <b>Version</b> 1.2.0
       </div>
     </footer>
 

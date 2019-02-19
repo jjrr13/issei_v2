@@ -5,7 +5,6 @@ if(file_exists("../cx/cx.php")){
   $dir="../";
   $ruta="";
 }elseif(file_exists("../../cx/cx.php")){
-
   $dir="../../";
   $ruta="../";
 }
@@ -44,9 +43,10 @@ $tipo_area = $_SESSION['id_area'];
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
   <meta charset="UTF-8">
+  <!-- <meta charset="ISO-8859-1"> -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ISSEI</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -128,7 +128,6 @@ $tipo_area = $_SESSION['id_area'];
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               
           <?php 
           $acceso_actividades1 = array(1);//cada id del tipo de usuario futuro aqui
           $acceso_actividades2 = array(10);//cada id a futuro aqui
@@ -196,7 +195,7 @@ $tipo_area = $_SESSION['id_area'];
             </a>
           </li>           
           <?php  }
-          $acceso_sistemas1 = array(1, 3, 4);//cada id del tipo de usuario futuro aqui
+          $acceso_sistemas1 = array(1);//cada id del tipo de usuario futuro aqui
           $acceso_sistemas2 = array(10);//cada id del area del usuario futuro aqui
 
           if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
@@ -226,14 +225,8 @@ $tipo_area = $_SESSION['id_area'];
           </li>
 
          <?php }
-         // echo "
-         //  <script>
-         //    alert('".$tipo_usuario."')
-         //  </script>
-         // ";
-            $acceso_radicacion1 = array(1, 2);//cada id del tipo de usuario futuro aqui
-            $acceso_radicacion2 = array(10, 6);//cada id del area del usuario futuro aqui
-         if(in_array($tipo_usuario, $acceso_radicacion1) && in_array($tipo_area, $acceso_radicacion2)){
+
+         if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
           ?>
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>radication/" class="nav-link">
@@ -242,19 +235,18 @@ $tipo_area = $_SESSION['id_area'];
                 Radicacion
               </p>
             </a>
+
           </li>  
 
           <?php } 
-          $acceso_liquidacion1 = array(1, 3);//cada id del tipo de usuario futuro aqui
-           $acceso_liquidacion2 = array(10, 3);//cada id del area del usuario futuro aqui
-          if(in_array($tipo_usuario, $acceso_liquidacion1) && in_array($tipo_area, $acceso_liquidacion2)){
-          ?>
 
+          if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
+          ?>
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Liquidacion
+                Pre-Liquidacion
               </p>
             </a>
 
@@ -267,19 +259,12 @@ $tipo_area = $_SESSION['id_area'];
             <a href="<?php echo "$ruta"; ?>tracing/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Hoja de Ruta
+                Hola de Ruta
               </p>
             </a>
+
           </li>   
-          <li class="nav-item">
-            <a href="<?php echo "$ruta"; ?>revisions/" class="nav-link">
-              <i class="nav-icon fa fa-circle-o text-danger"></i>
-              <p>
-                Revision Proyecto
-              </p>
-            </a>
-          </li>   
-          <?php } ?>       
+          <?php } ?>      
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -290,17 +275,16 @@ $tipo_area = $_SESSION['id_area'];
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="<?php echo $dir; ?>plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-
-<script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
-  
 <!-- funciones de tiempo y de cierre de session -->
   <?php include_once ($dir.'functions/globales.js'); ?>
+<!-- jQuery UI 1.11.4 -->
+
+<!-- <script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script> -->
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Bootstrap 4 -->
+<script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
+
+  
 </body>
 </html>

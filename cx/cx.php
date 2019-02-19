@@ -11,8 +11,7 @@
 		die('Error de conexión (' . mysqli_connect_errno() . ') '
 				. mysqli_connect_error());
 	}
-	
-	$mysqli->set_charset("utf-8");
+		
 	//Log in
 	session_start();
 	//Hide generated errors
@@ -61,7 +60,7 @@
 	function scripts($ruta){
 		echo "
 			<link rel='stylesheet' href='". $ruta."plugins/font-awesome/css/font-awesome.min.css'>
-  			<link rel='stylesheet' href='". $ruta."dist/css/adminlte.min.css'>
+  		<link rel='stylesheet' href='". $ruta."dist/css/adminlte.min.css'>
 			<link rel='stylesheet' href='".$ruta."cx/demo/demo.css'>
 			<link rel='stylesheet' type='text/css' href='".$ruta."cx/jquery-confirm.css'>
 			<!-- Este SCRIPT ejecuta todos los alerts -->
@@ -74,33 +73,27 @@
 	
 	function confirmar($msj, $icon, $color, $destino){
 		echo "<script  type='text/javascript'>
-                $.confirm({
-                        title: '',
-                        content: '$msj',
-                        icon: '$icon',
-                        animation: 'scale',
-                        closeAnimation: 'scale',
-                        theme: 'supervan',
-                        type: '$color',
-                        opacity: 0.5,
-                        buttons: {
-                            'ok': {
-                                text: 'OK',
-                                btnClass: 'btn-blue',
-                                action: function () {
-                                    console.log('$msj');
-                                    window.location.replace('$destino');
-                                }
-                            }, 
-                        }
-                    });
-                </script>";
+          	$.confirm({
+              title: '',
+              content: '$msj',
+              icon: '$icon',
+              animation: 'scale',
+              closeAnimation: 'scale',
+              theme: 'supervan',
+              type: '$color',
+              opacity: 0.5,
+              buttons: {
+                  'ok': {
+                      text: 'OK',
+                      btnClass: 'btn-blue',
+                      action: function () {
+                          console.log('tambien por aqui');
+                          window.location.replace('$destino');
+                      }
+                  }, 
+              }
+            });
+          </script>";
 	}
-
-	function console($variable)
-	{
-		echo "<script>console.log('".$variable."');</script>";
-	}
-
 ?>
 

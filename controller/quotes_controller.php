@@ -52,7 +52,6 @@
 								'hora'		   => $hora//hora de agendamiento
 				);
 				$_SESSION['nit'];
-
 				unset($_SESSION['nombre']);
 				unset($_SESSION['apellido']);
 

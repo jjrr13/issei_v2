@@ -21,7 +21,7 @@
                     <div class="form-group col-lg-12 "></div>
                     <div class="col-lg-12  input-group">
                       <div class="col-lg-6  input-group">
-                        <input type="text" class="form-control col-lg-8" hidden="" name="nit" id="nit">
+                        <input type="text" class="form-control col-lg-8" hidden="" name="cita" id="cita">
                         <label for="nombre" class="col-form-label col-lg-3">Cliente</label>
                         <input type="text" class="form-control col-lg-8"  id="nombre" name="nombre">
                       </div>
@@ -53,7 +53,7 @@
                         <label for="obs" class="col-form-label col-lg-4">Observación<p class="requerido">*</p></label>
                         <textarea name="obs" id="obs" class="col-lg-7 form-control" rows="1"></textarea>
                       </div>
-                      <div class="col-lg-5  input-group" style="display: none;" id="traslado_radicacion">
+                      <div class="col-lg-5  input-group" style="display: none;" id="traslado">
                         <div class="col-lg-6  offset-6">
                           <button class="btn btn-primary btn-lg" type="submit" name="submit2" id="submit2">Pasar a Radicacion</button>
                         </div>
