@@ -164,14 +164,22 @@ function buscarNit(boton) {
     </div>
   </div>
 
-  <div class="col-lg-12 form-group"></div>
-  <div class="col-lg-12 form-group borde">
-    <h5>ARQUITECTO PROYECTISTA</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit2" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit2" id="nit2" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar2" value="2" onclick="//buscarNit(this)" class=" btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit2" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit2" id="nit2" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar2" value="2" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+      </div>
+      <div class="col-lg-5 input-group opcion2" hidden id="opcion">
+        <label for="tarjeta2" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
+        <input type="text" class="form-control col-lg-8"  id="tarjeta2" name="tarjeta2" placeholder="Numeros y Letras" onChange="letras(this)" >
+      </div>
+    </div>
+    <div class="col-lg-12 form-group"></div>
+    <div class="col-lg-12 input-group opcion2" hidden>
+      <div class="col-md-6 input-group" >
+        <label for="nombre2" class="col-form-label col-md-4">NOMBRE</label>
+        <input type="text" id="nombre2" name="nombre2" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
        <div class="col-lg-5 input-group opcion2" id="opcion2" hidden="">
         <label for="nombre2" class="col-form-label col-lg-3">NOMBRE</label>
@@ -194,11 +202,11 @@ function buscarNit(boton) {
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group borde">
     <h5>INGENIERO CIVIL</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit3" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit3" id="nit3" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar3" value="3" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit3" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit3" id="nit3" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar3" value="3" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion3" id="opcion3" hidden="">
         <label for="nombre3" class="col-form-label col-lg-3">NOMBRE</label>
@@ -220,11 +228,15 @@ function buscarNit(boton) {
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group borde">
     <h5>DISEÑADOR DE ELEMENTOS NO ESTRUCTURALES</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit4" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit4" id="nit4" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar4" value="4" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit4" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit4" id="nit4" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar4" value="4" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+      </div>
+      <div class="col-lg-5 input-group opcion4" hidden id="opcion">
+        <label for="tarjeta4" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
+        <input type="text" class="form-control col-lg-8"  id="tarjeta4" name="tarjeta4" placeholder="Numeros y Letras" onChange="letras(this)" >
       </div>
        <div class="col-lg-5 input-group opcion4" id="opcion4" hidden="">
         <label for="nombre4" class="col-form-label col-lg-3">NOMBRE</label>
@@ -246,11 +258,11 @@ function buscarNit(boton) {
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group borde">
     <h5>INGENIERO CIVIL GEOTECNISTA</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit5" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit5" id="nit5" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar5" value="5" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit5" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit5" id="nit5" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar5" value="5" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
       <div class="col-lg-5 input-group opcion5" id="opcion5" hidden="">
         <label for="nombre5" class="col-form-label col-lg-3">NOMBRE</label>
@@ -272,11 +284,11 @@ function buscarNit(boton) {
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group borde">
     <h5>INGENIERO TOPOGRAFO Y/O TOPÓGRAFO</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit6" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit6" id="nit6" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar6" value="6" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit6" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit6" id="nit6" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar6" value="6" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion6" id="opcion6" hidden="">
         <label for="nombre6" class="col-form-label col-lg-3">NOMBRE</label>
@@ -298,11 +310,22 @@ function buscarNit(boton) {
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group borde">
     <h5>REVISOR INDEPENDIENTE DISEÑOS ESTRUCTURALES</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit7" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit7" id="nit7" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar7" value="7" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit7" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit7" id="nit7" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar7" value="7" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+      </div>
+      <div class="col-lg-5 input-group opcion7" hidden id="opcion">
+        <label for="tarjeta7" class="col-form-label col-lg-5 " style="padding-right: 0px;">TARJETA</label>
+        <input type="text" class="form-control col-lg-8"  id="tarjeta7" name="tarjeta7" placeholder="Numeros y Letras" onChange="letras(this)" >
+      </div>
+    </div>
+    <div class="col-lg-12 form-group"></div>
+    <div class="col-lg-12 input-group opcion7" hidden>
+      <div class="col-md-6 input-group" >
+        <label for="nombre7" class="col-form-label col-md-4">NOMBRE</label>
+        <input type="text" id="nombre7" name="nombre7" class="form-control col-md-9" placeholder="NOMBRE">
       </div>
        <div class="col-lg-5 input-group opcion7" id="opcion7" hidden="">
         <label for="nombre7" class="col-form-label col-lg-3">NOMBRE</label>
@@ -324,11 +347,11 @@ function buscarNit(boton) {
   <div class="col-lg-12 form-group"></div>
   <div class="col-lg-12 form-group borde">
     <h5>OTROS PROFESIONALES ESPECIALISTAS</h5>
-    <div class="col-lg-12 input-group">
-      <div class="col-lg-5 input-group">
-        <label for="nit8" class="col-form-label col-lg-3"><strong>NIT/CC:</strong></label>
-        <input type="text" name="nit8" id="nit8" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-lg-8" placeholder="Digite el No.">
-        <button type="button" name="burcar8" value="8" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
+    <div class="col-lg-12 input-group" >
+      <div class="col-lg-6 input-group">
+        <label for="nit8" class="col-form-label col-md-4"><strong>NIT/CC:</strong></label>
+        <input autofocus="autofocus" value="" type="text" name="nit8" id="nit8" required title="Minimo 5 Numeros" pattern=".{5,10}" minlength="5" maxlength="10" class="form-control col-md-7" placeholder="Digite el No.">
+        <button  type="button" name="burcar8" value="8" onclick="//buscarNit(this)" class="btn btn-danger left">Buscar</button>
       </div>
        <div class="col-lg-5 input-group opcion8" id="opcion8" hidden="">
         <label for="nombre8" class="col-form-label col-lg-3">NOMBRE</label>

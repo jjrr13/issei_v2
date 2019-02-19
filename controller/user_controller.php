@@ -90,7 +90,7 @@
 	elseif (isset($_POST['cc']) && !empty($_POST['cc'])) {
 
 		$nit = $_POST['cc'];
-/////////////////////////// consulta si existe el cliente ///////////////////////////////////////
+		/////////////////////////// consulta si existe el cliente ///////////////////////////////////////
 		$sql = "SELECT nit, nombre, apellido FROM terceros WHERE nit = '$nit'";
 
 		$result =$mysqli->query($sql);
@@ -99,7 +99,7 @@
 
 
 		if ($result > 0) {
-/////////////////////////// consulta si existe el usuario ///////////////////////////////////////
+			/////////////////////////// consulta si existe el usuario ///////////////////////////////////////
 			$sql = "SELECT nit FROM usuarios WHERE nit = '$nit'";
 
 			$result2 =$mysqli->query($sql);

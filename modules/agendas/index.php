@@ -69,460 +69,468 @@ function estados($estado)
     <section class="content-header">
       <div class="container col-lg-10">
           <div class="card card-danger">
-              <div class="card-header">
-                <center><h3 class="card-title">CITA AGENDADAS</h3></center>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <!-- <form method="post" content="../quotes"> -->
+	          <div class="card-header">
+	            <center><h3 class="card-title">CITA AGENDADAS</h3></center>
+	          </div>
+	          <!-- /.card-header -->
+	          <!-- form start -->
+	          <!-- <form method="post" content="../quotes"> -->
+          	<div  class="card-body">
+							<!-- Paneles de control -->
+							<div class="container">
+								<div class="row form-group">
+									<!-- Panel 	1 -->
+									<div class="col-lg-12 input-group">
+										<!-- Panel de Ines -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
 
-                <div  class="card-body">
-<!-- Paneles de control -->
-<div class="container">
-	<!-- Panel 	1 -->
-	<div class="row">
-		<!-- Panel de Ines -->
-		<div class="col-lg-6" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 3;
 
-			<?php 
-			$asignado = 12;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC ");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC ");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" >
+												<center><h3 class="card-title">AGENDA MARGARITA</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+											<?php  ?>
+												<table  id="example1" class="table-bordered table-striped" >
+													<thead>
+														<tr>
+															<th style="display: none; ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+															<td  width="35%"><?php print_r($result2['cliente']); ?></td>
+															<td  width="10%"><?php print_r($result2['hora']); ?></td>
+															<td  width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Ines -->
+										<div class="col-lg-1"></div>
+										<!-- Panel de Patricia -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 11;
 
-			?>
-			<div class="card-header" >
-				<center><h3 class="card-title">AGENDA INES</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-			<?php  ?>
-				<table  id="example1" class="table-bordered table-striped" >
-					<thead>
-						<tr>
-							<th style="display: none; ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-							<td  width="35%"><?php print_r($result2['cliente']); ?></td>
-							<td  width="10%"><?php print_r($result2['hora']); ?></td>
-							<td  width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Ines -->
-		<!-- Panel de Patricia -->
-		<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
-			<?php 
-			$asignado = 11;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" whit>
+												<center><h3 class="card-title">AGENDA PATRICIA</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+												<?php  ?>
+												<table  id="example1" class="table-bordered table-striped">
+													<thead>
+														<tr>
+															<th style="  display: none; padding: ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+																<td width="35%"><?php print_r($result2['cliente']); ?></td>
+																<td width="10%"><?php print_r($result2['hora']); ?></td>
+																<td width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Patricia -->
+									</div>
+									<!-- /Panel 	1 -->
+									<!-- Panel 	2 -->
+									<div class="col-lg-12 input-group">
+										<!-- Panel de Alex -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
 
-			?>
-			<div class="card-header" whit>
-				<center><h3 class="card-title">AGENDA PATRICIA</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-				<?php  ?>
-				<table  id="example1" class="table-bordered table-striped">
-					<thead>
-						<tr>
-							<th style="  display: none; padding: ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-								<td width="35%"><?php print_r($result2['cliente']); ?></td>
-								<td width="10%"><?php print_r($result2['hora']); ?></td>
-								<td width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Patricia -->
-	</div>
-	<!-- /Panel 	1 -->
-	<!-- Panel 	2 -->
-	<div class="row">
-		<!-- Panel de Alex -->
-		<div class="col-lg-6" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 26;
 
-			<?php 
-			$asignado = 10;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC ");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC ");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" >
+												<center><h3 class="card-title">AGENDA ELIZABETH</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+											<?php  ?>
+												<table  id="example1" class="table-bordered table-striped" >
+													<thead>
+														<tr>
+															<th style="display: none; ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+															<td  width="35%"><?php print_r($result2['cliente']); ?></td>
+															<td  width="10%"><?php print_r($result2['hora']); ?></td>
+															<td  width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Alex -->
+										<div class="col-lg-1"></div>
+										<!-- Panel de Kristian -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 9;
 
-			?>
-			<div class="card-header" >
-				<center><h3 class="card-title">AGENDA ALEX</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-			<?php  ?>
-				<table  id="example1" class="table-bordered table-striped" >
-					<thead>
-						<tr>
-							<th style="display: none; ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-							<td  width="35%"><?php print_r($result2['cliente']); ?></td>
-							<td  width="10%"><?php print_r($result2['hora']); ?></td>
-							<td  width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Alex -->
-		<!-- Panel de Kristian -->
-		<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
-			<?php 
-			$asignado = 9;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" whit>
+												<center><h3 class="card-title">AGENDA KRISTIAN</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+												<?php  ?>
+												<table  id="example1" class="table-bordered table-striped">
+													<thead>
+														<tr>
+															<th style="  display: none; padding: ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+																<td width="35%"><?php print_r($result2['cliente']); ?></td>
+																<td width="10%"><?php print_r($result2['hora']); ?></td>
+																<td width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Kristian -->
+									</div>
+									<!-- /Panel 	2 -->
+									<!-- Panel 	3 -->
+									<div class="col-lg-12 input-group">
+										<!-- Panel de Yeiner -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
 
-			?>
-			<div class="card-header" whit>
-				<center><h3 class="card-title">AGENDA KRISTIAN</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-				<?php  ?>
-				<table  id="example1" class="table-bordered table-striped">
-					<thead>
-						<tr>
-							<th style="  display: none; padding: ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-								<td width="35%"><?php print_r($result2['cliente']); ?></td>
-								<td width="10%"><?php print_r($result2['hora']); ?></td>
-								<td width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Kristian -->
-	</div>
-	<!-- /Panel 	2 -->
-	<!-- Panel 	3 -->
-	<div class="row">
-		<!-- Panel de Yeiner -->
-		<div class="col-lg-6" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 8;
 
-			<?php 
-			$asignado = 8;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC ");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC ");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" >
+												<center><h3 class="card-title">AGENDA YEINER</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+											<?php  ?>
+												<table  id="example1" class="table-bordered table-striped" >
+													<thead>
+														<tr>
+															<th style="display: none; ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+															<td  width="35%"><?php print_r($result2['cliente']); ?></td>
+															<td  width="10%"><?php print_r($result2['hora']); ?></td>
+															<td  width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Yeiner -->
+										<div class="col-lg-1"></div>
+										<!-- Panel de Lina -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 7;
 
-			?>
-			<div class="card-header" >
-				<center><h3 class="card-title">AGENDA YEINER</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-			<?php  ?>
-				<table  id="example1" class="table-bordered table-striped" >
-					<thead>
-						<tr>
-							<th style="display: none; ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-							<td  width="35%"><?php print_r($result2['cliente']); ?></td>
-							<td  width="10%"><?php print_r($result2['hora']); ?></td>
-							<td  width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Yeiner -->
-		<!-- Panel de Lina -->
-		<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
-			<?php 
-			$asignado = 7;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" whit>
+												<center><h3 class="card-title">AGENDA LINA</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+												<?php  ?>
+												<table  id="example1" class="table-bordered table-striped">
+													<thead>
+														<tr>
+															<th style="  display: none; padding: ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+																<td width="35%"><?php print_r($result2['cliente']); ?></td>
+																<td width="10%"><?php print_r($result2['hora']); ?></td>
+																<td width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Lina -->
+									</div>
+									<!-- /Panel 	3 -->
+									<!-- Panel 	4 -->
+									<div class="col-lg-12 input-group">
+										<!-- Panel de Claudia -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
 
-			?>
-			<div class="card-header" whit>
-				<center><h3 class="card-title">AGENDA LINA</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-				<?php  ?>
-				<table  id="example1" class="table-bordered table-striped">
-					<thead>
-						<tr>
-							<th style="  display: none; padding: ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-								<td width="35%"><?php print_r($result2['cliente']); ?></td>
-								<td width="10%"><?php print_r($result2['hora']); ?></td>
-								<td width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Lina -->
-	</div>
-	<!-- /Panel 	3 -->
-	<!-- Panel 	4 -->
-	<div class="row">
-		<!-- Panel de Claudia -->
-		<div class="col-lg-6" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 23;
 
-			<?php 
-			$asignado = 23;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC ");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC ");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" >
+												<center><h3 class="card-title">AGENDA CLAUDIA</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+											<?php  ?>
+												<table  id="example1" class="table-bordered table-striped" >
+													<thead>
+														<tr>
+															<th style="display: none; ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+															<td  width="35%"><?php print_r($result2['cliente']); ?></td>
+															<td  width="10%"><?php print_r($result2['hora']); ?></td>
+															<td  width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Claudia -->
+										<div class="col-lg-1"></div>
+										<!-- Panel de Carolina -->
+										<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
+											<?php 
+											$asignado = 15;
 
-			?>
-			<div class="card-header" >
-				<center><h3 class="card-title">AGENDA CLAUDIA</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-			<?php  ?>
-				<table  id="example1" class="table-bordered table-striped" >
-					<thead>
-						<tr>
-							<th style="display: none; ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-							<td  width="35%"><?php print_r($result2['cliente']); ?></td>
-							<td  width="10%"><?php print_r($result2['hora']); ?></td>
-							<td  width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Claudia -->
-		<!-- Panel de Carolina -->
-		<div class="col-lg-5" style="width:100%; height:300px; overflow: scroll;">
-			<?php 
-			$asignado = 15;
+											$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
+											FROM agendamiento a, terceros t, agendamiento_estado ae
+											WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
+											ORDER BY a.fecha, a.hora DESC");
 
-			$sql = sprintf("SELECT a.id_agendamiento, CONCAT(t.nombre, ' ', t.apellido) AS cliente, a.hora, ae.id_estado, ae.estado
-			FROM agendamiento a, terceros t, agendamiento_estado ae
-			WHERE a.nit = t.nit AND a.id_estado = ae.id_estado  AND a.fecha >= '$fecha_hoy' AND a.Id_asignado = '$asignado'
-			ORDER BY a.fecha, a.hora DESC");
+											$result = $mysqli->query($sql);
+											// var_dump($result);
+											$result2 = mysqli_fetch_assoc($result);
+											$rows = $result->num_rows;
 
-			$result = $mysqli->query($sql);
-			// var_dump($result);
-			$result2 = mysqli_fetch_assoc($result);
-			$rows = $result->num_rows;
+											?>
+											<div class="card-header" whit>
+												<center><h3 class="card-title">AGENDA CAROLINA</h3></center>
+											</div>
+											<!-- /.card-header -->
+											<div class="card-body p-0">
+												<?php  ?>
+												<table  id="example1" class="table-bordered table-striped">
+													<thead>
+														<tr>
+															<th style="  display: none; padding: ">Agendamiento</th>
+															<th>Cliente</th>
+															<th>Hora</th>
+															<th>Estado</th>
+														</tr>
+													</thead>
+													<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
+														<?php 
+														if($rows>0){
+															do { 
+															?>
+															<tr <?php echo estados($result2['id_estado']); ?> >
+																<td width="35%"><?php print_r($result2['cliente']); ?></td>
+																<td width="10%"><?php print_r($result2['hora']); ?></td>
+																<td width="15%"><?php echo $result2['estado']; ?></td>
+															</tr>
+															<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
+														}else{
+														echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
+														}
+														?>
+													</tbody>
+													<?php  ?>
+												</table>
+											</div>
+										</div>
+										<!-- /Panel de Carolina -->
+									</div>
+									<!-- /Panel 	4 -->
+									<!-- Panel 	de radicacion -->
+									<?php
+										$acceso_paneles_radicacion = array(1, 2, 13);//cada id del area del usuario futuro aqui
 
-			?>
-			<div class="card-header" whit>
-				<center><h3 class="card-title">AGENDA CAROLINA</h3></center>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body p-0">
-				<?php  ?>
-				<table  id="example1" class="table-bordered table-striped">
-					<thead>
-						<tr>
-							<th style="  display: none; padding: ">Agendamiento</th>
-							<th>Cliente</th>
-							<th>Hora</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody onChange="nuevaCita()" id="<?php if(!empty($_SESSION['id_usuario'])) echo $_SESSION['id_usuario']; ?>">
-						<?php 
-						if($rows>0){
-							do { 
-							?>
-							<tr <?php echo estados($result2['id_estado']); ?> >
-								<td width="35%"><?php print_r($result2['cliente']); ?></td>
-								<td width="10%"><?php print_r($result2['hora']); ?></td>
-								<td width="15%"><?php echo $result2['estado']; ?></td>
-							</tr>
-							<?php  } while ($result2 = mysqli_fetch_assoc($result)); 
-						}else{
-						echo "<tr><td colspan='5'><center><strong id='aviso' style='color: #dc3545; font-size: 30px; text-decoration: underline; padding-bottom: 5%; padding-top: 5%;'><br>NO HAY CITAS AGENDADAS!<br></strong></center></td></tr>";
-						}
-						?>
-					</tbody>
-					<?php  ?>
-				</table>
-			</div>
-		</div>
-		<!-- /Panel de Carolina -->
-	</div>
-	<!-- /Panel 	4 -->
-</div>
-<!-- /Pnael de control -->
-                  
-
-
-                </div>
-                    <!-- /.card-body -->
-                
+          					if(in_array($_SESSION['id_usuario'], $acceso_paneles_radicacion) ){ 
+											include_once ('../quotes/paneles_radication.php'); 
+										}
+									?>
+									<!-- Panel 	de radicacion -->
+								</div>
+							</div>
+							<!-- /Panel de control -->
             </div>
           </div>
 

@@ -112,7 +112,7 @@
   }
   
   function permitir(valor){
-    //alert($(valor).val());
+
     var opcion = $(valor).val();
     if (opcion == 1) {
       if (valor.checked) {
