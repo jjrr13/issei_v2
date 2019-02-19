@@ -83,17 +83,22 @@
               type: '$color',
               opacity: 0.5,
               buttons: {
-                  'ok': {
-                      text: 'OK',
-                      btnClass: 'btn-blue',
-                      action: function () {
-                          console.log('tambien por aqui');
-                          window.location.replace('$destino');
-                      }
-                  }, 
+                'ok': {
+                  text: 'OK',
+                  btnClass: 'btn-blue',
+                  action: function () {
+                    console.log('$msj');
+                    window.location.replace('$destino');
+                  }
+                }, 
               }
             });
           </script>";
+	}
+
+	function console($variable)
+	{
+		echo "<script>console.log('".$variable."');</script>";
 	}
 ?>
 
