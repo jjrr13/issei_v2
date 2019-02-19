@@ -19,20 +19,23 @@ include_once ("../../cx/cx.php");
   <title>ISSEI</title>
   <!-- librerias del socket -->
   <!-- pasar valor de la ruta statica a js -->
-   <script type="text/javascript">
+  <script type="text/javascript">
     var urlPort = '<?=SOCKET_FRONTEND;?>';
   </script>
   <script src='../../functions/jquery-1.7.2.min.js'></script>
   <script src="../../functions/fancywebsocket.js"></script>
 
   <style>
-  table {
-    border: 1px solid #000;
-    border-collapse: collapse;
-    text-align: center; height: 5px;
-  }
-  
-</style> 
+    table {
+      border: 1px solid #000;
+      border-collapse: collapse;
+      text-align: center; height: 5px;
+    }
+    /*Soluciona Problema de barra inferior del div principal*/
+    .card-footer {
+      padding: .75rem .1rem !important;
+    }
+  </style> 
 
   <!-- <link rel='stylesheet' href='../../cx/demo/libs/bundled.css'> -->
   <link rel='stylesheet' href='../../cx/demo/demo.css'>
@@ -73,7 +76,6 @@ include_once ("../../cx/cx.php");
         case '4': 
           $('#Texto1').attr('style', 'display: none');
           $('#Texto2').attr('style', 'display: block');
-
           $('#LISTA').attr('style','color: black');
           break;
         default:
@@ -90,127 +92,127 @@ include_once ("../../cx/cx.php");
       }
     }
   </script>
-<script language="javascript">
+  <script language="javascript">
 
     function abrirEnPestana(url) {
-    var a = document.createElement("a");
-    a.target = "_blank";
-    a.href = url;
-    a.click();
-  }
-  var destino = '../quotes';
+      var a = document.createElement("a");
+      a.target = "_blank";
+      a.href = url;
+      a.click();
+    }
+    var destino = '../quotes';
 
 
-   function buscarNit(){
-     
-           // alert(nit);
-      $.ajax({
-        type: "POST",
-        url: "../../controller/quotes_controller.php",
-        data: "buscanit="+ nit,
-        dataType:"html",
-        success: function(data) 
-        {
-           // alert(data);
-          if (data==2) {
-            window.location.replace(destino);
-          }else if (data==3) {
-            destino = '../client';
-            alertas('EL CLIENTE NO EXISTE!', 'fa fa-window-close ', 'red', destino );
-          }
+     function buscarNit(){
+       
+             // alert(nit);
+        $.ajax({
+          type: "POST",
+          url: "../../controller/quotes_controller.php",
+          data: "buscanit="+ nit,
+          dataType:"html",
+          success: function(data) 
+          {
+             // alert(data);
+            if (data==2) {
+              window.location.replace(destino);
+            }else if (data==3) {
+              destino = '../client';
+              alertas('EL CLIENTE NO EXISTE!', 'fa fa-window-close ', 'red', destino );
+            }
 
-        },
-        error: function( jqXHR, textStatus, errorThrown ){
-            console.log(textStatus);
-            alert(textStatus);
-        },
+          },
+          error: function( jqXHR, textStatus, errorThrown ){
+              console.log(textStatus);
+              alert(textStatus);
+          },
 
-        
-      });
-   }
- 
-  // var url="../index.php";
- 
-    function controlar(boton)
-    { 
-      var datos;
+          
+        });
+     }
+   
+    // var url="../index.php";
+   
+      function controlar(boton)
+      { 
+        var datos;
 
-      if (boton == 'nit') {
-         var nit = $('#buscanit').val();
-         datos = "buscanit="+ nit;
-      }else if (boton == 'cita') {
-        var fecha_cita = document.getElementById('fecha_cita').value;
-        var atendio    = document.getElementById('atendio').value;
-        var nombre     = document.getElementById('nombre').value;
-        var apellido   = document.getElementById('apellido').value;
-        var LISTA      = document.getElementById('LISTA').value;
-        var nroradicado= document.getElementById('nroradicado').value;
-        var nrosolicitud = document.getElementById('nrosolicitud').value;
-        var respuesta ="";
-        datos = "fecha_cita="+fecha_cita+"&atendio="+atendio+"&nombre="+nombre+"&apellido="+apellido+"&LISTA="+LISTA+"&nroradicado="+nroradicado+"&nrosolicitud="+nrosolicitud;
-      }else if (boton == 'limpiar') {
-         datos = "limpiar=limpiar";
+        if (boton == 'nit') {
+           var nit = $('#buscanit').val();
+           datos = "buscanit="+ nit;
+        }else if (boton == 'cita') {
+          var fecha_cita = document.getElementById('fecha_cita').value;
+          var atendio    = document.getElementById('atendio').value;
+          var nombre     = document.getElementById('nombre').value;
+          var apellido   = document.getElementById('apellido').value;
+          var LISTA      = document.getElementById('LISTA').value;
+          var nroradicado= document.getElementById('nroradicado').value;
+          var nrosolicitud = document.getElementById('nrosolicitud').value;
+          var respuesta ="";
+          datos = "fecha_cita="+fecha_cita+"&atendio="+atendio+"&nombre="+nombre+"&apellido="+apellido+"&LISTA="+LISTA+"&nroradicado="+nroradicado+"&nrosolicitud="+nrosolicitud;
+        }else if (boton == 'limpiar') {
+           datos = "limpiar=limpiar";
+        }
+             // alert(datos);
+        $.ajax({
+          // async: false,
+          type: "POST",
+          url: "../../controller/quotes_controller.php",
+          data: datos,
+          dataType:"html",
+          success: function(data) 
+          {
+             // alert(data);
+             
+            if (data==0) { 
+              alertas('RECUERDE  QUE LOS DATOS CON (*) SON OBLIGATORIOS!', 'fa fa-window-close', 'red', destino );
+            }else if (data==1) {
+              alertas('ERROR NO SE HA GENERADO LA CITA  VERIFIQUE', 'fa fa-user-circle-o', 'red', destino );
+            }else if (data==2 || data==4) {
+              window.location.reload();
+            }else if (data==3) {
+              destino = '../client';
+              alertas('EL CLIENTE NO EXISTE!', 'fa fa-window-close ', 'red', destino );
+            }else {
+              send(data);
+              alertas('CITA AGENDADA EXISTOSAMENTE CONTINUEMOS', 'fa fa-check-square', 'green', destino );
+            }
+          },
+          error: function( jqXHR, textStatus, errorThrown ){
+              console.log(textStatus);
+              alertas('ALGO SALIO MAL, INTENTA DE NUEVO', 'fa fa-user-circle-o', 'RED', destino );
+          },
+
+          
+        });
+       
       }
-           // alert(datos);
-      $.ajax({
-        // async: false,
-        type: "POST",
-        url: "../../controller/quotes_controller.php",
-        data: datos,
-        dataType:"html",
-        success: function(data) 
-        {
-           // alert(data);
-           
-          if (data==0) { 
-            alertas('RECUERDE  QUE LOS DATOS CON (*) SON OBLIGATORIOS!', 'fa fa-window-close', 'red', destino );
-          }else if (data==1) {
-            alertas('ERROR NO SE HA GENERADO LA CITA  VERIFIQUE', 'fa fa-user-circle-o', 'red', destino );
-          }else if (data==2 || data==4) {
-            window.location.reload();
-          }else if (data==3) {
-            destino = '../client';
-            alertas('EL CLIENTE NO EXISTE!', 'fa fa-window-close ', 'red', destino );
-          }else {
-            send(data);
-            alertas('CITA AGENDADA EXISTOSAMENTE CONTINUEMOS', 'fa fa-check-square', 'green', destino );
-          }
-        },
-        error: function( jqXHR, textStatus, errorThrown ){
-            console.log(textStatus);
-            alertas('ALGO SALIO MAL, INTENTA DE NUEVO', 'fa fa-user-circle-o', 'RED', destino );
-        },
-
-        
-      });
-     
-    }
 
 
-    function alertas(msj, icono, color){
-       $.confirm({
-          title: '',
-          content: msj,//'CITA AGENDADA EXISTOSAMENTE CONTINUEMOS',
-          icon: icono, //'fa fa-window-close ',
-          animation: 'scale',
-          closeAnimation: 'scale',
-          theme: 'supervan',
-          type: color,//'green',
-          opacity: 0.5,
-          buttons: {
-              'ok': {
-                  text: 'OK',
-                  btnClass: 'btn-blue',
-                  action: function () {
-                    //console.log('tambien por aqui2');
-                    window.location.replace(destino);
+      function alertas(msj, icono, color){
+         $.confirm({
+            title: '',
+            content: msj,//'CITA AGENDADA EXISTOSAMENTE CONTINUEMOS',
+            icon: icono, //'fa fa-window-close ',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            theme: 'supervan',
+            type: color,//'green',
+            opacity: 0.5,
+            buttons: {
+                'ok': {
+                    text: 'OK',
+                    btnClass: 'btn-blue',
+                    action: function () {
+                      //console.log('tambien por aqui2');
+                      window.location.replace(destino);
 
-                  }
-              },
-          }
-      }); 
-    }
-</script>
+                    }
+                },
+            }
+        }); 
+      }
+  </script>
 </head>
 <body class="hold-transition sidebar-mini" onload="inicio()" onkeypress="reset()" onclick="reset()" onmousemove="reset()" >
   <!-- Content Wrapper. Contains page content -->

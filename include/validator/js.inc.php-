@@ -1,0 +1,144 @@
+<?php
+	$js = "<script type=\"text/javascript\">
+	
+	//funcion que cambia la class de los inputs que ya tienen algun contenido
+	function isFormUp(form)
+	{
+		
+		var inputs   = form.getElementsByTagName('INPUT');
+		var textarea = form.getElementsByTagName('TEXTAREA');
+		var selects  = form.getElementsByTagName('SELECT');
+		
+		var inputFields = new Array();
+		
+		for(var no=0; no < inputs.length; no++){
+			inputFields[inputFields.length] = inputs[no];
+			//alert(inputs[no].getAttribute('name'));
+		}	
+          
+		for(var no=0; no < textarea.length; no++){
+			//inputFields[inputFields.length] = textarea[no];
+			var nombre_div = textarea[no].getAttribute('name');
+			if(textarea[no].getAttribute('value') != ''){
+				nombre_div = nombre_div + '_e';
+				var div = document.getElementById(nombre_div);
+				div.className = 'bien_campo';
+			}	
+		}	
+		//alert('hola');	
+		for(var no=0; no < selects.length; no++){
+			var nombre_div = selects[no].getAttribute('name');
+			if(selects[no].getAttribute('value') != ''){
+				
+				nombre_div = nombre_div + '_e';
+				var div = document.getElementById(nombre_div);
+				div.className = 'bien_campo';
+			}	
+		}	
+		
+		//alert('hola');		
+		for(var no=0; no < inputFields.length; no++){
+			//alert(inputFields[no].getAttribute('name') + ' <- ' );
+			
+			if((inputFields[no].getAttribute('value') != '') || (inputFields[no].getAttribute('value') == '' && inputFields[no].getAttribute('required') == '0')){
+				
+				var nombre_temp = inputFields[no].getAttribute('name');
+				var nombre_div  = inputFields[no].getAttribute('name');
+				if(nombre_div != ''){
+					nombre_div = nombre_div + '_e';
+					var div = document.getElementById(nombre_div);
+					div.className = 'bien_campo';
+					
+					//habilita el boton de submit si el campo es para actualizacion
+					//form.submit.disabled = false;
+					
+					/*if(inputFields[no].getAttribute('type') == 'submit' || 
+					   inputFields[no].getAttribute('type') == 'Submit'){
+						   form.nombre_temp.disabled = false;
+						   
+					}*/
+					//alert(nombre_div);
+				}
+			}
+			//alert(inputFields[no].getAttribute('name'));
+		}		
+	}
+	
+	
+	/******************************************************************/
+	
+	
+	function isForm(form)
+	{
+		
+		var inputs   = form.getElementsByTagName('INPUT');
+		var textarea = form.getElementsByTagName('TEXTAREA');
+	
+		var inputFields = new Array();
+	
+		for(var no=0; no < textarea.length; no++){
+			inputFields[inputFields.length] = textarea[no];
+		}
+		
+		/* TEXTAREA */
+		
+		for(var no=0; no < textarea.length; no++){
+			//inputFields[inputFields.length] = textarea[no];
+			
+			var nombre_div = textarea[no].getAttribute('name');
+			//alert(nombre_div);
+			if( inputFields[no].getAttribute('value') == '' &&
+				inputFields[no].getAttribute('required') == '0' ){
+				
+				nombre_div = nombre_div + '_e';
+				var div = document.getElementById(nombre_div);
+				div.className = 'bien_campo';
+				//alert('No obligatorio');					
+			}
+
+		}	
+
+		var inputFields = new Array();
+		
+		for(var no=0; no < inputs.length; no++){
+			inputFields[inputFields.length] = inputs[no];
+		}
+					
+		/* INPUTS */
+		for(var no=0; no < inputFields.length; no++){
+			var nombre_div = inputFields[no].getAttribute('name');
+
+			if( inputFields[no].getAttribute('value') == '' &&
+				inputFields[no].getAttribute('required') == '0' ){
+				
+				nombre_campo    = nombre_div;
+				nombre_div      = nombre_div + '_e';
+				var div         = document.getElementById(nombre_div);
+				var campo       = document.getElementById(nombre_campo);
+				div.className   = 'bien_campo';
+				campo.className = '';
+			}
+			
+		}
+		
+		var divs = document.getElementsByTagName('SPAN');
+		for(var no=0;no<divs.length;no++){
+			if(divs[no].className=='error_campo_mjs'){
+				//alert('El campo ' + divs[no].id + ' contiene errores');
+				return false;
+			}
+		}
+
+		return true;
+	}
+	</script>";
+	
+	$js .= "
+	<script type='text/javascript' src='{$httpLibs}/thickBox/jquery.js'></script> 
+	<script type='text/javascript' src='{$httpLibs}/thickBox/thickbox.js'></script>
+	<script type='text/javascript' src='{$httpLibs}/listDependientes/select_dependientes.js'></script>
+	<link rel='stylesheet' href='{$httpLibs}/thickBox/thickbox.css' type='text/css' media='screen' />
+	
+	";
+	echo $js;
+?>

@@ -24,17 +24,15 @@ include ('../menu.php');
       color: #dc3545;
       display: inline;
     }
+    /*Soluciona Problema de barra inferior del div principal*/
+    .card-footer {
+      padding: .75rem .1rem !important;
+    }
   </style>
 
   <noscript>
     <meta http-equiv="Refresh" content="0;URL=http://localhost/issei/cx/destroy_session.php">
   </noscript>
-<script type="text/javascript">
-  $(document).ready(function() {
-      $('.js-example-basic-single').select2();
-  });
-</script>
-
   <script type="text/javascript">
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
