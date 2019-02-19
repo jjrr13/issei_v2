@@ -4,7 +4,7 @@
 		$j = 1;
 		$elemento = "<select class='listas' name='".$nombre.$numero."' id='".$nombre.$numero."' onchange='enumerar(this);'>";
 		$elemento.= "<option value='0'>N/A</option>";
-		$elemento.= "<option value='170'>OK</option>";
+		$elemento.= "<option value='170' style='color:green;'>OK</option>";
 		// while ($contador > $j) {
 		// 	$j++;
 			$elemento.= "<option value='".($j)."'>".($j)."</option>";
@@ -112,10 +112,10 @@
 				        	}
 				        }
 			        }
-				        if (cont == 9) {
-				        	cont=0;
-				        	return false;
-				        }
+				        // if (cont == 9) {
+				        // 	cont=0;
+				        // 	return false;
+				        // }
 
 						});
 						if (!bandera) {
@@ -141,10 +141,10 @@
 	        	var id = $(this).attr('id');
 	        	aunmentar(this, id, j, j+1);
 	        }
-	        if (cont == 9) {
-	        	cont=0;
-	        	return false;
-	        }
+	        // if (cont == 9) {
+	        // 	cont=0;
+	        // 	return false;
+	        // }
 				});
 	        
 					j++;

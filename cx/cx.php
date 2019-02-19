@@ -74,27 +74,27 @@
 	
 	function confirmar($msj, $icon, $color, $destino){
 		echo "<script  type='text/javascript'>
-                $.confirm({
-                        title: '',
-                        content: '$msj',
-                        icon: '$icon',
-                        animation: 'scale',
-                        closeAnimation: 'scale',
-                        theme: 'supervan',
-                        type: '$color',
-                        opacity: 0.5,
-                        buttons: {
-                            'ok': {
-                                text: 'OK',
-                                btnClass: 'btn-blue',
-                                action: function () {
-                                    console.log('$msj');
-                                    window.location.replace('$destino');
-                                }
-                            }, 
-                        }
-                    });
-                </script>";
+            $.confirm({
+              title: '',
+              content: '$msj',
+              icon: '$icon',
+              animation: 'scale',
+              closeAnimation: 'scale',
+              theme: 'supervan',
+              type: '$color',
+              opacity: 0.5,
+              buttons: {
+                'ok': {
+                  text: 'OK',
+                  btnClass: 'btn-blue',
+                  action: function () {
+                    console.log('$msj');
+                    window.location.replace('$destino');
+                  }
+                }, 
+              }
+            });
+          </script>";
 	}
 
 	function console($variable)
