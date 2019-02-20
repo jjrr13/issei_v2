@@ -25,6 +25,7 @@ if(file_exists("../../cx/cx.php")){
         {
              //alert(data);
           var JSONdata    = JSON.parse(data); //parseo la informacion
+          console.log(JSONdata);
           var estado = JSONdata[0].estado;
           if (estado==1) {
             var nombre = JSONdata[0].nombre;

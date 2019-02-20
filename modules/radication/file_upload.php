@@ -14,9 +14,6 @@
 		$mimetype = $infoarchivo->buffer($tipoarchivo);
 
 
-		
-
-
 		$type = "";
 
 		if ($mimetype == "image/png") {

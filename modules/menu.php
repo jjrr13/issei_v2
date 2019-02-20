@@ -9,24 +9,17 @@ if(file_exists("../cx/cx.php")){
   $ruta="../";
 }
   include_once $dir."cx/cx.php";
-
   $_SESSION['fechaactual'];
   $_SESSION['id_usuario']; // id de usuario.
   //Definimos
   $_SESSION['id_tipo_usuario']; 
   $_SESSION['id_area'];
-
   //If the variable does not exist, destroy the session
   if (empty($_SESSION['id_usuario'])) {
       header("location: ".$dir."cx/destroy_session.php");
     }
-
-
   $user_sesion = $_SESSION['id_usuario'];
-
   if(isset($user_sesion)){
-
-
     $query_busqueda = sprintf("SELECT CONCAT(t.nombre,' ',t.apellido) as nombre_usuario, u.usuario
             FROM terceros t, usuarios u
             WHERE t.nit = u.nit AND u.id_usuario = '%s'", $user_sesion);
@@ -38,15 +31,13 @@ if(file_exists("../cx/cx.php")){
 //VARIABLES GLOBALES DEL INICIO DE SESSION, PARA OBTENER PERMISOS
 $tipo_usuario = $_SESSION['id_tipo_usuario'];
 $tipo_area = $_SESSION['id_area'];
-
 ?>
 
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <!-- <meta charset="ISO-8859-1"> -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>ISSEI</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -128,10 +119,10 @@ $tipo_area = $_SESSION['id_area'];
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               
           <?php 
           $acceso_actividades1 = array(1);//cada id del tipo de usuario futuro aqui
           $acceso_actividades2 = array(10);//cada id a futuro aqui
-
           if(in_array($tipo_usuario, $acceso_actividades1) && in_array($tipo_area, $acceso_actividades2)){?>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -153,7 +144,6 @@ $tipo_area = $_SESSION['id_area'];
           <?php } 
           $acceso_citas1 = array(1, 3);//cada id del tipo de usuario futuro aqui
           $acceso_citas2 = array(10, 8);//cada id del area del usuario futuro aqui
-
           if(in_array($tipo_usuario, $acceso_citas1) && in_array($tipo_area, $acceso_citas2)){ ?>
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>quotes/" class="nav-link">
@@ -164,10 +154,8 @@ $tipo_area = $_SESSION['id_area'];
             </a>
           </li>
           <?php }
-
           $acceso_panel_citas1 = array(1, 3);//cada id del tipo de usuario futuro aqui
           $acceso_panel_citas2 = array(10, 8);//cada id del area del usuario futuro aqui
-
           if(in_array($tipo_usuario, $acceso_panel_citas1) && in_array($tipo_area, $acceso_panel_citas2)){
           ?>
 
@@ -182,7 +170,6 @@ $tipo_area = $_SESSION['id_area'];
           <?php }
           $acceso_agenda1 = array(1, 3);//cada id del tipo de usuario futuro aqui
           $acceso_agenda2 = array(10, 5, 2, 7, 3, 9, 6);//cada id del area del usuario futuro aqui
-
           if(in_array($tipo_usuario, $acceso_agenda1) && in_array($tipo_area, $acceso_agenda2)){
           ?>
 
@@ -195,9 +182,8 @@ $tipo_area = $_SESSION['id_area'];
             </a>
           </li>           
           <?php  }
-          $acceso_sistemas1 = array(1);//cada id del tipo de usuario futuro aqui
+          $acceso_sistemas1 = array(1, 3, 4);//cada id del tipo de usuario futuro aqui
           $acceso_sistemas2 = array(10);//cada id del area del usuario futuro aqui
-
           if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
           ?>
           <li class="nav-item">
@@ -212,7 +198,6 @@ $tipo_area = $_SESSION['id_area'];
           <?php }
           $acceso_crear_cliente1 = array(1, 3);//cada id del tipo de usuario futuro aqui
           $acceso_crear_cliente2 = array(10, 8);//cada id del area del usuario futuro aqui
-
           if(in_array($tipo_usuario, $acceso_crear_cliente1) && in_array($tipo_area, $acceso_crear_cliente2)){
           ?>
           <li class="nav-item">
@@ -225,8 +210,14 @@ $tipo_area = $_SESSION['id_area'];
           </li>
 
          <?php }
-
-         if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
+         // echo "
+         //  <script>
+         //    alert('".$tipo_usuario."')
+         //  </script>
+         // ";
+            $acceso_radicacion1 = array(1, 2);//cada id del tipo de usuario futuro aqui
+            $acceso_radicacion2 = array(10, 6);//cada id del area del usuario futuro aqui
+         if(in_array($tipo_usuario, $acceso_radicacion1) && in_array($tipo_area, $acceso_radicacion2)){
           ?>
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>radication/" class="nav-link">
@@ -235,45 +226,49 @@ $tipo_area = $_SESSION['id_area'];
                 Radicacion
               </p>
             </a>
-
           </li>  
-
           <?php } 
-
           if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
           ?>
           <li class="nav-item">
-            <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
+            <a href="<?php echo "$ruta"; ?>pre_settlement/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
                 Pre-Liquidacion
               </p>
             </a>
+          </li> 
+          <?php } 
+          $acceso_liquidacion1 = array(1, 3);//cada id del tipo de usuario futuro aqui
+           $acceso_liquidacion2 = array(10, 3);//cada id del area del usuario futuro aqui
+          if(in_array($tipo_usuario, $acceso_liquidacion1) && in_array($tipo_area, $acceso_liquidacion2)){
+          ?>
+
+          <li class="nav-item">
+            <a href="<?php echo "$ruta"; ?>settlement/" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-danger"></i>
+              <p>
+                Liquidacion
+              </p>
+            </a>
 
           </li>   
           <?php } 
-
           if(in_array($tipo_usuario, $acceso_sistemas1) && in_array($tipo_area, $acceso_sistemas2)){
           ?>
           <li class="nav-item">
             <a href="<?php echo "$ruta"; ?>tracing/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Hola de Ruta
+                Hoja de Ruta
               </p>
             </a>
-
           </li>   
-          <?php }
-          $acceso_update1 = array(1, 3);//cada id del tipo de usuario futuro aqui
-           $acceso_update2 = array(10, 3, 9);//cada id del area del usuario futuro aqui
-          if(in_array($tipo_usuario, $acceso_update1) && in_array($tipo_area, $acceso_update2)){
-          ?>
           <li class="nav-item">
-            <a href="<?php echo "$ruta"; ?>users/update.php" class="nav-link">
+            <a href="<?php echo "$ruta"; ?>revisions/" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-danger"></i>
               <p>
-                Verificar Clientes
+                Revision Proyecto
               </p>
             </a>
           </li>   
@@ -301,16 +296,17 @@ $tipo_area = $_SESSION['id_area'];
 <!-- ./wrapper -->
 <!-- jQuery -->
 <script src="<?php echo $dir; ?>plugins/jquery/jquery.min.js"></script>
-<!-- funciones de tiempo y de cierre de session -->
-  <?php include_once ($dir.'functions/globales.js'); ?>
 <!-- jQuery UI 1.11.4 -->
 
-<!-- <script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script> -->
+<script src="<?php echo $dir; ?>plugins/jquery/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo $dir; ?>dist/js/adminlte.js"></script>
-
   
+<!-- funciones de tiempo y de cierre de session -->
+  <?php include_once ($dir.'functions/globales.js'); ?>
 </body>
 </html>
